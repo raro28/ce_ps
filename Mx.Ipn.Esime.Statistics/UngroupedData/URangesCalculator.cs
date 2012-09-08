@@ -36,7 +36,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 			if(data.Count==1)
 			{
-				throw new StatisticsException ("Insuficient data.");
+				throw new StatisticsException ("Insufficient data.");
 			}
 
 			var cache = data.ToList();

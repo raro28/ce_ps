@@ -44,7 +44,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\p01\Mx.Ipn.Esime.Statistics.csproj">
+    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics\Mx.Ipn.Esime.Statistics.csproj">
       <Project>{BBA01040-73A6-4928-987C-C43B49246614}</Project>
       <Name>Mx.Ipn.Esime.Statistics</Name>
     </ProjectReference>

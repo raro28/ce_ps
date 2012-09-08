@@ -2,17 +2,16 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 {
 	public interface IDispersionCalculator
 	{
-		double CalcAbsoluteDeviation ();
+		double GetAbsoluteDeviation ();
 		
-		double CalcVariance ();
+		double GetVariance ();
 		
-		double CalcStandarDeviation ();
+		double GetStandarDeviation ();
 		
-		double CalcCoefficientOfVariation ();
+		double GetCoefficientOfVariation ();
 		
-		double CalcCoefficientOfSymetry ();
+		double GetCoefficientOfSymmetry ();
 		
-		double CalcCoefficientOfKourtosis ();
-	}
-	
+		double GetCoefficientOfKourtosis ();
+	}	
 }

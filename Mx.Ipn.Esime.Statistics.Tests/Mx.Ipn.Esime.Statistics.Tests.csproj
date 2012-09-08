@@ -41,6 +41,8 @@
     <Compile Include="UCentralTendecyCalculator.Tests.cs" />
     <Compile Include="URangesCalculator.Exception.Tests.cs" />
     <Compile Include="URangesCalculator.Tests.cs" />
+    <Compile Include="UDispersionCalculator.Exception.Tests.cs" />
+    <Compile Include="UDispersionCalculator.Tests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

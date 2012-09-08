@@ -2,13 +2,13 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 {
 	public interface IRangesCalculator
 	{
-		double CalcDataRange ();
+		double GetDataRange ();
 		
-		double CalcInterquartileRange ();
+		double GetInterquartileRange ();
 		
-		double CalcInterdecileRange ();
+		double GetInterdecileRange ();
 		
-		double CalcInterpercentileRange ();
+		double GetInterpercentileRange ();
 	}
 	
 }

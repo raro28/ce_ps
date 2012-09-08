@@ -24,8 +24,9 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		{
 			List<double> sortedData;
 			var rCalc = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 100);
+
 			var expected = sortedData [sortedData.Count - 1] - sortedData [0];
-			var actual = rCalc.CalcDataRange ();
+			var actual = rCalc.GetDataRange ();
 
 			Assert.AreEqual (expected, actual);
 		}
@@ -35,18 +36,19 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		{
 			List<double> sortedData;
 			var rCalc = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 7);
+
 			var expected = CalcX (sortedData, 4, 3) - CalcX (sortedData, 4, 1);
-			var actual = rCalc.CalcInterquartileRange ();
+			var actual = rCalc.GetInterquartileRange ();
 			
 			Assert.AreEqual (expected, actual);
 
 			expected = CalcX (sortedData, 10, 9) - CalcX (sortedData, 10, 1);
-			actual = rCalc.CalcInterdecileRange ();
+			actual = rCalc.GetInterdecileRange ();
 			
 			Assert.AreEqual (expected, actual);
 
 			expected = CalcX (sortedData, 100, 90) - CalcX (sortedData, 100, 10);
-			actual = rCalc.CalcInterpercentileRange ();
+			actual = rCalc.GetInterpercentileRange ();
 			
 			Assert.AreEqual (expected, actual);
 		}
@@ -65,4 +67,3 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		}
 	}
 }
-

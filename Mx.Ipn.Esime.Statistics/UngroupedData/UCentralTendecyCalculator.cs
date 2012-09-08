@@ -14,35 +14,29 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			set;
 		}
 
-		public UCentralTendecyCalculator (List<double> data)
+		private double? mean;
+		private double? median;
+		private List<double> mode;
+
+		public UCentralTendecyCalculator (ReadOnlyCollection<double> sortedData)
 		{
-			if (data == null) {
-				
-				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
-			}
-			
-			if (data.Count == 0) {
-				throw new StatisticsException ("Empty data set.");
-			}
-			
-			if (data.Count == 1) {
-				throw new StatisticsException ("Insuficient data.");
-			}
-			
-			var cache = data.ToList ();
+			AsserValidDataSet (sortedData);
+
+			Data = sortedData;
+		}
+
+		public UCentralTendecyCalculator (List<double> rawData)
+		{
+			AsserValidDataSet (rawData);
+
+			var cache = rawData.ToList ();
 			cache.Sort ();
 			Data = cache.AsReadOnly ();
 
 			mode = new List<double> ();
 		}
 
-		private double? mean;
-
-		private double? median;
-
-		private List<double> mode;
-
-		public double CalcMean ()
+		public double GetMean ()
 		{
 			if (mean == null) {
 				mean = Data.Sum () / Data.Count;
@@ -51,7 +45,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return (double)mean;
 		}
 
-		public double CalcMedian ()
+		public double GetMedian ()
 		{
 			if (median == null) {
 				var midIndex = (Data.Count / 2) - 1;
@@ -61,7 +55,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return (double)median;
 		}
 
-		public IList<double> CalcMode ()
+		public IList<double> GetMode ()
 		{
 			if (mode.Count == 0) {
 				var groups = Data.GroupBy (data => data);
@@ -73,6 +67,19 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return mode;
+		}
+
+		static void AsserValidDataSet (IList<double> data)
+		{
+			if (data == null) {
+				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
+			}
+			if (data.Count == 0) {
+				throw new StatisticsException ("Empty data set.");
+			}
+			if (data.Count == 1) {
+				throw new StatisticsException ("Insufficient data.");
+			}
 		}
 	}
 }

@@ -4,11 +4,10 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 	public interface ICentralTendencyCalculator
 	{
-		double CalcMean ();
+		double GetMean ();
 		
-		double CalcMedian ();
+		double GetMedian ();
 		
-		IList<double> CalcMode ();
-	}
-	
+		IList<double> GetMode ();
+	}	
 }

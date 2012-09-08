@@ -6,7 +6,6 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 	{
 		public StatisticsException (string message,Exception innerException):base(message,innerException)
 		{
-
 		}
 
 		public StatisticsException (string message):base(message)

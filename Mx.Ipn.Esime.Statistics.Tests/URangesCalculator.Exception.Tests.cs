@@ -18,6 +18,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
+
 			Assert.IsNotNull (exception);
 			Assert.IsInstanceOfType (typeof(ArgumentNullException), exception.InnerException);
 		}
@@ -32,6 +33,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
+
 			Assert.IsNotNull (exception);	
 		}
 
@@ -45,8 +47,8 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
+
 			Assert.IsNotNull (exception);
 		}
 	}
 }
-

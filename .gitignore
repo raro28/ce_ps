@@ -5,7 +5,7 @@ test-results
 # mstest test results
 TestResults
 
-sharp_cs_ds.userprefs
+*.userprefs
 *.*~
 *.suo
 *.cache

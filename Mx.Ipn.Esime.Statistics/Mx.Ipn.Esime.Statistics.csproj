@@ -39,6 +39,7 @@
     <Compile Include="Libs\StatisticsException.cs" />
     <Compile Include="UngroupedData\UCentralTendecyCalculator.cs" />
     <Compile Include="UngroupedData\URangesCalculator.cs" />
+    <Compile Include="UngroupedData\UDispersionCalculator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

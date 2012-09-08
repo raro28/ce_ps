@@ -14,92 +14,87 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		}
 
 		private double? range;
-
 		private double? qRange;
-
 		private double? dRange;
-
 		private double? pRange;
 
-		public URangesCalculator (List<double> data)
+		public URangesCalculator (List<double> rawData)
 		{
-			if (data == null) 
-			{
+			if (rawData == null) {
 
-				throw new StatisticsException ("Null data set.",new ArgumentNullException("data"));
+				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
 			}
 
-			if(data.Count==0)
-			{
+			if (rawData.Count == 0) {
 				throw new StatisticsException ("Empty data set.");
 			}
 
-			if(data.Count==1)
-			{
+			if (rawData.Count == 1) {
 				throw new StatisticsException ("Insufficient data.");
 			}
 
-			var cache = data.ToList();
-			cache.Sort();
-			Data=cache.AsReadOnly();
+			var cache = rawData.ToList ();
+			cache.Sort ();
+
+			Data = cache.AsReadOnly ();
 		}
 
-		public double CalcDataRange ()
+		public double GetDataRange ()
 		{
-			if(range==null){
-				range=Data.Max()-Data.Min();
+			if (range == null) {
+				range = Data.Max () - Data.Min ();
 			}
 
 			return (double)range;
-		}		
+		}
 
-		public double CalcInterquartileRange ()
+		public double GetInterquartileRange ()
 		{
-			if(qRange==null){
-				qRange=CalcX(XOptions.Quartil,3)-CalcX(XOptions.Quartil,1);
+			if (qRange == null) {
+				qRange = GetXile (XileOptions.Quartile, 3) - GetXile (XileOptions.Quartile, 1);
 			}
 			
 			return (double)qRange;
-		}		
+		}
 
-		public double CalcInterdecileRange ()
+		public double GetInterdecileRange ()
 		{
-			if(dRange==null){
-				dRange=CalcX(XOptions.Decil,9)-CalcX(XOptions.Decil,1);
+			if (dRange == null) {
+				dRange = GetXile (XileOptions.Decile, 9) - GetXile (XileOptions.Decile, 1);
 			}
 			
 			return (double)dRange;
-		}		
+		}
 
-		public double CalcInterpercentileRange ()
+		public double GetInterpercentileRange ()
 		{
-			if(pRange==null){
-				pRange=CalcX(XOptions.Percentil,90)-CalcX(XOptions.Percentil,10);
+			if (pRange == null) {
+				pRange = GetXile (XileOptions.Percentile, 90) - GetXile (XileOptions.Percentile, 10);
 			}
 			
 			return (double)pRange;
 		}
 
-		private double CalcX(XOptions option, int number)
+		private double GetXile (XileOptions option, int number)
 		{
 
-			var lx = Data.Count*number/(double)option;
-			var li=(int)Math.Floor(lx-0.5);
-			var ls=(int)Math.Floor(lx+0.5);
+			var lx = Data.Count * number / (double)option;
+			var li = (int)Math.Floor (lx - 0.5);
+			var ls = (int)Math.Floor (lx + 0.5);
 
-			var iPortion=li+1-(lx-0.5);
-			var sPortion=1-iPortion;
+			var iPortion = li + 1 - (lx - 0.5);
+			var sPortion = 1 - iPortion;
 
-			var xRange=iPortion*Data[li]+sPortion*Data[ls];
+			var xRange = iPortion * Data [li] + sPortion * Data [ls];
 
 			return xRange;
 		}
 
-		private enum XOptions
+		private enum XileOptions
 		{
-			Quartil=4,
-			Decil=10,
-			Percentil=100
+			Quartile=4,
+			Decile=10,
+			Percentile=100
 		}
 	}
 }

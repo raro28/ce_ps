@@ -39,4 +39,3 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		}
 	}
 }
-

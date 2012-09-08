@@ -4,3 +4,9 @@ obj
 
 # mstest test results
 TestResults
+
+sharp_cs_ds.userprefs
+*.*~
+*.suo
+*.cache
+*.csproj.user

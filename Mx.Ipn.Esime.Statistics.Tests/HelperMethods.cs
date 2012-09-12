@@ -24,18 +24,33 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		{
 			data = HelperMethods.GetRandomDataSample (size).ToList ();
 			var cache = data.ToList ();
-			var rCalc = NewInstanceOf<T> (ref cache);
+			var calculator = NewInstanceOf<T> (ref cache);
 			data = cache;
 			
-			return rCalc;
+			return calculator;
 		}
 
 		public static T NewInstanceOf <T> (ref List<double> data)
 		{
-			var rCalc = (T)Activator.CreateInstance (typeof(T), new object[]{data.ToList ()});
+			var calculator = (T)Activator.CreateInstance (typeof(T), new object[]{data.ToList ()});
 			data.Sort ();
 			
-			return rCalc;
+			return calculator;
+		}
+
+		public static double CalcNthXile (IList<double> data, int xile, int nTh)
+		{
+			var lx = data.Count * nTh / (double)xile;
+			var li = (int)Math.Floor (lx - 0.5);
+			var ls = (int)Math.Floor (lx + 0.5);
+			if (ls == data.Count) {
+				ls = li;
+			}
+			var iPortion = li + 1 - (lx - 0.5);
+			var sPortion = 1 - iPortion;
+			var xRange = iPortion * data [li] + sPortion * data [ls];
+			
+			return xRange;
 		}
 	}
 }

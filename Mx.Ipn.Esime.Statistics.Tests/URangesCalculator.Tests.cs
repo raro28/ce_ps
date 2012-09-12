@@ -12,10 +12,10 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Uses_Internal_Sorted_Data_Set ()
 		{
 			List<double> sortedData;
-			var rCalc = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 100);
 
 			for (int i = 0; i < sortedData.Count; i++) {
-				Assert.AreEqual (sortedData [i], rCalc.Data [i]);
+				Assert.AreEqual (sortedData [i], calculator.Data [i]);
 			}
 		}
 
@@ -23,10 +23,10 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Gets_Expected_Data_Range ()
 		{
 			List<double> sortedData;
-			var rCalc = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 100);
 
 			var expected = sortedData [sortedData.Count - 1] - sortedData [0];
-			var actual = rCalc.GetDataRange ();
+			var actual = calculator.GetDataRange ();
 
 			Assert.AreEqual (expected, actual);
 		}
@@ -35,35 +35,22 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Gets_Expected_Quartil_Decil_Percentil_Ranges ()
 		{
 			List<double> sortedData;
-			var rCalc = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 7);
+			var calculator = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 7);
 
-			var expected = CalcX (sortedData, 4, 3) - CalcX (sortedData, 4, 1);
-			var actual = rCalc.GetInterquartileRange ();
+			var expected = HelperMethods.CalcNthXile (sortedData, 4, 3) - HelperMethods.CalcNthXile (sortedData, 4, 1);
+			var actual = calculator.GetInterquartileRange ();
 			
 			Assert.AreEqual (expected, actual);
 
-			expected = CalcX (sortedData, 10, 9) - CalcX (sortedData, 10, 1);
-			actual = rCalc.GetInterdecileRange ();
+			expected = HelperMethods.CalcNthXile (sortedData, 10, 9) - HelperMethods.CalcNthXile (sortedData, 10, 1);
+			actual = calculator.GetInterdecileRange ();
 			
 			Assert.AreEqual (expected, actual);
 
-			expected = CalcX (sortedData, 100, 90) - CalcX (sortedData, 100, 10);
-			actual = rCalc.GetInterpercentileRange ();
+			expected = HelperMethods.CalcNthXile (sortedData, 100, 90) - HelperMethods.CalcNthXile (sortedData, 100, 10);
+			actual = calculator.GetInterpercentileRange ();
 			
 			Assert.AreEqual (expected, actual);
-		}
-
-		private double CalcX (IList<double> data, int range, int number)
-		{
-			var lx = data.Count * number / (double)range;
-			var li = (int)Math.Floor (lx - 0.5);
-			var ls = (int)Math.Floor (lx + 0.5);
-			var iPortion = li + 1 - (lx - 0.5);
-			var sPortion = 1 - iPortion;
-			Console.WriteLine ("{0} {1} {2} {3}", lx, li, ls, iPortion, sPortion);
-			var xRange = iPortion * data [li] + sPortion * data [ls];
-			
-			return xRange;
 		}
 	}
 }

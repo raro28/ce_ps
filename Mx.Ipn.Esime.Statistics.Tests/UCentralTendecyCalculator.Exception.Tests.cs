@@ -14,7 +14,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		{
 			StatisticsException exception = null;
 			try {
-				var rCalc = new UCentralTendecyCalculator (sortedData:null);
+				var calculator = new UCentralTendecyCalculator (sortedData:null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -29,7 +29,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			StatisticsException exception = null;
 			var emptyList = new List<double> ();
 			try {
-				var rCalc = new UCentralTendecyCalculator (emptyList);
+				var calculator = new UCentralTendecyCalculator (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -43,7 +43,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			StatisticsException exception = null;
 			var emptyList = new List<double>{1};
 			try {
-				var rCalc = new UCentralTendecyCalculator (emptyList);
+				var calculator = new UCentralTendecyCalculator (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

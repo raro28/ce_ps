@@ -74,9 +74,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			if (data == null) {
 				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
 			}
+
 			if (data.Count == 0) {
 				throw new StatisticsException ("Empty data set.");
 			}
+
 			if (data.Count == 1) {
 				throw new StatisticsException ("Insufficient data.");
 			}

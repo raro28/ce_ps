@@ -13,7 +13,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		{
 			StatisticsException exception = null;
 			try {
-				var rCalc = new UDispersionCalculator (null);
+				var calculator = new UDispersionCalculator (null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -28,7 +28,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			StatisticsException exception = null;
 			var emptyList = new List<double> ();
 			try {
-				var rCalc = new UDispersionCalculator (emptyList);
+				var calculator = new UDispersionCalculator (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -42,7 +42,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			StatisticsException exception = null;
 			var emptyList = new List<double>{1};
 			try {
-				var rCalc = new UDispersionCalculator (emptyList);
+				var calculator = new UDispersionCalculator (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

@@ -14,7 +14,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		{
 			StatisticsException exception = null;
 			try {
-				var rCalc = new URangesCalculator (null);
+				var calculator = new URangesCalculator (null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -29,7 +29,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			StatisticsException exception = null;
 			var emptyList = new List<double> ();
 			try {
-				var rCalc = new URangesCalculator (emptyList);
+				var calculator = new URangesCalculator (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -43,7 +43,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			StatisticsException exception = null;
 			var emptyList = new List<double>{1};
 			try {
-				var rCalc = new URangesCalculator (emptyList);
+				var calculator = new URangesCalculator (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

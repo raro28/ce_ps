@@ -18,6 +18,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? dRange;
 		private double? pRange;
 
+		public UXileCalculator XileCalculator {
+			get;
+			private set;
+		}
+
 		public URangesCalculator (List<double> rawData)
 		{
 			if (rawData == null) {
@@ -37,6 +42,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			cache.Sort ();
 
 			Data = cache.AsReadOnly ();
+
+			XileCalculator = new UXileCalculator (Data);
 		}
 
 		public double GetDataRange ()
@@ -51,7 +58,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public double GetInterquartileRange ()
 		{
 			if (qRange == null) {
-				qRange = GetXile (XileOptions.Quartile, 3) - GetXile (XileOptions.Quartile, 1);
+				qRange = XileCalculator.GetQuartile (3) - XileCalculator.GetQuartile (1);
 			}
 			
 			return (double)qRange;
@@ -60,7 +67,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public double GetInterdecileRange ()
 		{
 			if (dRange == null) {
-				dRange = GetXile (XileOptions.Decile, 9) - GetXile (XileOptions.Decile, 1);
+				dRange = XileCalculator.GetDecile (9) - XileCalculator.GetDecile (1);
 			}
 			
 			return (double)dRange;
@@ -69,32 +76,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public double GetInterpercentileRange ()
 		{
 			if (pRange == null) {
-				pRange = GetXile (XileOptions.Percentile, 90) - GetXile (XileOptions.Percentile, 10);
+				pRange = XileCalculator.GetPercentile (90) - XileCalculator.GetPercentile (10);
 			}
 			
 			return (double)pRange;
-		}
-
-		private double GetXile (XileOptions option, int number)
-		{
-
-			var lx = Data.Count * number / (double)option;
-			var li = (int)Math.Floor (lx - 0.5);
-			var ls = (int)Math.Floor (lx + 0.5);
-
-			var iPortion = li + 1 - (lx - 0.5);
-			var sPortion = 1 - iPortion;
-
-			var xRange = iPortion * Data [li] + sPortion * Data [ls];
-
-			return xRange;
-		}
-
-		private enum XileOptions
-		{
-			Quartile=4,
-			Decile=10,
-			Percentile=100
 		}
 	}
 }

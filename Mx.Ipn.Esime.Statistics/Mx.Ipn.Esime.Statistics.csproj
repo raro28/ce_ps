@@ -40,6 +40,8 @@
     <Compile Include="UngroupedData\UCentralTendecyCalculator.cs" />
     <Compile Include="UngroupedData\URangesCalculator.cs" />
     <Compile Include="UngroupedData\UDispersionCalculator.cs" />
+    <Compile Include="Libs\IXileCalculator.cs" />
+    <Compile Include="UngroupedData\UXileCalculator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

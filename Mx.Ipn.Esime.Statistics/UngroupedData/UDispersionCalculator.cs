@@ -20,18 +20,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? coefficientOfSymmetry;
 		private double? coefficientOfKourtosis;
 		double[] allMomentum;
-		private UCentralTendecyCalculator centralTendecyMeasures;
 
 		public UCentralTendecyCalculator CentralTendecyMeasures {
-			get {
-				if (centralTendecyMeasures == null) {
-					CentralTendecyMeasures = new UCentralTendecyCalculator (Data);
-				}
-				return centralTendecyMeasures;
-			}
-			set {
-				centralTendecyMeasures = value;
-			}
+			get;
+			private set;
 		}
 
 		public UDispersionCalculator (List<double> rawData)
@@ -53,6 +45,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			cache.Sort ();
 
 			Data = cache.AsReadOnly ();
+
+			CentralTendecyMeasures = new UCentralTendecyCalculator (Data);
 		}
 
 		public double GetAbsoluteDeviation ()

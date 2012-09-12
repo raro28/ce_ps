@@ -13,10 +13,10 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Uses_Internal_Sorted_Data_Set ()
 		{
 			List<double> sortedData;
-			var dispersionCalc = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
 			
 			for (int i = 0; i < sortedData.Count; i++) {
-				Assert.AreEqual (sortedData [i], dispersionCalc.Data [i]);
+				Assert.AreEqual (sortedData [i], calculator.Data [i]);
 			}
 		}
 
@@ -24,13 +24,13 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Gets_Expected_Absolute_Deviation ()
 		{
 			List<double> sortedData;
-			var dispersionCalc = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
 			var mean = SampleMean (sortedData);
 			var nAbsoluteDeviation = 0.0;
 			sortedData.ForEach (item => nAbsoluteDeviation += Math.Abs (item - mean));
 
 			var expected = nAbsoluteDeviation / sortedData.Count;
-			var actual = dispersionCalc.GetAbsoluteDeviation ();
+			var actual = calculator.GetAbsoluteDeviation ();
 			
 			Assert.AreEqual (expected, actual);
 		}
@@ -39,10 +39,10 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Gets_Expected_Variance ()
 		{
 			List<double> sortedData;
-			var dispersionCalc = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
 
 			var expected = SampleVariance (sortedData);
-			var actual = dispersionCalc.GetVariance ();
+			var actual = calculator.GetVariance ();
 
 			Assert.AreEqual (expected, actual);
 		}
@@ -51,10 +51,10 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Gets_Expected_Standar_Deviation ()
 		{
 			List<double> sortedData;
-			var dispersionCalc = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
 
 			var expected = SampleStandarDeviation (sortedData);
-			var actual = dispersionCalc.GetStandarDeviation ();
+			var actual = calculator.GetStandarDeviation ();
 
 			Assert.AreEqual (expected, actual);
 		}
@@ -63,12 +63,12 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Gets_Expected_Coefficient_Of_Variation ()
 		{
 			List<double> sortedData;
-			var dispersionCalc = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
 			var strDev = SampleStandarDeviation (sortedData);
 			var mean = SampleMean (sortedData);
 
 			var expected = strDev / mean;
-			var actual = dispersionCalc.GetCoefficientOfVariation ();
+			var actual = calculator.GetCoefficientOfVariation ();
 
 			Assert.AreEqual (expected, actual);
 		}
@@ -77,12 +77,12 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Gets_Expected_Coefficient_Of_Symmetry ()
 		{
 			List<double> sortedData;
-			var dispersionCalc = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
 			var m3 = SampleMomentum (sortedData, 3);
 			var m2 = SampleMomentum (sortedData, 2);
 
 			var expected = m3 / Math.Pow (m2, 1.5);
-			var actual = dispersionCalc.GetCoefficientOfSymmetry ();
+			var actual = calculator.GetCoefficientOfSymmetry ();
 			
 			Assert.AreEqual (expected, actual);
 		}
@@ -91,12 +91,12 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 		public void Calculator_Gets_Expected_Coefficient_Of_Kurtosis ()
 		{
 			List<double> sortedData;
-			var dispersionCalc = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
 			var m4 = SampleMomentum (sortedData, 4);
 			var m2 = SampleMomentum (sortedData, 2);
 			
 			var expected = m4 / Math.Pow (m2, 2);
-			var actual = dispersionCalc.GetCoefficientOfKourtosis ();
+			var actual = calculator.GetCoefficientOfKourtosis ();
 			
 			Assert.AreEqual (expected, actual);
 		}

@@ -14,7 +14,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		{
 			StatisticsException exception = null;
 			try {
-				var calculator = new UXileCalculator (sortedData: null);
+				var calculator = new UXileCalculator (rawData: null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

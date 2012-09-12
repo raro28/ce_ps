@@ -14,7 +14,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		{
 			StatisticsException exception = null;
 			try {
-				var calculator = new UCentralTendecyCalculator (sortedData: null);
+				var calculator = new UCentralTendecyCalculator (rawData: null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

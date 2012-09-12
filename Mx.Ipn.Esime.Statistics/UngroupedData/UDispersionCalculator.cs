@@ -1,12 +1,12 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
-	using System.Linq;
-	using System.Collections.ObjectModel;
+	using System.Dynamic;
 	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class UDispersionCalculator:UBaseCalculator,IDispersionCalculator
+	public class UDispersionCalculator:InquirerBase,IDispersionCalculator
 	{
 		private double? absoluteDeviation;
 		private double? variance;
@@ -16,12 +16,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? coefficientOfKourtosis;
 		double[] allMomentum;
 
-		public UCentralTendecyCalculator CentralTendecyMeasures {
-			get;
-			private set;
+		public UDispersionCalculator (IList<double> rawData):base(rawData,null)
+		{			
 		}
 
-		public UDispersionCalculator (List<double> rawData):base(rawData)
+		public UDispersionCalculator (ReadOnlyCollection<double> rawData, DynamicObject inquirer):base(rawData, inquirer)
 		{
 		}
 
@@ -29,7 +28,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{
 			if (absoluteDeviation == null) {
 				var nAbsDev = 0.0;
-				var mean = CentralTendecyMeasures.GetMean ();
+				var mean = Inquirer.GetMean ();
 				foreach (var item in Data) {
 					nAbsDev += Math.Abs (item - mean);
 				}
@@ -44,7 +43,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{
 			if (variance == null) {
 				var nplus1Variance = 0.0;
-				var mean = CentralTendecyMeasures.GetMean ();
+				var mean = Inquirer.GetMean ();
 				foreach (var item in Data) {
 					nplus1Variance += Math.Pow ((item - mean), 2);
 				}
@@ -58,9 +57,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public double GetStandarDeviation ()
 		{
 			if (standarDeviation == null) {
-				var variance = GetVariance ();
 
-				standarDeviation = Math.Sqrt (variance);
+				standarDeviation = Math.Sqrt (GetVariance ());
 			}
 			
 			return (double)standarDeviation;
@@ -70,7 +68,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{
 			if (coefficientOfVariation == null) {
 				var strDev = GetStandarDeviation ();
-				var mean = CentralTendecyMeasures.GetMean ();
+				var mean = Inquirer.GetMean ();
 
 				coefficientOfVariation = strDev / mean;
 			}
@@ -102,16 +100,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return (double)coefficientOfKourtosis;
 		}
 
-		protected override void InitCalculator ()
-		{
-			CentralTendecyMeasures = new UCentralTendecyCalculator (Data);
-		}
-
 		private double[] GetAllMomemtum ()
 		{
 			if (allMomentum == null) {
 				allMomentum = new double[3];
-				var mean = CentralTendecyMeasures.GetMean ();
+				var mean = Inquirer.GetMean ();
 				foreach (var item in Data) {
 					var meanDiff = (item - mean);
 					allMomentum [0] += Math.Pow (meanDiff, 2);

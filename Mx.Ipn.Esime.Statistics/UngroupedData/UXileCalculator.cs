@@ -1,17 +1,18 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
+	using System.Dynamic;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class UXileCalculator:UBaseCalculator,IXileCalculator
+	public class UXileCalculator:InquirerBase,IXileCalculator
 	{
-		public UXileCalculator (ReadOnlyCollection<double> sortedData):base(sortedData)
-		{
+		public UXileCalculator (IList<double> rawData):base(rawData,null)
+		{			
 		}
 
-		public UXileCalculator (List<double> rawData):base(rawData)
+		public UXileCalculator (ReadOnlyCollection<double> rawData, DynamicObject inquirer):base(rawData, inquirer)
 		{
 		}
 
@@ -37,10 +38,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			var nThQuartile = GetNthXile (Xiles.Quartile, nTh);
 			
 			return nThQuartile;
-		}
-
-		protected override void InitCalculator ()
-		{
 		}
 
 		private double GetNthXile (Xiles xile, int nTh)

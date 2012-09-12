@@ -1,23 +1,26 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
+	using System.Dynamic;
 	using System.Linq;
 	using System.Collections.ObjectModel;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 	
-	public class UCentralTendecyCalculator:UBaseCalculator,ICentralTendencyCalculator
+	public class UCentralTendecyCalculator:InquirerBase,ICentralTendencyCalculator
 	{
 		private double? mean;
 		private double? median;
 		private List<double> mode;
 
-		public UCentralTendecyCalculator (ReadOnlyCollection<double> sortedData):base(sortedData)
-		{
+		public UCentralTendecyCalculator (IList<double> rawData):base(rawData,null)
+		{	
+			mode = new List<double> ();
 		}
 
-		public UCentralTendecyCalculator (List<double> rawData):base(rawData)
+		public UCentralTendecyCalculator (ReadOnlyCollection<double> rawData, DynamicObject inquirer):base(rawData, inquirer)
 		{
+			mode = new List<double> ();
 		}
 
 		public double GetMean ()
@@ -51,11 +54,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return mode;
-		}
-
-		protected override void InitCalculator ()
-		{
-			mode = new List<double> ();
 		}
 	}
 }

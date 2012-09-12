@@ -10,5 +10,4 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 		
 		double GetInterpercentileRange ();
 	}
-	
 }

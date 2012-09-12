@@ -6,13 +6,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class URangesCalculator:IRangesCalculator
+	public class URangesCalculator:UBaseCalculator,IRangesCalculator
 	{
-		public ReadOnlyCollection<double> Data {
-			get;
-			set;
-		}
-
 		private double? range;
 		private double? qRange;
 		private double? dRange;
@@ -23,27 +18,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			private set;
 		}
 
-		public URangesCalculator (List<double> rawData)
+		public URangesCalculator (List<double> rawData):base(rawData)
 		{
-			if (rawData == null) {
-
-				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
-			}
-
-			if (rawData.Count == 0) {
-				throw new StatisticsException ("Empty data set.");
-			}
-
-			if (rawData.Count == 1) {
-				throw new StatisticsException ("Insufficient data.");
-			}
-
-			var cache = rawData.ToList ();
-			cache.Sort ();
-
-			Data = cache.AsReadOnly ();
-
-			XileCalculator = new UXileCalculator (Data);
 		}
 
 		public double GetDataRange ()
@@ -80,6 +56,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return (double)pRange;
+		}
+
+		protected override void InitCalculator ()
+		{
+			XileCalculator = new UXileCalculator (Data);
 		}
 	}
 }

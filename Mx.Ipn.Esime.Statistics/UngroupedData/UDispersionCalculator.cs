@@ -6,13 +6,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class UDispersionCalculator:IDispersionCalculator
+	public class UDispersionCalculator:UBaseCalculator,IDispersionCalculator
 	{
-		public ReadOnlyCollection<double> Data {
-			get;
-			set;
-		}
-
 		private double? absoluteDeviation;
 		private double? variance;
 		private double? standarDeviation;
@@ -26,27 +21,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			private set;
 		}
 
-		public UDispersionCalculator (List<double> rawData)
+		public UDispersionCalculator (List<double> rawData):base(rawData)
 		{
-			if (rawData == null) {
-				
-				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
-			}
-			
-			if (rawData.Count == 0) {
-				throw new StatisticsException ("Empty data set.");
-			}
-			
-			if (rawData.Count == 1) {
-				throw new StatisticsException ("Insufficient data.");
-			}
-			
-			var cache = rawData.ToList ();
-			cache.Sort ();
-
-			Data = cache.AsReadOnly ();
-
-			CentralTendecyMeasures = new UCentralTendecyCalculator (Data);
 		}
 
 		public double GetAbsoluteDeviation ()
@@ -124,6 +100,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return (double)coefficientOfKourtosis;
+		}
+
+		protected override void InitCalculator ()
+		{
+			CentralTendecyMeasures = new UCentralTendecyCalculator (Data);
 		}
 
 		private double[] GetAllMomemtum ()

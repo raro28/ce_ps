@@ -58,7 +58,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UXileCalculator> (out sortedData, size: 7);
 			try {
-				calculator.GetQuartile(-1);
+				calculator.GetQuartile (-1);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -67,7 +67,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
 
 			try {
-				calculator.GetQuartile(5);
+				calculator.GetQuartile (5);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -83,7 +83,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UXileCalculator> (out sortedData, size: 7);
 			try {
-				calculator.GetDecile(-1);
+				calculator.GetDecile (-1);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -92,7 +92,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
 
 			try {
-				calculator.GetDecile(11);
+				calculator.GetDecile (11);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -108,7 +108,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UXileCalculator> (out sortedData, size: 7);
 			try {
-				calculator.GetPercentile(-1);
+				calculator.GetPercentile (-1);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -117,7 +117,7 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
 
 			try {
-				calculator.GetPercentile(101);
+				calculator.GetPercentile (101);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

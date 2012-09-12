@@ -26,8 +26,8 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UXileCalculator> (out sortedData, size: 100);
 			
-			var expected = GetXiles (4, nTh => HelperMethods.CalcNthXile (sortedData, 4, nTh)).ToList();
-			var actual = GetXiles (4, nTh => calculator.GetQuartile (nTh)).ToList();
+			var expected = GetXiles (4, nTh => HelperMethods.CalcNthXile (sortedData, 4, nTh)).ToList ();
+			var actual = GetXiles (4, nTh => calculator.GetQuartile (nTh)).ToList ();
 
 			CollectionAssert.AreEqual (expected, actual);
 		}
@@ -38,8 +38,8 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UXileCalculator> (out sortedData, size: 100);
 			
-			var expected = GetXiles (10, nTh => HelperMethods.CalcNthXile (sortedData, 10, nTh)).ToList();
-			var actual = GetXiles (10, nTh => calculator.GetDecile (nTh)).ToList();
+			var expected = GetXiles (10, nTh => HelperMethods.CalcNthXile (sortedData, 10, nTh)).ToList ();
+			var actual = GetXiles (10, nTh => calculator.GetDecile (nTh)).ToList ();
 
 			CollectionAssert.AreEqual (expected, actual);
 		}
@@ -50,8 +50,8 @@ namespace Mx.Ipn.Esime.Statistics.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UXileCalculator> (out sortedData, size: 100);
 			
-			var expected = GetXiles (100, nTh => HelperMethods.CalcNthXile (sortedData, 100, nTh)).ToList();
-			var actual = GetXiles (100, nTh => calculator.GetPercentile (nTh)).ToList();
+			var expected = GetXiles (100, nTh => HelperMethods.CalcNthXile (sortedData, 100, nTh)).ToList ();
+			var actual = GetXiles (100, nTh => calculator.GetPercentile (nTh)).ToList ();
 			
 			CollectionAssert.AreEqual (expected, actual);
 		}

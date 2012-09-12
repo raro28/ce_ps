@@ -6,34 +6,18 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 	
-	public class UCentralTendecyCalculator:ICentralTendencyCalculator
+	public class UCentralTendecyCalculator:UBaseCalculator,ICentralTendencyCalculator
 	{
-
-		public ReadOnlyCollection<double> Data {
-			get;
-			set;
-		}
-
 		private double? mean;
 		private double? median;
 		private List<double> mode;
 
-		public UCentralTendecyCalculator (ReadOnlyCollection<double> sortedData)
+		public UCentralTendecyCalculator (ReadOnlyCollection<double> sortedData):base(sortedData)
 		{
-			AsserValidDataSet (sortedData);
-
-			Data = sortedData;
 		}
 
-		public UCentralTendecyCalculator (List<double> rawData)
+		public UCentralTendecyCalculator (List<double> rawData):base(rawData)
 		{
-			AsserValidDataSet (rawData);
-
-			var cache = rawData.ToList ();
-			cache.Sort ();
-			Data = cache.AsReadOnly ();
-
-			mode = new List<double> ();
 		}
 
 		public double GetMean ()
@@ -69,19 +53,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return mode;
 		}
 
-		static void AsserValidDataSet (IList<double> data)
+		protected override void InitCalculator ()
 		{
-			if (data == null) {
-				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
-			}
-
-			if (data.Count == 0) {
-				throw new StatisticsException ("Empty data set.");
-			}
-
-			if (data.Count == 1) {
-				throw new StatisticsException ("Insufficient data.");
-			}
+			mode = new List<double> ();
 		}
 	}
 }

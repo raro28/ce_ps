@@ -6,28 +6,14 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class UXileCalculator:IXileCalculator
+	public class UXileCalculator:UBaseCalculator,IXileCalculator
 	{
-		public ReadOnlyCollection<double> Data {
-			get;
-			set;
+		public UXileCalculator (ReadOnlyCollection<double> sortedData):base(sortedData)
+		{
 		}
 
-		public UXileCalculator (ReadOnlyCollection<double> sortedData)
+		public UXileCalculator (List<double> rawData):base(rawData)
 		{
-			AssertValidData (sortedData);
-			
-			Data = sortedData;
-		}
-
-		public UXileCalculator (List<double> rawData)
-		{
-			AssertValidData (rawData);
-			
-			var cache = rawData.ToList ();
-			cache.Sort ();
-			
-			Data = cache.AsReadOnly ();
 		}
 
 		public double GetDecile (int nTh)
@@ -54,19 +40,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return nThQuartile;
 		}
 
-		static void AssertValidData (IList<double> rawData)
+		protected override void InitCalculator ()
 		{
-			if (rawData == null) {
-				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
-			}
-
-			if (rawData.Count == 0) {
-				throw new StatisticsException ("Empty data set.");
-			}
-
-			if (rawData.Count == 1) {
-				throw new StatisticsException ("Insufficient data.");
-			}
 		}
 
 		private double GetNthXile (Xiles xile, int nTh)
@@ -86,7 +61,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return xRange;
 		}
 
-		void AssertValidXile (int nTh, Xiles xile)
+		private void AssertValidXile (int nTh, Xiles xile)
 		{
 			if (nTh < 1 || nTh > (int)xile) {
 				var xileName = Enum.GetName (typeof(Xiles), xile);
@@ -102,4 +77,3 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		}
 	}
 }
-

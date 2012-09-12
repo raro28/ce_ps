@@ -5,8 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs.Inquiries
 
 	public interface IInquirer
 	{
-		Dictionary<String,object> Askqued
-		{
+		Dictionary<String,object> Asked {
 			get;
 		}
 	}

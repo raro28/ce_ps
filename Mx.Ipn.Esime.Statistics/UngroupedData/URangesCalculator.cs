@@ -13,7 +13,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? dRange;
 		private double? pRange;
 
-		public URangesCalculator (IList<double> rawData):base(rawData, new UXileCalculator(rawData))
+		public URangesCalculator (IList<double> rawData):base(rawData, null)
 		{			
 		}
 
@@ -55,6 +55,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return (double)pRange;
+		}
+
+		protected override void Init ()
+		{
+			Inquirer = new UXileCalculator (Data, this);
 		}
 	}
 }

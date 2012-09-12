@@ -6,11 +6,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public class StatisticsInquirer:InquirerBase
 	{
-		public Dictionary<string,dynamic> Map {
-			get;
-			set;
-		}
-
 		private dynamic CentralTendencyInquirer;
 		private dynamic DispersionInquirer;
 		private dynamic RangesInquirer;

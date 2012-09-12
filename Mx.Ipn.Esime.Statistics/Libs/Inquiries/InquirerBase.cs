@@ -10,12 +10,17 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public abstract class InquirerBase:DynamicObject,IInquirer
 	{
+		protected Dictionary<string,dynamic> Map {
+			get;
+			set;
+		}
+
 		public ReadOnlyCollection<double> Data {
 			get;
 			protected set;
 		}
 
-		public Dictionary<string, object> Askqued {
+		public Dictionary<string, object> Asked {
 			get;
 			private set;
 		}
@@ -58,15 +63,16 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
 		{
 			var success = false;
-			if (Askqued.ContainsKey (binder.Name)) {
-				result = Askqued [binder.Name];
+			if (Asked.ContainsKey (binder.Name)) {
+				result = Asked [binder.Name];
 				success = true;
 			} else {
-				if (Inquirer.Map.ContainsKey (binder.Name)) {
-					var mappedInquirer = Inquirer.Map [binder.Name];
+				if (Map.ContainsKey (binder.Name)) {
+					var mappedInquirer = Map [binder.Name];
 					var name = mappedInquirer.GetType ().Name;
-					System.Console.WriteLine (name);
+					Console.WriteLine (name);
 				}
+
 				result = null;
 			}
 			
@@ -75,9 +81,22 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		private void Init (ReadOnlyCollection<double> sortedData, DynamicObject inquirer)
 		{
-			Askqued = new Dictionary<string, object> ();
+			Asked = new Dictionary<string, object> ();
 			Data = sortedData;
-			Inquirer = inquirer ?? this;
+			if (inquirer != null) {
+				Inquirer = inquirer;
+				dynamic inq = inquirer;
+				Asked = inq.Asked;
+			} else {
+				Inquirer = this;
+			}
+
+			Init ();
+		}
+
+		protected virtual void Init ()
+		{
+
 		}
 	}
 }

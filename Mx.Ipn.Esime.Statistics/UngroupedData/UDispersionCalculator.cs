@@ -16,7 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? coefficientOfKourtosis;
 		double[] allMomentum;
 
-		public UDispersionCalculator (IList<double> rawData):base(rawData,new UCentralTendecyCalculator(rawData))
+		public UDispersionCalculator (IList<double> rawData):base(rawData,null)
 		{			
 		}
 
@@ -98,6 +98,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return (double)coefficientOfKourtosis;
+		}
+
+		protected override void Init ()
+		{
+			Inquirer = new UCentralTendecyCalculator (Data, this);
 		}
 
 		private double[] GetAllMomemtum ()

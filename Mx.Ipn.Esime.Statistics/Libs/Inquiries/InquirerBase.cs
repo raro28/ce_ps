@@ -22,13 +22,15 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		protected dynamic Inquirer {
 			get;
-			private set;
+			set;
 		}
 
 		public InquirerBase (IList<double> rawData, DynamicObject inquirer)
 		{
 			AssertValidData (rawData);
-			var readOnly = rawData.ToList ().AsReadOnly ();
+			var cache = rawData.ToList ();
+			cache.Sort ();
+			var readOnly = cache.AsReadOnly ();
 			Init (readOnly, inquirer);
 		}
 		
@@ -53,9 +55,27 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 		}
 
-		void Init (ReadOnlyCollection<double> sortedData, DynamicObject inquirer)
+		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
 		{
-			Askqued = new Dictionary<string, object>();
+			var success = false;
+			if (Askqued.ContainsKey (binder.Name)) {
+				result = Askqued [binder.Name];
+				success = true;
+			} else {
+				if (Inquirer.Map.ContainsKey (binder.Name)) {
+					var mappedInquirer = Inquirer.Map [binder.Name];
+					var name = mappedInquirer.GetType ().Name;
+					System.Console.WriteLine (name);
+				}
+				result = null;
+			}
+			
+			return success;
+		}
+
+		private void Init (ReadOnlyCollection<double> sortedData, DynamicObject inquirer)
+		{
+			Askqued = new Dictionary<string, object> ();
 			Data = sortedData;
 			Inquirer = inquirer ?? this;
 		}

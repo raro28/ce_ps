@@ -48,5 +48,6 @@
   <ItemGroup>
     <Folder Include="Libs\" />
     <Folder Include="UngroupedData\" />
+    <Folder Include="GroupedData\" />
   </ItemGroup>
 </Project>

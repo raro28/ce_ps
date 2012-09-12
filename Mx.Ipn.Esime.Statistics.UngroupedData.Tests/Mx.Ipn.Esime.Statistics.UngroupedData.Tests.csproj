@@ -7,8 +7,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{984E3C8A-D719-4673-BFB7-261EFB6E5445}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Mx.Ipn.Esime.Statistics.Tests</RootNamespace>
-    <AssemblyName>Mx.Ipn.Esime.Statistics.Tests</AssemblyName>
+    <RootNamespace>Mx.Ipn.Esime.Statistics.UngroupedData.Tests</RootNamespace>
+    <AssemblyName>Mx.Ipn.Esime.Statistics.UngroupedData.Tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>

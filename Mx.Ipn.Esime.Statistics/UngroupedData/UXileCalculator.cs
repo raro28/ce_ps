@@ -1,7 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
-	using System.Linq;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;

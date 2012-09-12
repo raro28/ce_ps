@@ -1,4 +1,4 @@
-namespace Mx.Ipn.Esime.Statistics.Tests
+namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
 	using System.Linq;

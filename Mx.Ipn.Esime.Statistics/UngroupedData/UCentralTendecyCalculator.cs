@@ -1,11 +1,11 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
-	using System.Dynamic;
 	using System.Linq;
 	using System.Collections.ObjectModel;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Libs.Inquiries;
 	
 	public class UCentralTendecyCalculator:InquirerBase,ICentralTendencyCalculator
 	{
@@ -18,7 +18,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			mode = new List<double> ();
 		}
 
-		public UCentralTendecyCalculator (ReadOnlyCollection<double> sortedData, InquirerBase inquirer):base(sortedData, inquirer)
+		public UCentralTendecyCalculator (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
 		{
 			mode = new List<double> ();
 		}

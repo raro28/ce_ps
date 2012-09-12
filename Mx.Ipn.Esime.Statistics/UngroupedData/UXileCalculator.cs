@@ -1,7 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
-	using System.Dynamic;
+	using Mx.Ipn.Esime.Statistics.Libs.Inquiries;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
@@ -12,7 +12,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{			
 		}
 
-		public UXileCalculator (ReadOnlyCollection<double> sortedData, InquirerBase inquirer):base(sortedData, inquirer)
+		public UXileCalculator (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 

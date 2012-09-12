@@ -1,7 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
-	using System.Dynamic;
+	using Mx.Ipn.Esime.Statistics.Libs.Inquiries;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
@@ -20,7 +20,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{			
 		}
 
-		public UDispersionCalculator (ReadOnlyCollection<double> sortedData, InquirerBase inquirer):base(sortedData, inquirer)
+		public UDispersionCalculator (ReadOnlyCollection<double> sortedData, ICentralTendencyCalculator inquirer):base(sortedData, inquirer)
 		{
 		}
 

@@ -1,6 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
-	using System.Dynamic;
+	using Mx.Ipn.Esime.Statistics.Libs.Inquiries;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Collections.ObjectModel;
@@ -17,7 +17,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{			
 		}
 
-		public URangesCalculator (ReadOnlyCollection<double> sortedData, InquirerBase inquirer):base(sortedData, inquirer)
+		public URangesCalculator (ReadOnlyCollection<double> sortedData, IXileCalculator inquirer):base(sortedData, inquirer)
 		{
 		}
 

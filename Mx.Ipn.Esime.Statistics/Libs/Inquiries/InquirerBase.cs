@@ -30,7 +30,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			set;
 		}
 
-		public InquirerBase (IList<double> rawData, InquirerBase inquirer=null)
+		public InquirerBase (IList<double> rawData, IInquirer inquirer=null)
 		{
 			AssertValidData (rawData);
 			var cache = rawData.ToList ();
@@ -39,7 +39,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			Init (readOnly, inquirer);
 		}
 		
-		public InquirerBase (ReadOnlyCollection<double> sortedData, InquirerBase inquirer=null)
+		public InquirerBase (ReadOnlyCollection<double> sortedData, IInquirer inquirer=null)
 		{
 			AssertValidData (sortedData);
 			Init (sortedData, inquirer);
@@ -79,7 +79,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return success;
 		}
 
-		private void Init (ReadOnlyCollection<double> sortedData, InquirerBase inquirer)
+		private void Init (ReadOnlyCollection<double> sortedData, IInquirer inquirer)
 		{
 			Asked = new Dictionary<string, object> ();
 			Map = new Dictionary<string, dynamic>();

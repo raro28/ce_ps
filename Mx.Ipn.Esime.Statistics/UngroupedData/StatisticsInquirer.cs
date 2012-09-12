@@ -24,11 +24,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			{
 				{"GetPercentile",XileInquirer}
 			};
+			var centralTendencyInquirer = new UCentralTendecyCalculator (Data, this);
+			CentralTendencyInquirer = centralTendencyInquirer;
+			var xilesInquirer = new UXileCalculator (Data, this);
+			XileInquirer = xilesInquirer;
 
-			CentralTendencyInquirer = new UCentralTendecyCalculator (Data, this);
-			DispersionInquirer = new UDispersionCalculator (Data, this);
-			RangesInquirer = new URangesCalculator (Data, this);
-			XileInquirer = new UXileCalculator (Data, this);
+			RangesInquirer = new URangesCalculator (Data, xilesInquirer);
+			DispersionInquirer = new UDispersionCalculator (Data, CentralTendencyInquirer);
 		}
 	}
 }

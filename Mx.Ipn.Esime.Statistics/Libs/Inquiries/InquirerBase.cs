@@ -30,7 +30,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			set;
 		}
 
-		public InquirerBase (IList<double> rawData, DynamicObject inquirer)
+		public InquirerBase (IList<double> rawData, InquirerBase inquirer=null)
 		{
 			AssertValidData (rawData);
 			var cache = rawData.ToList ();
@@ -39,7 +39,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			Init (readOnly, inquirer);
 		}
 		
-		public InquirerBase (ReadOnlyCollection<double> sortedData, DynamicObject inquirer)
+		public InquirerBase (ReadOnlyCollection<double> sortedData, InquirerBase inquirer=null)
 		{
 			AssertValidData (sortedData);
 			Init (sortedData, inquirer);
@@ -79,14 +79,14 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return success;
 		}
 
-		private void Init (ReadOnlyCollection<double> sortedData, DynamicObject inquirer)
+		private void Init (ReadOnlyCollection<double> sortedData, InquirerBase inquirer)
 		{
 			Asked = new Dictionary<string, object> ();
+			Map = new Dictionary<string, dynamic>();
 			Data = sortedData;
 			if (inquirer != null) {
 				Inquirer = inquirer;
-				dynamic inq = inquirer;
-				Asked = inq.Asked;
+				Asked = inquirer.Asked;
 			} else {
 				Inquirer = this;
 			}

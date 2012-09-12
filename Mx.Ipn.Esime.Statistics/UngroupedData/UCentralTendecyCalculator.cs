@@ -13,12 +13,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? median;
 		private List<double> mode;
 
-		public UCentralTendecyCalculator (IList<double> rawData):base(rawData,null)
+		public UCentralTendecyCalculator (IList<double> rawData):base(rawData)
 		{	
 			mode = new List<double> ();
 		}
 
-		public UCentralTendecyCalculator (ReadOnlyCollection<double> rawData, DynamicObject inquirer):base(rawData, inquirer)
+		public UCentralTendecyCalculator (ReadOnlyCollection<double> sortedData, InquirerBase inquirer):base(sortedData, inquirer)
 		{
 			mode = new List<double> ();
 		}

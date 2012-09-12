@@ -13,11 +13,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? dRange;
 		private double? pRange;
 
-		public URangesCalculator (IList<double> rawData):base(rawData, null)
+		public URangesCalculator (IList<double> rawData):base(rawData)
 		{			
 		}
 
-		public URangesCalculator (ReadOnlyCollection<double> rawData, DynamicObject inquirer):base(rawData, inquirer)
+		public URangesCalculator (ReadOnlyCollection<double> sortedData, InquirerBase inquirer):base(sortedData, inquirer)
 		{
 		}
 

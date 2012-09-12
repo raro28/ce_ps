@@ -1,6 +1,5 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
-	using System.Dynamic;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 
@@ -11,12 +10,15 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private dynamic RangesInquirer;
 		private dynamic XileInquirer;
 
-		public StatisticsInquirer (ReadOnlyCollection<double> rawData):base(rawData, null)
-		{
-			Init ();
+		public StatisticsInquirer (IList<double> rawData):base(rawData)
+		{			
 		}
 
-		void Init ()
+		public StatisticsInquirer (ReadOnlyCollection<double> sortedData):base(sortedData)
+		{
+		}
+
+		protected override void Init ()
 		{
 			Map = new Dictionary<string, dynamic> ()
 			{

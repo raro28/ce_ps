@@ -16,11 +16,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? coefficientOfKourtosis;
 		double[] allMomentum;
 
-		public UDispersionCalculator (IList<double> rawData):base(rawData,null)
+		public UDispersionCalculator (IList<double> rawData):base(rawData)
 		{			
 		}
 
-		public UDispersionCalculator (ReadOnlyCollection<double> rawData, DynamicObject inquirer):base(rawData, inquirer)
+		public UDispersionCalculator (ReadOnlyCollection<double> sortedData, InquirerBase inquirer):base(sortedData, inquirer)
 		{
 		}
 

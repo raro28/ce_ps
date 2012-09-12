@@ -8,11 +8,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public class UXileCalculator:InquirerBase,IXileCalculator
 	{
-		public UXileCalculator (IList<double> rawData):base(rawData,null)
+		public UXileCalculator (IList<double> rawData):base(rawData)
 		{			
 		}
 
-		public UXileCalculator (ReadOnlyCollection<double> rawData, DynamicObject inquirer):base(rawData, inquirer)
+		public UXileCalculator (ReadOnlyCollection<double> sortedData, InquirerBase inquirer):base(sortedData, inquirer)
 		{
 		}
 

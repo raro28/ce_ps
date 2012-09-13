@@ -6,7 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class UDispersionInquirer:InquirerBase,IDispersionInquirer
+	public class UngroupedDispersionInquirer:InquirerBase,IDispersionInquirer
 	{
 		private double? absoluteDeviation;
 		private double? variance;
@@ -16,11 +16,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? coefficientOfKourtosis;
 		double[] allMomentum;
 
-		public UDispersionInquirer (IList<double> rawData):base(rawData)
+		public UngroupedDispersionInquirer (IList<double> rawData):base(rawData)
 		{			
 		}
 
-		public UDispersionInquirer (ReadOnlyCollection<double> sortedData, ICentralTendencyInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedDispersionInquirer (ReadOnlyCollection<double> sortedData, ICentralTendencyInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 

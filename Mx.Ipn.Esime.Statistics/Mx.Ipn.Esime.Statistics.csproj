@@ -36,7 +36,6 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Libs\StatisticsException.cs" />
     <Compile Include="Libs\Inquiries\IInquirer.cs" />
-    <Compile Include="UngroupedData\StatisticsInquirer.cs" />
     <Compile Include="Libs\Inquiries\InquirerBase.cs" />
     <Compile Include="Libs\ICentralTendencyInquirer.cs" />
     <Compile Include="Libs\IDispersionInquirer.cs" />
@@ -45,7 +44,8 @@
     <Compile Include="UngroupedData\UngroupedCentralTendecyInquirer.cs" />
     <Compile Include="UngroupedData\UngroupedRangesInquirer.cs" />
     <Compile Include="UngroupedData\UngroupedXileInquirer.cs" />
-    <Compile Include="UngroupedData\UDispersionInquirer.cs" />
+    <Compile Include="UngroupedData\UngroupedDispersionInquirer.cs" />
+    <Compile Include="UngroupedData\UngroupedStatisticsInquirer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

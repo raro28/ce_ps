@@ -33,18 +33,20 @@
     <Reference Include="nunit.framework">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="HelperMethods.cs" />
-    <Compile Include="UCentralTendecyInquirer.Exception.Tests.cs" />
-    <Compile Include="UCentralTendecyInquirer.Tests.cs" />
-    <Compile Include="UDispersionInquirer.Exception.Tests.cs" />
-    <Compile Include="UDispersionInquirer.Tests.cs" />
-    <Compile Include="URangesInquirer.Exception.Tests.cs" />
-    <Compile Include="URangesInquirer.Tests.cs" />
-    <Compile Include="UXileInquirer.Exception.Tests.cs" />
-    <Compile Include="UXileInquirer.Tests.cs" />
+    <Compile Include="UngroupedCentralTendecyInquirer.Exception.Tests.cs" />
+    <Compile Include="UngroupedDispersionInquirer.Exception.Tests.cs" />
+    <Compile Include="UngroupedCentralTendecyInquirer.Tests.cs" />
+    <Compile Include="UngroupedDispersionInquirer.Tests.cs" />
+    <Compile Include="UngroupedRangesInquirer.Exception.Tests.cs" />
+    <Compile Include="UngroupedRangesInquirer.Tests.cs" />
+    <Compile Include="UngroupedXileInquirer.Exception.Tests.cs" />
+    <Compile Include="UngroupedXileInquirer.Tests.cs" />
+    <Compile Include="UngroupedStatisticsInquirer.Integration.Tests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

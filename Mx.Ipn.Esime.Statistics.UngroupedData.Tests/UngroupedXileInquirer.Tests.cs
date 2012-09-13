@@ -7,7 +7,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
 
 	[TestFixture()]
-	public class UXileInquirer_Tests
+	public class UngroupedXileInquirer_Tests
 	{
 		[Test()]
 		public void Inquirer_Uses_Internal_Sorted_Data_Set ()
@@ -26,9 +26,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UngroupedXileInquirer> (out sortedData, size: 100);
 			
+			Inquirer_Gets_Expected_Quartiles (sortedData, calculator);
+		}
+
+		public static void Inquirer_Gets_Expected_Quartiles (List<double> sortedData, dynamic calculator)
+		{
 			var expected = GetXiles (4, nTh => HelperMethods.CalcNthXile (sortedData, 4, nTh)).ToList ();
 			var actual = GetXiles (4, nTh => calculator.GetQuartile (nTh)).ToList ();
-
 			CollectionAssert.AreEqual (expected, actual);
 		}
 
@@ -38,9 +42,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UngroupedXileInquirer> (out sortedData, size: 100);
 			
+			Inquirer_Gets_Expected_Deciles (sortedData, calculator);
+		}
+
+		public static void Inquirer_Gets_Expected_Deciles (List<double> sortedData, dynamic calculator)
+		{
 			var expected = GetXiles (10, nTh => HelperMethods.CalcNthXile (sortedData, 10, nTh)).ToList ();
 			var actual = GetXiles (10, nTh => calculator.GetDecile (nTh)).ToList ();
-
 			CollectionAssert.AreEqual (expected, actual);
 		}
 
@@ -50,9 +58,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			List<double> sortedData;
 			var calculator = HelperMethods.NewInstanceOf<UngroupedXileInquirer> (out sortedData, size: 100);
 
+			Inquirer_Gets_Expected_Percentiles (sortedData, calculator);
+		}
+
+		public static void Inquirer_Gets_Expected_Percentiles (List<double> sortedData, dynamic calculator)
+		{
 			var expected = GetXiles (100, nTh => HelperMethods.CalcNthXile (sortedData, 100, nTh)).ToList ();
 			var actual = GetXiles (100, nTh => calculator.GetPercentile (nTh)).ToList ();
-			
 			CollectionAssert.AreEqual (expected, actual);
 		}
 

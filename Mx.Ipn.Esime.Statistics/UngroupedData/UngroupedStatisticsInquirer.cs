@@ -4,7 +4,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 
-	public class StatisticsInquirer:InquirerBase
+	public class UngroupedStatisticsInquirer:InquirerBase
 	{
 		private Dictionary<string,dynamic> Map {
 			get;
@@ -16,11 +16,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private dynamic RangesInquirer;
 		private dynamic XileInquirer;
 
-		public StatisticsInquirer (IList<double> rawData):base(rawData)
+		public UngroupedStatisticsInquirer (IList<double> rawData):base(rawData)
 		{			
 		}
 
-		public StatisticsInquirer (ReadOnlyCollection<double> sortedData):base(sortedData)
+		public UngroupedStatisticsInquirer (ReadOnlyCollection<double> sortedData):base(sortedData)
 		{
 		}
 
@@ -56,7 +56,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			XileInquirer = xilesInquirer;
 
 			RangesInquirer = new UngroupedRangesInquirer (Data, xilesInquirer);
-			DispersionInquirer = new UDispersionInquirer (Data, CentralTendencyInquirer);
+			DispersionInquirer = new UngroupedDispersionInquirer (Data, CentralTendencyInquirer);
 		}
 	}
 }

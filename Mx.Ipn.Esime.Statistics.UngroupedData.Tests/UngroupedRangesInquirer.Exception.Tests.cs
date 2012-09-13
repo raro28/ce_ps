@@ -7,14 +7,14 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
 	
 	[TestFixture()]
-	public class UCentralTendecyInquirer_Exception_Tests
+	public class UngroupedRangesInquirer_Exception_Tests
 	{
 		[Test()]
 		public void When_Inquirer_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()
 		{
 			StatisticsException exception = null;
 			try {
-				var calculator = new UngroupedCentralTendecyInquirer (rawData: null);
+				var calculator = new UngroupedRangesInquirer (null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -29,7 +29,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			StatisticsException exception = null;
 			var emptyList = new List<double> ();
 			try {
-				var calculator = new UngroupedCentralTendecyInquirer (emptyList);
+				var calculator = new UngroupedRangesInquirer (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -43,7 +43,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			StatisticsException exception = null;
 			var emptyList = new List<double>{1};
 			try {
-				var calculator = new UngroupedCentralTendecyInquirer (emptyList);
+				var calculator = new UngroupedRangesInquirer (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

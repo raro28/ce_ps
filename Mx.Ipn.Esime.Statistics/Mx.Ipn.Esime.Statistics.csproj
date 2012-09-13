@@ -35,8 +35,6 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Libs\StatisticsException.cs" />
-    <Compile Include="Libs\Inquiries\IInquirer.cs" />
-    <Compile Include="Libs\Inquiries\InquirerBase.cs" />
     <Compile Include="Libs\ICentralTendencyInquirer.cs" />
     <Compile Include="Libs\IDispersionInquirer.cs" />
     <Compile Include="Libs\IRangesInquirer.cs" />
@@ -46,12 +44,23 @@
     <Compile Include="UngroupedData\UngroupedXileInquirer.cs" />
     <Compile Include="UngroupedData\UngroupedDispersionInquirer.cs" />
     <Compile Include="UngroupedData\UngroupedStatisticsInquirer.cs" />
+    <Compile Include="Libs\IDistributionChartInquirer.cs" />
+    <Compile Include="Libs\IInquirer.cs" />
+    <Compile Include="Libs\InquirerBase.cs" />
+    <Compile Include="Libs\IExtendedDistributionChartInquirer.cs" />
+    <Compile Include="GroupedData\GroupedStatisticsInquirer.cs" />
+    <Compile Include="Libs\StatisticsInquirerBase.cs" />
+    <Compile Include="GroupedData\ExtendedDataDistributionFrequencyInquirer.cs" />
+    <Compile Include="GroupedData\DataDistributionFrequencyInquirer.cs" />
+    <Compile Include="GroupedData\GroupedXileInquirer.cs" />
+    <Compile Include="GroupedData\GroupedCentralTendecyInquirer.cs" />
+    <Compile Include="GroupedData\GroupedRangesInquirer.cs" />
+    <Compile Include="GroupedData\GroupedDispersionInquirer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Libs\" />
     <Folder Include="UngroupedData\" />
     <Folder Include="GroupedData\" />
-    <Folder Include="Libs\Inquiries\" />
   </ItemGroup>
 </Project>

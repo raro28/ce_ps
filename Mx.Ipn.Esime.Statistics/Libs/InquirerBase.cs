@@ -1,4 +1,4 @@
-namespace Mx.Ipn.Esime.Statistics.UngroupedData
+namespace Mx.Ipn.Esime.Statistics.Libs
 {
 	using System;
 	using System.Dynamic;
@@ -6,7 +6,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.ObjectModel;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
-	using Mx.Ipn.Esime.Statistics.Libs.Inquiries;
 
 	public abstract class InquirerBase:DynamicObject, IInquirer
 	{

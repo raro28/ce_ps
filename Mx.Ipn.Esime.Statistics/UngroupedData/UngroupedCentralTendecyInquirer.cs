@@ -5,7 +5,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.ObjectModel;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
-	using Mx.Ipn.Esime.Statistics.Libs.Inquiries;
 	
 	public class UngroupedCentralTendecyInquirer:InquirerBase,ICentralTendencyInquirer
 	{

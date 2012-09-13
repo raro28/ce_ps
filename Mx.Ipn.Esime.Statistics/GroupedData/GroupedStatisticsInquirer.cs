@@ -1,4 +1,4 @@
-namespace Mx.Ipn.Esime.Statistics.Grouped
+namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
@@ -34,9 +34,9 @@ namespace Mx.Ipn.Esime.Statistics.Grouped
 			DispersionInquirer = new GroupedDispersionInquirer (Data, CentralTendencyInquirer);
 		}
 
-		protected override void InitializeMap ()
+		protected override void FIXME_ExtraMaps ()
 		{
-			throw new System.NotImplementedException ();
+			FIXME_TemporalMapper (typeof(IDistributionChartInquirer), DataDistributionFrequencyInquirer);
 		}
 	}
 }

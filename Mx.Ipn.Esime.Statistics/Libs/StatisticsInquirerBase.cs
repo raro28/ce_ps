@@ -31,6 +31,11 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			get;
 			set;
 		}
+
+		protected Action<Type,dynamic> FIXME_TemporalMapper{
+			get;
+			set;
+		}
 		
 		public StatisticsInquirerBase (IList<double> rawData):base(rawData)
 		{			
@@ -65,13 +70,28 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 		protected abstract void InitializeInquirers ();
 
-		protected abstract void InitializeMap ();
+		protected virtual void FIXME_ExtraMaps ()
+		{
+		}
 
 		protected override void Init ()
 		{
+			Map = new Dictionary<string, dynamic> ();
+
+			FIXME_TemporalMapper = (type,obj) => {
+				foreach (var method in type.GetMethods()) {
+					Map.Add (method.Name, obj);
+				}
+			};
+
 			InitializeInquirers ();
 
-			InitializeMap ();
+			FIXME_TemporalMapper (typeof(ICentralTendencyInquirer), CentralTendencyInquirer);
+			FIXME_TemporalMapper (typeof(IXileInquirer), XileInquirer);
+			FIXME_TemporalMapper (typeof(IRangesInquirer), RangesInquirer);
+			FIXME_TemporalMapper (typeof(IDispersionInquirer), DispersionInquirer);
+
+			FIXME_ExtraMaps ();
 		}
 	}
 }

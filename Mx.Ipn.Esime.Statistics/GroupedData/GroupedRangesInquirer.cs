@@ -1,4 +1,4 @@
-namespace Mx.Ipn.Esime.Statistics.Grouped
+namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;

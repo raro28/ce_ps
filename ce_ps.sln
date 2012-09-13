@@ -5,16 +5,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.UngroupedData.Tests", "Mx.Ipn.Esime.Statistics.UngroupedData.Tests\Mx.Ipn.Esime.Statistics.UngroupedData.Tests.csproj", "{984E3C8A-D719-4673-BFB7-261EFB6E5445}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.GroupedData.Tests", "Mx.Ipn.Esime.Statistics.GroupedData.Tests\Mx.Ipn.Esime.Statistics.GroupedData.Tests.csproj", "{AD9AF9A5-1869-4819-934E-AB7E93030324}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{984E3C8A-D719-4673-BFB7-261EFB6E5445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{984E3C8A-D719-4673-BFB7-261EFB6E5445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{984E3C8A-D719-4673-BFB7-261EFB6E5445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{984E3C8A-D719-4673-BFB7-261EFB6E5445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD9AF9A5-1869-4819-934E-AB7E93030324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD9AF9A5-1869-4819-934E-AB7E93030324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD9AF9A5-1869-4819-934E-AB7E93030324}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD9AF9A5-1869-4819-934E-AB7E93030324}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{AD9AF9A5-1869-4819-934E-AB7E93030324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD9AF9A5-1869-4819-934E-AB7E93030324}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BBA01040-73A6-4928-987C-C43B49246614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BBA01040-73A6-4928-987C-C43B49246614}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA01040-73A6-4928-987C-C43B49246614}.Release|Any CPU.ActiveCfg = Release|Any CPU

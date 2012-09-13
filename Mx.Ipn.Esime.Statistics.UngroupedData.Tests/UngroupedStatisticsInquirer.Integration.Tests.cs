@@ -7,7 +7,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
 
 	[TestFixture()]
-	public class UngroupedStatisticsInquirer_Tests
+	public class UngroupedStatisticsInquirer_Integration_Tests
 	{
 		[Test()]
 		public void When_Inquirer_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()

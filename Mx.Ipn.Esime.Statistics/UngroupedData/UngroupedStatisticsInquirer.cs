@@ -27,21 +27,5 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			RangesInquirer = new UngroupedRangesInquirer (Data, xilesInquirer);
 			DispersionInquirer = new UngroupedDispersionInquirer (Data, CentralTendencyInquirer);
 		}
-
-		protected override void InitializeMap ()
-		{
-			Map = new Dictionary<string, dynamic> ();
-			//TODO: fix UngroupedStatisticsInquirer.Init()
-			Action<Type,dynamic> action = (type,obj) => {
-				foreach (var method in type.GetMethods()) {
-					Map.Add (method.Name, obj);
-				}
-			};
-			
-			action (typeof(ICentralTendencyInquirer), CentralTendencyInquirer);
-			action (typeof(IXileInquirer), XileInquirer);
-			action (typeof(IRangesInquirer), RangesInquirer);
-			action (typeof(IDispersionInquirer), DispersionInquirer);
-		}
 	}
 }

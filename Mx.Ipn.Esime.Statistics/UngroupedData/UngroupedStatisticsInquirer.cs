@@ -1,5 +1,8 @@
+using Mx.Ipn.Esime.Statistics.Libs;
+
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
+	using System;
 	using System.Dynamic;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
@@ -27,17 +30,21 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
 		{
 			var success = false;
+			result = null;
+
 			if (Asked.ContainsKey (binder.Name)) {
 				result = Asked [binder.Name];
 				success = true;
 			} else {
 				if (Map.ContainsKey (binder.Name)) {
+					//TODO: fix UngroupedStatisticsInquirer.TryInvokeMember()
 					var mappedInquirer = Map [binder.Name];
-					var name = mappedInquirer.GetType ().Name;
-					System.Console.WriteLine (name);
+
+					var method = ((Type)mappedInquirer.GetType ()).GetMethod (binder.Name);
+					result = method.Invoke (mappedInquirer, args);
+
+					success = true;
 				}
-				
-				result = null;
 			}
 			
 			return success;
@@ -45,11 +52,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		protected override void Init ()
 		{
-			Map = new Dictionary<string, dynamic> ()
-			{
-				{"GetPercentile",XileInquirer}
-			};
-
 			var centralTendencyInquirer = new UngroupedCentralTendecyInquirer (Data, this);
 			CentralTendencyInquirer = centralTendencyInquirer;
 			var xilesInquirer = new UngroupedXileInquirer (Data, this);
@@ -57,7 +59,19 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 			RangesInquirer = new UngroupedRangesInquirer (Data, xilesInquirer);
 			DispersionInquirer = new UngroupedDispersionInquirer (Data, CentralTendencyInquirer);
+
+			Map = new Dictionary<string, dynamic> ();
+			//TODO: fix UngroupedStatisticsInquirer.Init()
+			Action<Type,dynamic> action = (type,obj) => {
+				foreach (var method in type.GetMethods()) {
+					Map.Add (method.Name, obj);
+				}
+			};
+
+			action (typeof(ICentralTendencyInquirer), CentralTendencyInquirer);
+			action (typeof(IXileInquirer), XileInquirer);
+			action (typeof(IRangesInquirer), RangesInquirer);
+			action (typeof(IDispersionInquirer), DispersionInquirer);
 		}
 	}
 }
-

@@ -92,18 +92,18 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		[Test()]
 		public void Inquirer_Gets_Expected_Mode ()
 		{
-			List<double> sortedData;
+			List<double> sortedData = new List<double>{1,2,3,2};
 			
-			var inquirer = HelperMethods.NewInstanceOf<UngroupedStatisticsInquirer> (out sortedData, 100);
+			var inquirer = HelperMethods.NewInstanceOf<UngroupedStatisticsInquirer> (ref sortedData);
 			UngroupedCentralTendecyInquirer_Tests.Inquirer_Gets_Expected_Mode (sortedData, inquirer);
 		}
 
 		[Test()]
 		public void Inquirer_Gets_Expected_Median ()
 		{
-			List<double> sortedData;
+			List<double> sortedData = new List<double>{1,2,3};
 			
-			var inquirer = HelperMethods.NewInstanceOf<UngroupedStatisticsInquirer> (out sortedData, 100);
+			var inquirer = HelperMethods.NewInstanceOf<UngroupedStatisticsInquirer> (ref sortedData);
 			UngroupedCentralTendecyInquirer_Tests.Inquirer_Gets_Expected_Median (sortedData, inquirer);
 		}
 

@@ -34,18 +34,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Libs\ICentralTendencyCalculator.cs" />
-    <Compile Include="Libs\IDispersionCalculator.cs" />
-    <Compile Include="Libs\IRangesCalculator.cs" />
     <Compile Include="Libs\StatisticsException.cs" />
-    <Compile Include="UngroupedData\UCentralTendecyCalculator.cs" />
-    <Compile Include="UngroupedData\URangesCalculator.cs" />
-    <Compile Include="UngroupedData\UDispersionCalculator.cs" />
-    <Compile Include="Libs\IXileCalculator.cs" />
-    <Compile Include="UngroupedData\UXileCalculator.cs" />
     <Compile Include="Libs\Inquiries\IInquirer.cs" />
     <Compile Include="UngroupedData\StatisticsInquirer.cs" />
     <Compile Include="Libs\Inquiries\InquirerBase.cs" />
+    <Compile Include="Libs\ICentralTendencyInquirer.cs" />
+    <Compile Include="Libs\IDispersionInquirer.cs" />
+    <Compile Include="Libs\IRangesInquirer.cs" />
+    <Compile Include="Libs\IXileInquirer.cs" />
+    <Compile Include="UngroupedData\UngroupedCentralTendecyInquirer.cs" />
+    <Compile Include="UngroupedData\UngroupedRangesInquirer.cs" />
+    <Compile Include="UngroupedData\UngroupedXileInquirer.cs" />
+    <Compile Include="UngroupedData\UDispersionInquirer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -7,13 +7,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
 
 	[TestFixture()]
-	public class UDispersionCalculator_Tests
+	public class UDispersionInquirer_Tests
 	{
 		[Test()]
-		public void Calculator_Uses_Internal_Sorted_Data_Set ()
+		public void Inquirer_Uses_Internal_Sorted_Data_Set ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionInquirer> (out sortedData, size: 100);
 			
 			for (int i = 0; i < sortedData.Count; i++) {
 				Assert.AreEqual (sortedData [i], calculator.Data [i]);
@@ -21,10 +21,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void Calculator_Gets_Expected_Absolute_Deviation ()
+		public void Inquirer_Gets_Expected_Absolute_Deviation ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionInquirer> (out sortedData, size: 100);
 			var mean = SampleMean (sortedData);
 			var nAbsoluteDeviation = 0.0;
 			sortedData.ForEach (item => nAbsoluteDeviation += Math.Abs (item - mean));
@@ -36,10 +36,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void Calculator_Gets_Expected_Variance ()
+		public void Inquirer_Gets_Expected_Variance ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionInquirer> (out sortedData, size: 100);
 
 			var expected = SampleVariance (sortedData);
 			var actual = calculator.GetVariance ();
@@ -48,10 +48,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void Calculator_Gets_Expected_Standar_Deviation ()
+		public void Inquirer_Gets_Expected_Standar_Deviation ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionInquirer> (out sortedData, size: 100);
 
 			var expected = SampleStandarDeviation (sortedData);
 			var actual = calculator.GetStandarDeviation ();
@@ -60,10 +60,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void Calculator_Gets_Expected_Coefficient_Of_Variation ()
+		public void Inquirer_Gets_Expected_Coefficient_Of_Variation ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionInquirer> (out sortedData, size: 100);
 			var strDev = SampleStandarDeviation (sortedData);
 			var mean = SampleMean (sortedData);
 
@@ -74,10 +74,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void Calculator_Gets_Expected_Coefficient_Of_Symmetry ()
+		public void Inquirer_Gets_Expected_Coefficient_Of_Symmetry ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionInquirer> (out sortedData, size: 100);
 			var m3 = SampleMomentum (sortedData, 3);
 			var m2 = SampleMomentum (sortedData, 2);
 
@@ -88,10 +88,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void Calculator_Gets_Expected_Coefficient_Of_Kurtosis ()
+		public void Inquirer_Gets_Expected_Coefficient_Of_Kurtosis ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<UDispersionCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UDispersionInquirer> (out sortedData, size: 100);
 			var m4 = SampleMomentum (sortedData, 4);
 			var m2 = SampleMomentum (sortedData, 2);
 			

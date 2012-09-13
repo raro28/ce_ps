@@ -6,13 +6,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
 
 	[TestFixture()]
-	public class URangesCalculator_Tests
+	public class URangesInquirer_Tests
 	{
 		[Test()]
-		public void Calculator_Uses_Internal_Sorted_Data_Set ()
+		public void Inquirer_Uses_Internal_Sorted_Data_Set ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UngroupedRangesInquirer> (out sortedData, size: 100);
 
 			for (int i = 0; i < sortedData.Count; i++) {
 				Assert.AreEqual (sortedData [i], calculator.Data [i]);
@@ -20,10 +20,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void Calculator_Gets_Expected_Data_Range ()
+		public void Inquirer_Gets_Expected_Data_Range ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 100);
+			var calculator = HelperMethods.NewInstanceOf<UngroupedRangesInquirer> (out sortedData, size: 100);
 
 			var expected = sortedData [sortedData.Count - 1] - sortedData [0];
 			var actual = calculator.GetDataRange ();
@@ -32,10 +32,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void Calculator_Gets_Expected_Quartil_Decil_Percentil_Ranges ()
+		public void Inquirer_Gets_Expected_Quartil_Decil_Percentil_Ranges ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<URangesCalculator> (out sortedData, size: 7);
+			var calculator = HelperMethods.NewInstanceOf<UngroupedRangesInquirer> (out sortedData, size: 7);
 
 			var expected = HelperMethods.CalcNthXile (sortedData, 4, 3) - HelperMethods.CalcNthXile (sortedData, 4, 1);
 			var actual = calculator.GetInterquartileRange ();

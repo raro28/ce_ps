@@ -2,7 +2,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 {
 	using Mx.Ipn.Esime.Statistics.Libs.Inquiries;
 
-	public interface IXileCalculator:IInquirer
+	public interface IXileInquirer:IInquirer
 	{
 		double GetDecile (int nTh);
 

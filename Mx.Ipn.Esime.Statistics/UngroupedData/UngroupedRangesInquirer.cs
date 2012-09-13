@@ -6,18 +6,18 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class URangesCalculator:InquirerBase,IRangesCalculator
+	public class UngroupedRangesInquirer:InquirerBase,IRangesInquirer
 	{
 		private double? range;
 		private double? qRange;
 		private double? dRange;
 		private double? pRange;
 
-		public URangesCalculator (IList<double> rawData):base(rawData)
+		public UngroupedRangesInquirer (IList<double> rawData):base(rawData)
 		{			
 		}
 
-		public URangesCalculator (ReadOnlyCollection<double> sortedData, IXileCalculator inquirer):base(sortedData, inquirer)
+		public UngroupedRangesInquirer (ReadOnlyCollection<double> sortedData, IXileInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 
@@ -59,7 +59,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		protected override void Init ()
 		{
-			Inquirer = new UXileCalculator (Data, this);
+			Inquirer = new UngroupedXileInquirer (Data, this);
 		}
 	}
 }

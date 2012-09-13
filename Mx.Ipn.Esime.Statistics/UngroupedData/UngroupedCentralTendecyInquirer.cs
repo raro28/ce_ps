@@ -7,18 +7,18 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using Mx.Ipn.Esime.Statistics.Libs;
 	using Mx.Ipn.Esime.Statistics.Libs.Inquiries;
 	
-	public class UCentralTendecyCalculator:InquirerBase,ICentralTendencyCalculator
+	public class UngroupedCentralTendecyInquirer:InquirerBase,ICentralTendencyInquirer
 	{
 		private double? mean;
 		private double? median;
 		private List<double> mode;
 
-		public UCentralTendecyCalculator (IList<double> rawData):base(rawData)
+		public UngroupedCentralTendecyInquirer (IList<double> rawData):base(rawData)
 		{	
 			mode = new List<double> ();
 		}
 
-		public UCentralTendecyCalculator (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedCentralTendecyInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
 		{
 			mode = new List<double> ();
 		}

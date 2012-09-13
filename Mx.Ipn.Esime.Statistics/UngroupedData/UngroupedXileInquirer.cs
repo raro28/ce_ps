@@ -6,13 +6,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class UXileCalculator:InquirerBase,IXileCalculator
+	public class UngroupedXileInquirer:InquirerBase,IXileInquirer
 	{
-		public UXileCalculator (IList<double> rawData):base(rawData)
+		public UngroupedXileInquirer (IList<double> rawData):base(rawData)
 		{			
 		}
 
-		public UXileCalculator (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedXileInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 
@@ -49,6 +49,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			if (ls == Data.Count) {
 				ls = li;
 			}
+
 			var iPortion = li + 1 - (lx - 0.5);
 			var sPortion = 1 - iPortion;
 			

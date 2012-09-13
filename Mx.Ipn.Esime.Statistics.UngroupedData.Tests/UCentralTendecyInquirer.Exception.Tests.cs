@@ -7,14 +7,14 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
 	
 	[TestFixture()]
-	public class URangesCalculator_Exception_Tests
+	public class UCentralTendecyInquirer_Exception_Tests
 	{
 		[Test()]
-		public void When_Calculator_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()
+		public void When_Inquirer_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()
 		{
 			StatisticsException exception = null;
 			try {
-				var calculator = new URangesCalculator (null);
+				var calculator = new UngroupedCentralTendecyInquirer (rawData: null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -24,12 +24,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void When_Calculator_Recieves_Empty_Data_Set_Throws_An_Statistics_Exception ()
+		public void When_Inquirer_Recieves_Empty_Data_Set_Throws_An_Statistics_Exception ()
 		{
 			StatisticsException exception = null;
 			var emptyList = new List<double> ();
 			try {
-				var calculator = new URangesCalculator (emptyList);
+				var calculator = new UngroupedCentralTendecyInquirer (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -38,12 +38,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		}
 
 		[Test()]
-		public void When_Calculator_Recieves_Less_Than_Two_Elements_Data_Set_Throws_An_Statistics_Exception ()
+		public void When_Inquirer_Recieves_Less_Than_Two_Elements_Data_Set_Throws_An_Statistics_Exception ()
 		{
 			StatisticsException exception = null;
 			var emptyList = new List<double>{1};
 			try {
-				var calculator = new URangesCalculator (emptyList);
+				var calculator = new UngroupedCentralTendecyInquirer (emptyList);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

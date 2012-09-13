@@ -21,10 +21,12 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		protected override void InitializeInquirers ()
 		{
-			var dataDistributionFrequencyInquirer = new ExtendedDataDistributionFrequencyInquirer (Data, this);
+			var dataDistributionFrequencyInquirer = new DataDistributionFrequencyInquirer (Data, this);
 			DataDistributionFrequencyInquirer = dataDistributionFrequencyInquirer;
 
-			var xilesInquirer = new GroupedXileInquirer (Data, dataDistributionFrequencyInquirer);
+			var extendedDataDistributionFrequencyInquirer = new ExtendedDataDistributionFrequencyInquirer (Data, dataDistributionFrequencyInquirer);
+
+			var xilesInquirer = new GroupedXileInquirer (Data, extendedDataDistributionFrequencyInquirer);
 			XileInquirer = xilesInquirer;
 
 			var centralTendencyInquirer = new GroupedCentralTendecyInquirer (Data, xilesInquirer);

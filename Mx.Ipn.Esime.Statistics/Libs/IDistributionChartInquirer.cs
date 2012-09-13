@@ -22,32 +22,18 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			set;
 		}
 
-		IEnumerable<double> Frequency {
-			get;
-		}
+		IEnumerable<double> GetFrequencies ();
 
-		IEnumerable<double> AcumulatedFrequency {
-			get;
-		}
+		IEnumerable<double> GetAcumulatedFrequencies ();
 
-		IEnumerable<double> RelativeFrequency {
-			get;
-		}
+		IEnumerable<double> GetRelativeFrequencies ();
 
-		IEnumerable<double> AcumulatedRelativeFrequency {
-			get;
-		}
+		IEnumerable<double> GetAcumulatedRelativeFrequencies ();
 
-		IEnumerable<double> ClassMark {
-			get;
-		}
+		IEnumerable<double> GetClassMarks ();
 
-		IEnumerable<Pair> ClassIntervals {
-			get;
-		}
+		IEnumerable<Pair> GetClassIntervals ();
 
-		IEnumerable<Pair> RealIntervals {
-			get;
-		}
+		IEnumerable<Pair> GetRealIntervals ();
 	}
 }

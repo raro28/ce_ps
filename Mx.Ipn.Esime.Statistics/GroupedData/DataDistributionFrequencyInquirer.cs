@@ -23,46 +23,39 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}
 		}
 
-		public IEnumerable<double> Frequency {
-			get {
-				throw new System.NotImplementedException ();
-			}
+		public IEnumerable<double> GetFrequencies ()
+		{
+			throw new System.NotImplementedException ();
 		}
 
-		public IEnumerable<double> AcumulatedFrequency {
-			get {
-				throw new System.NotImplementedException ();
-			}
+		public IEnumerable<double> GetAcumulatedFrequencies ()
+		{
+			throw new System.NotImplementedException ();
 		}
 
-		public IEnumerable<double> RelativeFrequency {
-			get {
-				throw new System.NotImplementedException ();
-			}
+		public IEnumerable<double> GetRelativeFrequencies ()
+		{
+			throw new System.NotImplementedException ();
 		}
 
-		public IEnumerable<double> AcumulatedRelativeFrequency {
-			get {
-				throw new System.NotImplementedException ();
-			}
+		public IEnumerable<double> GetAcumulatedRelativeFrequencies ()
+		{
+			throw new System.NotImplementedException ();
 		}
 
-		public IEnumerable<double> ClassMark {
-			get {
-				throw new System.NotImplementedException ();
-			}
+		public IEnumerable<double> GetClassMarks ()
+		{
+			throw new System.NotImplementedException ();
 		}
 
-		public IEnumerable<Pair> ClassIntervals {
-			get {
-				throw new System.NotImplementedException ();
-			}
+		public IEnumerable<Pair> GetClassIntervals ()
+		{
+			throw new System.NotImplementedException ();
 		}
 
-		public IEnumerable<Pair> RealIntervals {
-			get {
-				throw new System.NotImplementedException ();
-			}
+		public IEnumerable<Pair> GetRealIntervals ()
+		{
+			throw new System.NotImplementedException ();
 		}
 	}	
 }

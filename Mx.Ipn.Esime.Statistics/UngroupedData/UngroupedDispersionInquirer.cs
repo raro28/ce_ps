@@ -16,10 +16,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		double[] allMomentum;
 
 		public UngroupedDispersionInquirer (IList<double> rawData):base(rawData)
-		{			
+		{		
+			Inquirer = new UngroupedCentralTendecyInquirer (rawData);
 		}
 
-		public UngroupedDispersionInquirer (ReadOnlyCollection<double> sortedData, UngroupedStatisticsInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedDispersionInquirer (ReadOnlyCollection<double> sortedData, UngroupedCentralTendecyInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 

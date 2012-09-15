@@ -1,6 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.Libs
 {
-	public interface IRangesInquirer
+	public interface IRangesInquirer:IInquirer
 	{
 		double GetDataRange ();
 		

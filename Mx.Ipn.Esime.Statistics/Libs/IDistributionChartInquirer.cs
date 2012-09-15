@@ -15,7 +15,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 		}
 	}
 
-	public interface IDistributionChartInquirer
+	public interface IDistributionChartInquirer:IInquirer
 	{
 		bool IsAuxiliaryDataVisible {
 			get;

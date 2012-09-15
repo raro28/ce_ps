@@ -51,7 +51,6 @@
     <Compile Include="GroupedDispersionInquirer.Tests.cs" />
     <Compile Include="GroupedRangesInquirer.Exception.Tests.cs" />
     <Compile Include="GroupedRangesInquirer.Tests.cs" />
-    <Compile Include="GroupedStatisticsInquirer.Integration.Tests.cs" />
     <Compile Include="GroupedXileInquirer.Exception.Tests.cs" />
     <Compile Include="GroupedXileInquirer.Tests.cs" />
     <Compile Include="DataDistributionFrequencyInquirer.Exception.Tests.cs" />

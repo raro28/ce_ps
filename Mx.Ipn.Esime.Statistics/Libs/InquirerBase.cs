@@ -1,42 +1,38 @@
 namespace Mx.Ipn.Esime.Statistics.Libs
 {
 	using System;
-	using System.Dynamic;
 	using System.Linq;
 	using System.Collections.ObjectModel;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public abstract class InquirerBase:DynamicObject
+	public abstract class InquirerBase
 	{
 		public ReadOnlyCollection<double> Data {
 			get;
 			protected set;
 		}
 
-		public Dictionary<string, object> Asked {
-			get;
-			private set;
-		}
-
 		protected dynamic Inquirer {
 			get;
-			private set;
+			set;
 		}
 
-		public InquirerBase (IList<double> rawData, StatisticsInquirerBase inquirer=null)
+		public InquirerBase (IList<double> rawData, IInquirer inquirer=null)
 		{
 			AssertValidData (rawData);
 			var cache = rawData.ToList ();
 			cache.Sort ();
 			var readOnly = cache.AsReadOnly ();
-			Init (readOnly, inquirer);
+			Inquirer = inquirer;
+			Data = readOnly;
 		}
 		
-		public InquirerBase (ReadOnlyCollection<double> sortedData, StatisticsInquirerBase inquirer=null)
+		public InquirerBase (ReadOnlyCollection<double> sortedData, IInquirer inquirer)
 		{
 			AssertValidData (sortedData);
-			Init (sortedData, inquirer);
+			Inquirer = inquirer;
+			Data = sortedData;
 		}
 
 		protected static void AssertValidData (ICollection<double> data)
@@ -52,25 +48,6 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			if (data.Count == 1) {
 				throw new StatisticsException ("Insufficient data.");
 			}
-		}
-
-		private void Init (ReadOnlyCollection<double> sortedData, InquirerBase inquirer)
-		{
-			Asked = new Dictionary<string, object> ();
-			Data = sortedData;
-			if (inquirer != null) {
-				Inquirer = inquirer;
-				Asked = inquirer.Asked;
-			} else {
-				Inquirer = this;
-			}
-
-			Init();
-		}
-
-		protected virtual void Init ()
-		{
-
 		}
 	}
 }

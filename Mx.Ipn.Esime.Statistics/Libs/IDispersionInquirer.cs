@@ -1,6 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.Libs
 {
-	public interface IDispersionInquirer
+	public interface IDispersionInquirer:IInquirer
 	{
 		double GetAbsoluteDeviation ();
 		

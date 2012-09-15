@@ -13,10 +13,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double? pRange;
 
 		public UngroupedRangesInquirer (IList<double> rawData):base(rawData)
-		{			
+		{	
+			Inquirer = new UngroupedXileInquirer (rawData);
 		}
 
-		public UngroupedRangesInquirer (ReadOnlyCollection<double> sortedData, UngroupedStatisticsInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedRangesInquirer (ReadOnlyCollection<double> sortedData, UngroupedXileInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 

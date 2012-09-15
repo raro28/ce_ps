@@ -46,7 +46,6 @@
     <Compile Include="UngroupedRangesInquirer.Tests.cs" />
     <Compile Include="UngroupedXileInquirer.Exception.Tests.cs" />
     <Compile Include="UngroupedXileInquirer.Tests.cs" />
-    <Compile Include="UngroupedStatisticsInquirer.Integration.Tests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -10,7 +10,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{			
 		}
 		
-		public DataDistributionFrequencyInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData,inquirer)
+		public DataDistributionFrequencyInquirer (ReadOnlyCollection<double> sortedData, GroupedStatisticsInquirer inquirer):base(sortedData,inquirer)
 		{
 		}
 

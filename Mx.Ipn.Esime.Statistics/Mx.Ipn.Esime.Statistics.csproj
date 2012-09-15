@@ -45,7 +45,6 @@
     <Compile Include="UngroupedData\UngroupedDispersionInquirer.cs" />
     <Compile Include="UngroupedData\UngroupedStatisticsInquirer.cs" />
     <Compile Include="Libs\IDistributionChartInquirer.cs" />
-    <Compile Include="Libs\IInquirer.cs" />
     <Compile Include="Libs\InquirerBase.cs" />
     <Compile Include="Libs\IExtendedDistributionChartInquirer.cs" />
     <Compile Include="GroupedData\GroupedStatisticsInquirer.cs" />

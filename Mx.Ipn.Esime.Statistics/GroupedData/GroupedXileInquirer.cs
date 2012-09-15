@@ -10,7 +10,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{			
 		}
 		
-		public GroupedXileInquirer (ReadOnlyCollection<double> sortedData, IDistributionChartInquirer inquirer):base(sortedData, inquirer)
+		public GroupedXileInquirer (ReadOnlyCollection<double> sortedData, GroupedStatisticsInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 

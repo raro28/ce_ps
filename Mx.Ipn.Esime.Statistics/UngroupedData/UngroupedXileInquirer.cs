@@ -11,7 +11,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{			
 		}
 
-		public UngroupedXileInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedXileInquirer (ReadOnlyCollection<double> sortedData, UngroupedStatisticsInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 

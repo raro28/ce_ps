@@ -7,7 +7,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public abstract class InquirerBase:DynamicObject, IInquirer
+	public abstract class InquirerBase:DynamicObject
 	{
 		public ReadOnlyCollection<double> Data {
 			get;
@@ -21,10 +21,10 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 		protected dynamic Inquirer {
 			get;
-			set;
+			private set;
 		}
 
-		public InquirerBase (IList<double> rawData, IInquirer inquirer=null)
+		public InquirerBase (IList<double> rawData, StatisticsInquirerBase inquirer=null)
 		{
 			AssertValidData (rawData);
 			var cache = rawData.ToList ();
@@ -33,7 +33,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			Init (readOnly, inquirer);
 		}
 		
-		public InquirerBase (ReadOnlyCollection<double> sortedData, IInquirer inquirer=null)
+		public InquirerBase (ReadOnlyCollection<double> sortedData, StatisticsInquirerBase inquirer=null)
 		{
 			AssertValidData (sortedData);
 			Init (sortedData, inquirer);
@@ -54,7 +54,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			}
 		}
 
-		private void Init (ReadOnlyCollection<double> sortedData, IInquirer inquirer)
+		private void Init (ReadOnlyCollection<double> sortedData, InquirerBase inquirer)
 		{
 			Asked = new Dictionary<string, object> ();
 			Data = sortedData;
@@ -65,7 +65,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 				Inquirer = this;
 			}
 
-			Init ();
+			Init();
 		}
 
 		protected virtual void Init ()

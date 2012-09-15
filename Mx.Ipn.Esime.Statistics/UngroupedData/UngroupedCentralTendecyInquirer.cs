@@ -17,7 +17,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			mode = new List<double> ();
 		}
 
-		public UngroupedCentralTendecyInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedCentralTendecyInquirer (ReadOnlyCollection<double> sortedData, UngroupedStatisticsInquirer inquirer):base(sortedData, inquirer)
 		{
 			mode = new List<double> ();
 		}

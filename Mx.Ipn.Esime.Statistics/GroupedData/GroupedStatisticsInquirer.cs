@@ -21,19 +21,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		protected override void InitializeInquirers ()
 		{
-			var dataDistributionFrequencyInquirer = new DataDistributionFrequencyInquirer (Data, this);
-			DataDistributionFrequencyInquirer = dataDistributionFrequencyInquirer;
-
-			var extendedDataDistributionFrequencyInquirer = new ExtendedDataDistributionFrequencyInquirer (Data, dataDistributionFrequencyInquirer);
-
-			var xilesInquirer = new GroupedXileInquirer (Data, extendedDataDistributionFrequencyInquirer);
-			XileInquirer = xilesInquirer;
-
-			var centralTendencyInquirer = new GroupedCentralTendecyInquirer (Data, xilesInquirer);
-			CentralTendencyInquirer = centralTendencyInquirer;
-			
-			RangesInquirer = new GroupedRangesInquirer (Data, xilesInquirer);
-			DispersionInquirer = new GroupedDispersionInquirer (Data, CentralTendencyInquirer);
+			DataDistributionFrequencyInquirer = new ExtendedDataDistributionFrequencyInquirer (Data, this);
+			XileInquirer = new GroupedXileInquirer (Data, this);
+			CentralTendencyInquirer = new GroupedCentralTendecyInquirer (Data, this);
+			RangesInquirer = new GroupedRangesInquirer (Data, this);
+			DispersionInquirer = new GroupedDispersionInquirer (Data, this);
 		}
 
 		protected override void FIXME_ExtraMaps ()

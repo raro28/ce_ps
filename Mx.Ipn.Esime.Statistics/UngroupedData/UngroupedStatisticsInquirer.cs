@@ -24,8 +24,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			var xilesInquirer = new UngroupedXileInquirer (Data, this);
 			XileInquirer = xilesInquirer;
 			
-			RangesInquirer = new UngroupedRangesInquirer (Data, xilesInquirer);
-			DispersionInquirer = new UngroupedDispersionInquirer (Data, CentralTendencyInquirer);
+			RangesInquirer = new UngroupedRangesInquirer (Data, this);
+			DispersionInquirer = new UngroupedDispersionInquirer (Data, this);
 		}
 	}
 }

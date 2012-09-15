@@ -10,7 +10,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{			
 		}
 		
-		public GroupedCentralTendecyInquirer (ReadOnlyCollection<double> sortedData, IXileInquirer inquirer):base(sortedData, inquirer)
+		public GroupedCentralTendecyInquirer (ReadOnlyCollection<double> sortedData, GroupedStatisticsInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 

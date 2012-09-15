@@ -19,7 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{			
 		}
 
-		public UngroupedDispersionInquirer (ReadOnlyCollection<double> sortedData, ICentralTendencyInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedDispersionInquirer (ReadOnlyCollection<double> sortedData, UngroupedStatisticsInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 
@@ -97,11 +97,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return (double)coefficientOfKourtosis;
-		}
-
-		protected override void Init ()
-		{
-			Inquirer = new UngroupedCentralTendecyInquirer (Data, this);
 		}
 
 		private double[] GetAllMomemtum ()

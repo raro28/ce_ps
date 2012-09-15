@@ -16,7 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{			
 		}
 
-		public UngroupedRangesInquirer (ReadOnlyCollection<double> sortedData, IXileInquirer inquirer):base(sortedData, inquirer)
+		public UngroupedRangesInquirer (ReadOnlyCollection<double> sortedData, UngroupedStatisticsInquirer inquirer):base(sortedData, inquirer)
 		{
 		}
 
@@ -54,11 +54,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return (double)pRange;
-		}
-
-		protected override void Init ()
-		{
-			Inquirer = new UngroupedXileInquirer (Data, this);
 		}
 	}
 }

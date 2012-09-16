@@ -14,12 +14,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		public UngroupedCentralTendecyInquirer (IList<double> rawData):base(rawData)
 		{	
-			mode = new List<double> ();
 		}
 
 		public UngroupedCentralTendecyInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
 		{
-			mode = new List<double> ();
 		}
 
 		public double GetMean ()
@@ -43,7 +41,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		public IList<double> GetMode ()
 		{
-			if (mode.Count == 0) {
+			if (mode == null) {
 				var groups = Data.GroupBy (data => data);
 				var modes = from _mode in groups
 					where _mode.Count () == groups.Max (grouped => grouped.Count ())

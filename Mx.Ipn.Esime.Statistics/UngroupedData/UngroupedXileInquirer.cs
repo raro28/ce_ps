@@ -7,61 +7,86 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public class UngroupedXileInquirer:InquirerBase,IXileInquirer
 	{
+		private Dictionary<XileInfo,double> SavedXiles;
+
 		public UngroupedXileInquirer (IList<double> rawData):base(rawData)
 		{			
+			SavedXiles = new Dictionary<XileInfo, double> ();
 		}
 
 		public UngroupedXileInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
 		{
+			SavedXiles = new Dictionary<XileInfo, double> ();
 		}
 
 		public double GetDecile (int nTh)
 		{
-			AssertValidXile (nTh, Xiles.Decile);
-			var nThDecile = GetNthXile (Xiles.Decile, nTh);
+			var xileInfo = AssertValidXile (nTh, Xiles.Decile);
+			var nThDecile = GetXile (xileInfo);
 
 			return nThDecile;
 		}
 
 		public double GetPercentile (int nTh)
 		{
-			AssertValidXile (nTh, Xiles.Percentile);
-			var nThPercentile = GetNthXile (Xiles.Percentile, nTh);
+			var xileInfo = AssertValidXile (nTh, Xiles.Percentile);
+			var nThPercentile = GetXile (xileInfo);
 			
 			return nThPercentile;
 		}
 
 		public double GetQuartile (int nTh)
 		{
-			AssertValidXile (nTh, Xiles.Quartile);
-			var nThQuartile = GetNthXile (Xiles.Quartile, nTh);
+			var xileInfo = AssertValidXile (nTh, Xiles.Quartile);
+			var nThQuartile = GetXile (xileInfo);
 			
 			return nThQuartile;
 		}
 
-		private double GetNthXile (Xiles xile, int nTh)
+		private double GetXile (XileInfo xileInfo)
 		{
-			
-			var lx = Data.Count * nTh / (double)xile;
-			var li = (int)Math.Floor (lx - 0.5);
-			var ls = (int)Math.Floor (lx + 0.5);
-			if (ls == Data.Count) {
-				ls = li;
+			double xileResult = Double.MinValue;
+			if (!SavedXiles.ContainsKey (xileInfo)) {
+				var lx = Data.Count * xileInfo.NthXile / (double)xileInfo.Xile;
+				var li = (int)Math.Floor (lx - 0.5);
+				var ls = (int)Math.Floor (lx + 0.5);
+				if (ls == Data.Count) {
+					ls = li;
+				}
+				
+				var iPortion = li + 1 - (lx - 0.5);
+				var sPortion = 1 - iPortion;
+				
+				xileResult = iPortion * Data [li] + sPortion * Data [ls];
+
+				SavedXiles.Add (xileInfo, xileResult);
+			} else {
+				xileResult = SavedXiles [xileInfo];
 			}
 
-			var iPortion = li + 1 - (lx - 0.5);
-			var sPortion = 1 - iPortion;
-			
-			var xRange = iPortion * Data [li] + sPortion * Data [ls];
-			
-			return xRange;
+			return xileResult;
 		}
 
-		private void AssertValidXile (int nTh, Xiles xile)
+		private XileInfo AssertValidXile (int nTh, Xiles xile)
 		{
 			if (nTh < 1 || nTh > (int)xile) {
 				var xileName = Enum.GetName (typeof(Xiles), xile);
 				throw new StatisticsException (String.Format ("Invalid {0}", xileName), new IndexOutOfRangeException (String.Format ("{0} {0}", xileName, nTh)));
+			}
+
+			return new XileInfo{Xile=xile, NthXile=nTh};
+		}
+
+		private struct XileInfo
+		{
+			public Xiles Xile {
+				get;
+				set;
+			}
+
+			public int NthXile {
+				get;
+				set;
 			}
 		}
 		

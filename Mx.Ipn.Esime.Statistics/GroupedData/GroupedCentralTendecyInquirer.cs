@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class GroupedCentralTendecyInquirer:InquirerBase, ICentralTendencyInquirer
 	{
-		public GroupedCentralTendecyInquirer (IList<double> rawData):base(rawData)
+		public GroupedCentralTendecyInquirer (List<double> rawData):base(rawData)
 		{			
 		}
 

@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class DataDistributionFrequencyInquirer:InquirerBase,IDistributionChartInquirer
 	{
-		public DataDistributionFrequencyInquirer (IList<double> rawData):base(rawData)
+		public DataDistributionFrequencyInquirer (List<double> rawData):base(rawData)
 		{			
 		}
 	}	

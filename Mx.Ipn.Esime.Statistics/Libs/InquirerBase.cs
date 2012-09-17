@@ -19,7 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			set;
 		}
 
-		public InquirerBase (IList<double> rawData)
+		public InquirerBase (List<double> rawData)
 		{
 			AssertValidData (rawData);
 			Properties = new Dictionary<string, object> ();
@@ -58,11 +58,6 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			if (data.Count == 1) {
 				throw new StatisticsException ("Insufficient data.");
 			}
-		}
-
-		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
-		{
-			return base.TryInvokeMember (binder, args, out result);
 		}
 
 		public override bool TryGetMember (GetMemberBinder binder, out object result)

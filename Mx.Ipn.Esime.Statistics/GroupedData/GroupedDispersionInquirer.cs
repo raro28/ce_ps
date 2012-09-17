@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class GroupedDispersionInquirer:InquirerBase,IDispersionInquirer
 	{
-		public GroupedDispersionInquirer (IList<double> rawData):base(rawData)
+		public GroupedDispersionInquirer (List<double> rawData):base(rawData)
 		{			
 		}
 

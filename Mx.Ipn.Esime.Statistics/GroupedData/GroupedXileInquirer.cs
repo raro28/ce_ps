@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class GroupedXileInquirer:InquirerBase,IXileInquirer
 	{
-		public GroupedXileInquirer (IList<double> rawData):base(rawData)
+		public GroupedXileInquirer (List<double> rawData):base(rawData)
 		{			
 		}
 

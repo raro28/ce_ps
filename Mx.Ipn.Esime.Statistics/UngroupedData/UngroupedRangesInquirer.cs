@@ -6,7 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public class UngroupedRangesInquirer:InquirerBase,IRangesInquirer
 	{
-		public UngroupedRangesInquirer (IList<double> rawData):base(rawData)
+		public UngroupedRangesInquirer (List<double> rawData):base(rawData)
 		{	
 			Inquirer = new UngroupedXileInquirer (this);
 		}

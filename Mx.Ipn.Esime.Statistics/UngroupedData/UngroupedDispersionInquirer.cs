@@ -6,7 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public class UngroupedDispersionInquirer:InquirerBase,IDispersionInquirer
 	{
-		public UngroupedDispersionInquirer (IList<double> rawData):base(rawData)
+		public UngroupedDispersionInquirer (List<double> rawData):base(rawData)
 		{		
 			Inquirer = new UngroupedCentralTendecyInquirer (this);
 		}

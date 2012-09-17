@@ -137,7 +137,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			var mean = SampleMean (sortedData);
 			var nplus1Variance = 0.0;
 			sortedData.ForEach (item => nplus1Variance += Math.Pow ((item - mean), 2));
-			var variance = nplus1Variance / (sortedData.Count + 1);
+			var variance = nplus1Variance / (sortedData.Count - 1);
 
 			return variance;
 		}

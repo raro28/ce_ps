@@ -29,6 +29,8 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			var readOnly = cache.AsReadOnly ();
 
 			Properties.Add ("Data", readOnly);
+			Properties.Add ("Answers", new Dictionary<string,dynamic > ());
+
 
 			Inquirer = this;
 		}
@@ -56,6 +58,11 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			if (data.Count == 1) {
 				throw new StatisticsException ("Insufficient data.");
 			}
+		}
+
+		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
+		{
+			return base.TryInvokeMember (binder, args, out result);
 		}
 
 		public override bool TryGetMember (GetMemberBinder binder, out object result)

@@ -6,10 +6,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	
 	public class UngroupedCentralTendecyInquirer:InquirerBase,ICentralTendencyInquirer
 	{
-		private double? mean;
-		private double? median;
-		private List<double> mode;
-
 		public UngroupedCentralTendecyInquirer (IList<double> rawData):base(rawData)
 		{	
 		}
@@ -20,36 +16,36 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		public double GetMean ()
 		{
-			if (mean == null) {
+			if (!Inquirer.Answers.ContainsKey ("get(mean)")) {
 
-				mean = ((IEnumerable<double>)Inquirer.Data).Sum () / Inquirer.Data.Count;
+				Inquirer.Answers.Add ("get(mean)", ((IEnumerable<double>)Inquirer.Data).Sum () / Inquirer.Data.Count);
 			}
 			
-			return (double)mean;
+			return Inquirer.Answers ["get(mean)"];
 		}
 
 		public double GetMedian ()
 		{
-			if (median == null) {
+			if (!Inquirer.Answers.ContainsKey ("get(median)")) {
 				var midIndex = (Inquirer.Data.Count / 2) - 1;
-				median = Inquirer.Data.Count % 2 != 0 ? Inquirer.Data [midIndex + 1] : (Inquirer.Data [midIndex] + Inquirer.Data [midIndex + 1]) / 2;
+				Inquirer.Answers.Add ("get(median)", Inquirer.Data.Count % 2 != 0 ? Inquirer.Data [midIndex + 1] : (Inquirer.Data [midIndex] + Inquirer.Data [midIndex + 1]) / 2);
 			}
 			
-			return (double)median;
+			return Inquirer.Answers ["get(median)"];
 		}
 
 		public IList<double> GetMode ()
 		{
-			if (mode == null) {
+			if (!Inquirer.Answers.ContainsKey ("get(mode)")) {
 				var groups = ((IEnumerable<double>)Inquirer.Data).GroupBy (data => data);
 				var modes = from _mode in groups
 					where _mode.Count () == groups.Max (grouped => grouped.Count ())
 					select _mode.First ();
 
-				mode = modes.ToList ();
+				Inquirer.Answers.Add ("get(mode)", modes.ToList ());
 			}
 			
-			return mode;
+			return Inquirer.Answers ["get(mode)"];
 		}
 	}
 }

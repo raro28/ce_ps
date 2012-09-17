@@ -6,19 +6,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public class UngroupedXileInquirer:InquirerBase,IXileInquirer
 	{
-		private Dictionary<XileInfo, double> SavedXiles {
-			get;
-			set;
-		}
-
 		public UngroupedXileInquirer (IList<double> rawData):base(rawData)
 		{			
-			SavedXiles = new Dictionary<XileInfo, double> ();
 		}
 
 		public UngroupedXileInquirer (InquirerBase inquirer):base(inquirer)
 		{
-			SavedXiles = new Dictionary<XileInfo, double> ();
 		}
 
 		public double GetDecile (int nTh)
@@ -48,7 +41,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		private double GetXile (XileInfo xileInfo)
 		{
 			double xileResult = Double.MinValue;
-			if (!SavedXiles.ContainsKey (xileInfo)) {
+			if (!Inquirer.Answers.ContainsKey (xileInfo.ToString ())) {
 				var lx = Inquirer.Data.Count * xileInfo.NthXile / (double)xileInfo.Xile;
 				var li = (int)Math.Floor (lx - 0.5);
 				var ls = (int)Math.Floor (lx + 0.5);
@@ -61,9 +54,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 				
 				xileResult = iPortion * Inquirer.Data [li] + sPortion * Inquirer.Data [ls];
 
-				SavedXiles.Add (xileInfo, xileResult);
+				Inquirer.Answers.Add (xileInfo.ToString (), xileResult);
 			} else {
-				xileResult = SavedXiles [xileInfo];
+				xileResult = Inquirer.Answers [xileInfo.ToString ()];
 			}
 
 			return xileResult;
@@ -79,7 +72,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return new XileInfo{Xile=xile, NthXile=nTh};
 		}
 
-		private struct XileInfo
+		private class XileInfo
 		{
 			public Xiles Xile {
 				get;
@@ -89,6 +82,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			public int NthXile {
 				get;
 				set;
+			}
+
+			public override string ToString ()
+			{
+				return string.Format ("get({0},{1})", Xile, NthXile);
 			}
 		}
 		

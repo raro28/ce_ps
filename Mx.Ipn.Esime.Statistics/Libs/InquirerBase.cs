@@ -35,14 +35,14 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			Inquirer = this;
 		}
 
-		public InquirerBase (InquirerBase inquirer)
+		public InquirerBase (DynamicObject inquirer)
 		{
 			if (inquirer == null)
-				throw new ArgumentNullException ("inquirer");
+				throw new StatisticsException ("Null data Inquirer.", new ArgumentNullException ("inquirer"));
 
 			Inquirer = inquirer;
 
-			Properties = inquirer.Properties;
+			Properties = Inquirer.Properties;
 		}
 
 		protected static void AssertValidData (ICollection<double> data)
@@ -58,6 +58,14 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			if (data.Count == 1) {
 				throw new StatisticsException ("Insufficient data.");
 			}
+		}
+
+		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
+		{
+			var method = Inquirer.GetType ().GetMethod (binder.Name);
+			result = method.Invoke (Inquirer, args);
+
+			return true;
 		}
 
 		public override bool TryGetMember (GetMemberBinder binder, out object result)

@@ -28,11 +28,12 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			cache.Sort ();
 			var readOnly = cache.AsReadOnly ();
 
-			Properties.Add ("Data", readOnly);
-			Properties.Add ("Answers", new Dictionary<string,dynamic > ());
-
-
 			Inquirer = this;
+
+			Inquirer.Data = readOnly;
+			Inquirer.Answers = new Dictionary<string,dynamic > ();
+
+			Inquirer.DataPresicion = GetDataPresicion ();
 		}
 
 		public InquirerBase (InquirerBase inquirer)
@@ -41,8 +42,9 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 				throw new StatisticsException ("Null data Inquirer.", new ArgumentNullException ("inquirer"));
 
 			Inquirer = inquirer;
+			Properties = inquirer.Properties;
 
-			Properties = Inquirer.Properties;
+			Inquirer.DataPresicion = GetDataPresicion ();
 		}
 
 		protected static void AssertValidData (ICollection<double> data)
@@ -89,6 +91,18 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			}
 
 			return true;
+		}
+
+		private double GetDataPresicion ()
+		{
+			var data = (IEnumerable<double>)Inquirer.Data;
+
+			var decimalLengths = (from item in data 
+				select (item + "").Substring ((item + "").LastIndexOf ('.') + 1).Length).ToList ();
+
+			var maxLenght = decimalLengths.Count () != 0 ? decimalLengths.Max () : 0;
+
+			return maxLenght;
 		}
 	}
 }

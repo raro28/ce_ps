@@ -4,24 +4,24 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using System;
 	using System.Linq;
 	using System.Collections.Generic;
-
+	
 	public static class HelperMethods
 	{
 		private static Random rnd;
-
+		
 		static HelperMethods ()
 		{
 			rnd = new Random (DateTime.Now.Millisecond);
 		}
-
+		
 		public static IEnumerable<double> GetRandomDataSample (int size)
 		{
-			for (int i = 0; i < size; i++) {
-				yield return rnd.Next ();
+			for (int i = 1; i <= size; i++) {
+				yield return rnd.NextDouble ();
 			}
 		}
-
-		public static T NewInstanceOf <T> (out List<double> data, int size)
+		
+		public static dynamic NewInstanceOf <T> (out List<double> data, int size)
 		{
 			data = HelperMethods.GetRandomDataSample (size).ToList ();
 			var cache = data.ToList ();
@@ -30,15 +30,15 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			
 			return calculator;
 		}
-
-		public static T NewInstanceOf <T> (ref List<double> data)
+		
+		public static dynamic NewInstanceOf <T> (ref List<double> data)
 		{
 			var calculator = (T)Activator.CreateInstance (typeof(T), new object[]{data.ToList ()});
 			data.Sort ();
 			
 			return calculator;
 		}
-
+		
 		public static double CalcNthXile (IList<double> data, int xile, int nTh)
 		{
 			var lx = data.Count * nTh / (double)xile;

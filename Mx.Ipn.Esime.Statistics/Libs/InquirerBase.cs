@@ -9,12 +9,12 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 	public abstract class InquirerBase: DynamicObject
 	{
-		private Dictionary<String, Object> RelatedData {
+		protected dynamic Inquirer {
 			get;
 			set;
 		}
 
-		protected dynamic Inquirer {
+		private Dictionary<String, Object> Properties {
 			get;
 			set;
 		}
@@ -22,21 +22,25 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 		public InquirerBase (IList<double> rawData)
 		{
 			AssertValidData (rawData);
-			RelatedData = new Dictionary<string, object> ();
+			Properties = new Dictionary<string, object> ();
 
 			var cache = rawData.ToList ();
 			cache.Sort ();
 			var readOnly = cache.AsReadOnly ();
 
-			RelatedData.Add ("Data", readOnly);
+			Properties.Add ("Data", readOnly);
 
-			InitDefaultInquirer ();
+			Inquirer = this;
 		}
 
 		public InquirerBase (InquirerBase inquirer)
 		{
+			if (inquirer == null)
+				throw new ArgumentNullException ("inquirer");
+
 			Inquirer = inquirer;
-			RelatedData = inquirer.RelatedData;
+
+			Properties = inquirer.Properties;
 		}
 
 		protected static void AssertValidData (ICollection<double> data)
@@ -58,8 +62,8 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 		{
 			var success = false;
 			result = null;
-			if (RelatedData.ContainsKey (binder.Name)) {
-				result = RelatedData [binder.Name];
+			if (Properties.ContainsKey (binder.Name)) {
+				result = Properties [binder.Name];
 				success = true;
 			}
 
@@ -68,18 +72,13 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 		public override bool TrySetMember (SetMemberBinder binder, object value)
 		{
-			if (RelatedData.ContainsKey (binder.Name)) {
-				RelatedData [binder.Name] = value;
+			if (Properties.ContainsKey (binder.Name)) {
+				Properties [binder.Name] = value;
 			} else {
-				RelatedData.Add (binder.Name, value);
+				Properties.Add (binder.Name, value);
 			}
 
 			return true;
-		}
-
-		protected virtual void InitDefaultInquirer ()
-		{
-			Inquirer = this;
 		}
 	}
 }

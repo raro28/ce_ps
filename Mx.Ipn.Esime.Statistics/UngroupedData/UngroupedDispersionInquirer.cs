@@ -16,6 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		public UngroupedDispersionInquirer (IList<double> rawData):base(rawData)
 		{		
+			Inquirer = new UngroupedCentralTendecyInquirer (this);
 		}
 
 		public double GetAbsoluteDeviation ()
@@ -92,11 +93,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return (double)coefficientOfKourtosis;
-		}
-
-		protected override void InitDefaultInquirer ()
-		{
-			Inquirer = new UngroupedCentralTendecyInquirer (this);
 		}
 
 		private double[] GetAllMomemtum ()

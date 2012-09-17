@@ -1,17 +1,12 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
 	using System.Collections.Generic;
-	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
 	public class GroupedXileInquirer:InquirerBase,IXileInquirer
 	{
 		public GroupedXileInquirer (IList<double> rawData):base(rawData)
 		{			
-		}
-		
-		public GroupedXileInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
-		{
 		}
 
 		public double GetDecile (int nTh)

@@ -10,7 +10,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 	{
 		public ReadOnlyCollection<double> Data {
 			get;
-			protected set;
+			private set;
 		}
 
 		protected dynamic Inquirer {
@@ -18,21 +18,13 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			set;
 		}
 
-		public InquirerBase (IList<double> rawData, IInquirer inquirer=null)
+		public InquirerBase (IList<double> rawData)
 		{
 			AssertValidData (rawData);
 			var cache = rawData.ToList ();
 			cache.Sort ();
 			var readOnly = cache.AsReadOnly ();
-			Inquirer = inquirer;
 			Data = readOnly;
-		}
-		
-		public InquirerBase (ReadOnlyCollection<double> sortedData, IInquirer inquirer)
-		{
-			AssertValidData (sortedData);
-			Inquirer = inquirer;
-			Data = sortedData;
 		}
 
 		protected static void AssertValidData (ICollection<double> data)

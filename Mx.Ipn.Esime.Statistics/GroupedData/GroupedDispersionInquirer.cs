@@ -1,17 +1,12 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
 	using System.Collections.Generic;
-	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
 	public class GroupedDispersionInquirer:InquirerBase,IDispersionInquirer
 	{
 		public GroupedDispersionInquirer (IList<double> rawData):base(rawData)
 		{			
-		}
-		
-		public GroupedDispersionInquirer (ReadOnlyCollection<double> sortedData, GroupedCentralTendecyInquirer inquirer):base(sortedData,inquirer)
-		{
 		}
 
 		public double GetAbsoluteDeviation ()

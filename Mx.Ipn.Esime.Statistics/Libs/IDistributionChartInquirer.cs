@@ -1,6 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.Libs
 {
-	public interface IDistributionChartInquirer:IInquirer
+	public interface IDistributionChartInquirer
 	{
 	}
 }

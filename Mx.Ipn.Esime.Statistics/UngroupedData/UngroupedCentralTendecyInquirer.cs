@@ -2,7 +2,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
 	using System.Linq;
-	using System.Collections.ObjectModel;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 	
@@ -14,10 +13,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		public UngroupedCentralTendecyInquirer (IList<double> rawData):base(rawData)
 		{	
-		}
-
-		public UngroupedCentralTendecyInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
-		{
 		}
 
 		public double GetMean ()

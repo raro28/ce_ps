@@ -2,20 +2,17 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
 	public class UngroupedXileInquirer:InquirerBase,IXileInquirer
 	{
-		private Dictionary<XileInfo,double> SavedXiles;
+		private Dictionary<XileInfo, double> SavedXiles {
+			get;
+			set;
+		}
 
 		public UngroupedXileInquirer (IList<double> rawData):base(rawData)
 		{			
-			SavedXiles = new Dictionary<XileInfo, double> ();
-		}
-
-		public UngroupedXileInquirer (ReadOnlyCollection<double> sortedData, IInquirer inquirer):base(sortedData, inquirer)
-		{
 			SavedXiles = new Dictionary<XileInfo, double> ();
 		}
 

@@ -2,7 +2,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System.Collections.Generic;
 	using System.Linq;
-	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
 	public class UngroupedRangesInquirer:InquirerBase,IRangesInquirer
@@ -15,10 +14,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public UngroupedRangesInquirer (IList<double> rawData):base(rawData)
 		{	
 			Inquirer = new UngroupedXileInquirer (rawData);
-		}
-
-		public UngroupedRangesInquirer (ReadOnlyCollection<double> sortedData, UngroupedXileInquirer inquirer):base(sortedData, inquirer)
-		{
 		}
 
 		public double GetDataRange ()

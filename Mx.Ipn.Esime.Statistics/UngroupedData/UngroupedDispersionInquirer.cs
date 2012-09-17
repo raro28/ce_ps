@@ -2,7 +2,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Collections.ObjectModel;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
 	public class UngroupedDispersionInquirer:InquirerBase,IDispersionInquirer
@@ -18,10 +17,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public UngroupedDispersionInquirer (IList<double> rawData):base(rawData)
 		{		
 			Inquirer = new UngroupedCentralTendecyInquirer (rawData);
-		}
-
-		public UngroupedDispersionInquirer (ReadOnlyCollection<double> sortedData, UngroupedCentralTendecyInquirer inquirer):base(sortedData, inquirer)
-		{
 		}
 
 		public double GetAbsoluteDeviation ()

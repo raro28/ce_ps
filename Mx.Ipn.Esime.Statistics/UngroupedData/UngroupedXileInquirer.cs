@@ -16,6 +16,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			SavedXiles = new Dictionary<XileInfo, double> ();
 		}
 
+		public UngroupedXileInquirer (InquirerBase inquirer):base(inquirer)
+		{
+			SavedXiles = new Dictionary<XileInfo, double> ();
+		}
+
 		public double GetDecile (int nTh)
 		{
 			var xileInfo = AssertValidXile (nTh, Xiles.Decile);

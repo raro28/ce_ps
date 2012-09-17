@@ -33,6 +33,12 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			InitDefaultInquirer ();
 		}
 
+		public InquirerBase (InquirerBase inquirer)
+		{
+			Inquirer = inquirer;
+			RelatedData = inquirer.RelatedData;
+		}
+
 		protected static void AssertValidData (ICollection<double> data)
 		{
 			if (data == null) {
@@ -71,7 +77,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			return true;
 		}
 
-		private void InitDefaultInquirer ()
+		protected virtual void InitDefaultInquirer ()
 		{
 			Inquirer = this;
 		}

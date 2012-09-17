@@ -14,11 +14,15 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{	
 		}
 
+		public UngroupedCentralTendecyInquirer (InquirerBase inquirer):base(inquirer)
+		{
+		}
+
 		public double GetMean ()
 		{
 			if (mean == null) {
 
-				mean = ((IEnumerable<double>)Inquirer.Data).Sum() / Inquirer.Data.Count;
+				mean = ((IEnumerable<double>)Inquirer.Data).Sum () / Inquirer.Data.Count;
 			}
 			
 			return (double)mean;

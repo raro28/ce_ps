@@ -13,13 +13,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		public UngroupedRangesInquirer (IList<double> rawData):base(rawData)
 		{	
-			Inquirer = new UngroupedXileInquirer (rawData);
 		}
 
 		public double GetDataRange ()
 		{
 			if (range == null) {
-				var data = (IEnumerable<double>) Inquirer.Data;
+				var data = (IEnumerable<double>)Inquirer.Data;
 				range = data.Max () - data.Min ();
 			}
 
@@ -51,6 +50,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			}
 			
 			return (double)pRange;
+		}
+
+		protected override void InitDefaultInquirer ()
+		{
+			Inquirer = new UngroupedXileInquirer (this);
 		}
 	}
 }

@@ -14,7 +14,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			set;
 		}
 
-		private Dictionary<String, Object> Properties {
+		protected Dictionary<String, Object> Properties {
 			get;
 			set;
 		}
@@ -35,7 +35,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			Inquirer = this;
 		}
 
-		public InquirerBase (DynamicObject inquirer)
+		public InquirerBase (InquirerBase inquirer)
 		{
 			if (inquirer == null)
 				throw new StatisticsException ("Null data Inquirer.", new ArgumentNullException ("inquirer"));

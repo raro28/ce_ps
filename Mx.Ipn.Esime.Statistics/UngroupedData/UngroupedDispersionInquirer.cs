@@ -24,11 +24,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			if (absoluteDeviation == null) {
 				var nAbsDev = 0.0;
 				var mean = Inquirer.GetMean ();
-				foreach (var item in Data) {
+				foreach (var item in Inquirer.Data) {
 					nAbsDev += Math.Abs (item - mean);
 				}
 
-				absoluteDeviation = nAbsDev / Data.Count;
+				absoluteDeviation = nAbsDev / Inquirer.Data.Count;
 			}
 
 			return (double)absoluteDeviation;
@@ -39,11 +39,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			if (variance == null) {
 				var nplus1Variance = 0.0;
 				var mean = Inquirer.GetMean ();
-				foreach (var item in Data) {
+				foreach (var item in Inquirer.Data) {
 					nplus1Variance += Math.Pow ((item - mean), 2);
 				}
 				
-				variance = nplus1Variance / (Data.Count + 1);
+				variance = nplus1Variance / (Inquirer.Data.Count + 1);
 			}
 			
 			return (double)variance;
@@ -100,16 +100,16 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			if (allMomentum == null) {
 				allMomentum = new double[3];
 				var mean = Inquirer.GetMean ();
-				foreach (var item in Data) {
+				foreach (var item in Inquirer.Data) {
 					var meanDiff = (item - mean);
 					allMomentum [0] += Math.Pow (meanDiff, 2);
 					allMomentum [1] += Math.Pow (meanDiff, 3);
 					allMomentum [2] += Math.Pow (meanDiff, 4);
 				}
 
-				allMomentum [0] /= Data.Count;
-				allMomentum [1] /= Data.Count;
-				allMomentum [2] /= Data.Count;
+				allMomentum [0] /= Inquirer.Data.Count;
+				allMomentum [1] /= Inquirer.Data.Count;
+				allMomentum [2] /= Inquirer.Data.Count;
 			}
 
 			return allMomentum;

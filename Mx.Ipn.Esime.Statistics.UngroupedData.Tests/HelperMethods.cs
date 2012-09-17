@@ -21,7 +21,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			}
 		}
 
-		public static T NewInstanceOf <T> (out List<double> data, int size)
+		public static dynamic NewInstanceOf <T> (out List<double> data, int size)
 		{
 			data = HelperMethods.GetRandomDataSample (size).ToList ();
 			var cache = data.ToList ();
@@ -31,7 +31,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			return calculator;
 		}
 
-		public static T NewInstanceOf <T> (ref List<double> data)
+		public static dynamic NewInstanceOf <T> (ref List<double> data)
 		{
 			var calculator = (T)Activator.CreateInstance (typeof(T), new object[]{data.ToList ()});
 			data.Sort ();

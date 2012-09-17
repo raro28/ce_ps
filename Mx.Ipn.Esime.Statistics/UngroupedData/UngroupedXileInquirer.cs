@@ -44,17 +44,17 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{
 			double xileResult = Double.MinValue;
 			if (!SavedXiles.ContainsKey (xileInfo)) {
-				var lx = Data.Count * xileInfo.NthXile / (double)xileInfo.Xile;
+				var lx = Inquirer.Data.Count * xileInfo.NthXile / (double)xileInfo.Xile;
 				var li = (int)Math.Floor (lx - 0.5);
 				var ls = (int)Math.Floor (lx + 0.5);
-				if (ls == Data.Count) {
+				if (ls == Inquirer.Data.Count) {
 					ls = li;
 				}
 				
 				var iPortion = li + 1 - (lx - 0.5);
 				var sPortion = 1 - iPortion;
 				
-				xileResult = iPortion * Data [li] + sPortion * Data [ls];
+				xileResult = iPortion * Inquirer.Data [li] + sPortion * Inquirer.Data [ls];
 
 				SavedXiles.Add (xileInfo, xileResult);
 			} else {

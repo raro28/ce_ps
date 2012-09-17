@@ -19,7 +19,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public double GetDataRange ()
 		{
 			if (range == null) {
-				range = Data.Max () - Data.Min ();
+				var data = (IEnumerable<double>) Inquirer.Data;
+				range = data.Max () - data.Min ();
 			}
 
 			return (double)range;

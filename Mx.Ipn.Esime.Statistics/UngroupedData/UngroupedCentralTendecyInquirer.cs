@@ -1,6 +1,5 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
-	using System;
 	using System.Linq;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
@@ -18,7 +17,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public double GetMean ()
 		{
 			if (mean == null) {
-				mean = Data.Sum () / Data.Count;
+
+				mean = ((IEnumerable<double>)Inquirer.Data).Sum() / Inquirer.Data.Count;
 			}
 			
 			return (double)mean;
@@ -27,8 +27,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public double GetMedian ()
 		{
 			if (median == null) {
-				var midIndex = (Data.Count / 2) - 1;
-				median = Data.Count % 2 != 0 ? Data [midIndex + 1] : (Data [midIndex] + Data [midIndex + 1]) / 2;
+				var midIndex = (Inquirer.Data.Count / 2) - 1;
+				median = Inquirer.Data.Count % 2 != 0 ? Inquirer.Data [midIndex + 1] : (Inquirer.Data [midIndex] + Inquirer.Data [midIndex + 1]) / 2;
 			}
 			
 			return (double)median;
@@ -37,7 +37,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public IList<double> GetMode ()
 		{
 			if (mode == null) {
-				var groups = Data.GroupBy (data => data);
+				var groups = ((IEnumerable<double>)Inquirer.Data).GroupBy (data => data);
 				var modes = from _mode in groups
 					where _mode.Count () == groups.Max (grouped => grouped.Count ())
 					select _mode.First ();

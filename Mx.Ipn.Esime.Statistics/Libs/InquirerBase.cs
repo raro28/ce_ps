@@ -2,15 +2,16 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 {
 	using System;
 	using System.Linq;
+	using System.Dynamic;
 	using System.Collections.ObjectModel;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public abstract class InquirerBase
+	public abstract class InquirerBase: DynamicObject
 	{
-		public ReadOnlyCollection<double> Data {
+		private Dictionary<String, Object> RelatedData {
 			get;
-			private set;
+			set;
 		}
 
 		protected dynamic Inquirer {
@@ -21,10 +22,15 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 		public InquirerBase (IList<double> rawData)
 		{
 			AssertValidData (rawData);
+			RelatedData = new Dictionary<string, object> ();
+
 			var cache = rawData.ToList ();
 			cache.Sort ();
 			var readOnly = cache.AsReadOnly ();
-			Data = readOnly;
+
+			RelatedData.Add ("Data", readOnly);
+
+			InitDefaultInquirer ();
 		}
 
 		protected static void AssertValidData (ICollection<double> data)
@@ -40,6 +46,34 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			if (data.Count == 1) {
 				throw new StatisticsException ("Insufficient data.");
 			}
+		}
+
+		public override bool TryGetMember (GetMemberBinder binder, out object result)
+		{
+			var success = false;
+			result = null;
+			if (RelatedData.ContainsKey (binder.Name)) {
+				result = RelatedData [binder.Name];
+				success = true;
+			}
+
+			return success;
+		}
+
+		public override bool TrySetMember (SetMemberBinder binder, object value)
+		{
+			if (RelatedData.ContainsKey (binder.Name)) {
+				RelatedData [binder.Name] = value;
+			} else {
+				RelatedData.Add (binder.Name, value);
+			}
+
+			return true;
+		}
+
+		private void InitDefaultInquirer ()
+		{
+			Inquirer = this;
 		}
 	}
 }

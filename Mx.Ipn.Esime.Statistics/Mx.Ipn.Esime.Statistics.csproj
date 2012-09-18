@@ -44,18 +44,19 @@
     <Compile Include="UngroupedData\UngroupedXileInquirer.cs" />
     <Compile Include="UngroupedData\UngroupedDispersionInquirer.cs" />
     <Compile Include="Libs\IDistributionChartInquirer.cs" />
-    <Compile Include="Libs\InquirerBase.cs" />
     <Compile Include="GroupedData\DataDistributionFrequencyInquirer.cs" />
     <Compile Include="GroupedData\GroupedCentralTendecyInquirer.cs" />
     <Compile Include="GroupedData\GroupedDispersionInquirer.cs" />
     <Compile Include="GroupedData\GroupedRangesInquirer.cs" />
     <Compile Include="GroupedData\GroupedXileInquirer.cs" />
-    <Compile Include="Libs\XileInquirerBase.cs" />
+    <Compile Include="Libs\Bases\InquirerBase.cs" />
+    <Compile Include="Libs\Bases\XileInquirerBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Libs\" />
     <Folder Include="UngroupedData\" />
     <Folder Include="GroupedData\" />
+    <Folder Include="Libs\Bases\" />
   </ItemGroup>
 </Project>

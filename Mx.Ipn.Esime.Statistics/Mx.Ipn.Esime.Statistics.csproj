@@ -50,6 +50,7 @@
     <Compile Include="GroupedData\GroupedDispersionInquirer.cs" />
     <Compile Include="GroupedData\GroupedRangesInquirer.cs" />
     <Compile Include="GroupedData\GroupedXileInquirer.cs" />
+    <Compile Include="Libs\XileInquirerBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

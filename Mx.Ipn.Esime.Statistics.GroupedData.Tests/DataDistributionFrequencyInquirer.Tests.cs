@@ -16,6 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			var calculator = HelperMethods.NewInstanceOf<GroupedDispersionInquirer> (out sortedData, size: 7);
 
 			calculator.GetMean ();
+			calculator.GetDecile (5);
 			((IEnumerable<double>)calculator.GetMeanDifference (2)).ToList ();
 			((IEnumerable<double>)calculator.GetMeanDifference (3)).ToList ();
 			((IEnumerable<double>)calculator.GetMeanDifference (4)).ToList ();

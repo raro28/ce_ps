@@ -112,7 +112,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,CI)")) {
 				var frequencyTable = new List<dynamic> (Inquirer.Groups);
-				Inquirer.Answers.Add ("add(table,CI)", frequencyTable);
+				Inquirer.Answers.Add ("add(table,CI)", frequencyTable.AsReadOnly ());
 				var inferiorClassLimit = Enumerable.Min (Inquirer.Data);
 				var superiorClassLimit = inferiorClassLimit + Inquirer.Amplitude - Inquirer.DataPresicionValue;
 				for (int i = 1; i <= Inquirer.Groups; i++) {

@@ -14,7 +14,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		{
 			StatisticsException exception = null;
 			try {
-				var calculator = new UngroupedRangesInquirer (null);
+				var calculator = new UngroupedRangesInquirer (rawData: null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

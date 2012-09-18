@@ -1,5 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
+	using System.Linq;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
@@ -9,9 +10,20 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{			
 		}
 
+		public GroupedCentralTendecyInquirer (InquirerBase inquirer):base(inquirer)
+		{
+		}
+
 		public double GetMean ()
 		{
-			throw new System.NotImplementedException ();
+			if (!Inquirer.Answers.ContainsKey ("get(mean)")) {
+				var fxSum = Enumerable.Sum (Inquirer.GetFrequenciesTimesClassMarksTable ());
+				var mean = fxSum / Inquirer.Data.Count;
+
+				Inquirer.Answers.Add ("get(mean)", mean);
+			}
+			
+			return Inquirer.Answers ["get(mean)"];
 		}
 
 		public double GetMedian ()

@@ -4,7 +4,6 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 	public interface IExtendedDistributionChartInquirer:IDistributionChartInquirer
 	{
-		IEnumerable<double> GetMeanDifference (int nthDifference);
 	}
 }
 

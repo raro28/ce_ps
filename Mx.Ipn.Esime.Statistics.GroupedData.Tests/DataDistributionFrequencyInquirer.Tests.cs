@@ -13,7 +13,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		public void Inquirer_POC_Test ()
 		{
 			List<double> sortedData;
-			DataDistributionFrequencyInquirer calculator = HelperMethods.NewInstanceOf<DataDistributionFrequencyInquirer> (out sortedData, size: 7);
+			ExtendedDataDistributionFrequencyInquirer calculator = HelperMethods.NewInstanceOf<ExtendedDataDistributionFrequencyInquirer> (out sortedData, size: 7);
+			((dynamic)calculator).GetMean ();
+			calculator.GetMeanDifference (1).ToList ();
 			calculator.GetClassIntervalsTable ().ToList ();
 			calculator.GetFrequencyTable ().ToList ();
 			calculator.GetAcumulatedFrequencyTable ().ToList ();
@@ -21,6 +23,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			calculator.GetAcumulatedRelativeFrequencyTable ().ToList ();
 			calculator.GetClassMarksTable ().ToList ();
 			calculator.GetRealClassIntervalsTable ().ToList ();
+			calculator.GetFrequenciesTimesClassMarksTable ().ToList ();
 		}
 	}
 }

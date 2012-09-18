@@ -104,6 +104,15 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}		
 		}
 
+		public IEnumerable<double> GetFrequenciesTimesClassMarksTable ()
+		{
+			var frequencyTable = AddFrequenciesTimesClassMarks ();
+			
+			foreach (var item in frequencyTable) {
+				yield return item.fX;
+			}		
+		}
+
 		public IEnumerable<dynamic> AddClassIntervals ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,CI)")) {
@@ -218,6 +227,20 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}
 
 			return Inquirer.Answers ["add(table,RI)"];
+		}
+
+		public IEnumerable<dynamic>  AddFrequenciesTimesClassMarks ()
+		{
+			if (!Inquirer.Answers.ContainsKey ("add(table,fX)")) {
+				var frequencyTable = AddFrequencies ();
+				AddClassMarks ();
+				Inquirer.Answers.Add ("add(table,fX)", frequencyTable);
+				foreach (var item in frequencyTable) {
+					item.fX = item.Frequency * item.ClassMark;
+				}
+			}
+			
+			return Inquirer.Answers ["add(table,fX)"];
 		}
 	}	
 }

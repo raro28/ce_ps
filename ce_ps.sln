@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.Ung
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.GroupedData.Tests", "Mx.Ipn.Esime.Statistics.GroupedData.Tests\Mx.Ipn.Esime.Statistics.GroupedData.Tests.csproj", "{AD9AF9A5-1869-4819-934E-AB7E93030324}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{04A119EE-CE3E-41EE-ABD7-D8D93E5FC334}"
+	ProjectSection(SolutionItems) = preProject
+		nunit.framework.dll = nunit.framework.dll
+		nunit.framework.xml = nunit.framework.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +34,8 @@ Global
 		{BBA01040-73A6-4928-987C-C43B49246614}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA01040-73A6-4928-987C-C43B49246614}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA01040-73A6-4928-987C-C43B49246614}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Mx.Ipn.Esime.Statistics\Mx.Ipn.Esime.Statistics.csproj

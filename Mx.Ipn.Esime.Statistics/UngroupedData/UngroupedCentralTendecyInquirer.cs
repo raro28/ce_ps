@@ -4,7 +4,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 	
-	public class UngroupedCentralTendecyInquirer:InquirerBase,ICentralTendencyInquirer
+	public class UngroupedCentralTendecyInquirer:CentralTendecyInquirerBase
 	{
 		public UngroupedCentralTendecyInquirer (List<double> rawData):base(rawData)
 		{	
@@ -17,38 +17,29 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{
 		}
 
-		public double GetMean ()
+		protected override double CalcMean ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(mean)")) {
+			var mean = ((IEnumerable<double>)Inquirer.Data).Sum () / Inquirer.Data.Count;
 
-				Inquirer.Answers.Add ("get(mean)", ((IEnumerable<double>)Inquirer.Data).Sum () / Inquirer.Data.Count);
-			}
-			
-			return Inquirer.Answers ["get(mean)"];
+			return mean;
 		}
 
-		public double GetMedian ()
+		protected override double CalMedian ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(median)")) {
-				var midIndex = (Inquirer.Data.Count / 2) - 1;
-				Inquirer.Answers.Add ("get(median)", Inquirer.Data.Count % 2 != 0 ? Inquirer.Data [midIndex + 1] : (Inquirer.Data [midIndex] + Inquirer.Data [midIndex + 1]) / 2);
-			}
-			
-			return Inquirer.Answers ["get(median)"];
+			var midIndex = (Inquirer.Data.Count / 2) - 1;
+			var median = Inquirer.Data.Count % 2 != 0 ? Inquirer.Data [midIndex + 1] : (Inquirer.Data [midIndex] + Inquirer.Data [midIndex + 1]) / 2;
+
+			return median;
 		}
 
-		public IList<double> GetMode ()
+		protected override IList<double> CalModes ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(mode)")) {
-				var groups = ((IEnumerable<double>)Inquirer.Data).GroupBy (data => data);
-				var modes = from _mode in groups
+			var groups = ((IEnumerable<double>)Inquirer.Data).GroupBy (data => data);
+			var modes = (from _mode in groups
 					where _mode.Count () == groups.Max (grouped => grouped.Count ())
-					select _mode.First ();
+						select _mode.First ()).ToList ();
 
-				Inquirer.Answers.Add ("get(mode)", modes.ToList ());
-			}
-			
-			return Inquirer.Answers ["get(mode)"];
+			return modes;
 		}
 	}
 }

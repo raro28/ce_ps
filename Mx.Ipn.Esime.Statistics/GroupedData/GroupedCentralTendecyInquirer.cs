@@ -4,38 +4,34 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class GroupedCentralTendecyInquirer:InquirerBase, ICentralTendencyInquirer
+	public class GroupedCentralTendecyInquirer:CentralTendecyInquirerBase
 	{
 		public GroupedCentralTendecyInquirer (List<double> rawData):base(rawData)
 		{			
-			var distribution = new DataDistributionFrequencyInquirer(this);
-			var xiles = new GroupedXileInquirer(distribution);
+			var distribution = new DataDistributionFrequencyInquirer (this);
+			var xiles = new GroupedXileInquirer (distribution);
 
-			Inquirer = new GroupedRangesInquirer(xiles);
+			Inquirer = new GroupedRangesInquirer (xiles);
 		}
 
 		public GroupedCentralTendecyInquirer (InquirerBase inquirer):base(inquirer)
 		{			
 		}
 
-		public double GetMean ()
+		protected override double CalcMean ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(mean)")) {
-				var fxSum = Enumerable.Sum (Inquirer.GetFrequenciesTimesClassMarksTable ());
-				var mean = fxSum / Inquirer.Data.Count;
+			var fxSum = Enumerable.Sum (Inquirer.GetFrequenciesTimesClassMarksTable ());
+			var mean = fxSum / Inquirer.Data.Count;
 
-				Inquirer.Answers.Add ("get(mean)", mean);
-			}
-			
-			return Inquirer.Answers ["get(mean)"];
+			return mean;
 		}
 
-		public double GetMedian ()
+		protected override double CalMedian ()
 		{
 			throw new System.NotImplementedException ();
 		}
 
-		public IList<double> GetMode ()
+		protected override IList<double> CalModes ()
 		{
 			throw new System.NotImplementedException ();
 		}

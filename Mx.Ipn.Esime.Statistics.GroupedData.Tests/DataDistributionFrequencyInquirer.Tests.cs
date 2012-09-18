@@ -18,8 +18,15 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			calculator.GetMean ();
 			calculator.GetMode ();
 			calculator.GetMedian ();
-			calculator.GetDecile (5);
+			calculator.GetDecile (6);
+			calculator.GetPercentile (49);
 			calculator.GetDataRange ();
+			calculator.GetAbsoluteDeviation ();
+			calculator.GetVariance ();
+			calculator.GetStandarDeviation ();
+			calculator.GetCoefficientOfVariation ();
+			calculator.GetCoefficientOfSymmetry ();
+			calculator.GetCoefficientOfKourtosis ();
 			((IEnumerable<double>)calculator.GetMeanDifference (2)).ToList ();
 			((IEnumerable<double>)calculator.GetMeanDifference (3)).ToList ();
 			((IEnumerable<double>)calculator.GetMeanDifference (4)).ToList ();

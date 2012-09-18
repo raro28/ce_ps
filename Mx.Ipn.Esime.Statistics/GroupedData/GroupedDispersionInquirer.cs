@@ -1,6 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
 	using System;
+	using System.Linq;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
@@ -15,18 +16,22 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			Inquirer = new GroupedCentralTendecyInquirer (ranges);
 		}
 
-		public IEnumerable<double> GetMeanDifference (int nthDifference)
+		public IEnumerable<double> GetMeanDifference (int power)
 		{
-			var frequencyTable = AddMeanDifference (nthDifference);
+			var frequencyTable = AddMeanDifference (power);
 			
 			foreach (var item in frequencyTable) {
 				//TODO:WTF!
-				yield return (double)((IDictionary<String,Object>)item) ["fMeanDiffE" + nthDifference];
+				yield return (double)((IDictionary<String,Object>)item) [String.Format ("fMeanDiffE{0}", power)];
 			}
 		}
 		
 		public IEnumerable<dynamic> AddMeanDifference (int power)
 		{		
+			if (power < 1 || power > 4) {
+				throw new StatisticsException (String.Format ("Invalid power:{0}", power));
+			}
+
 			var keyProperty = String.Format ("fMeanDiffE{0}", power);
 			var keyDifference = String.Format ("add(table,{0})", keyProperty);
 			if (!Inquirer.Answers.ContainsKey (keyDifference)) {
@@ -36,7 +41,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 				
 				Inquirer.Answers.Add (keyDifference, frequencyTable);
 				foreach (var item in frequencyTable) {
-					((IDictionary<String,Object>)item).Add (keyProperty, item.Frequency * Math.Pow (item.ClassMark - mean, power));
+					var difference = power == 1 ? item.ClassMark - mean : Math.Abs (item.ClassMark - mean);
+					((IDictionary<String,Object>)item).Add (keyProperty, item.Frequency * Math.Pow (difference, power));
 				}
 			}
 			
@@ -45,17 +51,23 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		protected override double CalcAbsoluteDeviation ()
 		{
-			throw new NotImplementedException ();
+			var mad = GetMeanDifference (1).Sum () / Inquirer.Data.Count;
+
+			return mad;
 		}
 
 		protected override double CalcVariance ()
 		{
-			throw new NotImplementedException ();
+			var variance = GetMeanDifference (2).Sum () / (Inquirer.Data.Count - 1);
+			
+			return variance;
 		}
 
 		protected override double CalcMomentum (int nMomentum)
 		{
-			throw new NotImplementedException ();
+			var momentum = GetMeanDifference (nMomentum).Sum () / Inquirer.Data.Count;
+			
+			return momentum;
 		}
 	}
 }

@@ -8,7 +8,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	{
 		public UngroupedDispersionInquirer (List<double> rawData):base(rawData)
 		{		
-			Inquirer = new UngroupedCentralTendecyInquirer (this);
+			var xiles = new UngroupedXileInquirer (this);
+			var ranges = new UngroupedRangesInquirer (xiles);
+			
+			Inquirer = new UngroupedCentralTendecyInquirer (ranges);
 		}
 
 		public double GetAbsoluteDeviation ()

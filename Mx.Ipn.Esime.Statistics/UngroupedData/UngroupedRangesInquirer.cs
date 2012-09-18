@@ -11,6 +11,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			Inquirer = new UngroupedXileInquirer (this);
 		}
 
+		public UngroupedRangesInquirer (InquirerBase inquirer):base(inquirer)
+		{
+		}
+
 		public double GetDataRange ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("get(range)")) {

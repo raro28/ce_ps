@@ -24,7 +24,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return mean;
 		}
 
-		protected override double CalMedian ()
+		protected override double CalcMedian ()
 		{
 			var midIndex = (Inquirer.Data.Count / 2) - 1;
 			var median = Inquirer.Data.Count % 2 != 0 ? Inquirer.Data [midIndex + 1] : (Inquirer.Data [midIndex] + Inquirer.Data [midIndex + 1]) / 2;
@@ -32,7 +32,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return median;
 		}
 
-		protected override IList<double> CalModes ()
+		protected override IList<double> CalcModes ()
 		{
 			var groups = ((IEnumerable<double>)Inquirer.Data).GroupBy (data => data);
 			var modes = (from _mode in groups

@@ -17,7 +17,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		public static IEnumerable<double> GetRandomDataSample (int size)
 		{
 			for (int i = 1; i <= size; i++) {
-				yield return rnd.Next ((int)(size * 1.1)) + Math.Round (rnd.NextDouble (), 2);
+				yield return rnd.Next () + Math.Round (rnd.NextDouble (), 2);
 			}
 		}
 		

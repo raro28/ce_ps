@@ -13,9 +13,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		public void Inquirer_POC_Test ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<GroupedDispersionInquirer> (out sortedData, size: 7);
+			var calculator = HelperMethods.NewInstanceOf<GroupedDispersionInquirer> (out sortedData, size: 100);
 
 			calculator.GetMean ();
+			calculator.GetMode ();
+			calculator.GetMedian ();
 			calculator.GetDecile (5);
 			calculator.GetDataRange ();
 			((IEnumerable<double>)calculator.GetMeanDifference (2)).ToList ();

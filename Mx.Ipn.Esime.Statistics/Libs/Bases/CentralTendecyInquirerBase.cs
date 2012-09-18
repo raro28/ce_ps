@@ -24,7 +24,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 		public double GetMedian ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("get(median)")) {
-				Inquirer.Answers.Add ("get(median)", CalMedian ());
+				Inquirer.Answers.Add ("get(median)", CalcMedian ());
 			}
 			
 			return Inquirer.Answers ["get(median)"];
@@ -33,7 +33,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 		public IList<double> GetMode ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("get(mode)")) {							
-				Inquirer.Answers.Add ("get(mode)", CalModes ());
+				Inquirer.Answers.Add ("get(mode)", CalcModes ());
 			}
 			
 			return Inquirer.Answers ["get(mode)"];
@@ -41,9 +41,9 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 		protected abstract double CalcMean ();
 
-		protected abstract double CalMedian ();
+		protected abstract double CalcMedian ();
 
-		protected abstract IList<double> CalModes ();
+		protected abstract IList<double> CalcModes ();
 	}
 }
 

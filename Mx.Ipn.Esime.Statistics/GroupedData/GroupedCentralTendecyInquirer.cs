@@ -26,14 +26,27 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			return mean;
 		}
 
-		protected override double CalMedian ()
+		protected override double CalcMedian ()
 		{
-			throw new System.NotImplementedException ();
+			var median = Inquirer.GetQuartile (2);
+
+			return median;
 		}
 
-		protected override IList<double> CalModes ()
+		protected override IList<double> CalcModes ()
 		{
-			throw new System.NotImplementedException ();
+			Inquirer.AddFrequencies ();
+			var table = ((IEnumerable<dynamic>)Inquirer.AddRealClassIntervals ()).ToList ();
+			var maxFreqItem = table.OrderByDescending (item => item.Frequency).First ();
+
+			var iMaxFreqItem = table.IndexOf (maxFreqItem);
+
+			var d1 = maxFreqItem.Frequency - (iMaxFreqItem != 0 ? table [iMaxFreqItem - 1].Frequency : 0);
+			var d2 = maxFreqItem.Frequency - (iMaxFreqItem < (table.Count - 1) ? table [iMaxFreqItem + 1].Frequency : 0);
+
+			var mode = maxFreqItem.RealInterval.From + ((d1 * Inquirer.Amplitude) / (d1 + d2));
+
+			return new List<double> (){mode};
 		}
 	}
 }

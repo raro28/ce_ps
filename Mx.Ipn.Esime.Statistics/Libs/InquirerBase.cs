@@ -93,11 +93,11 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			return true;
 		}
 
-		private double GetDataPresicion ()
+		private int GetDataPresicion ()
 		{
 			var data = (IEnumerable<double>)Inquirer.Data;
 
-			var decimalLengths = (from item in data 
+			var decimalLengths = (from item in data.SkipWhile (item => (item + "").LastIndexOf (".") == -1)
 				select (item + "").Substring ((item + "").LastIndexOf ('.') + 1).Length).ToList ();
 
 			var maxLenght = decimalLengths.Count () != 0 ? decimalLengths.Max () : 0;

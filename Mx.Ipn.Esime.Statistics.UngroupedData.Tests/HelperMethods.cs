@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using System.Linq;
 	using System.Collections.Generic;
 
-	public static class HelperMethods
+	public static class HelperMethods<T>
 	{
 		private static Random rnd;
 
@@ -21,17 +21,17 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			}
 		}
 
-		public static dynamic NewInstanceOf <T> (out List<double> data, int size)
+		public static dynamic NewInstance (out List<double> data, int size)
 		{
-			data = HelperMethods.GetRandomDataSample (size).ToList ();
+			data = HelperMethods<T>.GetRandomDataSample (size).ToList ();
 			var cache = data.ToList ();
-			var calculator = NewInstanceOf<T> (ref cache);
+			var calculator = NewInstance (ref cache);
 			data = cache;
 			
 			return calculator;
 		}
 
-		public static dynamic NewInstanceOf <T> (ref List<double> data)
+		public static dynamic NewInstance (ref List<double> data)
 		{
 			var calculator = (T)Activator.CreateInstance (typeof(T), new object[]{data.ToList ()});
 			data.Sort ();

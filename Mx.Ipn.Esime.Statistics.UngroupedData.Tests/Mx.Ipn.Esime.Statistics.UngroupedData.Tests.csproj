@@ -38,13 +38,10 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="HelperMethods.cs" />
-    <Compile Include="UngroupedCentralTendecyInquirer.Exception.Tests.cs" />
-    <Compile Include="UngroupedDispersionInquirer.Exception.Tests.cs" />
     <Compile Include="UngroupedCentralTendecyInquirer.Tests.cs" />
     <Compile Include="UngroupedDispersionInquirer.Tests.cs" />
-    <Compile Include="UngroupedRangesInquirer.Exception.Tests.cs" />
+    <Compile Include="UngroupedInquirerBase_Tests.Tests.cs" />
     <Compile Include="UngroupedRangesInquirer.Tests.cs" />
-    <Compile Include="UngroupedXileInquirer.Exception.Tests.cs" />
     <Compile Include="UngroupedXileInquirer.Tests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

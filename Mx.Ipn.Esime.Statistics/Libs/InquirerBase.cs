@@ -64,10 +64,19 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
 		{
-			var method = Inquirer.GetType ().GetMethod (binder.Name);
-			result = method.Invoke (Inquirer, args);
+			var success = false;
+			result = null;
+			var innerInquirer = Inquirer;
+			do {
+				var method = innerInquirer.GetType ().GetMethod (binder.Name);
+				if (method != null) {
+					result = method.Invoke (innerInquirer, args);
+					success = true;
+				}
+				innerInquirer = innerInquirer.Inquirer;
+			} while(!success&&!innerInquirer.GetType().Equals(GetType()));
 
-			return true;
+			return success;
 		}
 
 		public override bool TryGetMember (GetMemberBinder binder, out object result)

@@ -26,19 +26,14 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class DataDistributionFrequencyInquirer:InquirerBase,IDistributionChartInquirer
 	{
+		public DataDistributionFrequencyInquirer (InquirerBase inquirer):base(inquirer)
+		{
+			InitProperties ();
+		}
+
 		public DataDistributionFrequencyInquirer (List<double> rawData):base(rawData)
 		{
-			Inquirer.Max = Enumerable.Max (Inquirer.Data);
-			Inquirer.Min = Enumerable.Min (Inquirer.Data);
-
-			Inquirer.Range = Inquirer.Max - Inquirer.Min;
-			Inquirer.Groups = (int)Math.Round (Math.Sqrt (Inquirer.Data.Count));
-			Inquirer.Amplitude = Math.Round (Inquirer.Range / Inquirer.Groups, Inquirer.DataPresicion);
-			Inquirer.DataPresicionValue = (1 / Math.Pow (10, Inquirer.DataPresicion));
-
-			if ((Inquirer.Min + Inquirer.Amplitude * Inquirer.Groups - Inquirer.DataPresicionValue) <= Inquirer.Max) {
-				Inquirer.Amplitude += Inquirer.DataPresicionValue;
-			}
+			InitProperties ();
 		}
 
 		public IEnumerable<Interval> GetClassIntervalsTable ()
@@ -241,6 +236,19 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}
 			
 			return Inquirer.Answers ["add(table,fX)"];
+		}
+
+		void InitProperties ()
+		{
+			Inquirer.Max = Enumerable.Max (Inquirer.Data);
+			Inquirer.Min = Enumerable.Min (Inquirer.Data);
+			Inquirer.Range = Inquirer.Max - Inquirer.Min;
+			Inquirer.Groups = (int)Math.Round (Math.Sqrt (Inquirer.Data.Count));
+			Inquirer.Amplitude = Math.Round (Inquirer.Range / Inquirer.Groups, Inquirer.DataPresicion);
+			Inquirer.DataPresicionValue = (1 / Math.Pow (10, Inquirer.DataPresicion));
+			if ((Inquirer.Min + Inquirer.Amplitude * Inquirer.Groups - Inquirer.DataPresicionValue) <= Inquirer.Max) {
+				Inquirer.Amplitude += Inquirer.DataPresicionValue;
+			}
 		}
 	}	
 }

@@ -6,7 +6,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 	public class GroupedRangesInquirer:InquirerBase,IRangesInquirer
 	{
 		public GroupedRangesInquirer (List<double> rawData):base(rawData)
-		{			
+		{	
+			var distribution = new DataDistributionFrequencyInquirer(this);
+			Inquirer = new GroupedXileInquirer(distribution);
+		}
+
+		public GroupedRangesInquirer (InquirerBase inquirer):base(inquirer)
+		{		
 		}
 
 		public double GetDataRange ()

@@ -13,17 +13,20 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		public void Inquirer_POC_Test ()
 		{
 			List<double> sortedData;
-			ExtendedDataDistributionFrequencyInquirer calculator = HelperMethods.NewInstanceOf<ExtendedDataDistributionFrequencyInquirer> (out sortedData, size: 7);
-			((dynamic)calculator).GetMean ();
-			calculator.GetMeanDifference (1).ToList ();
-			calculator.GetClassIntervalsTable ().ToList ();
-			calculator.GetFrequencyTable ().ToList ();
-			calculator.GetAcumulatedFrequencyTable ().ToList ();
-			calculator.GetRelativeFrequencyTable ().ToList ();
-			calculator.GetAcumulatedRelativeFrequencyTable ().ToList ();
-			calculator.GetClassMarksTable ().ToList ();
-			calculator.GetRealClassIntervalsTable ().ToList ();
-			calculator.GetFrequenciesTimesClassMarksTable ().ToList ();
+			var calculator = HelperMethods.NewInstanceOf<GroupedDispersionInquirer> (out sortedData, size: 7);
+
+			calculator.GetMean ();
+			((IEnumerable<double>)calculator.GetMeanDifference (2)).ToList ();
+			((IEnumerable<double>)calculator.GetMeanDifference (3)).ToList ();
+			((IEnumerable<double>)calculator.GetMeanDifference (4)).ToList ();
+			((IEnumerable<Interval>)calculator.GetClassIntervalsTable ()).ToList ();
+			((IEnumerable<int>)calculator.GetFrequencyTable ()).ToList ();
+			((IEnumerable<int>)calculator.GetAcumulatedFrequencyTable ()).ToList ();
+			((IEnumerable<double>)calculator.GetRelativeFrequencyTable ()).ToList ();
+			((IEnumerable<double>)calculator.GetAcumulatedRelativeFrequencyTable ()).ToList ();
+			((IEnumerable<double>)calculator.GetClassMarksTable ()).ToList ();
+			((IEnumerable<Interval>)calculator.GetRealClassIntervalsTable ()).ToList ();
+			((IEnumerable<double>)calculator.GetFrequenciesTimesClassMarksTable ()).ToList ();
 		}
 	}
 }

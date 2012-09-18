@@ -14,7 +14,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		{
 			StatisticsException exception = null;
 			try {
-				var calculator = new GroupedRangesInquirer (null);
+				var calculator = new GroupedRangesInquirer (rawData:null);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}

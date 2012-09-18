@@ -5,8 +5,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class GroupedXileInquirer:InquirerBase,IXileInquirer
 	{
+		public GroupedXileInquirer (InquirerBase inquirer):base(inquirer)
+		{			
+		}
+
 		public GroupedXileInquirer (List<double> rawData):base(rawData)
 		{			
+			Inquirer = new DataDistributionFrequencyInquirer(this);
 		}
 
 		public double GetDecile (int nTh)

@@ -53,6 +53,7 @@
     <Compile Include="Libs\Bases\XileInquirerBase.cs" />
     <Compile Include="Libs\Bases\RangesInquirerBase.cs" />
     <Compile Include="Libs\Bases\CentralTendecyInquirerBase.cs" />
+    <Compile Include="Libs\Bases\DispersionInquirerBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

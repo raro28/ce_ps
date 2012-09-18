@@ -16,7 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{		
 		}
 
-		protected override double CalcRange ()
+		protected override double CalcDataRange ()
 		{
 			var table = ((IEnumerable<Interval>)Inquirer.GetClassIntervalsTable ()).ToList ();
 			var range = table.Last ().To - table.First ().From;

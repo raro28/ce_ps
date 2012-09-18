@@ -15,7 +15,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{
 		}
 
-		protected override double CalcRange ()
+		protected override double CalcDataRange ()
 		{
 			return Enumerable.Max (Inquirer.Data) - Enumerable.Min (Inquirer.Data);
 		}

@@ -15,7 +15,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 		public double GetDataRange ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("get(range)")) {
-				Inquirer.Answers.Add ("get(range)", CalcRange ());
+				Inquirer.Answers.Add ("get(range)", CalcDataRange ());
 			}
 			
 			return Inquirer.Answers ["get(range)"];
@@ -48,7 +48,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			return Inquirer.Answers ["get(prange)"];
 		}
 
-		protected abstract double CalcRange ();
+		protected abstract double CalcDataRange ();
 	}
 }
 

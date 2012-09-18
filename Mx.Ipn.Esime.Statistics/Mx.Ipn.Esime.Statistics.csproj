@@ -51,6 +51,7 @@
     <Compile Include="GroupedData\GroupedXileInquirer.cs" />
     <Compile Include="Libs\Bases\InquirerBase.cs" />
     <Compile Include="Libs\Bases\XileInquirerBase.cs" />
+    <Compile Include="Libs\Bases\RangesInquirerBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

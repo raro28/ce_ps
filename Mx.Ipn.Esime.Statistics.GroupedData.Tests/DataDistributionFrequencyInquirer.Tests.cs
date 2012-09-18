@@ -17,6 +17,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 
 			calculator.GetMean ();
 			calculator.GetDecile (5);
+			calculator.GetDataRange ();
 			((IEnumerable<double>)calculator.GetMeanDifference (2)).ToList ();
 			((IEnumerable<double>)calculator.GetMeanDifference (3)).ToList ();
 			((IEnumerable<double>)calculator.GetMeanDifference (4)).ToList ();

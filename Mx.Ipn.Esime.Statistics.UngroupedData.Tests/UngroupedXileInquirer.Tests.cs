@@ -1,82 +1,49 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
+	using System.Reflection;
 	using System.Linq;
 	using NUnit.Framework;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	[TestFixture()]
+	[TestFixture]
 	public class UngroupedXileInquirer_Tests:UngroupedInquirerBase_Tests<UngroupedXileInquirer>
 	{
-		[Test()]
-		public void When_Inquirer_Recieves_Tries_To_Get_Invalid_Quartiles ()
+		private static Dictionary<Xiles,MethodInfo> xileGetters;
+
+		static UngroupedXileInquirer_Tests ()
+		{
+			xileGetters = new Dictionary<Xiles,MethodInfo> ()
+			{
+				{Xiles.Quartile,typeof(UngroupedXileInquirer).GetMethod("GetQuartile")},
+				{Xiles.Decile,typeof(UngroupedXileInquirer).GetMethod("GetDecile")},
+				{Xiles.Percentile,typeof(UngroupedXileInquirer).GetMethod("GetPercentile")}
+			};
+		}
+
+		[TestCase(Xiles.Quartile)]
+		[TestCase(Xiles.Decile)]
+		[TestCase(Xiles.Percentile)]
+		public void When_Inquirer_Recieves_Tries_To_Get_Invalid (Xiles xile)
 		{
 			StatisticsException exception = null;
 			List<double> sortedData;
 			var calculator = HelperMethods<UngroupedXileInquirer>.NewInstance (out sortedData, size: 7);
+			var method = xileGetters [xile];
+
 			try {
-				calculator.GetQuartile (-1);
-			} catch (StatisticsException ex) {
-				exception = ex;
+				method.Invoke (calculator, new object[]{-1});
+			} catch (TargetInvocationException ex) {
+				exception = ex.InnerException as StatisticsException;
 			}
 			
 			Assert.IsNotNull (exception);
 			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
-			
+
 			try {
-				calculator.GetQuartile (5);
-			} catch (StatisticsException ex) {
-				exception = ex;
-			}
-			
-			Assert.IsNotNull (exception);
-			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
-		}
-		
-		[Test()]
-		public void When_Inquirer_Recieves_Tries_To_Get_Invalid_Deciles ()
-		{
-			StatisticsException exception = null;
-			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedXileInquirer>.NewInstance (out sortedData, size: 7);
-			try {
-				calculator.GetDecile (-1);
-			} catch (StatisticsException ex) {
-				exception = ex;
-			}
-			
-			Assert.IsNotNull (exception);
-			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
-			
-			try {
-				calculator.GetDecile (11);
-			} catch (StatisticsException ex) {
-				exception = ex;
-			}
-			
-			Assert.IsNotNull (exception);
-			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
-		}
-		
-		[Test()]
-		public void When_Inquirer_Recieves_Tries_To_Get_Invalid_Percentiles ()
-		{
-			StatisticsException exception = null;
-			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedXileInquirer>.NewInstance (out sortedData, size: 7);
-			try {
-				calculator.GetPercentile (-1);
-			} catch (StatisticsException ex) {
-				exception = ex;
-			}
-			
-			Assert.IsNotNull (exception);
-			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
-			
-			try {
-				calculator.GetPercentile (101);
+				calculator.GetQuartile ((int)xile + 1);
 			} catch (StatisticsException ex) {
 				exception = ex;
 			}
@@ -85,51 +52,17 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Quartiles ()
+		[TestCase(Xiles.Quartile)]
+		[TestCase(Xiles.Decile)]
+		[TestCase(Xiles.Percentile)]
+		public void Inquirer_Gets_Expected_Quartiles (Xiles xile)
 		{
 			List<double> sortedData;
 			var calculator = HelperMethods<UngroupedXileInquirer>.NewInstance (out sortedData, size: 100);
-			
-			Inquirer_Gets_Expected_Quartiles (sortedData, calculator);
-		}
+			var method = xileGetters [xile];
 
-		public static void Inquirer_Gets_Expected_Quartiles (List<double> sortedData, dynamic calculator)
-		{
-			var expected = GetXiles (4, nTh => HelperMethods<UngroupedXileInquirer>.CalcNthXile (sortedData, 4, nTh)).ToList ();
-			var actual = GetXiles (4, nTh => calculator.GetQuartile (nTh)).ToList ();
-			CollectionAssert.AreEqual (expected, actual);
-		}
-
-		[Test()]
-		public void Inquirer_Gets_Expected_Deciles ()
-		{
-			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedXileInquirer>.NewInstance (out sortedData, size: 100);
-			
-			Inquirer_Gets_Expected_Deciles (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Deciles (List<double> sortedData, dynamic calculator)
-		{
-			var expected = GetXiles (10, nTh => HelperMethods<UngroupedXileInquirer>.CalcNthXile (sortedData, 10, nTh)).ToList ();
-			var actual = GetXiles (10, nTh => calculator.GetDecile (nTh)).ToList ();
-			CollectionAssert.AreEqual (expected, actual);
-		}
-
-		[Test()]
-		public void Inquirer_Gets_Expected_Percentiles ()
-		{
-			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedXileInquirer>.NewInstance (out sortedData, size: 100);
-
-			Inquirer_Gets_Expected_Percentiles (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Percentiles (List<double> sortedData, dynamic calculator)
-		{
-			var expected = GetXiles (100, nTh => HelperMethods<UngroupedXileInquirer>.CalcNthXile (sortedData, 100, nTh)).ToList ();
-			var actual = GetXiles (100, nTh => calculator.GetPercentile (nTh)).ToList ();
+			var expected = GetXiles ((int)xile, nTh => HelperMethods<UngroupedXileInquirer>.CalcNthXile (sortedData, (int)xile, nTh)).ToList ();
+			var actual = GetXiles ((int)xile, nTh => (double)method.Invoke (calculator, new object[]{nTh})).ToList ();
 			CollectionAssert.AreEqual (expected, actual);
 		}
 

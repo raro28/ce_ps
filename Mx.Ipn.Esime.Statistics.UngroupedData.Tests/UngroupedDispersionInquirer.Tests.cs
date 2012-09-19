@@ -9,17 +9,19 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	[TestFixture()]
 	public class UngroupedDispersionInquirer_Tests:UngroupedInquirerBase_Tests<UngroupedDispersionInquirer>
 	{
+		public UngroupedDispersionInquirer_Tests ()
+		{
+			InitializeFaultInquirerWithNullDataSet = () => {
+				return new UngroupedDispersionInquirer (rawData: null);
+			};
+		}
+
 		[Test()]
 		public void Inquirer_Gets_Expected_Absolute_Deviation ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedDispersionInquirer>.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInstance (out sortedData, size: 100);
 
-			Inquirer_Gets_Expected_Absolute_Deviation (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Absolute_Deviation (List<double> sortedData, dynamic calculator)
-		{
 			var mean = SampleMean (sortedData);
 			var nAbsoluteDeviation = 0.0;
 			sortedData.ForEach (item => nAbsoluteDeviation += Math.Abs (item - mean));
@@ -32,13 +34,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		public void Inquirer_Gets_Expected_Variance ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedDispersionInquirer>.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInstance (out sortedData, size: 100);
 
-			Inquirer_Gets_Expected_Variance (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Variance (List<double> sortedData, dynamic calculator)
-		{
 			var expected = SampleVariance (sortedData);
 			var actual = calculator.GetVariance ();
 			Assert.AreEqual (expected, actual);
@@ -48,13 +45,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		public void Inquirer_Gets_Expected_Standar_Deviation ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedDispersionInquirer>.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInstance (out sortedData, size: 100);
 
-			Inquirer_Gets_Expected_Standar_Deviation (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Standar_Deviation (List<double> sortedData, dynamic calculator)
-		{
 			var expected = SampleStandarDeviation (sortedData);
 			var actual = calculator.GetStandarDeviation ();
 			Assert.AreEqual (expected, actual);
@@ -64,13 +56,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		public void Inquirer_Gets_Expected_Coefficient_Of_Variation ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedDispersionInquirer>.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInstance (out sortedData, size: 100);
 
-			Inquirer_Gets_Expected_Coefficient_Of_Variation (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Coefficient_Of_Variation (List<double> sortedData, dynamic calculator)
-		{
 			var strDev = SampleStandarDeviation (sortedData);
 			var mean = SampleMean (sortedData);
 			var expected = strDev / mean;
@@ -82,13 +69,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		public void Inquirer_Gets_Expected_Coefficient_Of_Symmetry ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedDispersionInquirer>.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInstance (out sortedData, size: 100);
 
-			Inquirer_Gets_Expected_Coefficient_Of_Symmetry (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Coefficient_Of_Symmetry (List<double> sortedData, dynamic calculator)
-		{
 			var m3 = SampleMomentum (sortedData, 3);
 			var m2 = SampleMomentum (sortedData, 2);
 			var expected = m3 / Math.Pow (m2, 1.5);
@@ -100,13 +82,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		public void Inquirer_Gets_Expected_Coefficient_Of_Kurtosis ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedDispersionInquirer>.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInstance (out sortedData, size: 100);
 
-			Inquirer_Gets_Expected_Coefficient_Of_Kurtosis (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Coefficient_Of_Kurtosis (List<double> sortedData, dynamic calculator)
-		{
 			var m4 = SampleMomentum (sortedData, 4);
 			var m2 = SampleMomentum (sortedData, 2);
 			var expected = m4 / Math.Pow (m2, 2);
@@ -147,11 +124,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 
 			var momentum = sum / sortedData.Count;
 			return momentum;
-		}
-
-		protected override void InitializeFaultInquirerWithNullDataSet ()
-		{
-			new UngroupedCentralTendecyInquirer (rawData: null);
 		}
 	}
 }

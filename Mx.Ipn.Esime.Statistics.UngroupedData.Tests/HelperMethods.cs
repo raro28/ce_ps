@@ -1,11 +1,10 @@
-//TODO: clean UnitTests
 namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
 	using System.Linq;
 	using System.Collections.Generic;
 
-	public static class HelperMethods<T>
+	public class HelperMethods<T>
 	{
 		private static Random rnd;
 
@@ -14,16 +13,22 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			rnd = new Random (DateTime.Now.Millisecond);
 		}
 
-		public static IEnumerable<double> GetRandomDataSample (int size)
+		public IEnumerable<double> GetRandomDataSample (int size)
 		{
 			for (int i = 1; i <= size; i++) {
 				yield return rnd.Next (57, 180) + Math.Round (rnd.NextDouble (), 2);
 			}
 		}
 
-		public static dynamic NewInstance (out List<double> data, int size)
+		public T NewInstance (int size)
 		{
-			data = HelperMethods<T>.GetRandomDataSample (size).ToList ();
+			List<double> data;
+			return NewInstance (out data, size);
+		}
+
+		public T NewInstance (out List<double> data, int size)
+		{
+			data = GetRandomDataSample (size).ToList ();
 			var cache = data.ToList ();
 			var calculator = NewInstance (ref cache);
 			data = cache;
@@ -31,7 +36,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			return calculator;
 		}
 
-		public static dynamic NewInstance (ref List<double> data)
+		public T NewInstance (ref List<double> data)
 		{
 			var calculator = (T)Activator.CreateInstance (typeof(T), new object[]{data.ToList ()});
 			data.Sort ();
@@ -39,7 +44,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			return calculator;
 		}
 
-		public static double CalcNthXile (IList<double> data, int xile, int nTh)
+		public double CalcNthXile (IList<double> data, int xile, int nTh)
 		{
 			var lx = data.Count * nTh / (double)xile;
 			var li = (int)Math.Floor (lx - 0.5);

@@ -11,64 +11,46 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	[TestFixture]
 	public class UngroupedXileInquirer_Tests:UngroupedInquirerBase_Tests<UngroupedXileInquirer>
 	{
-		private static Dictionary<Xiles,MethodInfo> xileGetters;
-
-		static UngroupedXileInquirer_Tests ()
+		public UngroupedXileInquirer_Tests ()
 		{
-			xileGetters = new Dictionary<Xiles,MethodInfo> ()
-			{
-				{Xiles.Quartile,typeof(UngroupedXileInquirer).GetMethod("GetQuartile")},
-				{Xiles.Decile,typeof(UngroupedXileInquirer).GetMethod("GetDecile")},
-				{Xiles.Percentile,typeof(UngroupedXileInquirer).GetMethod("GetPercentile")}
-			};
+			InitializeFaultInquirerWithNullDataSet = () => {
+				return new UngroupedXileInquirer (rawData: null);};
 		}
 
-		[TestCase(Xiles.Quartile)]
-		[TestCase(Xiles.Decile)]
-		[TestCase(Xiles.Percentile)]
-		public void When_Inquirer_Recieves_Tries_To_Get_Invalid (Xiles xile)
+		[TestCase(Xiles.Quartile, "GetQuartile")]
+		[TestCase(Xiles.Decile, "GetDecile")]
+		[TestCase(Xiles.Percentile, "GetPercentile")]
+		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
+		public void When_Inquirer_Recieves_Tries_To_Get_Negative (Xiles xile, string methodName)
 		{
-			StatisticsException exception = null;
-			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedXileInquirer>.NewInstance (out sortedData, size: 7);
-			var method = xileGetters [xile];
+			var method = typeof(UngroupedXileInquirer).GetMethod (methodName);
 
-			try {
-				method.Invoke (calculator, new object[]{-1});
-			} catch (TargetInvocationException ex) {
-				exception = ex.InnerException as StatisticsException;
-			}
-			
-			Assert.IsNotNull (exception);
-			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
-
-			try {
-				calculator.GetQuartile ((int)xile + 1);
-			} catch (StatisticsException ex) {
-				exception = ex;
-			}
-			
-			Assert.IsNotNull (exception);
-			Assert.IsInstanceOfType (typeof(IndexOutOfRangeException), exception.InnerException);
+			method.Invoke (Helper.NewInstance (size: 7), new object[]{-1});
 		}
 
-		[TestCase(Xiles.Quartile)]
-		[TestCase(Xiles.Decile)]
-		[TestCase(Xiles.Percentile)]
-		public void Inquirer_Gets_Expected_Quartiles (Xiles xile)
+		[TestCase(Xiles.Quartile, "GetQuartile")]
+		[TestCase(Xiles.Decile, "GetDecile")]
+		[TestCase(Xiles.Percentile, "GetPercentile")]
+		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
+		public void When_Inquirer_Recieves_Tries_To_Get_Greater (Xiles xile, string methodName)
+		{
+			var method = typeof(UngroupedXileInquirer).GetMethod (methodName);
+
+			method.Invoke (Helper.NewInstance (size: 7), new object[]{(int)xile + 1});
+		}
+
+		[TestCase(Xiles.Quartile, "GetQuartile")]
+		[TestCase(Xiles.Decile, "GetDecile")]
+		[TestCase(Xiles.Percentile, "GetPercentile")]
+		public void Inquirer_Gets_Expected_Quartiles (Xiles xile, string methodName)
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods<UngroupedXileInquirer>.NewInstance (out sortedData, size: 100);
-			var method = xileGetters [xile];
+			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var method = typeof(UngroupedXileInquirer).GetMethod (methodName);
 
-			var expected = GetXiles ((int)xile, nTh => HelperMethods<UngroupedXileInquirer>.CalcNthXile (sortedData, (int)xile, nTh)).ToList ();
+			var expected = GetXiles ((int)xile, nTh => Helper.CalcNthXile (sortedData, (int)xile, nTh)).ToList ();
 			var actual = GetXiles ((int)xile, nTh => (double)method.Invoke (calculator, new object[]{nTh})).ToList ();
 			CollectionAssert.AreEqual (expected, actual);
-		}
-
-		protected override void InitializeFaultInquirerWithNullDataSet ()
-		{
-			new UngroupedXileInquirer (rawData: null);
 		}
 
 		private static IEnumerable<double> GetXiles (int xile, Func<int,double> nThXile)

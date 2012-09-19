@@ -19,7 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		protected override double CalcMean ()
 		{
-			//TODO:fixme cast of dynamic object to IEnumerable<double>
+			//FIXME cast of dynamic object to IEnumerable<double>
 			var mean = ((IEnumerable<double>)Inquirer.Data).Sum () / Inquirer.Data.Count;
 
 			return mean;
@@ -35,7 +35,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		protected override IList<double> CalcModes ()
 		{
-			//TODO:fixme cast of dynamic object to IEnumerable<double>
+			//FIXME cast of dynamic object to IEnumerable<double>
 			var groups = ((IEnumerable<double>)Inquirer.Data).GroupBy (data => data);
 			var modes = (from _mode in groups
 					where _mode.Count () == groups.Max (grouped => grouped.Count ())

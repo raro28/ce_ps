@@ -22,7 +22,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			var frequencyTable = AddMeanDifference (power);
 			
 			foreach (var item in frequencyTable) {
-				//TODO:fixme better way to acces dynamic properties of an ExpandoObject
+				//FIXME better way to acces dynamic properties of an ExpandoObject
 				yield return (double)((IDictionary<String,Object>)item) [String.Format ("fMeanDiffE{0}", power)];
 			}
 		}
@@ -43,7 +43,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 				Inquirer.Answers.Add (keyDifference, frequencyTable);
 				foreach (var item in frequencyTable) {
 					var difference = power == 1 ? item.ClassMark - mean : Math.Abs (item.ClassMark - mean);
-					//TODO:fixme better way to acces dynamic properties of an ExpandoObject
+					//FIXME better way to acces dynamic properties of an ExpandoObject
 					((IDictionary<String,Object>)item).Add (keyProperty, item.Frequency * Math.Pow (difference, power));
 				}
 			}

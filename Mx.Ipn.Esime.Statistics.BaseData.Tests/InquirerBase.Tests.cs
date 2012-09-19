@@ -17,7 +17,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 
 		private readonly Func<T> InitializeFaultInquirerWithNullDataSet;
 
-		//TODO:Fixme better way to init inquirer with null data set
+		//FIXME better way to init inquirer with null data set
 		public InquirerBase_Tests (Func<T> initializeWithNull, HelperMethodsBase<T> helper)
 		{
 			InitializeFaultInquirerWithNullDataSet = initializeWithNull;
@@ -39,7 +39,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(StatisticsException),Handler="HandleExceptionWithInnerArgumentNullException")]
 		public void When_Inquirer_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()
 		{
-			//TODO:Fixme init inquirer with null data set
+			//FIXME init inquirer with null data set
 			InitializeFaultInquirerWithNullDataSet ();
 		}
 		

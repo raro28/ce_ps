@@ -1,4 +1,4 @@
-namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
+namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
 	using System.Reflection;
@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.Libs;
 
 	[TestFixture()]
-	public abstract class UngroupedInquirerBase_Tests<T>
+	public abstract class InquirerBase_Tests<T> where T:InquirerBase
 	{
-		protected HelperMethods<T> Helper {
+		protected HelperMethodsBase<T> Helper {
 			get;
 			private set;
 		}
@@ -17,10 +17,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		private readonly Func<T> InitializeFaultInquirerWithNullDataSet;
 
 		//TODO:Fixme better way to init inquirer with null data set
-		public UngroupedInquirerBase_Tests (Func<T> initializeWithNull)
+		public InquirerBase_Tests (Func<T> initializeWithNull, HelperMethodsBase<T> helper)
 		{
 			InitializeFaultInquirerWithNullDataSet = initializeWithNull;
-			Helper = new HelperMethods<T> ();
+			Helper = helper;
 		}
 
 		[TestCase(100)]
@@ -58,30 +58,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		protected void HandleExceptionThroughTargetInvocationExceptionException (Exception exception)
 		{
 			Assert.IsInstanceOfType (typeof(StatisticsException), exception.InnerException);
-		}
-
-		protected double CalcNthXile (IList<double> data, int xile, int nTh)
-		{
-			var lx = data.Count * nTh / (double)xile;
-			var li = (int)Math.Floor (lx - 0.5);
-			var ls = (int)Math.Floor (lx + 0.5);
-			if (ls == data.Count) {
-				ls = li;
-			}
-			var iPortion = li + 1 - (lx - 0.5);
-			var sPortion = 1 - iPortion;
-			var xRange = iPortion * data [li] + sPortion * data [ls];
-			
-			return xRange;
-		}
-
-		protected double SampleMean (List<double> sortedData)
-		{			
-			var sum = 0.0;
-			sortedData.ForEach (data => sum += data);
-			var mean = sum / sortedData.Count;
-			
-			return mean;
 		}
 	}
 }

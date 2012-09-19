@@ -2,52 +2,22 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
 	using NUnit.Framework;
-	using System.Reflection;
 	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Libs;
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
+	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
-	public class UngroupedRangesInquirer_Tests:UngroupedInquirerBase_Tests<UngroupedRangesInquirer>
+	public class UngroupedRangesInquirer_Tests:RangesInquirerBase_Tests<UngroupedRangesInquirer>
 	{
-		public UngroupedRangesInquirer_Tests ():base(()=>{return new UngroupedRangesInquirer (rawData: null);})
+		public UngroupedRangesInquirer_Tests ():base(()=>{return new UngroupedRangesInquirer (rawData: null);}, new UngroupedHelperMethods<UngroupedRangesInquirer> ())
 		{
 		}
 
-		[TestCase(100)]
-		public void Inquirer_Gets_Expected_Data_Range (int size)
-		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
-
-			var expected = SampleDataRange (sortedData);
-			var actual = calculator.GetDataRange ();
-			Assert.AreEqual (expected, actual);
-		}
-
-		[TestCase(Xiles.Quartile,100,3,1)]
-		[TestCase(Xiles.Decile,100,9,1)]
-		[TestCase(Xiles.Percentile,100,90,10)]
-		public void Inquirer_Gets_Expected_Range (Xiles xile, int size, int toXile, int fromXile)
-		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
-
-			var expected = CalcNthXile (sortedData, (int)xile, toXile) - CalcNthXile (sortedData, (int)xile, fromXile);
-			var actual = GetInterXileRangeMethod (xile).Invoke (calculator, new object[]{});
-			Assert.AreEqual (expected, actual);
-		}
-
-		protected double SampleDataRange (IList<double> sortedData)
+		protected override double SampleDataRange (IList<double> sortedData)
 		{
 			var dataRange = sortedData [sortedData.Count - 1] - sortedData [0];
-
+			
 			return dataRange;
-		}
-		
-		private MethodInfo GetInterXileRangeMethod (Xiles xile)
-		{
-			return typeof(UngroupedRangesInquirer).GetMethod ("GetInter" + Enum.GetName (typeof(Xiles), xile) + "Range");
 		}
 	}
 }

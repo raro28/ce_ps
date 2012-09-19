@@ -1,16 +1,15 @@
-namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
+namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
 	using System.Linq;
 	using System.Collections.Generic;
-	using System.Reflection;
 	using Mx.Ipn.Esime.Statistics.Libs;
 
-	public class HelperMethods<T>
+	public abstract class HelperMethodsBase<T> where T:InquirerBase
 	{
 		private static Random rnd;
 
-		static HelperMethods ()
+		static HelperMethodsBase ()
 		{
 			rnd = new Random (DateTime.Now.Millisecond);
 		}
@@ -45,5 +44,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			
 			return calculator;
 		}
+					
+		public abstract double CalcNthXile (IList<double> data, int xile, int nTh);
+		
+		public abstract double SampleMean (List<double> sortedData);
 	}
 }

@@ -3,7 +3,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using System;
 	using NUnit.Framework;
 	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Core;
 	using Mx.Ipn.Esime.Statistics.GroupedData;
 
 	[TestFixture()]

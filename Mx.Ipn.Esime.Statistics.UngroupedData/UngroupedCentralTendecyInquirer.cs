@@ -2,7 +2,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System.Linq;
 	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Core.Base;
 	
 	public class UngroupedCentralTendecyInquirer:CentralTendecyInquirerBase
 	{

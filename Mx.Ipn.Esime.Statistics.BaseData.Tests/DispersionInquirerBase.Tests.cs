@@ -4,7 +4,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using System.Reflection;
 	using System.Collections.Generic;
 	using NUnit.Framework;
-	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture()]
 	public abstract class DispersionInquirerBase_Tests<T>:InquirerBase_Tests<T> where T:DispersionInquirerBase

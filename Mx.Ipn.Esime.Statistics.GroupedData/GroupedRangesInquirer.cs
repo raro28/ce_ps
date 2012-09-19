@@ -2,7 +2,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
 	using System.Linq;
 	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	public class GroupedRangesInquirer:RangesInquirerBase
 	{

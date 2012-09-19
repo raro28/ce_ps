@@ -1,11 +1,11 @@
-namespace Mx.Ipn.Esime.Statistics.Libs
+namespace Mx.Ipn.Esime.Statistics.Core.Base
 {
 	using System;
 	using System.Linq;
 	using System.Dynamic;
 	using System.Collections.ObjectModel;
 	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	public abstract class InquirerBase: DynamicObject
 	{

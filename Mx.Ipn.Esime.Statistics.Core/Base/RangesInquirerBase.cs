@@ -1,4 +1,4 @@
-namespace Mx.Ipn.Esime.Statistics.Libs
+namespace Mx.Ipn.Esime.Statistics.Core.Base
 {	
 	using System.Collections.Generic;
 

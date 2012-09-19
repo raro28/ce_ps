@@ -4,7 +4,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 	using System.Dynamic;
 	using System.Linq;
 	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Core;
+	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	public class Interval
 	{

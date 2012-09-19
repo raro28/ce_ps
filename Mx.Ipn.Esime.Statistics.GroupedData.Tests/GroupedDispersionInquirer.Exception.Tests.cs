@@ -3,7 +3,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using System;
 	using System.Collections.Generic;
 	using NUnit.Framework;
-	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Core;
 	using Mx.Ipn.Esime.Statistics.GroupedData;
 
 	public class GroupedDispersionInquirer_Exception_Tests

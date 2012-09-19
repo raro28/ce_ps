@@ -4,7 +4,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using System.Linq;
 	using System.Collections.Generic;
 	using NUnit.Framework;
-	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.Core.Base;
 	
 	[TestFixture()]
 	public abstract class CentralTendecyInquirerBase_Tests<T>:InquirerBase_Tests<T> where T:CentralTendecyInquirerBase

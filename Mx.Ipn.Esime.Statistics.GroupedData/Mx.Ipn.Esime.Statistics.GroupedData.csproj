@@ -41,9 +41,9 @@
     <Compile Include="GroupedXileInquirer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics\Mx.Ipn.Esime.Statistics.csproj">
+    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">
       <Project>{BBA01040-73A6-4928-987C-C43B49246614}</Project>
-      <Name>Mx.Ipn.Esime.Statistics</Name>
+      <Name>Mx.Ipn.Esime.Statistics.Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

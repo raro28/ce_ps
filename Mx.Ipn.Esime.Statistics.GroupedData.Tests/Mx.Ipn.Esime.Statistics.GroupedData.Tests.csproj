@@ -56,8 +56,8 @@
     <Compile Include="GroupedDispersionInquirer.Tests.cs" />
     <Compile Include="GroupedRangesInquirer.Tests.cs" />
     <Compile Include="GroupedXileInquirer.Tests.cs" />
-    <Compile Include="DataDistributionFrequencyInquirer.Tests.cs" />
     <Compile Include="GroupedHelperMethods.cs" />
+    <Compile Include="POC.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\nunit.framework.xml">

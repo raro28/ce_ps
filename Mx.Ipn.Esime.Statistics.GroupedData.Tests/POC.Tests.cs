@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
-	public class DataDistributionFrequencyInquirer_Tests:InquirerBase_Tests<GroupedDispersionInquirer>
+	public class POC_Tests:InquirerBase_Tests<GroupedDispersionInquirer>
 	{
-		public DataDistributionFrequencyInquirer_Tests ():base(()=>{return new GroupedDispersionInquirer (rawData: null);}, new GroupedHelperMethods<GroupedDispersionInquirer> ())
+		public POC_Tests ():base(()=>{return new GroupedDispersionInquirer (rawData: null);}, new GroupedHelperMethods<GroupedDispersionInquirer> ())
 		{
 		}
 
@@ -22,6 +22,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			calculator.GetMean ();
 			calculator.GetMode ();
 			calculator.GetMedian ();
+			calculator.GetQuartile (3);
 			calculator.GetDecile (6);
 			calculator.GetPercentile (49);
 			calculator.GetDataRange ();

@@ -15,22 +15,22 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			};
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Data_Range ()
+		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Data_Range (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 
 			var expected = sortedData [sortedData.Count - 1] - sortedData [0];
 			var actual = calculator.GetDataRange ();
 			Assert.AreEqual (expected, actual);
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Quartil_Decil_Percentil_Ranges ()
+		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Quartil_Decil_Percentil_Ranges (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 7);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 
 			var expected = Helper.CalcNthXile (sortedData, 4, 3) - Helper.CalcNthXile (sortedData, 4, 1);
 			var actual = calculator.GetInterquartileRange ();

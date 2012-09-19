@@ -20,23 +20,23 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			}
 		}
 
-		public T NewInstance (int size)
+		public T NewInquirer (int size)
 		{
 			List<double> data;
-			return NewInstance (out data, size);
+			return NewInquirer (out data, size);
 		}
 
-		public T NewInstance (out List<double> data, int size)
+		public T NewInquirer (out List<double> data, int size)
 		{
 			data = GetRandomDataSample (size).ToList ();
 			var cache = data.ToList ();
-			var calculator = NewInstance (ref cache);
+			var calculator = NewInquirer (ref cache);
 			data = cache;
 			
 			return calculator;
 		}
 
-		public T NewInstance (ref List<double> data)
+		public T NewInquirer (ref List<double> data)
 		{
 			var calculator = (T)Activator.CreateInstance (typeof(T), new object[]{data.ToList ()});
 			data.Sort ();

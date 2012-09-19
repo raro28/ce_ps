@@ -17,36 +17,32 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 				return new UngroupedXileInquirer (rawData: null);};
 		}
 
-		[TestCase(Xiles.Quartile, "GetQuartile")]
-		[TestCase(Xiles.Decile, "GetDecile")]
-		[TestCase(Xiles.Percentile, "GetPercentile")]
+		[TestCase(Xiles.Quartile,100)]
+		[TestCase(Xiles.Decile,100)]
+		[TestCase(Xiles.Percentile,100)]
 		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
-		public void When_Inquirer_Recieves_Tries_To_Get_Negative (Xiles xile, string methodName)
+		public void When_Inquirer_Recieves_Tries_To_Get_Negative (Xiles xile, int size)
 		{
-			var method = typeof(UngroupedXileInquirer).GetMethod (methodName);
-
-			method.Invoke (Helper.NewInstance (size: 7), new object[]{-1});
+			GetXileMethod (xile).Invoke (Helper.NewInquirer (size), new object[]{-1});
 		}
 
-		[TestCase(Xiles.Quartile, "GetQuartile")]
-		[TestCase(Xiles.Decile, "GetDecile")]
-		[TestCase(Xiles.Percentile, "GetPercentile")]
+		[TestCase(Xiles.Quartile,100)]
+		[TestCase(Xiles.Decile,100)]
+		[TestCase(Xiles.Percentile,100)]
 		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
-		public void When_Inquirer_Recieves_Tries_To_Get_Greater (Xiles xile, string methodName)
+		public void When_Inquirer_Recieves_Tries_To_Get_Greater (Xiles xile, int size)
 		{
-			var method = typeof(UngroupedXileInquirer).GetMethod (methodName);
-
-			method.Invoke (Helper.NewInstance (size: 7), new object[]{(int)xile + 1});
+			GetXileMethod (xile).Invoke (Helper.NewInquirer (size), new object[]{(int)xile + 1});
 		}
 
-		[TestCase(Xiles.Quartile, "GetQuartile")]
-		[TestCase(Xiles.Decile, "GetDecile")]
-		[TestCase(Xiles.Percentile, "GetPercentile")]
-		public void Inquirer_Gets_Expected_Quartiles (Xiles xile, string methodName)
+		[TestCase(Xiles.Quartile,100)]
+		[TestCase(Xiles.Decile,100)]
+		[TestCase(Xiles.Percentile,100)]
+		public void Inquirer_Gets_Expected_Quartiles (Xiles xile, int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
-			var method = typeof(UngroupedXileInquirer).GetMethod (methodName);
+			var calculator = Helper.NewInquirer (out sortedData, size);
+			var method = GetXileMethod (xile);
 
 			var expected = GetXiles ((int)xile, nTh => Helper.CalcNthXile (sortedData, (int)xile, nTh)).ToList ();
 			var actual = GetXiles ((int)xile, nTh => (double)method.Invoke (calculator, new object[]{nTh})).ToList ();
@@ -58,6 +54,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			for (int nTh = 1; nTh <= xile; nTh++) {
 				yield return nThXile (nTh);
 			}
+		}
+
+		private static MethodInfo GetXileMethod (Xiles xile)
+		{
+			return typeof(UngroupedXileInquirer).GetMethod ("Get" + Enum.GetName (typeof(Xiles), xile));
 		}
 	}
 }

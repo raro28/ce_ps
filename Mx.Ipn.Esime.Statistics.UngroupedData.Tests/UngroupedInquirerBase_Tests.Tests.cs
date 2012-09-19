@@ -24,11 +24,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			Helper = new HelperMethods<T> ();
 		}
 
-		[Test()]
-		public void Inquirer_Uses_Internal_Sorted_Data_Set ()
+		[TestCase(100)]
+		public void Inquirer_Uses_Internal_Sorted_Data_Set (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 			
 			for (int i = 0; i < sortedData.Count; i++) {
 				Assert.AreEqual (sortedData [i], ((dynamic)calculator).Data [i]);
@@ -43,18 +43,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			InitializeFaultInquirerWithNullDataSet ();
 		}
 		
-		[Test()]
+		[TestCase(0)]
+		[TestCase(1)]
 		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
-		public void When_Inquirer_Recieves_Empty_Data_Set_Throws_An_Statistics_Exception ()
+		public void When_Inquirer_Recieves_Less_Than_Two_Elements_Data_Set_Throws_An_Statistics_Exception (int size)
 		{
-			Activator.CreateInstance (typeof(T), new Object[]{new List<double> ()});	
-		}
-		
-		[Test()]
-		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
-		public void When_Inquirer_Recieves_Less_Than_Two_Elements_Data_Set_Throws_An_Statistics_Exception ()
-		{
-			Activator.CreateInstance (typeof(T), new Object[]{new List<double>{1}});
+			Helper.NewInquirer (size);
 		}
 
 		protected void HandleExceptionWithInnerArgumentNullException (Exception exception)

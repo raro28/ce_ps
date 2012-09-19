@@ -16,11 +16,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			};
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Absolute_Deviation ()
+		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Absolute_Deviation (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 
 			var mean = SampleMean (sortedData);
 			var nAbsoluteDeviation = 0.0;
@@ -30,33 +30,33 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			Assert.AreEqual (expected, actual);
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Variance ()
+		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Variance (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 
 			var expected = SampleVariance (sortedData);
 			var actual = calculator.GetVariance ();
 			Assert.AreEqual (expected, actual);
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Standar_Deviation ()
+		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Standar_Deviation (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 
 			var expected = SampleStandarDeviation (sortedData);
 			var actual = calculator.GetStandarDeviation ();
 			Assert.AreEqual (expected, actual);
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Coefficient_Of_Variation ()
+		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Coefficient_Of_Variation (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 
 			var strDev = SampleStandarDeviation (sortedData);
 			var mean = SampleMean (sortedData);
@@ -65,11 +65,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			Assert.AreEqual (expected, actual);
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Coefficient_Of_Symmetry ()
+		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Coefficient_Of_Symmetry (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 
 			var m3 = SampleMomentum (sortedData, 3);
 			var m2 = SampleMomentum (sortedData, 2);
@@ -78,11 +78,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			Assert.AreEqual (expected, actual);
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Coefficient_Of_Kurtosis ()
+		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Coefficient_Of_Kurtosis (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInstance (out sortedData, size: 100);
+			var calculator = Helper.NewInquirer (out sortedData, size);
 
 			var m4 = SampleMomentum (sortedData, 4);
 			var m2 = SampleMomentum (sortedData, 2);

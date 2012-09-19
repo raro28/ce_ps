@@ -25,7 +25,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		}
 	}
 
-	public class DataDistributionFrequencyInquirer:InquirerBase,IDistributionChartInquirer
+	public class DataDistributionFrequencyInquirer:InquirerBase,IDataDistributionFrequencyInquirer
 	{
 		public DataDistributionFrequencyInquirer (InquirerBase inquirer):base(inquirer)
 		{
@@ -37,79 +37,96 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			InitProperties ();
 		}
 
-		public IEnumerable<Interval> GetClassIntervalsTable ()
+		public IEnumerable<dynamic> GetTable ()
 		{
-			var frequencyTable = AddClassIntervals ();
+			if (!Inquirer.Answers.ContainsKey ("add(table,CI)")) {
+				AddClassIntervals ();
+			}
+
+			return Inquirer.Answers ["add(table,CI)"];
+		}
+
+		public IEnumerable<Interval> GetClassIntervals ()
+		{
+			AddClassIntervals ();
+			var frequencyTable = GetTable ();
 
 			foreach (var item in frequencyTable) {
 				yield return item.ClassInterval;
 			}
 		}
 
-		public IEnumerable<int> GetFrequencyTable ()
+		public IEnumerable<int> GetFrequencies ()
 		{
-			var frequencyTable = AddFrequencies ();
+			AddFrequencies ();
+			var frequencyTable = GetTable ();
 
 			foreach (var item in frequencyTable) {
 				yield return item.Frequency;
 			}
 		}
 
-		public IEnumerable<int> GetAcumulatedFrequencyTable ()
+		public IEnumerable<int> GetAcumulatedFrequencies ()
 		{
-			var frequencyTable = AddAcumulatedFrequencies ();
+			AddAcumulatedFrequencies ();
+			var frequencyTable = GetTable ();
 
 			foreach (var item in frequencyTable) {
 				yield return item.AcumulatedFrequency;
 			}
 		}
 
-		public IEnumerable<double> GetRelativeFrequencyTable ()
+		public IEnumerable<double> GetRelativeFrequencies ()
 		{
-			var frequencyTable = AddRelativeFrequencies ();
+			AddRelativeFrequencies ();
+			var frequencyTable = GetTable ();
 
 			foreach (var item in frequencyTable) {
 				yield return item.RelativeFrequency;
 			}
 		}
 
-		public IEnumerable<double> GetAcumulatedRelativeFrequencyTable ()
+		public IEnumerable<double> GetAcumulatedRelativeFrequencies ()
 		{
-			var frequencyTable = AddAcumulatedRelativeFrequencies ();
+			AddAcumulatedRelativeFrequencies ();
+			var frequencyTable = GetTable ();
 
 			foreach (var item in frequencyTable) {
 				yield return item.AcumulatedRelativeFrequency;
 			}			
 		}
 
-		public IEnumerable<double> GetClassMarksTable ()
+		public IEnumerable<double> GetClassMarks ()
 		{
-			var frequencyTable = AddClassMarks ();
+			AddClassMarks ();
+			var frequencyTable = GetTable ();
 
 			foreach (var item in frequencyTable) {
 				yield return item.ClassMark;
 			}				
 		}
 
-		public IEnumerable<Interval> GetRealClassIntervalsTable ()
+		public IEnumerable<Interval> GetRealClassIntervals ()
 		{
-			var frequencyTable = AddRealClassIntervals ();
+			AddRealClassIntervals ();
+			var frequencyTable = GetTable ();
 			
 			foreach (var item in frequencyTable) {
 				yield return item.RealInterval;
 			}		
 		}
 
-		public IEnumerable<double> GetFrequenciesTimesClassMarksTable ()
+		public IEnumerable<double> GetFrequenciesTimesClassMarks ()
 		{
-			var frequencyTable = AddFrequenciesTimesClassMarks ();
+			AddFrequenciesTimesClassMarks ();
+			var frequencyTable = GetTable ();
 			
 			foreach (var item in frequencyTable) {
 				yield return item.fX;
 			}		
 		}
 
-		public IEnumerable<dynamic> AddClassIntervals ()
+		public void AddClassIntervals ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,CI)")) {
 				var frequencyTable = new List<dynamic> (Inquirer.Groups);
@@ -129,14 +146,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 					superiorClassLimit += Inquirer.Amplitude;
 				}
 			}
-
-			return Inquirer.Answers ["add(table,CI)"];
 		}
 
-		public IEnumerable<dynamic> AddFrequencies ()
+		public void AddFrequencies ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,f)")) {
-				var frequencyTable = AddClassIntervals ();
+				AddClassIntervals ();
+				var frequencyTable = GetTable ();
 				Inquirer.Answers.Add ("add(table,f)", frequencyTable);
 				//FIXME cast of dynamic object to IEnumerable<double>
 				var data = ((IEnumerable<double>)Inquirer.Data);
@@ -145,14 +161,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 					tableItem.Frequency = frequency;
 				}
 			}
-
-			return Inquirer.Answers ["add(table,f)"];
 		}
 
-		public IEnumerable<dynamic> AddAcumulatedFrequencies ()
+		public void AddAcumulatedFrequencies ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,F)")) {
-				var frequencyTable = AddFrequencies ();
+				AddFrequencies ();
+				var frequencyTable = GetTable ();
 				Inquirer.Answers.Add ("add(table,F)", frequencyTable);
 				var lastFrequency = 0;
 				foreach (var item in frequencyTable) {
@@ -160,27 +175,25 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 					lastFrequency = item.AcumulatedFrequency;
 				}
 			}
-
-			return Inquirer.Answers ["add(table,F)"];
 		}
 
-		public IEnumerable<dynamic> AddRelativeFrequencies ()
+		public void AddRelativeFrequencies ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,fr)")) {
-				var frequencyTable = AddFrequencies ();
+				AddFrequencies ();
+				var frequencyTable = GetTable ();
 				Inquirer.Answers.Add ("add(table,fr)", frequencyTable);
 				foreach (var item in frequencyTable) {
 					item.RelativeFrequency = (double)item.Frequency / Inquirer.Data.Count;
 				}
 			}
-
-			return Inquirer.Answers ["add(table,fr)"];
 		}
 
-		public IEnumerable<dynamic> AddAcumulatedRelativeFrequencies ()
+		public void AddAcumulatedRelativeFrequencies ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,Fr)")) {
-				var frequencyTable = AddRelativeFrequencies ();
+				AddRelativeFrequencies ();
+				var frequencyTable = GetTable ();
 				Inquirer.Answers.Add ("add(table,Fr)", frequencyTable);
 				var lastRelativeFrequency = 0.0;
 				foreach (var item in frequencyTable) {
@@ -188,28 +201,26 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 					lastRelativeFrequency = item.AcumulatedRelativeFrequency;
 				}
 			}
-
-			return Inquirer.Answers ["add(table,Fr)"];
 		}
 
-		public IEnumerable<dynamic>  AddClassMarks ()
+		public void  AddClassMarks ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,X)")) {
-				var frequencyTable = AddClassIntervals ();
+				AddClassIntervals ();
+				var frequencyTable = GetTable ();
 				Inquirer.Answers.Add ("add(table,X)", frequencyTable);
 				foreach (var item in frequencyTable) {
 					var classMark = (item.ClassInterval.From + item.ClassInterval.To) / 2;
 					item.ClassMark = classMark;
 				}
 			}
-
-			return Inquirer.Answers ["add(table,X)"];
 		}
 
-		public IEnumerable<dynamic>  AddRealClassIntervals ()
+		public void  AddRealClassIntervals ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,RI)")) {
-				var frequencyTable = AddClassIntervals ();
+				AddClassIntervals ();
+				var frequencyTable = GetTable ();
 				Inquirer.Answers.Add ("add(table,RI)", frequencyTable);
 				var midPresicion = Inquirer.DataPresicionValue / 2;
 				foreach (var item in frequencyTable) {
@@ -221,25 +232,22 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 					item.RealInterval = realInterval;
 				}
 			}
-
-			return Inquirer.Answers ["add(table,RI)"];
 		}
 
-		public IEnumerable<dynamic>  AddFrequenciesTimesClassMarks ()
+		public void  AddFrequenciesTimesClassMarks ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("add(table,fX)")) {
-				var frequencyTable = AddFrequencies ();
+				AddFrequencies ();
 				AddClassMarks ();
+				var frequencyTable = GetTable ();
 				Inquirer.Answers.Add ("add(table,fX)", frequencyTable);
 				foreach (var item in frequencyTable) {
 					item.fX = item.Frequency * item.ClassMark;
 				}
 			}
-			
-			return Inquirer.Answers ["add(table,fX)"];
 		}
 
-		void InitProperties ()
+		private void InitProperties ()
 		{
 			Inquirer.Max = Enumerable.Max (Inquirer.Data);
 			Inquirer.Min = Enumerable.Min (Inquirer.Data);

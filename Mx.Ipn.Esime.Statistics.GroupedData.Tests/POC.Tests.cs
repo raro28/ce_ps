@@ -20,6 +20,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			dynamic calculator = Helper.NewInquirer (out sortedData, size: 25);
 
 			calculator.GetMean ();
+			calculator.GetTable ();
 			calculator.GetMode ();
 			calculator.GetMedian ();
 			calculator.GetQuartile (3);
@@ -35,14 +36,14 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			((IEnumerable<double>)calculator.GetMeanDifference (2)).ToList ();
 			((IEnumerable<double>)calculator.GetMeanDifference (3)).ToList ();
 			((IEnumerable<double>)calculator.GetMeanDifference (4)).ToList ();
-			((IEnumerable<Interval>)calculator.GetClassIntervalsTable ()).ToList ();
-			((IEnumerable<int>)calculator.GetFrequencyTable ()).ToList ();
-			((IEnumerable<int>)calculator.GetAcumulatedFrequencyTable ()).ToList ();
-			((IEnumerable<double>)calculator.GetRelativeFrequencyTable ()).ToList ();
-			((IEnumerable<double>)calculator.GetAcumulatedRelativeFrequencyTable ()).ToList ();
-			((IEnumerable<double>)calculator.GetClassMarksTable ()).ToList ();
-			((IEnumerable<Interval>)calculator.GetRealClassIntervalsTable ()).ToList ();
-			((IEnumerable<double>)calculator.GetFrequenciesTimesClassMarksTable ()).ToList ();
+			((IEnumerable<Interval>)calculator.GetClassIntervals ()).ToList ();
+			((IEnumerable<int>)calculator.GetFrequencies ()).ToList ();
+			((IEnumerable<int>)calculator.GetAcumulatedFrequencies ()).ToList ();
+			((IEnumerable<double>)calculator.GetRelativeFrequencies ()).ToList ();
+			((IEnumerable<double>)calculator.GetAcumulatedRelativeFrequencies ()).ToList ();
+			((IEnumerable<double>)calculator.GetClassMarks ()).ToList ();
+			((IEnumerable<Interval>)calculator.GetRealClassIntervals ()).ToList ();
+			((IEnumerable<double>)calculator.GetFrequenciesTimesClassMarks ()).ToList ();
 		}
 	}
 }

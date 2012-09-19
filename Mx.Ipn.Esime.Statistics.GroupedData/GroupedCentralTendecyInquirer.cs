@@ -20,7 +20,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		protected override double CalcMean ()
 		{
-			var fxSum = Enumerable.Sum (Inquirer.GetFrequenciesTimesClassMarksTable ());
+			var fxSum = Enumerable.Sum (Inquirer.GetFrequenciesTimesClassMarks ());
 			var mean = fxSum / Inquirer.Data.Count;
 
 			return mean;
@@ -36,8 +36,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		protected override IList<double> CalcModes ()
 		{
 			Inquirer.AddFrequencies ();
+			Inquirer.AddRealClassIntervals ();
 			//FIXME cast of dynamic object to IEnumerable<double>
-			var table = ((IEnumerable<dynamic>)Inquirer.AddRealClassIntervals ()).ToList ();
+			var table = ((IEnumerable<dynamic>)Inquirer.GetTable ()).ToList ();
 			var firstMaxFreqItem = table.OrderByDescending (item => item.Frequency).First ();
 			var maxFreqItems = table.Where (item => item.Frequency == firstMaxFreqItem.Frequency).ToList ();
 

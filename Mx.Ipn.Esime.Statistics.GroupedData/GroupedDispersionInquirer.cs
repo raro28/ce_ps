@@ -37,8 +37,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			var keyDifference = String.Format ("add(table,{0})", keyProperty);
 			if (!Inquirer.Answers.ContainsKey (keyDifference)) {
 				var mean = Inquirer.GetMean ();
-				var frequencyTable = Inquirer.AddClassMarks ();
+				Inquirer.AddClassMarks ();
 				Inquirer.AddFrequencies ();
+				var frequencyTable = Inquirer.GetTable ();
 				
 				Inquirer.Answers.Add (keyDifference, frequencyTable);
 				foreach (var item in frequencyTable) {

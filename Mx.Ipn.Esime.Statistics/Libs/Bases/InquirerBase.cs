@@ -104,6 +104,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 
 		private int GetDataPresicion ()
 		{
+			//TODO:fixme cast of dynamic object to IEnumerable<double>
 			var data = (IEnumerable<double>)Inquirer.Data;
 
 			var decimalLengths = (from item in data.SkipWhile (item => (item + "").LastIndexOf (".") == -1)

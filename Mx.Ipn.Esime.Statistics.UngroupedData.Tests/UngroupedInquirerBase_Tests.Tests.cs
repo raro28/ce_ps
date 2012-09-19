@@ -16,7 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 
 		private readonly Func<T> InitializeFaultInquirerWithNullDataSet;
 
-		//TODO:fixme
+		//TODO:Fixme better way to init inquirer with null data set
 		public UngroupedInquirerBase_Tests (Func<T> initializeWithNull)
 		{
 			InitializeFaultInquirerWithNullDataSet = initializeWithNull;
@@ -38,7 +38,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		[ExpectedException(typeof(StatisticsException),Handler="HandleExceptionWithInnerArgumentNullException")]
 		public void When_Inquirer_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()
 		{
-			//TODO:Fixme
+			//TODO:Fixme init inquirer with null data set
 			InitializeFaultInquirerWithNullDataSet ();
 		}
 		

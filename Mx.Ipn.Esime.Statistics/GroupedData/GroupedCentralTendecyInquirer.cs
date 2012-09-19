@@ -36,6 +36,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		protected override IList<double> CalcModes ()
 		{
 			Inquirer.AddFrequencies ();
+			//TODO:fixme cast of dynamic object to IEnumerable<double>
 			var table = ((IEnumerable<dynamic>)Inquirer.AddRealClassIntervals ()).ToList ();
 			var firstMaxFreqItem = table.OrderByDescending (item => item.Frequency).First ();
 			var maxFreqItems = table.Where (item => item.Frequency == firstMaxFreqItem.Frequency).ToList ();

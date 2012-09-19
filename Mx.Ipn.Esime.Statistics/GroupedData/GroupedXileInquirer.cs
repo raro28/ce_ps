@@ -20,6 +20,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{
 			Inquirer.AddFrequencies ();
 			Inquirer.AddAcumulatedFrequencies ();
+			//TODO:fixme cast of dynamic object to IEnumerable<double>
 			var table = ((IEnumerable<dynamic>)Inquirer.AddRealClassIntervals ()).ToList ();
 			dynamic prevElement = null;
 			dynamic targetElement = null;

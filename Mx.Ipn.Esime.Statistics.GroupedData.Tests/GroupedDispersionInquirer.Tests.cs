@@ -15,16 +15,19 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 
 		protected override double SampleAbsoluteDeviation (List<double> sortedData, double mean)
 		{
+			//TODO:GroupedDispersionInquirer_Tests:SampleAbsoluteDeviation
 			throw new NotImplementedException ();
 		}
 
 		protected override double SampleVariance (List<double> sortedData, double mean)
 		{
+			//TODO:GroupedDispersionInquirer_Tests:SampleVariance
 			throw new NotImplementedException ();
 		}
 
 		protected override double SampleMomentum (List<double> sortedData, int nMomentum, double mean)
 		{
+			//TODO:GroupedDispersionInquirer_Tests:SampleMomentum
 			throw new NotImplementedException ();
 		}
 	}

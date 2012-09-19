@@ -15,11 +15,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 
 		protected override double SampleMedian (IList<double> sortedData)
 		{
+			//TODO:GroupedCentralTendecyInquirer_Tests:SampleMedian
 			throw new NotImplementedException ();
 		}
 
 		protected override List<double> SampleMode (IEnumerable<double> sortedData)
 		{
+			//TODO:GroupedCentralTendecyInquirer_Tests:SampleMode
 			throw new NotImplementedException ();
 		}
 	}

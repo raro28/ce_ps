@@ -15,6 +15,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 
 		protected override double SampleDataRange (IList<double> sortedData)
 		{
+			//TODO:GroupedRangesInquirer_Tests:SampleDataRange
 			throw new NotImplementedException ();
 		}
 	}

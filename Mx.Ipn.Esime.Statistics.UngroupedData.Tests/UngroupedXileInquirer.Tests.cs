@@ -36,7 +36,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		[TestCase(Xiles.Quartile,100)]
 		[TestCase(Xiles.Decile,100)]
 		[TestCase(Xiles.Percentile,100)]
-		public void Inquirer_Gets_Expected (Xiles xile, int size)
+		public void Inquirer_Gets_All_Expected (Xiles xile, int size)
 		{
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
@@ -47,7 +47,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			CollectionAssert.AreEqual (expected, actual);
 		}
 
-		protected static IEnumerable<double> GetXiles (int xile, Func<int,double> nThXile)
+		protected IEnumerable<double> GetXiles (int xile, Func<int,double> nThXile)
 		{
 			for (int nTh = 1; nTh <= xile; nTh++) {
 				yield return nThXile (nTh);

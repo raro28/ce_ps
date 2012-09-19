@@ -28,12 +28,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		[TestCase(Xiles.Quartile,100,3,1)]
 		[TestCase(Xiles.Decile,100,9,1)]
 		[TestCase(Xiles.Percentile,100,90,10)]
-		public void Inquirer_Gets_Expected_Range (Xiles xile, int size, int to, int from)
+		public void Inquirer_Gets_Expected_Range (Xiles xile, int size, int toXile, int fromXile)
 		{
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
 
-			var expected = CalcNthXile (sortedData, (int)xile, to) - CalcNthXile (sortedData, (int)xile, from);
+			var expected = CalcNthXile (sortedData, (int)xile, toXile) - CalcNthXile (sortedData, (int)xile, fromXile);
 			var actual = GetInterXileRangeMethod (xile).Invoke (calculator, new object[]{});
 			Assert.AreEqual (expected, actual);
 		}

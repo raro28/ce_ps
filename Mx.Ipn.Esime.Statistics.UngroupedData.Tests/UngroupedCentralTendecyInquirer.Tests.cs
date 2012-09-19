@@ -1,6 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
+	using System.Linq;
 	using System.Collections.Generic;
 	using NUnit.Framework;
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
@@ -12,7 +13,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		{
 		}
 
-		[TestCase(100)]
+		[TestCase(10)]
 		public void Inquirer_Gets_Expected_Mean (int size)
 		{
 			List<double> sortedData;
@@ -25,36 +26,51 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			Assert.AreEqual (expected, actual);
 		}
 
-		[Test()]
-		public void Inquirer_Gets_Expected_Mode ()
+		[TestCase(new double[]{1,2,3,2})]
+		[TestCase(new double[]{6,1,2,3,2,4,5,6})]
+		public void Inquirer_Gets_Expected_Mode (double[] dataArray)
 		{
-			List<double> sortedData = new List<double>{1,2,3,2};
+			var sortedData = dataArray.ToList ();
 			var calculator = Helper.NewInquirer (ref sortedData);
 			
-			var expected = new List<double> {2};
+			var <double> expected = SampleMode (sortedData);
 			var actual = calculator.GetMode ();
-			Assert.AreEqual (expected, actual);
-			sortedData = new List<double> {1,2,3,2,4,7,8,7};
-			calculator = Helper.NewInquirer (ref sortedData);
-			expected = new List<double> {2,7};
-			actual = calculator.GetMode ();
 			Assert.AreEqual (expected, actual);
 		}
 		
-		[Test()]
-		public void Inquirer_Gets_Expected_Median ()
+		[TestCase(4)]
+		[TestCase(5)]
+		public void Inquirer_Gets_Expected_Median (int size)
 		{
-			List<double> sortedData = new List<double>{1,2,3};
-			var calculator = Helper.NewInquirer (ref sortedData);
+			List<double> sortedData;
+			var calculator = Helper.NewInquirer (out sortedData, size);
 			
-			var expected = 2.0;
+			var expected = SampleMedian (sortedData);
 			var actual = calculator.GetMedian ();
 			Assert.AreEqual (expected, actual);
-			sortedData = new List<double> {1,2,3,4,5,6,7,8};
-			calculator = Helper.NewInquirer (ref sortedData);
-			expected = 4.5;
-			actual = calculator.GetMedian ();
-			Assert.AreEqual (expected, actual);
+		}
+
+		protected double SampleMedian (IList<double> sortedData)
+		{
+			double result;
+			int middleIndex = (sortedData.Count / 2) - 1;
+			if ((sortedData.Count % 2) != 0) {
+				result = sortedData [middleIndex + 1];
+			} else {
+				result = (sortedData [middleIndex] + sortedData [middleIndex + 1]) / 2;
+			}
+
+			return result;
+		}
+
+		protected List<double> SampleMode (IList<double> sortedData)
+		{
+			var groups = sortedData.GroupBy (data => data);
+			var modes = (from _mode in groups
+			             where _mode.Count () == groups.Max (grouped => grouped.Count ())
+			             select _mode.First ()).ToList ();
+			
+			return modes;
 		}
 	}
 }

@@ -2,6 +2,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
 	using System.Linq;
+	using System.Reflection;
 	using System.Collections.Generic;
 	using NUnit.Framework;
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
@@ -62,40 +63,29 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			Assert.AreEqual (expected, actual);
 		}
 
-		[TestCase(100)]
-		public void Inquirer_Gets_Expected_Coefficient_Of_Symmetry (int size)
+		[TestCase("Kourtosis",100,4,2)]
+		[TestCase("Symmetry",100,3,1.5)]
+		public void Inquirer_Gets_Expected_Coefficient_Of (string coefficientName, int size, int nthMomentum, double momentum2Pow)
 		{
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
-
-			var m3 = SampleMomentum (sortedData, 3);
+			
+			var mn = SampleMomentum (sortedData, nthMomentum);
 			var m2 = SampleMomentum (sortedData, 2);
-			var expected = m3 / Math.Pow (m2, 1.5);
-			var actual = calculator.GetCoefficientOfSymmetry ();
+
+			var expected = mn / Math.Pow (m2, momentum2Pow);
+			var actual = GetCoefficientOfMethod (coefficientName).Invoke (calculator, new object[]{});
 			Assert.AreEqual (expected, actual);
 		}
 
-		[TestCase(100)]
-		public void Inquirer_Gets_Expected_Coefficient_Of_Kurtosis (int size)
-		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
-
-			var m4 = SampleMomentum (sortedData, 4);
-			var m2 = SampleMomentum (sortedData, 2);
-			var expected = m4 / Math.Pow (m2, 2);
-			var actual = calculator.GetCoefficientOfKourtosis ();
-			Assert.AreEqual (expected, actual);
-		}
-
-		private static double SampleMean (ICollection<double> sortedData)
+		protected double SampleMean (ICollection<double> sortedData)
 		{
 			var mean = sortedData.Sum () / sortedData.Count;
 
 			return mean;
 		}
 
-		private static double SampleVariance (List<double> sortedData)
+		protected double SampleVariance (List<double> sortedData)
 		{
 			var mean = SampleMean (sortedData);
 			var nplus1Variance = 0.0;
@@ -105,7 +95,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			return variance;
 		}
 
-		private static double SampleStandarDeviation (List<double> sortedData)
+		protected double SampleStandarDeviation (List<double> sortedData)
 		{
 			var variance = SampleVariance (sortedData);
 			var stDeviation = Math.Sqrt (variance);
@@ -113,7 +103,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			return stDeviation;
 		}
 
-		private static double SampleMomentum (List<double> sortedData, int nMomentum)
+		protected double SampleMomentum (List<double> sortedData, int nMomentum)
 		{
 			var mean = SampleMean (sortedData);
 			var sum = 0.0;
@@ -121,6 +111,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 
 			var momentum = sum / sortedData.Count;
 			return momentum;
+		}
+
+		protected MethodInfo GetCoefficientOfMethod (string coefficientName)
+		{
+			return typeof(UngroupedDispersionInquirer).GetMethod ("GetCoefficientOf" + coefficientName);
 		}
 	}
 }

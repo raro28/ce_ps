@@ -60,7 +60,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			Assert.IsInstanceOfType (typeof(StatisticsException), exception.InnerException);
 		}
 
-
 		protected double CalcNthXile (IList<double> data, int xile, int nTh)
 		{
 			var lx = data.Count * nTh / (double)xile;

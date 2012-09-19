@@ -7,7 +7,7 @@ Descriptive Statistics
 
       Measures of Dispersion
 
-    Ungroupedrouped Data
+    Ungrouped Data
 
       Measures of Central Tendency
 

@@ -1,19 +1,23 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 {
-	using System;
 	using System.Linq;
 	using NUnit.Framework;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.GroupedData;
+	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
-	public class DataDistributionFrequencyInquirer_Tests
+	public class DataDistributionFrequencyInquirer_Tests:InquirerBase_Tests<GroupedDispersionInquirer>
 	{
+		public DataDistributionFrequencyInquirer_Tests ():base(()=>{return new GroupedDispersionInquirer (rawData: null);}, new GroupedHelperMethods<GroupedDispersionInquirer> ())
+		{
+		}
+
 		[Test()]
 		public void Inquirer_POC_Test ()
 		{
 			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<GroupedDispersionInquirer> (out sortedData, size: 25);
+			dynamic calculator = Helper.NewInquirer (out sortedData, size: 25);
 
 			calculator.GetMean ();
 			calculator.GetMode ();

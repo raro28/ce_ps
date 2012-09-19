@@ -1,78 +1,14 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 {
-	using System;
-	using System.Linq;
 	using NUnit.Framework;
-	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.GroupedData;
+	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
-	public class GroupedXileInquirer_Tests
+	public class GroupedXileInquirer_Tests:XileInquirerBase_Tests<GroupedXileInquirer>
 	{
-		[Test()]
-		public void Inquirer_Uses_Internal_Sorted_Data_Set ()
+		public GroupedXileInquirer_Tests ():base(()=>{return new GroupedXileInquirer (rawData: null);}, new GroupedHelperMethods<GroupedXileInquirer> ())
 		{
-			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<GroupedXileInquirer> (out sortedData, size: 100);
-			
-			for (int i = 0; i < sortedData.Count; i++) {
-				Assert.AreEqual (sortedData [i], calculator.Data [i]);
-			}
-		}
-
-		[Test()]
-		public void Inquirer_Gets_Expected_Quartiles ()
-		{
-			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<GroupedXileInquirer> (out sortedData, size: 100);
-			
-			Inquirer_Gets_Expected_Quartiles (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Quartiles (List<double> sortedData, dynamic calculator)
-		{
-			var expected = GetXiles (4, nTh => HelperMethods.CalcNthXile (sortedData, 4, nTh)).ToList ();
-			var actual = GetXiles (4, nTh => calculator.GetQuartile (nTh)).ToList ();
-			CollectionAssert.AreEqual (expected, actual);
-		}
-
-		[Test()]
-		public void Inquirer_Gets_Expected_Deciles ()
-		{
-			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<GroupedXileInquirer> (out sortedData, size: 100);
-			
-			Inquirer_Gets_Expected_Deciles (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Deciles (List<double> sortedData, dynamic calculator)
-		{
-			var expected = GetXiles (10, nTh => HelperMethods.CalcNthXile (sortedData, 10, nTh)).ToList ();
-			var actual = GetXiles (10, nTh => calculator.GetDecile (nTh)).ToList ();
-			CollectionAssert.AreEqual (expected, actual);
-		}
-
-		[Test()]
-		public void Inquirer_Gets_Expected_Percentiles ()
-		{
-			List<double> sortedData;
-			var calculator = HelperMethods.NewInstanceOf<GroupedXileInquirer> (out sortedData, size: 100);
-
-			Inquirer_Gets_Expected_Percentiles (sortedData, calculator);
-		}
-
-		public static void Inquirer_Gets_Expected_Percentiles (List<double> sortedData, dynamic calculator)
-		{
-			var expected = GetXiles (100, nTh => HelperMethods.CalcNthXile (sortedData, 100, nTh)).ToList ();
-			var actual = GetXiles (100, nTh => calculator.GetPercentile (nTh)).ToList ();
-			CollectionAssert.AreEqual (expected, actual);
-		}
-
-		private static IEnumerable<double> GetXiles (int xile, Func<int,double> nThXile)
-		{
-			for (int nTh = 1; nTh <= xile; nTh++) {
-				yield return nThXile (nTh);
-			}
 		}
 	}
 }

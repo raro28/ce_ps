@@ -1,7 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
-	using System.Linq;
 	using System.Reflection;
 	using System.Collections.Generic;
 	using NUnit.Framework;
@@ -20,10 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
 
-			var mean = SampleMean (sortedData);
-			var nAbsoluteDeviation = 0.0;
-			sortedData.ForEach (item => nAbsoluteDeviation += Math.Abs (item - mean));
-			var expected = nAbsoluteDeviation / sortedData.Count;
+			var expected = SampleAbsoluteDeviation (sortedData, SampleMean (sortedData));
 			var actual = calculator.GetAbsoluteDeviation ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -34,7 +30,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
 
-			var expected = SampleVariance (sortedData);
+			var expected = SampleVariance (sortedData, SampleMean (sortedData));
 			var actual = calculator.GetVariance ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -45,7 +41,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
 
-			var expected = SampleStandarDeviation (sortedData);
+			var expected = Math.Sqrt (SampleVariance (sortedData, SampleMean (sortedData)));
 			var actual = calculator.GetStandarDeviation ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -56,9 +52,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
 
-			var strDev = SampleStandarDeviation (sortedData);
 			var mean = SampleMean (sortedData);
-			var expected = strDev / mean;
+			var expected = Math.Sqrt (SampleVariance (sortedData, mean)) / mean;
 			var actual = calculator.GetCoefficientOfVariation ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -69,25 +64,24 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		{
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
-			
-			var mn = SampleMomentum (sortedData, nthMomentum);
-			var m2 = SampleMomentum (sortedData, 2);
 
-			var expected = mn / Math.Pow (m2, momentum2Pow);
+			var mean = SampleMean (sortedData);
+			var expected = SampleMomentum (sortedData, nthMomentum, mean) / Math.Pow (SampleMomentum (sortedData, 2, mean), momentum2Pow);
 			var actual = GetCoefficientOfMethod (coefficientName).Invoke (calculator, new object[]{});
 			Assert.AreEqual (expected, actual);
 		}
 
-		protected double SampleMean (ICollection<double> sortedData)
+		protected double SampleAbsoluteDeviation (List<double> sortedData, double mean)
 		{
-			var mean = sortedData.Sum () / sortedData.Count;
-
-			return mean;
+			var nAbsoluteDeviation = 0.0;
+			sortedData.ForEach (item => nAbsoluteDeviation += Math.Abs (item - mean));
+			var absoluteDeviation = nAbsoluteDeviation / sortedData.Count;
+			
+			return absoluteDeviation;
 		}
 
-		protected double SampleVariance (List<double> sortedData)
+		protected double SampleVariance (List<double> sortedData, double mean)
 		{
-			var mean = SampleMean (sortedData);
 			var nplus1Variance = 0.0;
 			sortedData.ForEach (item => nplus1Variance += Math.Pow ((item - mean), 2));
 			var variance = nplus1Variance / (sortedData.Count - 1);
@@ -95,25 +89,17 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			return variance;
 		}
 
-		protected double SampleStandarDeviation (List<double> sortedData)
+		protected double SampleMomentum (List<double> sortedData, int nMomentum, double mean)
 		{
-			var variance = SampleVariance (sortedData);
-			var stDeviation = Math.Sqrt (variance);
-
-			return stDeviation;
-		}
-
-		protected double SampleMomentum (List<double> sortedData, int nMomentum)
-		{
-			var mean = SampleMean (sortedData);
 			var sum = 0.0;
 			sortedData.ForEach (item => sum += Math.Pow ((item - mean), nMomentum));
 
 			var momentum = sum / sortedData.Count;
+
 			return momentum;
 		}
 
-		protected MethodInfo GetCoefficientOfMethod (string coefficientName)
+		private MethodInfo GetCoefficientOfMethod (string coefficientName)
 		{
 			return typeof(UngroupedDispersionInquirer).GetMethod ("GetCoefficientOf" + coefficientName);
 		}

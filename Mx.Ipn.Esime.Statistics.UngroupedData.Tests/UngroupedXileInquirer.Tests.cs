@@ -47,14 +47,14 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			CollectionAssert.AreEqual (expected, actual);
 		}
 
-		protected IEnumerable<double> GetXiles (int xile, Func<int,double> nThXile)
+		private IEnumerable<double> GetXiles (int xile, Func<int,double> nThXile)
 		{
 			for (int nTh = 1; nTh <= xile; nTh++) {
 				yield return nThXile (nTh);
 			}
 		}
 		
-		protected MethodInfo GetXileMethod (Xiles xile)
+		private MethodInfo GetXileMethod (Xiles xile)
 		{
 			return typeof(UngroupedXileInquirer).GetMethod ("Get" + Enum.GetName (typeof(Xiles), xile));
 		}

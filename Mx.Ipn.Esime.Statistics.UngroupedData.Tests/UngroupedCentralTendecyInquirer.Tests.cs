@@ -13,15 +13,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		{
 		}
 
-		[TestCase(10)]
+		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Mean (int size)
 		{
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
-			
-			var sum = 0.0;
-			sortedData.ForEach (data => sum += data);
-			var expected = sum / sortedData.Count;
+
+			var expected = SampleMean (sortedData);
 			var actual = calculator.GetMean ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -63,7 +61,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			return result;
 		}
 
-		protected List<double> SampleMode (IList<double> sortedData)
+		protected List<double> SampleMode (IEnumerable<double> sortedData)
 		{
 			var groups = sortedData.GroupBy (data => data);
 			var modes = (from _mode in groups

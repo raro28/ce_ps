@@ -20,7 +20,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
 
-			var expected = sortedData [sortedData.Count - 1] - sortedData [0];
+			var expected = SampleDataRange (sortedData);
 			var actual = calculator.GetDataRange ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -37,8 +37,15 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			var actual = GetInterXileRangeMethod (xile).Invoke (calculator, new object[]{});
 			Assert.AreEqual (expected, actual);
 		}
+
+		protected double SampleDataRange (IList<double> sortedData)
+		{
+			var dataRange = sortedData [sortedData.Count - 1] - sortedData [0];
+
+			return dataRange;
+		}
 		
-		protected MethodInfo GetInterXileRangeMethod (Xiles xile)
+		private MethodInfo GetInterXileRangeMethod (Xiles xile)
 		{
 			return typeof(UngroupedRangesInquirer).GetMethod ("GetInter" + Enum.GetName (typeof(Xiles), xile) + "Range");
 		}

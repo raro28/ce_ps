@@ -74,5 +74,14 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			
 			return xRange;
 		}
+
+		protected double SampleMean (List<double> sortedData)
+		{			
+			var sum = 0.0;
+			sortedData.ForEach (data => sum += data);
+			var mean = sum / sortedData.Count;
+			
+			return mean;
+		}
 	}
 }

@@ -53,12 +53,12 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 
 		protected void HandleExceptionWithInnerArgumentNullException (Exception exception)
 		{
-			Assert.IsInstanceOfType (typeof(ArgumentNullException), exception.InnerException);
+			Assert.IsInstanceOf<ArgumentNullException> (exception.InnerException);
 		}
 
 		protected void HandleExceptionThroughTargetInvocationExceptionException (Exception exception)
 		{
-			Assert.IsInstanceOfType (typeof(StatisticsException), exception.InnerException);
+			Assert.IsInstanceOf<StatisticsException> (exception.InnerException);
 		}
 	}
 }

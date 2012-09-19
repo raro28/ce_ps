@@ -20,7 +20,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		protected override double CalcMean ()
 		{
-			var fxSum = Enumerable.Sum (Inquirer.GetFrequenciesTimesClassMarks ());
+			Inquirer.AddFrequenciesTimesClassMarks ();
+			var table = Inquirer.GetTable ();
+			double fxSum = 0;
+			foreach (var item in table) {
+				fxSum += item.fX;
+			}
+
 			var mean = fxSum / Inquirer.Data.Count;
 
 			return mean;

@@ -1,6 +1,5 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 {
-	using System.Linq;
 	using NUnit.Framework;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.GroupedData;
@@ -33,17 +32,17 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			calculator.GetCoefficientOfVariation ();
 			calculator.GetCoefficientOfSymmetry ();
 			calculator.GetCoefficientOfKourtosis ();
-			((IEnumerable<double>)calculator.GetMeanDifference (2)).ToList ();
-			((IEnumerable<double>)calculator.GetMeanDifference (3)).ToList ();
-			((IEnumerable<double>)calculator.GetMeanDifference (4)).ToList ();
-			((IEnumerable<Interval>)calculator.GetClassIntervals ()).ToList ();
-			((IEnumerable<int>)calculator.GetFrequencies ()).ToList ();
-			((IEnumerable<int>)calculator.GetAcumulatedFrequencies ()).ToList ();
-			((IEnumerable<double>)calculator.GetRelativeFrequencies ()).ToList ();
-			((IEnumerable<double>)calculator.GetAcumulatedRelativeFrequencies ()).ToList ();
-			((IEnumerable<double>)calculator.GetClassMarks ()).ToList ();
-			((IEnumerable<Interval>)calculator.GetRealClassIntervals ()).ToList ();
-			((IEnumerable<double>)calculator.GetFrequenciesTimesClassMarks ()).ToList ();
+			calculator.AddMeanDifference (2);
+			calculator.AddMeanDifference (3);
+			calculator.AddMeanDifference (4);
+			calculator.AddClassIntervals ();
+			calculator.AddFrequencies ();
+			calculator.AddAcumulatedFrequencies ();
+			calculator.AddRelativeFrequencies ();
+			calculator.AddAcumulatedRelativeFrequencies ();
+			calculator.AddClassMarks ();
+			calculator.AddRealClassIntervals ();
+			calculator.AddFrequenciesTimesClassMarks ();
 		}
 	}
 }

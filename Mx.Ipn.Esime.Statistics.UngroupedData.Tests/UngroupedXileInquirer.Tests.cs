@@ -11,10 +11,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	[TestFixture]
 	public class UngroupedXileInquirer_Tests:UngroupedInquirerBase_Tests<UngroupedXileInquirer>
 	{
-		public UngroupedXileInquirer_Tests ()
+		public UngroupedXileInquirer_Tests ():base(()=>{return new UngroupedXileInquirer (rawData: null);})
 		{
-			InitializeFaultInquirerWithNullDataSet = () => {
-				return new UngroupedXileInquirer (rawData: null);};
 		}
 
 		[TestCase(Xiles.Quartile,100)]
@@ -38,25 +36,25 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		[TestCase(Xiles.Quartile,100)]
 		[TestCase(Xiles.Decile,100)]
 		[TestCase(Xiles.Percentile,100)]
-		public void Inquirer_Gets_Expected_Quartiles (Xiles xile, int size)
+		public void Inquirer_Gets_Expected (Xiles xile, int size)
 		{
 			List<double> sortedData;
 			var calculator = Helper.NewInquirer (out sortedData, size);
 			var method = GetXileMethod (xile);
 
-			var expected = GetXiles ((int)xile, nTh => Helper.CalcNthXile (sortedData, (int)xile, nTh)).ToList ();
+			var expected = GetXiles ((int)xile, nTh => CalcNthXile (sortedData, (int)xile, nTh)).ToList ();
 			var actual = GetXiles ((int)xile, nTh => (double)method.Invoke (calculator, new object[]{nTh})).ToList ();
 			CollectionAssert.AreEqual (expected, actual);
 		}
 
-		private static IEnumerable<double> GetXiles (int xile, Func<int,double> nThXile)
+		protected static IEnumerable<double> GetXiles (int xile, Func<int,double> nThXile)
 		{
 			for (int nTh = 1; nTh <= xile; nTh++) {
 				yield return nThXile (nTh);
 			}
 		}
-
-		private static MethodInfo GetXileMethod (Xiles xile)
+		
+		protected MethodInfo GetXileMethod (Xiles xile)
 		{
 			return typeof(UngroupedXileInquirer).GetMethod ("Get" + Enum.GetName (typeof(Xiles), xile));
 		}

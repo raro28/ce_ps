@@ -9,11 +9,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	[TestFixture()]
 	public class UngroupedDispersionInquirer_Tests:UngroupedInquirerBase_Tests<UngroupedDispersionInquirer>
 	{
-		public UngroupedDispersionInquirer_Tests ()
+		public UngroupedDispersionInquirer_Tests ():base(()=>{return new UngroupedDispersionInquirer (rawData: null);})
 		{
-			InitializeFaultInquirerWithNullDataSet = () => {
-				return new UngroupedDispersionInquirer (rawData: null);
-			};
 		}
 
 		[TestCase(100)]

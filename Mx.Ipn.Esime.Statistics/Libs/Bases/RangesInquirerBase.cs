@@ -21,7 +21,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			return Inquirer.Answers ["get(range)"];
 		}
 		
-		public double GetInterquartileRange ()
+		public double GetInterQuartileRange ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("get(qrange)")) {
 				Inquirer.Answers.Add ("get(qrange)", Inquirer.GetQuartile (3) - Inquirer.GetQuartile (1));
@@ -30,7 +30,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			return Inquirer.Answers ["get(qrange)"];
 		}
 		
-		public double GetInterdecileRange ()
+		public double GetInterDecileRange ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("get(drange)")) {
 				Inquirer.Answers.Add ("get(drange)", Inquirer.GetDecile (9) - Inquirer.GetDecile (1));
@@ -39,7 +39,7 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 			return Inquirer.Answers ["get(drange)"];
 		}
 		
-		public double GetInterpercentileRange ()
+		public double GetInterPercentileRange ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("get(prange)")) {
 				Inquirer.Answers.Add ("get(prange)", Inquirer.GetPercentile (90) - Inquirer.GetPercentile (10));

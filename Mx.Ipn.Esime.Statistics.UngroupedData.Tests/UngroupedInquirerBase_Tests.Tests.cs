@@ -11,16 +11,15 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	{
 		protected HelperMethods<T> Helper {
 			get;
-			set;
+			private set;
 		}
 
-		protected Func<T> InitializeFaultInquirerWithNullDataSet {
-			get;
-			set;
-		}
+		private readonly Func<T> InitializeFaultInquirerWithNullDataSet;
 
-		public UngroupedInquirerBase_Tests ()
+		//TODO:fixme
+		public UngroupedInquirerBase_Tests (Func<T> initializeWithNull)
 		{
+			InitializeFaultInquirerWithNullDataSet = initializeWithNull;
 			Helper = new HelperMethods<T> ();
 		}
 
@@ -53,15 +52,28 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 
 		protected void HandleExceptionWithInnerArgumentNullException (Exception exception)
 		{
-			Assert.IsNotNull (exception);
-			Assert.IsInstanceOfType (typeof(StatisticsException), exception);
 			Assert.IsInstanceOfType (typeof(ArgumentNullException), exception.InnerException);
 		}
 
 		protected void HandleExceptionThroughTargetInvocationExceptionException (Exception exception)
 		{
-			Assert.IsNotNull (exception);
-			Assert.IsInstanceOfType (typeof(TargetInvocationException), exception);
+			Assert.IsInstanceOfType (typeof(StatisticsException), exception.InnerException);
+		}
+
+
+		protected double CalcNthXile (IList<double> data, int xile, int nTh)
+		{
+			var lx = data.Count * nTh / (double)xile;
+			var li = (int)Math.Floor (lx - 0.5);
+			var ls = (int)Math.Floor (lx + 0.5);
+			if (ls == data.Count) {
+				ls = li;
+			}
+			var iPortion = li + 1 - (lx - 0.5);
+			var sPortion = 1 - iPortion;
+			var xRange = iPortion * data [li] + sPortion * data [ls];
+			
+			return xRange;
 		}
 	}
 }

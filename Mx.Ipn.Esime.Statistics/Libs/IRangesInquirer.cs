@@ -4,10 +4,10 @@ namespace Mx.Ipn.Esime.Statistics.Libs
 	{
 		double GetDataRange ();
 		
-		double GetInterquartileRange ();
+		double GetInterQuartileRange ();
 		
-		double GetInterdecileRange ();
+		double GetInterDecileRange ();
 		
-		double GetInterpercentileRange ();
+		double GetInterPercentileRange ();
 	}
 }

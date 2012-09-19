@@ -8,11 +8,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	[TestFixture()]
 	public class UngroupedCentralTendecyInquirer_Tests:UngroupedInquirerBase_Tests<UngroupedCentralTendecyInquirer>
 	{	
-		public UngroupedCentralTendecyInquirer_Tests ()
+		public UngroupedCentralTendecyInquirer_Tests ():base(()=>{return new UngroupedCentralTendecyInquirer (rawData: null);})
 		{
-			InitializeFaultInquirerWithNullDataSet = () => {
-				return new UngroupedCentralTendecyInquirer (rawData: null);
-			};
 		}
 
 		[TestCase(100)]

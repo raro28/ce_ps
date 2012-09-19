@@ -3,6 +3,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using System;
 	using System.Linq;
 	using System.Collections.Generic;
+	using System.Reflection;
+	using Mx.Ipn.Esime.Statistics.Libs;
 
 	public class HelperMethods<T>
 	{
@@ -42,21 +44,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			data.Sort ();
 			
 			return calculator;
-		}
-
-		public double CalcNthXile (IList<double> data, int xile, int nTh)
-		{
-			var lx = data.Count * nTh / (double)xile;
-			var li = (int)Math.Floor (lx - 0.5);
-			var ls = (int)Math.Floor (lx + 0.5);
-			if (ls == data.Count) {
-				ls = li;
-			}
-			var iPortion = li + 1 - (lx - 0.5);
-			var sPortion = 1 - iPortion;
-			var xRange = iPortion * data [li] + sPortion * data [ls];
-			
-			return xRange;
 		}
 	}
 }

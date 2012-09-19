@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 	
 	[TestFixture()]
-	public class UngroupedCentralTendecyInquirer_Tests:CentralTendecyInquirerBase_Tests<UngroupedCentralTendecyInquirer>
+	public class UngroupedCentralTendecyInquirer_Tests:CentralTendecyInquirerBase_Tests<UngroupedCentralTendecyInquirer,UngroupedHelperMethods<UngroupedCentralTendecyInquirer>>
 	{	
-		public UngroupedCentralTendecyInquirer_Tests ():base(()=>{return new UngroupedCentralTendecyInquirer (rawData: null);}, new UngroupedHelperMethods<UngroupedCentralTendecyInquirer> ())
+		public UngroupedCentralTendecyInquirer_Tests ():base(()=>{return new UngroupedCentralTendecyInquirer (rawData: null);})
 		{
 		}
 

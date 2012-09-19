@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture()]
-	public abstract class DispersionInquirerBase_Tests<T>:InquirerBase_Tests<T> where T:DispersionInquirerBase
+	public abstract class DispersionInquirerBase_Tests<T,E>:InquirerBase_Tests<T,E> where T:DispersionInquirerBase where E:HelperMethodsBase<T>
 	{
-		public DispersionInquirerBase_Tests (Func<T> initializeWithNull, HelperMethodsBase<T> helper):base(initializeWithNull, helper)
+		public DispersionInquirerBase_Tests (Func<T> initializeWithNull):base(initializeWithNull)
 		{
 		}
 

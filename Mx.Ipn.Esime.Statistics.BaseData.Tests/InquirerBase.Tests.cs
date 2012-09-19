@@ -8,20 +8,20 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture()]
-	public abstract class InquirerBase_Tests<T> where T:InquirerBase
+	public abstract class InquirerBase_Tests<TInquirer,THelper> where TInquirer:InquirerBase where THelper:HelperMethodsBase<TInquirer>
 	{
-		protected HelperMethodsBase<T> Helper {
+		protected THelper Helper {
 			get;
-			private set;
+			set;
 		}
 
-		private readonly Func<T> InitializeFaultInquirerWithNullDataSet;
+		private readonly Func<TInquirer> InitializeFaultInquirerWithNullDataSet;
 
 		//FIXME better way to init inquirer with null data set
-		public InquirerBase_Tests (Func<T> initializeWithNull, HelperMethodsBase<T> helper)
+		public InquirerBase_Tests (Func<TInquirer> initializeWithNull)
 		{
 			InitializeFaultInquirerWithNullDataSet = initializeWithNull;
-			Helper = helper;
+			Helper = (THelper)Activator.CreateInstance (typeof(THelper), new object[]{});
 		}
 
 		[TestCase(100)]

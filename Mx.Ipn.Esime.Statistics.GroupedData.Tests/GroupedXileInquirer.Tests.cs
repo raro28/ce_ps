@@ -5,9 +5,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
-	public class GroupedXileInquirer_Tests:XileInquirerBase_Tests<GroupedXileInquirer>
+	public class GroupedXileInquirer_Tests:XileInquirerBase_Tests<GroupedXileInquirer,GroupedHelperMethods<GroupedXileInquirer>>
 	{
-		public GroupedXileInquirer_Tests ():base(()=>{return new GroupedXileInquirer (rawData: null);}, new GroupedHelperMethods<GroupedXileInquirer> ())
+		public GroupedXileInquirer_Tests ():base(()=>{return new GroupedXileInquirer (rawData: null);})
 		{
 		}
 	}

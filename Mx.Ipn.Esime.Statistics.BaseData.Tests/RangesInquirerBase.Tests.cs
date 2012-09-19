@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture()]
-	public abstract class RangesInquirerBase_Tests<T>:InquirerBase_Tests<T> where T:RangesInquirerBase
+	public abstract class RangesInquirerBase_Tests<T,E>:InquirerBase_Tests<T,E> where T:RangesInquirerBase where E:HelperMethodsBase<T>
 	{
-		public RangesInquirerBase_Tests (Func<T> initializeWithNull, HelperMethodsBase<T> helper):base(initializeWithNull, helper)
+		public RangesInquirerBase_Tests (Func<T> initializeWithNull):base(initializeWithNull)
 		{
 		}
 

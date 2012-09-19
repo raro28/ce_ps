@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
-	public class GroupedRangesInquirer_Tests:RangesInquirerBase_Tests<GroupedRangesInquirer>
+	public class GroupedRangesInquirer_Tests:RangesInquirerBase_Tests<GroupedRangesInquirer,GroupedHelperMethods<GroupedRangesInquirer>>
 	{
-		public GroupedRangesInquirer_Tests ():base(()=>{return new GroupedRangesInquirer (rawData: null);}, new GroupedHelperMethods<GroupedRangesInquirer> ())
+		public GroupedRangesInquirer_Tests ():base(()=>{return new GroupedRangesInquirer (rawData: null);})
 		{
 		}
 

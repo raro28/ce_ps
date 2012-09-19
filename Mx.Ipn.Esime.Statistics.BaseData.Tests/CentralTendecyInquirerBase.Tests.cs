@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 	
 	[TestFixture()]
-	public abstract class CentralTendecyInquirerBase_Tests<T>:InquirerBase_Tests<T> where T:CentralTendecyInquirerBase
+	public abstract class CentralTendecyInquirerBase_Tests<T,E>:InquirerBase_Tests<T,E> where T:CentralTendecyInquirerBase where E:HelperMethodsBase<T>
 	{	
-		public CentralTendecyInquirerBase_Tests (Func<T> initializeWithNull, HelperMethodsBase<T> helper):base(initializeWithNull, helper)
+		public CentralTendecyInquirerBase_Tests (Func<T> initializeWithNull):base(initializeWithNull)
 		{
 		}
 

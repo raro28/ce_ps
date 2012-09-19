@@ -41,6 +41,10 @@
       <Project>{BBA01040-73A6-4928-987C-C43B49246614}</Project>
       <Name>Mx.Ipn.Esime.Statistics</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.GroupedData\Mx.Ipn.Esime.Statistics.GroupedData.csproj">
+      <Project>{625D9869-AC0E-4771-A00F-38A655FFB8BA}</Project>
+      <Name>Mx.Ipn.Esime.Statistics.GroupedData</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />

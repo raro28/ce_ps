@@ -1,11 +1,10 @@
-namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
+namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
 	using NUnit.Framework;
 	using System.Reflection;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
-	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
 	public abstract class RangesInquirerBase_Tests<T>:InquirerBase_Tests<T> where T:RangesInquirerBase

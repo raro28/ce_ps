@@ -1,10 +1,9 @@
-namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
+namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
 	using System.Linq;
 	using System.Collections.Generic;
 	using NUnit.Framework;
-	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 	using Mx.Ipn.Esime.Statistics.Libs;
 	
 	[TestFixture()]

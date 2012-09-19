@@ -6,7 +6,6 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using NUnit.Framework;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
-	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture]
 	public abstract class XileInquirerBase_Tests<T>:InquirerBase_Tests<T> where T:XileInquirerBase

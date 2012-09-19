@@ -34,32 +34,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Libs\StatisticsException.cs" />
-    <Compile Include="Libs\ICentralTendencyInquirer.cs" />
-    <Compile Include="Libs\IDispersionInquirer.cs" />
-    <Compile Include="Libs\IRangesInquirer.cs" />
-    <Compile Include="Libs\IXileInquirer.cs" />
-    <Compile Include="UngroupedData\UngroupedCentralTendecyInquirer.cs" />
-    <Compile Include="UngroupedData\UngroupedRangesInquirer.cs" />
-    <Compile Include="UngroupedData\UngroupedXileInquirer.cs" />
-    <Compile Include="UngroupedData\UngroupedDispersionInquirer.cs" />
-    <Compile Include="Libs\IDistributionChartInquirer.cs" />
-    <Compile Include="GroupedData\DataDistributionFrequencyInquirer.cs" />
-    <Compile Include="GroupedData\GroupedCentralTendecyInquirer.cs" />
-    <Compile Include="GroupedData\GroupedDispersionInquirer.cs" />
-    <Compile Include="GroupedData\GroupedRangesInquirer.cs" />
-    <Compile Include="GroupedData\GroupedXileInquirer.cs" />
-    <Compile Include="Libs\Bases\InquirerBase.cs" />
-    <Compile Include="Libs\Bases\XileInquirerBase.cs" />
-    <Compile Include="Libs\Bases\RangesInquirerBase.cs" />
-    <Compile Include="Libs\Bases\CentralTendecyInquirerBase.cs" />
-    <Compile Include="Libs\Bases\DispersionInquirerBase.cs" />
+    <Compile Include="ICentralTendencyInquirer.cs" />
+    <Compile Include="IDispersionInquirer.cs" />
+    <Compile Include="IDistributionChartInquirer.cs" />
+    <Compile Include="IRangesInquirer.cs" />
+    <Compile Include="IXileInquirer.cs" />
+    <Compile Include="StatisticsException.cs" />
+    <Compile Include="Base\InquirerBase.cs" />
+    <Compile Include="Base\XileInquirerBase.cs" />
+    <Compile Include="Base\RangesInquirerBase.cs" />
+    <Compile Include="Base\CentralTendecyInquirerBase.cs" />
+    <Compile Include="Base\DispersionInquirerBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Libs\" />
-    <Folder Include="UngroupedData\" />
-    <Folder Include="GroupedData\" />
-    <Folder Include="Libs\Bases\" />
-  </ItemGroup>
 </Project>

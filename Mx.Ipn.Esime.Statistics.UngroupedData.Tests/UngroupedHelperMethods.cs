@@ -1,8 +1,9 @@
-namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
+namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Libs;
+	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	public class UngroupedHelperMethods<T>:HelperMethodsBase<T> where T:InquirerBase
 	{

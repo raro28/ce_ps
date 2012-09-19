@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{04A119EE-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.BaseData.Tests", "Mx.Ipn.Esime.Statistics.BaseData.Tests\Mx.Ipn.Esime.Statistics.BaseData.Tests.csproj", "{F6EF1DF6-D43B-4FCC-ABC6-41FD497D6007}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.UngroupedData", "Mx.Ipn.Esime.Statistics.UngroupedData\Mx.Ipn.Esime.Statistics.UngroupedData.csproj", "{15B43C6D-0741-4F17-9ADF-F24D9504E571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.GroupedData", "Mx.Ipn.Esime.Statistics.GroupedData\Mx.Ipn.Esime.Statistics.GroupedData.csproj", "{625D9869-AC0E-4771-A00F-38A655FFB8BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +26,18 @@ Global
 		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{984E3C8A-D719-4673-BFB7-261EFB6E5445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{984E3C8A-D719-4673-BFB7-261EFB6E5445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{984E3C8A-D719-4673-BFB7-261EFB6E5445}.Release|Any CPU.ActiveCfg = Release|Any CPU

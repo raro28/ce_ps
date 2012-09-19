@@ -1,6 +1,6 @@
 using System.Reflection;
 
-[assembly: AssemblyTitle("Mx.Ipn.Esime.Statistics")]
+[assembly: AssemblyTitle("Mx.Ipn.Esime.Statistics.UngroupedData")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("IPN ESIME Culhuacan")]

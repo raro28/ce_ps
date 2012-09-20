@@ -53,6 +53,6 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 					
 		public abstract double CalcNthXile (IList<double> data, int xile, int nTh);
 		
-		public abstract double SampleMean (List<double> sortedData);
+		public abstract double SampleMean (List<double> data);
 	}
 }

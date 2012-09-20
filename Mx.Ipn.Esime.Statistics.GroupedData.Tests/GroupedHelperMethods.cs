@@ -12,7 +12,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			throw new NotImplementedException ();
 		}		
 
-		public override double SampleMean (List<double> sortedData)
+		public override double SampleMean (List<double> data)
 		{
 			//TODO:GroupedHelperMethods:SampleMean
 			throw new NotImplementedException ();

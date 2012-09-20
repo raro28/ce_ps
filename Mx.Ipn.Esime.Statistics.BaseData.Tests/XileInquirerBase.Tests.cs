@@ -33,11 +33,11 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(Xiles.Percentile,100)]
 		public void Inquirer_Gets_All_Expected (Xiles xile, int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 			var method = GetXileMethod (xile);
 
-			var expected = GetXiles ((int)xile, nTh => Helper.CalcNthXile (sortedData, (int)xile, nTh)).ToList ();
+			var expected = GetXiles ((int)xile, nTh => Helper.CalcNthXile (data, (int)xile, nTh)).ToList ();
 			var actual = GetXiles ((int)xile, nTh => (double)method.Invoke (calculator, new object[]{nTh})).ToList ();
 			CollectionAssert.AreEqual (expected, actual);
 		}

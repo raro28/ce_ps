@@ -9,9 +9,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	[TestFixture()]
 	public class UngroupedRangesInquirer_Tests:RangesInquirerBase_Tests<UngroupedRangesInquirer,UngroupedHelperMethods>
 	{
-		protected override double SampleDataRange (IList<double> sortedData)
+		protected override double SampleDataRange (IList<double> data)
 		{
-			var dataRange = sortedData [sortedData.Count - 1] - sortedData [0];
+			var dataRange = data [data.Count - 1] - data [0];
 			
 			return dataRange;
 		}

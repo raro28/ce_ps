@@ -9,22 +9,22 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	[TestFixture()]
 	public class UngroupedCentralTendecyInquirer_Tests:CentralTendecyInquirerBase_Tests<UngroupedCentralTendecyInquirer,UngroupedHelperMethods>
 	{
-		protected override double SampleMedian (IList<double> sortedData)
+		protected override double SampleMedian (IList<double> data)
 		{
 			double result;
-			int middleIndex = (sortedData.Count / 2) - 1;
-			if ((sortedData.Count % 2) != 0) {
-				result = sortedData [middleIndex + 1];
+			int middleIndex = (data.Count / 2) - 1;
+			if ((data.Count % 2) != 0) {
+				result = data [middleIndex + 1];
 			} else {
-				result = (sortedData [middleIndex] + sortedData [middleIndex + 1]) / 2;
+				result = (data [middleIndex] + data [middleIndex + 1]) / 2;
 			}
 			
 			return result;
 		}
 		
-		protected override List<double> SampleMode (IEnumerable<double> sortedData)
+		protected override List<double> SampleMode (IEnumerable<double> data)
 		{
-			var groups = sortedData.GroupBy (data => data);
+			var groups = data.GroupBy (item => item);
 			var modes = (from _mode in groups
 			             where _mode.Count () == groups.Max (grouped => grouped.Count ())
 			             select _mode.First ()).ToList ();

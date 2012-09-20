@@ -1,7 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
-	using System.Reflection;
 	using System.Collections.Generic;
 	using NUnit.Framework;
 	using Mx.Ipn.Esime.Statistics.Core;
@@ -22,11 +21,11 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Uses_Internal_Sorted_Data_Set (int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 			
-			for (int i = 0; i < sortedData.Count; i++) {
-				Assert.AreEqual (sortedData [i], ((dynamic)calculator).Data [i]);
+			for (int i = 0; i < data.Count; i++) {
+				Assert.AreEqual (data [i], ((dynamic)calculator).Data [i]);
 			}
 		}
 

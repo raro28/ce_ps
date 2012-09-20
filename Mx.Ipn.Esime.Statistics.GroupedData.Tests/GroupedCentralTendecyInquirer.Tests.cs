@@ -9,13 +9,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	[TestFixture()]
 	public class GroupedCentralTendecyInquirer_Tests:CentralTendecyInquirerBase_Tests<GroupedCentralTendecyInquirer,GroupedHelperMethods>
 	{
-		protected override double SampleMedian (IList<double> sortedData)
+		protected override double SampleMedian (IList<double> data)
 		{
 			//TODO:GroupedCentralTendecyInquirer_Tests:SampleMedian
 			throw new NotImplementedException ();
 		}
 
-		protected override List<double> SampleMode (IEnumerable<double> sortedData)
+		protected override List<double> SampleMode (IEnumerable<double> data)
 		{
 			//TODO:GroupedCentralTendecyInquirer_Tests:SampleMode
 			throw new NotImplementedException ();

@@ -9,19 +9,19 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	[TestFixture()]
 	public class GroupedDispersionInquirer_Tests:DispersionInquirerBase_Tests<GroupedDispersionInquirer,GroupedHelperMethods>
 	{
-		protected override double SampleAbsoluteDeviation (List<double> sortedData, double mean)
+		protected override double SampleAbsoluteDeviation (List<double> data, double mean)
 		{
 			//TODO:GroupedDispersionInquirer_Tests:SampleAbsoluteDeviation
 			throw new NotImplementedException ();
 		}
 
-		protected override double SampleVariance (List<double> sortedData, double mean)
+		protected override double SampleVariance (List<double> data, double mean)
 		{
 			//TODO:GroupedDispersionInquirer_Tests:SampleVariance
 			throw new NotImplementedException ();
 		}
 
-		protected override double SampleMomentum (List<double> sortedData, int nMomentum, double mean)
+		protected override double SampleMomentum (List<double> data, int nMomentum, double mean)
 		{
 			//TODO:GroupedDispersionInquirer_Tests:SampleMomentum
 			throw new NotImplementedException ();

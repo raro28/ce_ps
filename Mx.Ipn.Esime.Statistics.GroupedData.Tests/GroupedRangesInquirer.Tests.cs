@@ -9,7 +9,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	[TestFixture()]
 	public class GroupedRangesInquirer_Tests:RangesInquirerBase_Tests<GroupedRangesInquirer,GroupedHelperMethods>
 	{
-		protected override double SampleDataRange (IList<double> sortedData)
+		protected override double SampleDataRange (IList<double> data)
 		{
 			//TODO:GroupedRangesInquirer_Tests:SampleDataRange
 			throw new NotImplementedException ();

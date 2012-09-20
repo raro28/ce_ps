@@ -12,10 +12,10 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Data_Range (int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 
-			var expected = SampleDataRange (sortedData);
+			var expected = SampleDataRange (data);
 			var actual = calculator.GetDataRange ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -25,15 +25,15 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(Xiles.Percentile,100,90,10)]
 		public void Inquirer_Gets_Expected_Range (Xiles xile, int size, int toXile, int fromXile)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 
-			var expected = Helper.CalcNthXile (sortedData, (int)xile, toXile) - Helper.CalcNthXile (sortedData, (int)xile, fromXile);
+			var expected = Helper.CalcNthXile (data, (int)xile, toXile) - Helper.CalcNthXile (data, (int)xile, fromXile);
 			var actual = GetInterXileRangeMethod (xile).Invoke (calculator, new object[]{});
 			Assert.AreEqual (expected, actual);
 		}
 
-		protected abstract double SampleDataRange (IList<double> sortedData);
+		protected abstract double SampleDataRange (IList<double> data);
 		
 		private MethodInfo GetInterXileRangeMethod (Xiles xile)
 		{

@@ -8,6 +8,6 @@ namespace Mx.Ipn.Esime.Statistics.Core
 		
 		double GetMedian ();
 		
-		IList<double> GetMode ();
+		IList<double> GetModes ();
 	}	
 }

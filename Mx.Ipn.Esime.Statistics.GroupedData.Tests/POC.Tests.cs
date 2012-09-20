@@ -11,12 +11,12 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		[Test()]
 		public void Inquirer_POC_Test ()
 		{
-			List<double> sortedData;
-			dynamic calculator = Helper.NewInquirer<GroupedDispersionInquirer> (out sortedData, size: 25);
+			List<double> data;
+			dynamic calculator = Helper.NewInquirer<GroupedDispersionInquirer> (out data, size: 25);
 
 			calculator.GetMean ();
 			calculator.GetTable ();
-			calculator.GetMode ();
+			calculator.GetModes ();
 			calculator.GetMedian ();
 			calculator.GetQuartile (3);
 			calculator.GetDecile (6);

@@ -30,7 +30,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Inquirer.Answers ["get(median)"];
 		}
 		
-		public IList<double> GetMode ()
+		public IList<double> GetModes ()
 		{
 			if (!Inquirer.Answers.ContainsKey ("get(mode)")) {							
 				Inquirer.Answers.Add ("get(mode)", CalcModes ());

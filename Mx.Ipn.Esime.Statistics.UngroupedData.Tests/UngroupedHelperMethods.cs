@@ -21,11 +21,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			return xRange;
 		}
 		
-		public override double SampleMean (List<double> sortedData)
+		public override double SampleMean (List<double> data)
 		{			
 			var sum = 0.0;
-			sortedData.ForEach (data => sum += data);
-			var mean = sum / sortedData.Count;
+			data.ForEach (item => sum += item);
+			var mean = sum / data.Count;
 			
 			return mean;
 		}

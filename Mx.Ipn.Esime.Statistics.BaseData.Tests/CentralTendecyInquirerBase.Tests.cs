@@ -12,23 +12,23 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Mean (int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 
-			var expected = Helper.SampleMean (sortedData);
+			var expected = Helper.SampleMean (data);
 			var actual = calculator.GetMean ();
 			Assert.AreEqual (expected, actual);
 		}
 
 		[TestCase(new double[]{1,2,3,2})]
 		[TestCase(new double[]{6,1,2,3,2,4,5,6})]
-		public void Inquirer_Gets_Expected_Mode (double[] dataArray)
+		public void Inquirer_Gets_Expected_Mode (IEnumerable<double> data)
 		{
-			var sortedData = dataArray.ToList ();
-			var calculator = Helper.NewInquirer<TInquirer> (sortedData);
+			var _data = data.ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (_data);
 			
-			var <double> expected = SampleMode (sortedData);
-			var actual = calculator.GetMode ();
+			var <double> expected = SampleMode (_data);
+			var actual = calculator.GetModes ();
 			Assert.AreEqual (expected, actual);
 		}
 		
@@ -36,16 +36,16 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(5)]
 		public void Inquirer_Gets_Expected_Median (int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 			
-			var expected = SampleMedian (sortedData);
+			var expected = SampleMedian (data);
 			var actual = calculator.GetMedian ();
 			Assert.AreEqual (expected, actual);
 		}
 
-		protected abstract double SampleMedian (IList<double> sortedData);
+		protected abstract double SampleMedian (IList<double> data);
 
-		protected abstract List<double> SampleMode (IEnumerable<double> sortedData);
+		protected abstract List<double> SampleMode (IEnumerable<double> data);
 	}
 }

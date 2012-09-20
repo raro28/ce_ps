@@ -12,10 +12,10 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Absolute_Deviation (int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 
-			var expected = SampleAbsoluteDeviation (sortedData, Helper.SampleMean (sortedData));
+			var expected = SampleAbsoluteDeviation (data, Helper.SampleMean (data));
 			var actual = calculator.GetAbsoluteDeviation ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -23,10 +23,10 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Variance (int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 
-			var expected = SampleVariance (sortedData, Helper.SampleMean (sortedData));
+			var expected = SampleVariance (data, Helper.SampleMean (data));
 			var actual = calculator.GetVariance ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -34,10 +34,10 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Standar_Deviation (int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 
-			var expected = Math.Sqrt (SampleVariance (sortedData, Helper.SampleMean (sortedData)));
+			var expected = Math.Sqrt (SampleVariance (data, Helper.SampleMean (data)));
 			var actual = calculator.GetStandarDeviation ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -45,11 +45,11 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Coefficient_Of_Variation (int size)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 
-			var mean = Helper.SampleMean (sortedData);
-			var expected = Math.Sqrt (SampleVariance (sortedData, mean)) / mean;
+			var mean = Helper.SampleMean (data);
+			var expected = Math.Sqrt (SampleVariance (data, mean)) / mean;
 			var actual = calculator.GetCoefficientOfVariation ();
 			Assert.AreEqual (expected, actual);
 		}
@@ -58,20 +58,20 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase("Symmetry",100,3,1.5)]
 		public void Inquirer_Gets_Expected_Coefficient_Of (string coefficientName, int size, int nthMomentum, double momentum2Pow)
 		{
-			List<double> sortedData;
-			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
+			List<double> data;
+			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
 
-			var mean = Helper.SampleMean (sortedData);
-			var expected = SampleMomentum (sortedData, nthMomentum, mean) / Math.Pow (SampleMomentum (sortedData, 2, mean), momentum2Pow);
+			var mean = Helper.SampleMean (data);
+			var expected = SampleMomentum (data, nthMomentum, mean) / Math.Pow (SampleMomentum (data, 2, mean), momentum2Pow);
 			var actual = GetCoefficientOfMethod (coefficientName).Invoke (calculator, new object[]{});
 			Assert.AreEqual (expected, actual);
 		}
 
-		protected abstract double SampleAbsoluteDeviation (List<double> sortedData, double mean);
+		protected abstract double SampleAbsoluteDeviation (List<double> data, double mean);
 
-		protected abstract double SampleVariance (List<double> sortedData, double mean);
+		protected abstract double SampleVariance (List<double> data, double mean);
 
-		protected abstract double SampleMomentum (List<double> sortedData, int nMomentum, double mean);
+		protected abstract double SampleMomentum (List<double> data, int nMomentum, double mean);
 
 		private MethodInfo GetCoefficientOfMethod (string coefficientName)
 		{

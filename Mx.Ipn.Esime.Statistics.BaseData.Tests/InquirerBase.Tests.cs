@@ -8,7 +8,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture()]
-	public abstract class InquirerBase_Tests<TInquirer,THelper> where TInquirer:InquirerBase where THelper:HelperMethodsBase<TInquirer>
+	public abstract class InquirerBase_Tests<TInquirer,THelper> where TInquirer:InquirerBase where THelper:HelperMethodsBase
 	{
 		protected THelper Helper {
 			get;
@@ -28,7 +28,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Uses_Internal_Sorted_Data_Set (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 			
 			for (int i = 0; i < sortedData.Count; i++) {
 				Assert.AreEqual (sortedData [i], ((dynamic)calculator).Data [i]);
@@ -48,7 +48,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
 		public void When_Inquirer_Recieves_Less_Than_Two_Elements_Data_Set_Throws_An_Statistics_Exception (int size)
 		{
-			Helper.NewInquirer (size);
+			Helper.NewInquirer<TInquirer> (size);
 		}
 
 		protected void HandleExceptionWithInnerArgumentNullException (Exception exception)

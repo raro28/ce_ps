@@ -8,9 +8,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture]
-	public abstract class XileInquirerBase_Tests<T,E>:InquirerBase_Tests<T,E> where T:XileInquirerBase where E:HelperMethodsBase<T>
+	public abstract class XileInquirerBase_Tests<TInquirer,THelper>:InquirerBase_Tests<TInquirer,THelper> where TInquirer:XileInquirerBase where THelper:HelperMethodsBase
 	{
-		public XileInquirerBase_Tests (Func<T> initializeWithNull):base(initializeWithNull)
+		public XileInquirerBase_Tests (Func<TInquirer> initializeWithNull):base(initializeWithNull)
 		{
 		}
 
@@ -20,7 +20,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
 		public void When_Inquirer_Recieves_Tries_To_Get_Negative (Xiles xile, int size)
 		{
-			GetXileMethod (xile).Invoke (Helper.NewInquirer (size), new object[]{-1});
+			GetXileMethod (xile).Invoke (Helper.NewInquirer<TInquirer> (size), new object[]{-1});
 		}
 
 		[TestCase(Xiles.Quartile,100)]
@@ -29,7 +29,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
 		public void When_Inquirer_Recieves_Tries_To_Get_Greater (Xiles xile, int size)
 		{
-			GetXileMethod (xile).Invoke (Helper.NewInquirer (size), new object[]{(int)xile + 1});
+			GetXileMethod (xile).Invoke (Helper.NewInquirer<TInquirer> (size), new object[]{(int)xile + 1});
 		}
 
 		[TestCase(Xiles.Quartile,100)]
@@ -38,7 +38,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_All_Expected (Xiles xile, int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 			var method = GetXileMethod (xile);
 
 			var expected = GetXiles ((int)xile, nTh => Helper.CalcNthXile (sortedData, (int)xile, nTh)).ToList ();
@@ -55,7 +55,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		
 		private MethodInfo GetXileMethod (Xiles xile)
 		{
-			return typeof(T).GetMethod ("Get" + Enum.GetName (typeof(Xiles), xile));
+			return typeof(TInquirer).GetMethod ("Get" + Enum.GetName (typeof(Xiles), xile));
 		}
 	}
 }

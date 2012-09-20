@@ -7,7 +7,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
-	public class GroupedCentralTendecyInquirer_Tests:CentralTendecyInquirerBase_Tests<GroupedCentralTendecyInquirer,GroupedHelperMethods<GroupedCentralTendecyInquirer>>
+	public class GroupedCentralTendecyInquirer_Tests:CentralTendecyInquirerBase_Tests<GroupedCentralTendecyInquirer,GroupedHelperMethods>
 	{
 		public GroupedCentralTendecyInquirer_Tests ():base(()=>{return new GroupedCentralTendecyInquirer (rawData: null);})
 		{

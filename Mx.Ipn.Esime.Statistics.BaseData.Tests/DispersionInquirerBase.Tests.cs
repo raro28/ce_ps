@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture()]
-	public abstract class DispersionInquirerBase_Tests<T,E>:InquirerBase_Tests<T,E> where T:DispersionInquirerBase where E:HelperMethodsBase<T>
+	public abstract class DispersionInquirerBase_Tests<TInquirer,THelper>:InquirerBase_Tests<TInquirer,THelper> where TInquirer:DispersionInquirerBase where THelper:HelperMethodsBase
 	{
-		public DispersionInquirerBase_Tests (Func<T> initializeWithNull):base(initializeWithNull)
+		public DispersionInquirerBase_Tests (Func<TInquirer> initializeWithNull):base(initializeWithNull)
 		{
 		}
 
@@ -17,7 +17,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_Expected_Absolute_Deviation (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 
 			var expected = SampleAbsoluteDeviation (sortedData, Helper.SampleMean (sortedData));
 			var actual = calculator.GetAbsoluteDeviation ();
@@ -28,7 +28,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_Expected_Variance (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 
 			var expected = SampleVariance (sortedData, Helper.SampleMean (sortedData));
 			var actual = calculator.GetVariance ();
@@ -39,7 +39,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_Expected_Standar_Deviation (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 
 			var expected = Math.Sqrt (SampleVariance (sortedData, Helper.SampleMean (sortedData)));
 			var actual = calculator.GetStandarDeviation ();
@@ -50,7 +50,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_Expected_Coefficient_Of_Variation (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 
 			var mean = Helper.SampleMean (sortedData);
 			var expected = Math.Sqrt (SampleVariance (sortedData, mean)) / mean;
@@ -63,7 +63,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_Expected_Coefficient_Of (string coefficientName, int size, int nthMomentum, double momentum2Pow)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 
 			var mean = Helper.SampleMean (sortedData);
 			var expected = SampleMomentum (sortedData, nthMomentum, mean) / Math.Pow (SampleMomentum (sortedData, 2, mean), momentum2Pow);
@@ -79,7 +79,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 
 		private MethodInfo GetCoefficientOfMethod (string coefficientName)
 		{
-			return typeof(T).GetMethod ("GetCoefficientOf" + coefficientName);
+			return typeof(TInquirer).GetMethod ("GetCoefficientOf" + coefficientName);
 		}
 	}
 }

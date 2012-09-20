@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
-	public abstract class HelperMethodsBase<T> where T:InquirerBase
+	public abstract class HelperMethodsBase
 	{
 		private static Random rnd;
 
@@ -21,25 +21,25 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			}
 		}
 
-		public T NewInquirer (int size)
+		public TInquirer NewInquirer<TInquirer> (int size) where TInquirer:InquirerBase
 		{
 			List<double> data;
-			return NewInquirer (out data, size);
+			return NewInquirer<TInquirer> (out data, size);
 		}
 
-		public T NewInquirer (out List<double> data, int size)
+		public TInquirer NewInquirer<TInquirer> (out List<double> data, int size) where TInquirer:InquirerBase
 		{
 			data = GetRandomDataSample (size).ToList ();
 			var cache = data.ToList ();
-			var calculator = NewInquirer (ref cache);
+			var calculator = NewInquirer<TInquirer> (ref cache);
 			data = cache;
 			
 			return calculator;
 		}
 
-		public T NewInquirer (ref List<double> data)
+		public TInquirer NewInquirer<TInquirer> (ref List<double> data) where TInquirer:InquirerBase
 		{
-			var calculator = (T)Activator.CreateInstance (typeof(T), new object[]{data.ToList ()});
+			var calculator = (TInquirer)Activator.CreateInstance (typeof(TInquirer), new object[]{data.ToList ()});
 			data.Sort ();
 			
 			return calculator;

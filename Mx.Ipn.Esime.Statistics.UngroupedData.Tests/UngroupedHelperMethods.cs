@@ -2,10 +2,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
 	using System;
 	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Core.Base;
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
-	public class UngroupedHelperMethods<T>:HelperMethodsBase<T> where T:InquirerBase
+	public class UngroupedHelperMethods:HelperMethodsBase
 	{
 		public override double CalcNthXile (IList<double> data, int xile, int nTh)
 		{

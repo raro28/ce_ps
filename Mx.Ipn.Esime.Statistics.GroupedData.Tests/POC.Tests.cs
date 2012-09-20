@@ -6,7 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture()]
-	public class POC_Tests:InquirerBase_Tests<GroupedDispersionInquirer,GroupedHelperMethods<GroupedDispersionInquirer>>
+	public class POC_Tests:InquirerBase_Tests<GroupedDispersionInquirer,GroupedHelperMethods>
 	{
 		public POC_Tests ():base(()=>{return new GroupedDispersionInquirer (rawData: null);})
 		{
@@ -16,7 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		public void Inquirer_POC_Test ()
 		{
 			List<double> sortedData;
-			dynamic calculator = Helper.NewInquirer (out sortedData, size: 25);
+			dynamic calculator = Helper.NewInquirer<GroupedDispersionInquirer> (out sortedData, size: 25);
 
 			calculator.GetMean ();
 			calculator.GetTable ();

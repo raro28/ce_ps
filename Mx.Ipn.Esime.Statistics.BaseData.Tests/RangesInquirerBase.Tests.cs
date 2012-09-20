@@ -7,9 +7,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture()]
-	public abstract class RangesInquirerBase_Tests<T,E>:InquirerBase_Tests<T,E> where T:RangesInquirerBase where E:HelperMethodsBase<T>
+	public abstract class RangesInquirerBase_Tests<TInquirer,THelper>:InquirerBase_Tests<TInquirer,THelper> where TInquirer:RangesInquirerBase where THelper:HelperMethodsBase
 	{
-		public RangesInquirerBase_Tests (Func<T> initializeWithNull):base(initializeWithNull)
+		public RangesInquirerBase_Tests (Func<TInquirer> initializeWithNull):base(initializeWithNull)
 		{
 		}
 
@@ -17,7 +17,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_Expected_Data_Range (int size)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 
 			var expected = SampleDataRange (sortedData);
 			var actual = calculator.GetDataRange ();
@@ -30,7 +30,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_Expected_Range (Xiles xile, int size, int toXile, int fromXile)
 		{
 			List<double> sortedData;
-			var calculator = Helper.NewInquirer (out sortedData, size);
+			var calculator = Helper.NewInquirer<TInquirer> (out sortedData, size);
 
 			var expected = Helper.CalcNthXile (sortedData, (int)xile, toXile) - Helper.CalcNthXile (sortedData, (int)xile, fromXile);
 			var actual = GetInterXileRangeMethod (xile).Invoke (calculator, new object[]{});
@@ -41,7 +41,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		
 		private MethodInfo GetInterXileRangeMethod (Xiles xile)
 		{
-			return typeof(T).GetMethod ("GetInter" + Enum.GetName (typeof(Xiles), xile) + "Range");
+			return typeof(TInquirer).GetMethod ("GetInter" + Enum.GetName (typeof(Xiles), xile) + "Range");
 		}
 	}
 }

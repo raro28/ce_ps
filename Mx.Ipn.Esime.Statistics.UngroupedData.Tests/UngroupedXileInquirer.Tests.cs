@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
 	[TestFixture]
-	public class UngroupedXileInquirer_Tests:XileInquirerBase_Tests<UngroupedXileInquirer,UngroupedHelperMethods<UngroupedXileInquirer>>
+	public class UngroupedXileInquirer_Tests:XileInquirerBase_Tests<UngroupedXileInquirer,UngroupedHelperMethods>
 	{
 		public UngroupedXileInquirer_Tests ():base(()=>{return new UngroupedXileInquirer (rawData: null);})
 		{

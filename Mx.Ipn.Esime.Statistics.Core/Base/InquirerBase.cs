@@ -19,7 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			set;
 		}
 
-		public InquirerBase (List<double> rawData)
+		public InquirerBase (List<double> rawData, InquirerBase inquirer=null)
 		{
 			AssertValidData (rawData);
 			Properties = new Dictionary<string, object> ();
@@ -28,7 +28,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			cache.Sort ();
 			var readOnly = cache.AsReadOnly ();
 
-			Inquirer = this;
+			Inquirer = inquirer ?? this;
 
 			Inquirer.Data = readOnly;
 			Inquirer.Answers = new Dictionary<string,dynamic > ();

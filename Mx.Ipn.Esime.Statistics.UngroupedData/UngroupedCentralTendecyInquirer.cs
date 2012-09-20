@@ -19,8 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		protected override double CalcMean ()
 		{
-			//FIXME cast of dynamic object to IEnumerable<double>
-			var mean = ((IEnumerable<double>)Inquirer.Data).Sum () / Inquirer.Data.Count;
+			var mean = Enumerable.Sum (Inquirer.Data) / Inquirer.Data.Count;
 
 			return mean;
 		}

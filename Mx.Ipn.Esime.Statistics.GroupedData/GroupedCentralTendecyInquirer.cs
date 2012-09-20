@@ -43,8 +43,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{
 			Inquirer.AddFrequencies ();
 			Inquirer.AddRealClassIntervals ();
-			//FIXME cast of dynamic object to IEnumerable<double>
-			var table = ((IEnumerable<dynamic>)Inquirer.GetTable ()).ToList ();
+			List<dynamic> table = Enumerable.ToList (Inquirer.GetTable ());
 			var firstMaxFreqItem = table.OrderByDescending (item => item.Frequency).First ();
 			var maxFreqItems = table.Where (item => item.Frequency == firstMaxFreqItem.Frequency).ToList ();
 

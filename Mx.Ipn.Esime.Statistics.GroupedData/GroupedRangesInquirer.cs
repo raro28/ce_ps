@@ -19,8 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		protected override double CalcDataRange ()
 		{
 			Inquirer.AddClassIntervals ();
-			//FIXME cast of dynamic object to IEnumerable<double>
-			var table = ((IEnumerable<dynamic>)Inquirer.GetTable ()).ToList ();
+			List<dynamic> table = Enumerable.ToList (Inquirer.GetTable ());
 			var range = table.Last ().ClassInterval.To - table.First ().ClassInterval.From;
 
 			return range;

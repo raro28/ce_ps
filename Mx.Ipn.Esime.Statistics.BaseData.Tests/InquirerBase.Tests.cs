@@ -14,13 +14,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			get;
 			set;
 		}
-
-		private readonly Func<TInquirer> InitializeFaultInquirerWithNullDataSet;
-
-		//FIXME better way to init inquirer with null data set
-		public InquirerBase_Tests (Func<TInquirer> initializeWithNull)
+		public InquirerBase_Tests ()
 		{
-			InitializeFaultInquirerWithNullDataSet = initializeWithNull;
 			Helper = (THelper)Activator.CreateInstance (typeof(THelper), new object[]{});
 		}
 
@@ -39,13 +34,12 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(StatisticsException),Handler="HandleExceptionWithInnerArgumentNullException")]
 		public void When_Inquirer_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()
 		{
-			//FIXME init inquirer with null data set
-			InitializeFaultInquirerWithNullDataSet ();
+			Helper.NewInquirer<TInquirer> (null);
 		}
 		
 		[TestCase(0)]
 		[TestCase(1)]
-		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
+		[ExpectedException(typeof(StatisticsException))]
 		public void When_Inquirer_Recieves_Less_Than_Two_Elements_Data_Set_Throws_An_Statistics_Exception (int size)
 		{
 			Helper.NewInquirer<TInquirer> (size);

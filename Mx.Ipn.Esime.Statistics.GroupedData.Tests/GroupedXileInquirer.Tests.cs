@@ -7,8 +7,5 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	[TestFixture()]
 	public class GroupedXileInquirer_Tests:XileInquirerBase_Tests<GroupedXileInquirer,GroupedHelperMethods>
 	{
-		public GroupedXileInquirer_Tests ():base(()=>{return new GroupedXileInquirer (rawData: null);})
-		{
-		}
 	}
 }

@@ -2,6 +2,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
 	using System.Linq;
+	using System.Reflection;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
@@ -31,18 +32,23 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		{
 			data = GetRandomDataSample (size).ToList ();
 			var cache = data.ToList ();
-			var calculator = NewInquirer<TInquirer> (ref cache);
+			var calculator = NewInquirer<TInquirer> (cache);
 			data = cache;
 			
 			return calculator;
 		}
 
-		public TInquirer NewInquirer<TInquirer> (ref List<double> data) where TInquirer:InquirerBase
+		public TInquirer NewInquirer<TInquirer> (List<double> data) where TInquirer:InquirerBase
 		{
-			var calculator = (TInquirer)Activator.CreateInstance (typeof(TInquirer), new object[]{data.ToList ()});
-			data.Sort ();
-			
-			return calculator;
+			try {
+				var ctor = typeof(TInquirer).GetConstructor (new []{typeof(List<double>)});
+				var calculator = (TInquirer)ctor.Invoke (new object[]{data != null ? data.ToList () : data});
+				data.Sort ();
+
+				return calculator;
+			} catch (TargetInvocationException ex) {
+				throw ex.InnerException;
+			}
 		}
 					
 		public abstract double CalcNthXile (IList<double> data, int xile, int nTh);

@@ -9,10 +9,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	[TestFixture()]
 	public class GroupedRangesInquirer_Tests:RangesInquirerBase_Tests<GroupedRangesInquirer,GroupedHelperMethods>
 	{
-		public GroupedRangesInquirer_Tests ():base(()=>{return new GroupedRangesInquirer (rawData: null);})
-		{
-		}
-
 		protected override double SampleDataRange (IList<double> sortedData)
 		{
 			//TODO:GroupedRangesInquirer_Tests:SampleDataRange

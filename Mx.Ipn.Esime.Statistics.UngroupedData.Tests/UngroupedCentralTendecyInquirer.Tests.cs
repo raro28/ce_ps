@@ -8,11 +8,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	
 	[TestFixture()]
 	public class UngroupedCentralTendecyInquirer_Tests:CentralTendecyInquirerBase_Tests<UngroupedCentralTendecyInquirer,UngroupedHelperMethods>
-	{	
-		public UngroupedCentralTendecyInquirer_Tests ():base(()=>{return new UngroupedCentralTendecyInquirer (rawData: null);})
-		{
-		}
-
+	{
 		protected override double SampleMedian (IList<double> sortedData)
 		{
 			double result;

@@ -9,10 +9,6 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	[TestFixture()]
 	public abstract class DispersionInquirerBase_Tests<TInquirer,THelper>:InquirerBase_Tests<TInquirer,THelper> where TInquirer:DispersionInquirerBase where THelper:HelperMethodsBase
 	{
-		public DispersionInquirerBase_Tests (Func<TInquirer> initializeWithNull):base(initializeWithNull)
-		{
-		}
-
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Absolute_Deviation (int size)
 		{

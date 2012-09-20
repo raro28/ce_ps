@@ -8,11 +8,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	
 	[TestFixture()]
 	public abstract class CentralTendecyInquirerBase_Tests<TInquirer,THelper>:InquirerBase_Tests<TInquirer,THelper> where TInquirer:CentralTendecyInquirerBase where THelper:HelperMethodsBase
-	{	
-		public CentralTendecyInquirerBase_Tests (Func<TInquirer> initializeWithNull):base(initializeWithNull)
-		{
-		}
-
+	{
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Mean (int size)
 		{
@@ -29,7 +25,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		public void Inquirer_Gets_Expected_Mode (double[] dataArray)
 		{
 			var sortedData = dataArray.ToList ();
-			var calculator = Helper.NewInquirer<TInquirer> (ref sortedData);
+			var calculator = Helper.NewInquirer<TInquirer> (sortedData);
 			
 			var <double> expected = SampleMode (sortedData);
 			var actual = calculator.GetMode ();

@@ -10,10 +10,6 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	[TestFixture]
 	public abstract class XileInquirerBase_Tests<TInquirer,THelper>:InquirerBase_Tests<TInquirer,THelper> where TInquirer:XileInquirerBase where THelper:HelperMethodsBase
 	{
-		public XileInquirerBase_Tests (Func<TInquirer> initializeWithNull):base(initializeWithNull)
-		{
-		}
-
 		[TestCase(Xiles.Quartile,100)]
 		[TestCase(Xiles.Decile,100)]
 		[TestCase(Xiles.Percentile,100)]

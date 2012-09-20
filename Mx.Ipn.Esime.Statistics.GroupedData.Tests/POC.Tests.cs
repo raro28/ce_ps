@@ -8,10 +8,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	[TestFixture()]
 	public class POC_Tests:InquirerBase_Tests<GroupedDispersionInquirer,GroupedHelperMethods>
 	{
-		public POC_Tests ():base(()=>{return new GroupedDispersionInquirer (rawData: null);})
-		{
-		}
-
 		[Test()]
 		public void Inquirer_POC_Test ()
 		{

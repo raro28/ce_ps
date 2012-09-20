@@ -9,10 +9,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	[TestFixture()]
 	public class GroupedDispersionInquirer_Tests:DispersionInquirerBase_Tests<GroupedDispersionInquirer,GroupedHelperMethods>
 	{
-		public GroupedDispersionInquirer_Tests ():base(()=>{return new GroupedDispersionInquirer (rawData: null);})
-		{
-		}
-
 		protected override double SampleAbsoluteDeviation (List<double> sortedData, double mean)
 		{
 			//TODO:GroupedDispersionInquirer_Tests:SampleAbsoluteDeviation

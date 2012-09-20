@@ -27,7 +27,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			var _data = data.ToList ();
 			var calculator = Helper.NewInquirer<TInquirer> (_data);
 			
-			var <double> expected = SampleMode (_data);
+			var expected = SampleMode (_data);
 			var actual = calculator.GetModes ();
 			Assert.AreEqual (expected, actual);
 		}

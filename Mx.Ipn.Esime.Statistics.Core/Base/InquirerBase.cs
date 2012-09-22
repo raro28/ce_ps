@@ -43,8 +43,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 			Inquirer = inquirer;
 			Properties = inquirer.Properties;
-
-			Inquirer.DataPresicion = GetDataPresicion ();
 		}
 
 		protected static void AssertValidData (ICollection<double> data)
@@ -73,6 +71,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 					result = method.Invoke (innerInquirer, args);
 					success = true;
 				}
+
 				innerInquirer = innerInquirer.Inquirer;
 			} while(!success&&!innerInquirer.GetType().Equals(GetType()));
 

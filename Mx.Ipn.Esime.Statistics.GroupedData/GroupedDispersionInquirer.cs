@@ -34,7 +34,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}
 
 			var keyProperty = String.Format ("fMeanDiffE{0}", power);
-			var keyDifference = String.Format ("add(table,{0})", keyProperty);
+			var keyDifference = String.Format ("add({0})", keyProperty);
 			if (!Inquirer.Answers.ContainsKey (keyDifference)) {
 				var mean = Inquirer.GetMean ();
 				Inquirer.AddClassMarks ();

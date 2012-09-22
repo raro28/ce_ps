@@ -77,7 +77,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		private double GetXile (XileInfo xileInfo)
 		{
-			double xileResult = Double.MinValue;
+			double xileResult;
 			if (!Inquirer.Answers.ContainsKey (xileInfo.ToString ())) {
 				var lx = Inquirer.Data.Count * xileInfo.NthXile / (double)xileInfo.Xile;
 				xileResult = CalcXile (lx);

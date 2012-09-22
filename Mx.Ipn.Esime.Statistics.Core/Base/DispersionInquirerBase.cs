@@ -45,7 +45,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			if (!Inquirer.Answers.ContainsKey ("get(cv)")) {
 				var strDev = GetStandarDeviation ();
 				var mean = Inquirer.GetMean ();
-
 				var cov = strDev / mean;
 
 				Inquirer.Answers.Add ("get(cv)", cov);
@@ -59,8 +58,9 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			if (!Inquirer.Answers.ContainsKey ("get(symmetry)")) {
 				var m3 = GetMomentum (3);
 				var m2 = GetMomentum (2);
+				var cos = m3 / Math.Pow (m2, 1.5);
 				
-				Inquirer.Answers.Add ("get(symmetry)", m3 / Math.Pow (m2, 1.5));
+				Inquirer.Answers.Add ("get(symmetry)", cos);
 			}
 			
 			return Inquirer.Answers ["get(symmetry)"];
@@ -71,8 +71,9 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			if (!Inquirer.Answers.ContainsKey ("get(kourtosis)")) {
 				var m4 = GetMomentum (4);
 				var m2 = GetMomentum (2);
+				var cok = m4 / Math.Pow (m2, 2);
 				
-				Inquirer.Answers.Add ("get(kourtosis)", m4 / Math.Pow (m2, 2));
+				Inquirer.Answers.Add ("get(kourtosis)", cok);
 			}
 			
 			return Inquirer.Answers ["get(kourtosis)"];

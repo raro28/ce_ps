@@ -48,6 +48,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 				var meanDiff = (item - mean);
 				momentum += Math.Pow (meanDiff, nMomentum);
 			}
+
 			momentum /= Inquirer.Data.Count;
 			return momentum;
 		}

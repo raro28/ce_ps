@@ -39,18 +39,18 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public IEnumerable<dynamic> GetTable ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,CI)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(CI)")) {
 				AddClassIntervals ();
 			}
 
-			return Inquirer.Answers ["add(table,CI)"];
+			return Inquirer.Answers ["add(CI)"];
 		}
 
 		public void AddClassIntervals ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,CI)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(CI)")) {
 				var frequencyTable = new List<dynamic> (Inquirer.Groups);
-				Inquirer.Answers.Add ("add(table,CI)", frequencyTable.AsReadOnly ());
+				Inquirer.Answers.Add ("add(CI)", frequencyTable.AsReadOnly ());
 				var inferiorClassLimit = Enumerable.Min (Inquirer.Data);
 				var superiorClassLimit = inferiorClassLimit + Inquirer.Amplitude - Inquirer.DataPresicionValue;
 				for (int i = 1; i <= Inquirer.Groups; i++) {
@@ -70,10 +70,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void AddFrequencies ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,f)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(f)")) {
 				AddClassIntervals ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add ("add(table,f)", frequencyTable);
+				Inquirer.Answers.Add ("add(f)", frequencyTable);
 				//FIXME cast of dynamic object to IEnumerable<double>
 				var data = ((IEnumerable<double>)Inquirer.Data);
 				foreach (var tableItem in frequencyTable) {
@@ -85,10 +85,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void AddAcumulatedFrequencies ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,F)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(F)")) {
 				AddFrequencies ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add ("add(table,F)", frequencyTable);
+				Inquirer.Answers.Add ("add(F)", frequencyTable);
 				var lastFrequency = 0;
 				foreach (var item in frequencyTable) {
 					item.AcumulatedFrequency = item.Frequency + lastFrequency;
@@ -99,10 +99,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void AddRelativeFrequencies ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,fr)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(fr)")) {
 				AddFrequencies ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add ("add(table,fr)", frequencyTable);
+				Inquirer.Answers.Add ("add(fr)", frequencyTable);
 				foreach (var item in frequencyTable) {
 					item.RelativeFrequency = (double)item.Frequency / Inquirer.Data.Count;
 				}
@@ -111,10 +111,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void AddAcumulatedRelativeFrequencies ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,Fr)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(Fr)")) {
 				AddRelativeFrequencies ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add ("add(table,Fr)", frequencyTable);
+				Inquirer.Answers.Add ("add(Fr)", frequencyTable);
 				var lastRelativeFrequency = 0.0;
 				foreach (var item in frequencyTable) {
 					item.AcumulatedRelativeFrequency = item.RelativeFrequency + lastRelativeFrequency;
@@ -125,10 +125,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void  AddClassMarks ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,X)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(X)")) {
 				AddClassIntervals ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add ("add(table,X)", frequencyTable);
+				Inquirer.Answers.Add ("add(X)", frequencyTable);
 				foreach (var item in frequencyTable) {
 					var classMark = (item.ClassInterval.From + item.ClassInterval.To) / 2;
 					item.ClassMark = classMark;
@@ -138,10 +138,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void  AddRealClassIntervals ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,RI)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(RI)")) {
 				AddClassIntervals ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add ("add(table,RI)", frequencyTable);
+				Inquirer.Answers.Add ("add(RI)", frequencyTable);
 				var midPresicion = Inquirer.DataPresicionValue / 2;
 				foreach (var item in frequencyTable) {
 					var realInterval = new Interval {
@@ -156,11 +156,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void  AddFrequenciesTimesClassMarks ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("add(table,fX)")) {
+			if (!Inquirer.Answers.ContainsKey ("add(fX)")) {
 				AddFrequencies ();
 				AddClassMarks ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add ("add(table,fX)", frequencyTable);
+				Inquirer.Answers.Add ("add(fX)", frequencyTable);
 				foreach (var item in frequencyTable) {
 					item.fX = item.Frequency * item.ClassMark;
 				}

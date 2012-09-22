@@ -32,11 +32,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		
 		public IList<double> GetModes ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(mode)")) {							
-				Inquirer.Answers.Add ("get(mode)", CalcModes ());
+			if (!Inquirer.Answers.ContainsKey ("get(modes)")) {							
+				Inquirer.Answers.Add ("get(modes)", CalcModes ());
 			}
 			
-			return Inquirer.Answers ["get(mode)"];
+			return Inquirer.Answers ["get(modes)"];
 		}
 
 		protected abstract double CalcMean ();

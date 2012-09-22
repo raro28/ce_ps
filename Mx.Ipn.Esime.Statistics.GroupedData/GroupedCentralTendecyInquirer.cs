@@ -49,9 +49,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 			var modes = new List<double> ();
 
-			foreach (var item in maxFreqItems) {
-				var maxFreqItem = maxFreqItems.First ();
-				
+			foreach (var maxFreqItem in maxFreqItems) {				
 				var iMaxFreqItem = table.IndexOf (maxFreqItem);
 				
 				var d1 = maxFreqItem.Frequency - (iMaxFreqItem != 0 ? table [iMaxFreqItem - 1].Frequency : 0);

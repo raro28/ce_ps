@@ -2,6 +2,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 {
 	using System;
 	using System.Collections.Generic;
+	using Mx.Ipn.Esime.Statistics.Core.Resources;
 
 	public class XileInfo
 	{
@@ -17,7 +18,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		public override string ToString ()
 		{
-			return string.Format ("get({0},{1})", Xile, NthXile);
+			return string.Format (TaskNames.XileFormat, Xile, NthXile);
 		}
 	}
 	
@@ -69,7 +70,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		{
 			if (nTh < 1 || nTh > (int)xile) {
 				var xileName = Enum.GetName (typeof(Xiles), xile);
-				throw new StatisticsException (String.Format ("Invalid {0}", xileName), new IndexOutOfRangeException (String.Format ("{0} {0}", xileName, nTh)));
+				throw new StatisticsException (String.Format (ExceptionMessages.Invalid_Xile_Name_Format, xileName), new IndexOutOfRangeException (String.Format (ExceptionMessages.Invalid_Xile_Name_Number_Format, xileName, nTh)));
 			}
 			
 			return new XileInfo{Xile=xile, NthXile=nTh};
@@ -91,4 +92,3 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		}
 	}
 }
-

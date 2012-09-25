@@ -1,6 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.Core.Base
 {	
 	using System.Collections.Generic;
+	using Mx.Ipn.Esime.Statistics.Core.Resources;
 
 	public abstract class RangesInquirerBase:InquirerBase,IRangesInquirer
 	{
@@ -14,41 +15,40 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		public double GetDataRange ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(range)")) {
-				Inquirer.Answers.Add ("get(range)", CalcDataRange ());
+			if (!Inquirer.Answers.ContainsKey (TaskNames.DataRange)) {
+				Inquirer.Answers.Add (TaskNames.DataRange, CalcDataRange ());
 			}
-			
-			return Inquirer.Answers ["get(range)"];
+
+			return Inquirer.Answers [TaskNames.DataRange];
 		}
 		
 		public double GetInterQuartileRange ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(qrange)")) {
-				Inquirer.Answers.Add ("get(qrange)", Inquirer.GetQuartile (3) - Inquirer.GetQuartile (1));
+			if (!Inquirer.Answers.ContainsKey (TaskNames.QuartileRange)) {
+				Inquirer.Answers.Add (TaskNames.QuartileRange, Inquirer.GetQuartile (3) - Inquirer.GetQuartile (1));
 			}
 			
-			return Inquirer.Answers ["get(qrange)"];
+			return Inquirer.Answers [TaskNames.QuartileRange];
 		}
 		
 		public double GetInterDecileRange ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(drange)")) {
-				Inquirer.Answers.Add ("get(drange)", Inquirer.GetDecile (9) - Inquirer.GetDecile (1));
+			if (!Inquirer.Answers.ContainsKey (TaskNames.DecileRange)) {
+				Inquirer.Answers.Add (TaskNames.DecileRange, Inquirer.GetDecile (9) - Inquirer.GetDecile (1));
 			}
 			
-			return Inquirer.Answers ["get(drange)"];
+			return Inquirer.Answers [TaskNames.DecileRange];
 		}
 		
 		public double GetInterPercentileRange ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(prange)")) {
-				Inquirer.Answers.Add ("get(prange)", Inquirer.GetPercentile (90) - Inquirer.GetPercentile (10));
+			if (!Inquirer.Answers.ContainsKey (TaskNames.PercentileRange)) {
+				Inquirer.Answers.Add (TaskNames.PercentileRange, Inquirer.GetPercentile (90) - Inquirer.GetPercentile (10));
 			}
 			
-			return Inquirer.Answers ["get(prange)"];
+			return Inquirer.Answers [TaskNames.PercentileRange];
 		}
 
 		protected abstract double CalcDataRange ();
 	}
 }
-

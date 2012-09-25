@@ -53,5 +53,11 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		{
 			Assert.IsInstanceOf<StatisticsException> (exception.InnerException);
 		}
+
+
+		protected void Handle <T> (Exception exception)
+		{
+			Assert.IsInstanceOf<T> (exception.InnerException);
+		}
 	}
 }

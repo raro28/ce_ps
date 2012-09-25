@@ -1,11 +1,10 @@
 namespace Mx.Ipn.Esime.Statistics.Core.Base
 {
-	using System;
-	using System.Linq;
-	using System.Dynamic;
-	using System.Collections.ObjectModel;
+    using System;
 	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Core.Base;
+	using System.Dynamic;
+	using System.Linq;
+	using Mx.Ipn.Esime.Statistics.Core.Resources;
 
 	public abstract class InquirerBase: DynamicObject
 	{
@@ -39,7 +38,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		public InquirerBase (InquirerBase inquirer)
 		{
 			if (inquirer == null)
-				throw new StatisticsException ("Null data Inquirer.", new ArgumentNullException ("inquirer"));
+				throw new StatisticsException (ExceptionMessages.Null_Data_Inquirer, new ArgumentNullException ("inquirer"));
 
 			Inquirer = inquirer;
 			Properties = inquirer.Properties;
@@ -48,15 +47,15 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		protected static void AssertValidData (ICollection<double> data)
 		{
 			if (data == null) {
-				throw new StatisticsException ("Null data set.", new ArgumentNullException ("data"));
+				throw new StatisticsException (ExceptionMessages.Null_Data_Set, new ArgumentNullException ("data"));
 			}
 			
 			if (data.Count == 0) {
-				throw new StatisticsException ("Empty data set.");
+				throw new StatisticsException (ExceptionMessages.Empty_Data_Set);
 			}
 			
 			if (data.Count == 1) {
-				throw new StatisticsException ("Insufficient data.");
+				throw new StatisticsException (ExceptionMessages.Insufficient_Data);
 			}
 		}
 

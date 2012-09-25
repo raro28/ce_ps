@@ -1,6 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.Core.Base
 {
-	using System.Collections.Generic;
+    using System.Collections.Generic;
+	using Mx.Ipn.Esime.Statistics.Core.Resources;
 
 	public abstract class CentralTendecyInquirerBase:InquirerBase,ICentralTendencyInquirer
 	{
@@ -14,29 +15,29 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		public double GetMean ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(mean)")) {			
-				Inquirer.Answers.Add ("get(mean)", CalcMean ());
+			if (!Inquirer.Answers.ContainsKey (TaskNames.Mean)) {
+				Inquirer.Answers.Add (TaskNames.Mean, CalcMean ());
 			}
-			
-			return Inquirer.Answers ["get(mean)"];
+
+			return Inquirer.Answers [TaskNames.Mean];
 		}
 		
 		public double GetMedian ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(median)")) {
-				Inquirer.Answers.Add ("get(median)", CalcMedian ());
+			if (!Inquirer.Answers.ContainsKey (TaskNames.Median)) {
+				Inquirer.Answers.Add (TaskNames.Median, CalcMedian ());
 			}
-			
-			return Inquirer.Answers ["get(median)"];
+
+			return Inquirer.Answers [TaskNames.Median];
 		}
 		
 		public IList<double> GetModes ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(modes)")) {							
-				Inquirer.Answers.Add ("get(modes)", CalcModes ());
+			if (!Inquirer.Answers.ContainsKey (TaskNames.Modes)) {
+				Inquirer.Answers.Add (TaskNames.Modes, CalcModes ());
 			}
-			
-			return Inquirer.Answers ["get(modes)"];
+
+			return Inquirer.Answers [TaskNames.Modes];
 		}
 
 		protected abstract double CalcMean ();
@@ -46,4 +47,3 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		protected abstract IList<double> CalcModes ();
 	}
 }
-

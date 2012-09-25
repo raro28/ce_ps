@@ -2,6 +2,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 {
 	using System;
 	using System.Collections.Generic;
+	using Mx.Ipn.Esime.Statistics.Core.Resources;
 
 	public abstract class DispersionInquirerBase:InquirerBase,IDispersionInquirer
 	{
@@ -15,73 +16,73 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		public double GetAbsoluteDeviation ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(mad)")) {								
-				Inquirer.Answers.Add ("get(mad)", CalcAbsoluteDeviation ());
+			if (!Inquirer.Answers.ContainsKey (TaskNames.AbsoluteDeviation)) {
+				Inquirer.Answers.Add (TaskNames.AbsoluteDeviation, CalcAbsoluteDeviation ());
 			}
-			
-			return Inquirer.Answers ["get(mad)"];
+
+			return Inquirer.Answers [TaskNames.AbsoluteDeviation];
 		}
 		
 		public double GetVariance ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(ssquare)")) {
-				Inquirer.Answers.Add ("get(ssquare)", CalcVariance ());
+			if (!Inquirer.Answers.ContainsKey (TaskNames.Variance)) {
+				Inquirer.Answers.Add (TaskNames.Variance, CalcVariance ());
 			}
-			
-			return Inquirer.Answers ["get(ssquare)"];
+
+			return Inquirer.Answers [TaskNames.Variance];
 		}
 		
 		public double GetStandarDeviation ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(s)")) {
-				Inquirer.Answers.Add ("get(s)", Math.Sqrt (GetVariance ()));
+			if (!Inquirer.Answers.ContainsKey (TaskNames.StandarDeviation)) {
+				Inquirer.Answers.Add (TaskNames.StandarDeviation, Math.Sqrt (GetVariance ()));
 			}
-			
-			return Inquirer.Answers ["get(s)"];
+
+			return Inquirer.Answers [TaskNames.StandarDeviation];
 		}
 		
 		public double GetCoefficientOfVariation ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(cv)")) {
+			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfVariation)) {
 				var strDev = GetStandarDeviation ();
 				var mean = Inquirer.GetMean ();
 				var cov = strDev / mean;
 
-				Inquirer.Answers.Add ("get(cv)", cov);
+				Inquirer.Answers.Add (TaskNames.CoefficientOfVariation, cov);
 			}
-			
-			return Inquirer.Answers ["get(cv)"];
+
+			return Inquirer.Answers [TaskNames.CoefficientOfVariation];
 		}
 		
 		public double GetCoefficientOfSymmetry ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(symmetry)")) {
+			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfSymmetry)) {
 				var m3 = GetMomentum (3);
 				var m2 = GetMomentum (2);
 				var cos = m3 / Math.Pow (m2, 1.5);
-				
-				Inquirer.Answers.Add ("get(symmetry)", cos);
+
+				Inquirer.Answers.Add (TaskNames.CoefficientOfSymmetry, cos);
 			}
-			
-			return Inquirer.Answers ["get(symmetry)"];
+
+			return Inquirer.Answers [TaskNames.CoefficientOfSymmetry];
 		}
 		
 		public double GetCoefficientOfKourtosis ()
 		{
-			if (!Inquirer.Answers.ContainsKey ("get(kourtosis)")) {
+			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfKourtosis)) {
 				var m4 = GetMomentum (4);
 				var m2 = GetMomentum (2);
 				var cok = m4 / Math.Pow (m2, 2);
-				
-				Inquirer.Answers.Add ("get(kourtosis)", cok);
+
+				Inquirer.Answers.Add (TaskNames.CoefficientOfKourtosis, cok);
 			}
-			
-			return Inquirer.Answers ["get(kourtosis)"];
+
+			return Inquirer.Answers [TaskNames.CoefficientOfKourtosis];
 		}
 		
 		private double GetMomentum (int nMomentum)
 		{
-			var keyMomentum = String.Format ("get(momentum,{0})", nMomentum);
+			var keyMomentum = String.Format (TaskNames.MomentumFormat, nMomentum);
 			if (!Inquirer.Answers.ContainsKey (keyMomentum)) {
 				Inquirer.Answers.Add (keyMomentum, CalcMomentum (nMomentum));
 			}
@@ -96,4 +97,3 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		protected abstract double CalcMomentum (int nMomentum);
 	}
 }
-

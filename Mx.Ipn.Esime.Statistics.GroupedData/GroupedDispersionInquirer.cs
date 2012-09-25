@@ -1,10 +1,10 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
 	using System;
-	using System.Linq;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Core;
 	using Mx.Ipn.Esime.Statistics.Core.Base;
+	using Mx.Ipn.Esime.Statistics.Core.Resources;
 
 	public class GroupedDispersionInquirer:DispersionInquirerBase
 	{
@@ -20,11 +20,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		public void AddMeanDifference (int power)
 		{		
 			if (power < 1 || power > 4) {
-				throw new StatisticsException (String.Format ("Invalid power:{0}", power));
+				throw new StatisticsException (String.Format (ExceptionMessages.Invalid_Power_Format, power));
 			}
 
-			var keyProperty = String.Format ("fMeanDiffE{0}", power);
-			var keyDifference = String.Format ("add({0})", keyProperty);
+			var keyProperty = String.Format (TaskNames.MeanDiff_Property_Format, power);
+			var keyDifference = String.Format (TaskNames.MeanDifference_Format, keyProperty);
 			if (!Inquirer.Answers.ContainsKey (keyDifference)) {
 				var mean = Inquirer.GetMean ();
 				Inquirer.AddClassMarks ();
@@ -66,7 +66,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			double sum = 0;
 			var table = Inquirer.GetTable ();
 			foreach (var item in table) {
-				sum += ((IDictionary<String,dynamic>)item) [String.Format ("fMeanDiffE{0}", power)];
+				sum += ((IDictionary<String, dynamic>)item) [String.Format (TaskNames.MeanDiff_Property_Format, power)];
 			}
 
 			return sum;

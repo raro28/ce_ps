@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>  
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsoluteDeviation" xml:space="preserve">
+    <value>get(mad)</value>
+  </data>
+  <data name="AcumulatedFrequencies" xml:space="preserve">
+    <value>add(F)</value>
+  </data>
+  <data name="AcumulatedRelativeFrequencies" xml:space="preserve">
+    <value>add(Fr)</value>
+  </data>
+  <data name="ClassIntervals" xml:space="preserve">
+    <value>add(CI)</value>
+  </data>
+  <data name="ClassMarks" xml:space="preserve">
+    <value>add(X)</value>
+  </data>
+  <data name="CoefficientOfKourtosis" xml:space="preserve">
+    <value>get(kourtosis)</value>
+  </data>
+  <data name="CoefficientOfSymmetry" xml:space="preserve">
+    <value>get(symmetry)</value>
+  </data>
+  <data name="CoefficientOfVariation" xml:space="preserve">
+    <value>get(cv)</value>
+  </data>
+  <data name="DataRange" xml:space="preserve">
+    <value>get(range)</value>
+  </data>
+  <data name="DecileRange" xml:space="preserve">
+    <value>get(drange)</value>
+  </data>
+  <data name="Frequencies" xml:space="preserve">
+    <value>add(f)</value>
+  </data>
+  <data name="FrequenciesTimesClassMarks" xml:space="preserve">
+    <value>add(fX)</value>
+  </data>
+  <data name="Interval_Format" xml:space="preserve">
+    <value>[{0},{1}]</value>
+  </data>
+  <data name="Mean" xml:space="preserve">
+    <value>get(mean)</value>
+  </data>
+  <data name="MeanDifference_Format" xml:space="preserve">
+    <value>add({0})</value>
+  </data>
+  <data name="MeanDiff_Property_Format" xml:space="preserve">
+    <value>fMeanDiffE{0}</value>
+  </data>
+  <data name="Median" xml:space="preserve">
+    <value>get(median)</value>
+  </data>
+  <data name="Modes" xml:space="preserve">
+    <value>get(mode)</value>
+  </data>
+  <data name="MomentumFormat" xml:space="preserve">
+    <value>get(momentum,{0})</value>
+  </data>
+  <data name="PercentileRange" xml:space="preserve">
+    <value>get(prange)</value>
+  </data>
+  <data name="QuartileRange" xml:space="preserve">
+    <value>get(qrange)</value>
+  </data>
+  <data name="RealClassIntervals" xml:space="preserve">
+    <value>add(RI)</value>
+  </data>
+  <data name="RelativeFrequencies" xml:space="preserve">
+    <value>add(fr)</value>
+  </data>
+  <data name="StandarDeviation" xml:space="preserve">
+    <value>get(s)</value>
+  </data>
+  <data name="Variance" xml:space="preserve">
+    <value>get(ssquare)</value>
+  </data>
+  <data name="XileFormat" xml:space="preserve">
+    <value>get({0},{1})</value>
+  </data>
+</root>

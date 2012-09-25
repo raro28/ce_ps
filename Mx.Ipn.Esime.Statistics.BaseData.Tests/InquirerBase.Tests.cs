@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using NUnit.Framework;
 	using Mx.Ipn.Esime.Statistics.Core;
 	using Mx.Ipn.Esime.Statistics.Core.Base;
-
+	
 	[TestFixture()]
 	public abstract class InquirerBase_Tests<TInquirer,THelper> where TInquirer:InquirerBase where THelper:HelperMethodsBase
 	{

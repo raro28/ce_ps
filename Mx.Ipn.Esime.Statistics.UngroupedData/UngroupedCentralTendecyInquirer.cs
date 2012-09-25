@@ -34,8 +34,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		protected override IList<double> CalcModes ()
 		{
-			//FIXME cast of dynamic object to IEnumerable<double>
-			var groups = ((IEnumerable<double>)Inquirer.Data).GroupBy (data => data);
+			List<double> data = Enumerable.ToList (Inquirer.Data);
+			var groups = data.GroupBy (item => item);
 			var modes = (from _mode in groups
 					where _mode.Count () == groups.Max (grouped => grouped.Count ())
 						select _mode.First ()).ToList ();

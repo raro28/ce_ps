@@ -1,6 +1,5 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
-	using System.Linq;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
@@ -19,8 +18,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		protected override double CalcDataRange ()
 		{
 			Inquirer.AddClassIntervals ();
-			List<dynamic> table = Enumerable.ToList (Inquirer.GetTable ());
-			var range = table.Last ().ClassInterval.To - table.First ().ClassInterval.From;
+			var table = Inquirer.GetTable ();
+			var range = table [0].ClassInterval.To - table [table.Count - 1].ClassInterval.From;
 
 			return range;
 		}

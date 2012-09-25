@@ -103,8 +103,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		private int GetDataPresicion ()
 		{
-			//FIXME cast of dynamic object to IEnumerable<double>
-			var data = (IEnumerable<double>)Inquirer.Data;
+			List<double> data = Enumerable.ToList (Inquirer.Data);
 
 			var decimalLengths = (from item in data.SkipWhile (item => (item + "").LastIndexOf (".") == -1)
 				select (item + "").Substring ((item + "").LastIndexOf ('.') + 1).Length).ToList ();

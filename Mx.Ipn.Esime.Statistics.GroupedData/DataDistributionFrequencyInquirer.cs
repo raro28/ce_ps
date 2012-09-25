@@ -74,8 +74,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 				AddClassIntervals ();
 				var frequencyTable = GetTable ();
 				Inquirer.Answers.Add ("add(f)", frequencyTable);
-				//FIXME cast of dynamic object to IEnumerable<double>
-				var data = ((IEnumerable<double>)Inquirer.Data);
+				List<double> data = Enumerable.ToList (Inquirer.Data);
 				foreach (var tableItem in frequencyTable) {
 					var frequency = data.Count (item => item >= tableItem.ClassInterval.From && item <= tableItem.ClassInterval.To);
 					tableItem.Frequency = frequency;

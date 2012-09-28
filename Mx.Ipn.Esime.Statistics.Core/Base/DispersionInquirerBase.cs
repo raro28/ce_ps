@@ -50,38 +50,37 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Inquirer.Answers [TaskNames.PercentileRange];
 		}
 
-		public double GetAbsoluteDeviation ()
+		public double GetAbsoluteDeviation (double mean)
 		{
 			if (!Inquirer.Answers.ContainsKey (TaskNames.AbsoluteDeviation)) {
-				Inquirer.Answers.Add (TaskNames.AbsoluteDeviation, CalcAbsoluteDeviation ());
+				Inquirer.Answers.Add (TaskNames.AbsoluteDeviation, CalcAbsoluteDeviation (mean));
 			}
 
 			return Inquirer.Answers [TaskNames.AbsoluteDeviation];
 		}
 		
-		public double GetVariance ()
+		public double GetVariance (double mean)
 		{
 			if (!Inquirer.Answers.ContainsKey (TaskNames.Variance)) {
-				Inquirer.Answers.Add (TaskNames.Variance, CalcVariance ());
+				Inquirer.Answers.Add (TaskNames.Variance, CalcVariance (mean));
 			}
 
 			return Inquirer.Answers [TaskNames.Variance];
 		}
 		
-		public double GetStandarDeviation ()
+		public double GetStandarDeviation (double mean)
 		{
 			if (!Inquirer.Answers.ContainsKey (TaskNames.StandarDeviation)) {
-				Inquirer.Answers.Add (TaskNames.StandarDeviation, Math.Sqrt (GetVariance ()));
+				Inquirer.Answers.Add (TaskNames.StandarDeviation, Math.Sqrt (GetVariance (mean)));
 			}
 
 			return Inquirer.Answers [TaskNames.StandarDeviation];
 		}
-		
-		public double GetCoefficientOfVariation ()
+
+		public double GetCoefficientOfVariation (double mean)
 		{
 			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfVariation)) {
-				var strDev = GetStandarDeviation ();
-				var mean = Inquirer.GetMean ();
+				var strDev = GetStandarDeviation (mean);
 				var cov = strDev / mean;
 
 				Inquirer.Answers.Add (TaskNames.CoefficientOfVariation, cov);
@@ -90,11 +89,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Inquirer.Answers [TaskNames.CoefficientOfVariation];
 		}
 		
-		public double GetCoefficientOfSymmetry ()
+		public double GetCoefficientOfSymmetry (double mean)
 		{
 			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfSymmetry)) {
-				var m3 = GetMomentum (3);
-				var m2 = GetMomentum (2);
+				var m3 = GetMomentum (3, mean);
+				var m2 = GetMomentum (2, mean);
 				var cos = m3 / Math.Pow (m2, 1.5);
 
 				Inquirer.Answers.Add (TaskNames.CoefficientOfSymmetry, cos);
@@ -103,11 +102,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Inquirer.Answers [TaskNames.CoefficientOfSymmetry];
 		}
 		
-		public double GetCoefficientOfKourtosis ()
+		public double GetCoefficientOfKourtosis (double mean)
 		{
 			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfKourtosis)) {
-				var m4 = GetMomentum (4);
-				var m2 = GetMomentum (2);
+				var m4 = GetMomentum (4, mean);
+				var m2 = GetMomentum (2, mean);
 				var cok = m4 / Math.Pow (m2, 2);
 
 				Inquirer.Answers.Add (TaskNames.CoefficientOfKourtosis, cok);
@@ -116,21 +115,21 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Inquirer.Answers [TaskNames.CoefficientOfKourtosis];
 		}
 		
-		private double GetMomentum (int nMomentum)
+		private double GetMomentum (int nMomentum, double mean)
 		{
 			var keyMomentum = String.Format (TaskNames.MomentumFormat, nMomentum);
 			if (!Inquirer.Answers.ContainsKey (keyMomentum)) {
-				Inquirer.Answers.Add (keyMomentum, CalcMomentum (nMomentum));
+				Inquirer.Answers.Add (keyMomentum, CalcMomentum (nMomentum, mean));
 			}
 			
 			return Inquirer.Answers [keyMomentum];
 		}
 
-		protected abstract double CalcAbsoluteDeviation ();
+		protected abstract double CalcAbsoluteDeviation (double mean);
 
-		protected abstract double CalcVariance ();
+		protected abstract double CalcVariance (double mean);
 
-		protected abstract double CalcMomentum (int nMomentum);
+		protected abstract double CalcMomentum (int nMomentum, double mean);
 
 		protected abstract double CalcDataRange ();
 	}

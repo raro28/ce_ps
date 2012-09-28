@@ -9,15 +9,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	{
 		public UngroupedDispersionInquirer (List<double> rawData):base(rawData)
 		{		
-			var xiles = new UngroupedXileInquirer (this);
-			
-			Inquirer = new UngroupedCentralTendecyInquirer (xiles);
+			Inquirer = new UngroupedXileInquirer (this);
 		}
 
-		protected override double CalcAbsoluteDeviation ()
+		protected override double CalcAbsoluteDeviation (double mean)
 		{
 			var nAbsDev = 0.0;
-			var mean = Inquirer.GetMean ();
 			foreach (var item in Inquirer.Data) {
 				nAbsDev += Math.Abs (item - mean);
 			}
@@ -27,10 +24,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return mad;
 		}
 
-		protected override double CalcVariance ()
+		protected override double CalcVariance (double mean)
 		{
 			var nplus1Variance = 0.0;
-			var mean = Inquirer.GetMean ();
 			foreach (var item in Inquirer.Data) {
 				nplus1Variance += Math.Pow ((item - mean), 2);
 			}
@@ -40,10 +36,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return variance;
 		}
 
-		protected override double CalcMomentum (int nMomentum)
+		protected override double CalcMomentum (int nMomentum, double mean)
 		{
 			var momentum = 0.0;
-			var mean = Inquirer.GetMean ();
 			foreach (var item in Inquirer.Data) {
 				var meanDiff = (item - mean);
 				momentum += Math.Pow (meanDiff, nMomentum);

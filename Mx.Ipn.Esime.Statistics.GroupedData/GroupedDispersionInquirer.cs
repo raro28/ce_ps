@@ -11,12 +11,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		public GroupedDispersionInquirer (List<double> rawData):base(rawData)
 		{			
 			var distribution = new DataDistributionFrequencyInquirer (this);
-			var xiles = new GroupedXileInquirer (distribution);
-
-			Inquirer = new GroupedCentralTendecyInquirer (xiles);
+			Inquirer = new GroupedXileInquirer (distribution);
 		}
 		
-		public void AddMeanDifference (int power)
+		public void AddMeanDifference (int power, double mean)
 		{		
 			if (power < 1 || power > 4) {
 				throw new StatisticsException (String.Format (ExceptionMessages.Invalid_Power_Format, power));
@@ -25,7 +23,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			var keyProperty = String.Format (TaskNames.MeanDiff_Property_Format, power);
 			var keyDifference = String.Format (TaskNames.MeanDifference_Format, keyProperty);
 			if (!Inquirer.Answers.ContainsKey (keyDifference)) {
-				var mean = Inquirer.GetMean ();
 				Inquirer.AddClassMarks ();
 				Inquirer.AddFrequencies ();
 				var frequencyTable = Inquirer.GetTable ();
@@ -38,23 +35,23 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}
 		}
 
-		protected override double CalcAbsoluteDeviation ()
+		protected override double CalcAbsoluteDeviation (double mean)
 		{
-			var mad = MeanDifferenceSum (1) / Inquirer.Data.Count;
+			var mad = MeanDifferenceSum (1, mean) / Inquirer.Data.Count;
 
 			return mad;
 		}
 
-		protected override double CalcVariance ()
+		protected override double CalcVariance (double mean)
 		{
-			var variance = MeanDifferenceSum (2) / (Inquirer.Data.Count - 1);
+			var variance = MeanDifferenceSum (2, mean) / (Inquirer.Data.Count - 1);
 			
 			return variance;
 		}
 
-		protected override double CalcMomentum (int nMomentum)
+		protected override double CalcMomentum (int nMomentum, double mean)
 		{
-			var momentum = MeanDifferenceSum (nMomentum) / Inquirer.Data.Count;
+			var momentum = MeanDifferenceSum (nMomentum, mean) / Inquirer.Data.Count;
 			
 			return momentum;
 		}
@@ -68,9 +65,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			return range;
 		}
 
-		private double MeanDifferenceSum (int power)
+		private double MeanDifferenceSum (int power, double mean)
 		{
-			AddMeanDifference (power);
+			AddMeanDifference (power, mean);
 			double sum = 0;
 			var table = Inquirer.GetTable ();
 			foreach (var item in table) {

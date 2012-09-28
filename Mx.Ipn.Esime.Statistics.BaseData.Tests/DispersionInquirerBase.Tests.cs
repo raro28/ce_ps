@@ -40,8 +40,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			List<double> data = Helper.GetRandomDataSample (size).ToList ();
 			var calculator = Helper.NewInquirer<TInquirer> (data);
 
-			var expected = SampleAbsoluteDeviation (data, Helper.SampleMean (data));
-			var actual = calculator.GetAbsoluteDeviation ();
+			var mean = Helper.SampleMean (data);
+			var expected = SampleAbsoluteDeviation (data, mean);
+			var actual = calculator.GetAbsoluteDeviation (mean);
 			Assert.AreEqual (expected, actual);
 		}
 
@@ -51,8 +52,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			List<double> data = Helper.GetRandomDataSample (size).ToList ();
 			var calculator = Helper.NewInquirer<TInquirer> (data);
 
-			var expected = SampleVariance (data, Helper.SampleMean (data));
-			var actual = calculator.GetVariance ();
+			var mean = Helper.SampleMean (data);
+			var expected = SampleVariance (data, mean);
+			var actual = calculator.GetVariance (mean);
 			Assert.AreEqual (expected, actual);
 		}
 
@@ -62,8 +64,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			List<double> data = Helper.GetRandomDataSample (size).ToList ();
 			var calculator = Helper.NewInquirer<TInquirer> (data);
 
-			var expected = Math.Sqrt (SampleVariance (data, Helper.SampleMean (data)));
-			var actual = calculator.GetStandarDeviation ();
+			var mean = Helper.SampleMean (data);
+			var expected = Math.Sqrt (SampleVariance (data, mean));
+			var actual = calculator.GetStandarDeviation (mean);
 			Assert.AreEqual (expected, actual);
 		}
 
@@ -75,7 +78,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 
 			var mean = Helper.SampleMean (data);
 			var expected = Math.Sqrt (SampleVariance (data, mean)) / mean;
-			var actual = calculator.GetCoefficientOfVariation ();
+			var actual = calculator.GetCoefficientOfVariation (mean);
 			Assert.AreEqual (expected, actual);
 		}
 
@@ -88,7 +91,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 
 			var mean = Helper.SampleMean (data);
 			var expected = SampleMomentum (data, nthMomentum, mean) / Math.Pow (SampleMomentum (data, 2, mean), momentum2Pow);
-			var actual = GetCoefficientOfMethod (coefficientName).Invoke (calculator, new object[]{});
+			var actual = GetCoefficientOfMethod (coefficientName).Invoke (calculator, new object[]{mean});
 			Assert.AreEqual (expected, actual);
 		}
 

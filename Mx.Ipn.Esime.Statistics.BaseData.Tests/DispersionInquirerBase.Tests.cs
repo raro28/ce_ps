@@ -1,6 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
+	using System.Linq;
 	using System.Reflection;
 	using System.Collections.Generic;
 	using NUnit.Framework;
@@ -12,8 +13,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Absolute_Deviation (int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 
 			var expected = SampleAbsoluteDeviation (data, Helper.SampleMean (data));
 			var actual = calculator.GetAbsoluteDeviation ();
@@ -23,8 +24,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Variance (int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 
 			var expected = SampleVariance (data, Helper.SampleMean (data));
 			var actual = calculator.GetVariance ();
@@ -34,8 +35,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Standar_Deviation (int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 
 			var expected = Math.Sqrt (SampleVariance (data, Helper.SampleMean (data)));
 			var actual = calculator.GetStandarDeviation ();
@@ -45,8 +46,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Coefficient_Of_Variation (int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 
 			var mean = Helper.SampleMean (data);
 			var expected = Math.Sqrt (SampleVariance (data, mean)) / mean;
@@ -58,8 +59,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase("Symmetry",100,3,1.5)]
 		public void Inquirer_Gets_Expected_Coefficient_Of (string coefficientName, int size, int nthMomentum, double momentum2Pow)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 
 			var mean = Helper.SampleMean (data);
 			var expected = SampleMomentum (data, nthMomentum, mean) / Math.Pow (SampleMomentum (data, 2, mean), momentum2Pow);

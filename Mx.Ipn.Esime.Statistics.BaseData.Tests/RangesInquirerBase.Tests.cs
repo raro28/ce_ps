@@ -1,6 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
+	using System.Linq;
 	using NUnit.Framework;
 	using System.Reflection;
 	using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Data_Range (int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 
 			var expected = SampleDataRange (data);
 			var actual = calculator.GetDataRange ();
@@ -25,8 +26,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(Xiles.Percentile,100,90,10)]
 		public void Inquirer_Gets_Expected_Range (Xiles xile, int size, int toXile, int fromXile)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 
 			var expected = Helper.CalcNthXile (data, (int)xile, toXile) - Helper.CalcNthXile (data, (int)xile, fromXile);
 			var actual = GetInterXileRangeMethod (xile).Invoke (calculator, new object[]{});

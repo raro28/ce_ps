@@ -16,7 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
 		public void When_Inquirer_Recieves_Tries_To_Get_Negative (Xiles xile, int size)
 		{
-			GetXileMethod (xile).Invoke (Helper.NewInquirer<TInquirer> (size), new object[]{-1});
+			GetXileMethod (xile).Invoke (Helper.NewInquirer<TInquirer> (size: size), new object[]{-1});
 		}
 
 		[TestCase(Xiles.Quartile,100)]
@@ -25,7 +25,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(TargetInvocationException),Handler="HandleExceptionThroughTargetInvocationExceptionException")]
 		public void When_Inquirer_Recieves_Tries_To_Get_Greater (Xiles xile, int size)
 		{
-			GetXileMethod (xile).Invoke (Helper.NewInquirer<TInquirer> (size), new object[]{(int)xile + 1});
+			GetXileMethod (xile).Invoke (Helper.NewInquirer<TInquirer> (size: size), new object[]{(int)xile + 1});
 		}
 
 		[TestCase(Xiles.Quartile,100)]
@@ -33,8 +33,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(Xiles.Percentile,100)]
 		public void Inquirer_Gets_All_Expected (Xiles xile, int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 			var method = GetXileMethod (xile);
 
 			var expected = GetXiles ((int)xile, nTh => Helper.CalcNthXile (data, (int)xile, nTh)).ToList ();

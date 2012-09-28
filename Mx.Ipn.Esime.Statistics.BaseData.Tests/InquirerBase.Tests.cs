@@ -1,6 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
+	using System.Linq;
 	using System.Collections.Generic;
 	using NUnit.Framework;
 	using Mx.Ipn.Esime.Statistics.Core;
@@ -21,8 +22,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Uses_Internal_Sorted_Data_Set (int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 			
 			for (int i = 0; i < data.Count; i++) {
 				Assert.AreEqual (data [i], ((dynamic)calculator).Data [i]);
@@ -33,7 +34,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(StatisticsException),Handler="HandleExceptionWithInnerArgumentNullException")]
 		public void When_Inquirer_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()
 		{
-			Helper.NewInquirer<TInquirer> (null);
+			Helper.NewInquirer<TInquirer> (data: null);
 		}
 		
 		[TestCase(0)]
@@ -41,7 +42,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[ExpectedException(typeof(StatisticsException))]
 		public void When_Inquirer_Recieves_Less_Than_Two_Elements_Data_Set_Throws_An_Statistics_Exception (int size)
 		{
-			Helper.NewInquirer<TInquirer> (size);
+			Helper.NewInquirer<TInquirer> (size: size);
 		}
 
 		protected void HandleExceptionWithInnerArgumentNullException (Exception exception)

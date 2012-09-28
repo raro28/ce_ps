@@ -24,25 +24,26 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 
 		public TInquirer NewInquirer<TInquirer> (int size) where TInquirer:InquirerBase
 		{
-			List<double> data;
-			return NewInquirer<TInquirer> (out data, size);
-		}
 
-		public TInquirer NewInquirer<TInquirer> (out List<double> data, int size) where TInquirer:InquirerBase
-		{
-			data = GetRandomDataSample (size).ToList ();
-			var cache = data.ToList ();
-			var calculator = NewInquirer<TInquirer> (cache);
-			data = cache;
+			var inquirer = NewInquirer<TInquirer> (GetRandomDataSample (size).ToList ());
 			
-			return calculator;
+			return inquirer;
 		}
 
-		public TInquirer NewInquirer<TInquirer> (List<double> data) where TInquirer:InquirerBase
+		public TInquirer NewInquirer<TInquirer> (List<double> data, params object[] args) where TInquirer:InquirerBase
 		{
 			try {
-				var ctor = typeof(TInquirer).GetConstructor (new []{typeof(List<double>)});
-				var calculator = (TInquirer)ctor.Invoke (new object[]{data != null ? data.ToList () : data});
+				var cacheArgs = args.ToList ();
+				cacheArgs.Insert (0, data);
+
+				var ctor = typeof(TInquirer).GetConstructors ()
+					.Where (c 
+					        => c.GetParameters ()
+					        .Select (p => p.ParameterType)
+					        .SequenceEqual (cacheArgs.Select (arg => arg != null ? arg.GetType () : typeof(List<double>))))
+					.First ();
+
+				var calculator = (TInquirer)ctor.Invoke (cacheArgs.ToArray ());
 				data.Sort ();
 
 				return calculator;

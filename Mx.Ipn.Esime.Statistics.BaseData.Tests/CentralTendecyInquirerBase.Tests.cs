@@ -12,8 +12,9 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Mean (int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
+			data.Sort ();
 
 			var expected = Helper.SampleMean (data);
 			var actual = calculator.GetMean ();
@@ -36,8 +37,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(5)]
 		public void Inquirer_Gets_Expected_Median (int size)
 		{
-			List<double> data;
-			var calculator = Helper.NewInquirer<TInquirer> (out data, size);
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
 			
 			var expected = SampleMedian (data);
 			var actual = calculator.GetMedian ();

@@ -1,5 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 {
+	using System.Linq;
 	using NUnit.Framework;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.GroupedData;
@@ -11,8 +12,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		[Test()]
 		public void Inquirer_POC_Test ()
 		{
-			List<double> data;
-			dynamic calculator = Helper.NewInquirer<GroupedDispersionInquirer> (out data, size: 25);
+			List<double> data = Helper.GetRandomDataSample (25).ToList ();
+			dynamic calculator = Helper.NewInquirer<GroupedDispersionInquirer> (data);
 
 			calculator.GetMean ();
 			calculator.GetTable ();

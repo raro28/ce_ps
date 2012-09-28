@@ -1,5 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 {
+	using System.Linq;
 	using NUnit.Framework;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.UngroupedData;
@@ -11,8 +12,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 		[Test()]
 		public void Inquirer_POC_Test ()
 		{
-			List<double> data;
-			dynamic calculator = Helper.NewInquirer<UngroupedDispersionInquirer> (out data, size: 25);
+			List<double> data = Helper.GetRandomDataSample (25).ToList ();
+			dynamic calculator = Helper.NewInquirer<UngroupedDispersionInquirer> (data);
 
 			calculator.GetMean ();
 			calculator.GetModes ();

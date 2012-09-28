@@ -40,7 +40,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 					.Where (c 
 					        => c.GetParameters ()
 					        .Select (p => p.ParameterType)
-					        .TypeSequenceIsAssignableFrom (cacheArgs.Select (arg => arg))).ToList ();
+					        .TypeSequenceIsAssignableFrom (cacheArgs)).ToList ();
 
 				var ctor = ctors.First ();
 				var calculator = (TInquirer)ctor.Invoke (cacheArgs.ToArray ());

@@ -136,4 +136,7 @@
   <data name="XileFormat" xml:space="preserve">
     <value>get({0},{1})</value>
   </data>
+  <data name="DispersionTable" xml:space="preserve">
+    <value>table</value>
+  </data>  
 </root>

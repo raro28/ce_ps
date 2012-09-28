@@ -27,7 +27,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Resources
 	{
         
 		private static global::System.Resources.ResourceManager resourceMan;
-        
 		private static global::System.Globalization.CultureInfo resourceCulture;
         
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
@@ -294,6 +293,12 @@ namespace Mx.Ipn.Esime.Statistics.Core.Resources
 		public static string XileFormat {
 			get {
 				return ResourceManager.GetString ("XileFormat", resourceCulture);
+			}
+		}
+					
+		public static string DispersionTable {
+			get {
+				return ResourceManager.GetString ("DispersionTable", resourceCulture);
 			}
 		}
 	}

@@ -13,15 +13,15 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			set;
 		}
 
-		protected Dictionary<String, Object> Properties {
+		protected Dictionary<String, dynamic> Properties {
 			get;
 			set;
 		}
 
-		public InquirerBase (List<double> rawData, InquirerBase inquirer=null)
+		public InquirerBase (IEnumerable<double> rawData, InquirerBase inquirer=null)
 		{
 			AssertValidData (rawData);
-			Properties = new Dictionary<string, object> ();
+			Properties = new Dictionary<string, dynamic> ();
 
 			var cache = rawData.ToList ();
 			cache.Sort ();
@@ -44,17 +44,17 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			Properties = inquirer.Properties;
 		}
 
-		protected static void AssertValidData (ICollection<double> data)
+		protected static void AssertValidData (IEnumerable<double> data)
 		{
 			if (data == null) {
 				throw new StatisticsException (ExceptionMessages.Null_Data_Set, new ArgumentNullException ("data"));
 			}
 			
-			if (data.Count == 0) {
+			if (data.Count () == 0) {
 				throw new StatisticsException (ExceptionMessages.Empty_Data_Set);
 			}
 			
-			if (data.Count == 1) {
+			if (data.Count () == 1) {
 				throw new StatisticsException (ExceptionMessages.Insufficient_Data);
 			}
 		}

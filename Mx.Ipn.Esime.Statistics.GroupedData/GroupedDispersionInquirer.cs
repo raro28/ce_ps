@@ -31,7 +31,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 				Inquirer.AddFrequencies ();
 				var frequencyTable = Inquirer.GetTable ();
 				
-				Inquirer.Answers.Add (keyDifference, frequencyTable);
+				Inquirer.Answers.Add (keyDifference, TaskNames.DispersionTable);
 				foreach (var item in frequencyTable) {
 					var difference = power != 1 ? item.ClassMark - mean : Math.Abs (item.ClassMark - mean);
 					((IDictionary<String,Object>)item).Add (keyProperty, item.Frequency * Math.Pow (difference, power));

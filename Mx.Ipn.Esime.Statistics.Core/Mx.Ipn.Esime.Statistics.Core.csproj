@@ -42,12 +42,10 @@
     </Compile>
     <Compile Include="ICentralTendencyInquirer.cs" />
     <Compile Include="IDispersionInquirer.cs" />
-    <Compile Include="IRangesInquirer.cs" />
     <Compile Include="IXileInquirer.cs" />
     <Compile Include="StatisticsException.cs" />
     <Compile Include="Base\InquirerBase.cs" />
     <Compile Include="Base\XileInquirerBase.cs" />
-    <Compile Include="Base\RangesInquirerBase.cs" />
     <Compile Include="Base\CentralTendecyInquirerBase.cs" />
     <Compile Include="Base\DispersionInquirerBase.cs" />
     <Compile Include="IDataDistributionFrequencyInquirer.cs" />

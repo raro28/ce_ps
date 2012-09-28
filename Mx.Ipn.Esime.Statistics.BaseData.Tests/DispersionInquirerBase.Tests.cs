@@ -11,6 +11,30 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	public abstract class DispersionInquirerBase_Tests<TInquirer,THelper>:InquirerBase_Tests<TInquirer,THelper> where TInquirer:DispersionInquirerBase where THelper:HelperMethodsBase
 	{
 		[TestCase(100)]
+		public void Inquirer_Gets_Expected_Data_Range (int size)
+		{
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
+			
+			var expected = SampleDataRange (data);
+			var actual = calculator.GetDataRange ();
+			Assert.AreEqual (expected, actual);
+		}
+		
+		[TestCase(Xiles.Quartile,100,3,1)]
+		[TestCase(Xiles.Decile,100,9,1)]
+		[TestCase(Xiles.Percentile,100,90,10)]
+		public void Inquirer_Gets_Expected_Range (Xiles xile, int size, int toXile, int fromXile)
+		{
+			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var calculator = Helper.NewInquirer<TInquirer> (data);
+			
+			var expected = Helper.CalcNthXile (data, (int)xile, toXile) - Helper.CalcNthXile (data, (int)xile, fromXile);
+			var actual = GetInterXileRangeMethod (xile).Invoke (calculator, new object[]{});
+			Assert.AreEqual (expected, actual);
+		}
+
+		[TestCase(100)]
 		public void Inquirer_Gets_Expected_Absolute_Deviation (int size)
 		{
 			List<double> data = Helper.GetRandomDataSample (size).ToList ();
@@ -73,6 +97,13 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		protected abstract double SampleVariance (List<double> data, double mean);
 
 		protected abstract double SampleMomentum (List<double> data, int nMomentum, double mean);
+		
+		protected abstract double SampleDataRange (IList<double> data);
+		
+		private MethodInfo GetInterXileRangeMethod (Xiles xile)
+		{
+			return typeof(TInquirer).GetMethod ("GetInter" + Enum.GetName (typeof(Xiles), xile) + "Range");
+		}
 
 		private MethodInfo GetCoefficientOfMethod (string coefficientName)
 		{

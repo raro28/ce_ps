@@ -42,7 +42,6 @@
     <Compile Include="InquirerBase.Tests.cs" />
     <Compile Include="HelperMethodsBase.cs" />
     <Compile Include="XileInquirerBase.Tests.cs" />
-    <Compile Include="RangesInquirerBase.Tests.cs" />
     <Compile Include="DispersionInquirerBase.Tests.cs" />
     <Compile Include="CentralTendecyInquirerBase.Tests.cs" />
   </ItemGroup>

@@ -8,9 +8,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	{
 		public UngroupedCentralTendecyInquirer (List<double> rawData):base(rawData)
 		{	
-			var xiles = new UngroupedXileInquirer (this);
-			
-			Inquirer = new UngroupedRangesInquirer (xiles);
 		}
 
 		public UngroupedCentralTendecyInquirer (InquirerBase inquirer):base(inquirer)

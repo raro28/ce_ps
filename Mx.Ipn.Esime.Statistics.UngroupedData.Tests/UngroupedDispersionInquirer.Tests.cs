@@ -36,5 +36,12 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			
 			return momentum;
 		}
+
+		protected override double SampleDataRange (IList<double> data)
+		{
+			var dataRange = data [data.Count - 1] - data [0];
+			
+			return dataRange;
+		}
 	}
 }

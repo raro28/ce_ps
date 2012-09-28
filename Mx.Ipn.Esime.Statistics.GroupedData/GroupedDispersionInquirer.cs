@@ -12,9 +12,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{			
 			var distribution = new DataDistributionFrequencyInquirer (this);
 			var xiles = new GroupedXileInquirer (distribution);
-			var ranges = new GroupedRangesInquirer (xiles);
 
-			Inquirer = new GroupedCentralTendecyInquirer (ranges);
+			Inquirer = new GroupedCentralTendecyInquirer (xiles);
 		}
 		
 		public void AddMeanDifference (int power)
@@ -58,6 +57,15 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			var momentum = MeanDifferenceSum (nMomentum) / Inquirer.Data.Count;
 			
 			return momentum;
+		}
+
+		protected override double CalcDataRange ()
+		{
+			Inquirer.AddClassIntervals ();
+			var table = Inquirer.GetTable ();
+			var range = table [0].ClassInterval.To - table [table.Count - 1].ClassInterval.From;
+			
+			return range;
 		}
 
 		private double MeanDifferenceSum (int power)

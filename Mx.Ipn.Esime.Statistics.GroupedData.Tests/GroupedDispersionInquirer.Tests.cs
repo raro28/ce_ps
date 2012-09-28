@@ -26,5 +26,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 			//TODO:GroupedDispersionInquirer_Tests:SampleMomentum
 			throw new NotImplementedException ();
 		}
+
+		protected override double SampleDataRange (IList<double> data)
+		{
+			//TODO:GroupedRangesInquirer_Tests:SampleDataRange
+			throw new NotImplementedException ();
+		}
 	}
 }

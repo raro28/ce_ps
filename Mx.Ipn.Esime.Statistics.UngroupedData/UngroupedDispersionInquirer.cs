@@ -1,6 +1,7 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
+	using System.Linq;
 	using System.Collections.Generic;
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
@@ -9,9 +10,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		public UngroupedDispersionInquirer (List<double> rawData):base(rawData)
 		{		
 			var xiles = new UngroupedXileInquirer (this);
-			var ranges = new UngroupedRangesInquirer (xiles);
 			
-			Inquirer = new UngroupedCentralTendecyInquirer (ranges);
+			Inquirer = new UngroupedCentralTendecyInquirer (xiles);
 		}
 
 		protected override double CalcAbsoluteDeviation ()
@@ -51,6 +51,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 			momentum /= Inquirer.Data.Count;
 			return momentum;
+		}
+
+		protected override double CalcDataRange ()
+		{
+			return Enumerable.Max (Inquirer.Data) - Enumerable.Min (Inquirer.Data);
 		}
 	}
 }

@@ -14,6 +14,42 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		{
 		}
 
+		public double GetDataRange ()
+		{
+			if (!Inquirer.Answers.ContainsKey (TaskNames.DataRange)) {
+				Inquirer.Answers.Add (TaskNames.DataRange, CalcDataRange ());
+			}
+			
+			return Inquirer.Answers [TaskNames.DataRange];
+		}
+		
+		public double GetInterQuartileRange ()
+		{
+			if (!Inquirer.Answers.ContainsKey (TaskNames.QuartileRange)) {
+				Inquirer.Answers.Add (TaskNames.QuartileRange, Inquirer.GetQuartile (3) - Inquirer.GetQuartile (1));
+			}
+			
+			return Inquirer.Answers [TaskNames.QuartileRange];
+		}
+		
+		public double GetInterDecileRange ()
+		{
+			if (!Inquirer.Answers.ContainsKey (TaskNames.DecileRange)) {
+				Inquirer.Answers.Add (TaskNames.DecileRange, Inquirer.GetDecile (9) - Inquirer.GetDecile (1));
+			}
+			
+			return Inquirer.Answers [TaskNames.DecileRange];
+		}
+		
+		public double GetInterPercentileRange ()
+		{
+			if (!Inquirer.Answers.ContainsKey (TaskNames.PercentileRange)) {
+				Inquirer.Answers.Add (TaskNames.PercentileRange, Inquirer.GetPercentile (90) - Inquirer.GetPercentile (10));
+			}
+			
+			return Inquirer.Answers [TaskNames.PercentileRange];
+		}
+
 		public double GetAbsoluteDeviation ()
 		{
 			if (!Inquirer.Answers.ContainsKey (TaskNames.AbsoluteDeviation)) {
@@ -95,5 +131,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		protected abstract double CalcVariance ();
 
 		protected abstract double CalcMomentum (int nMomentum);
+
+		protected abstract double CalcDataRange ();
 	}
 }

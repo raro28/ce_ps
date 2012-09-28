@@ -37,7 +37,6 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="UngroupedCentralTendecyInquirer.cs" />
     <Compile Include="UngroupedDispersionInquirer.cs" />
-    <Compile Include="UngroupedRangesInquirer.cs" />
     <Compile Include="UngroupedXileInquirer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

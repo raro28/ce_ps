@@ -2,6 +2,14 @@ namespace Mx.Ipn.Esime.Statistics.Core
 {
 	public interface IDispersionInquirer
 	{
+		double GetDataRange ();
+		
+		double GetInterQuartileRange ();
+		
+		double GetInterDecileRange ();
+		
+		double GetInterPercentileRange ();
+
 		double GetAbsoluteDeviation ();
 		
 		double GetVariance ();

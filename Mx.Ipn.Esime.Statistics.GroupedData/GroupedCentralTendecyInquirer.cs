@@ -8,10 +8,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 	{
 		public GroupedCentralTendecyInquirer (List<double> rawData):base(rawData)
 		{			
-			var distribution = new DataDistributionFrequencyInquirer (this);
-			var xiles = new GroupedXileInquirer (distribution);
-
-			Inquirer = new GroupedRangesInquirer (xiles);
+			Inquirer = new DataDistributionFrequencyInquirer (this);
 		}
 
 		public GroupedCentralTendecyInquirer (InquirerBase inquirer):base(inquirer)

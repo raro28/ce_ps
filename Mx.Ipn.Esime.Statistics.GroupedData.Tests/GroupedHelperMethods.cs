@@ -9,13 +9,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 		public override double CalcNthXile (IList<double> data, int xile, int nTh)
 		{
 			//TODO:GroupedHelperMethods:CalcNthXile
-			throw new NotImplementedException ();
+			return -1;
 		}		
 
 		public override double SampleMean (List<double> data)
 		{
 			//TODO:GroupedHelperMethods:SampleMean
-			throw new NotImplementedException ();
+			return -1;
 		}
 	}
 }

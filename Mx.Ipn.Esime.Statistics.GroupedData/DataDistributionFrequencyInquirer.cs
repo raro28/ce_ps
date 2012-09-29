@@ -40,22 +40,22 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public IEnumerable<dynamic> GetTable ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.DispersionTable)) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.DispersionTable)) {
 				AddClassIntervals ();
 			}
 
-			return Inquirer.Answers [TaskNames.DispersionTable];
+			return Properties ["Answers"] [TaskNames.DispersionTable];
 		}
 
 		public void AddClassIntervals ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.ClassIntervals)) {
-				var frequencyTable = new List<dynamic> (Inquirer.Groups);
-				Inquirer.Answers.Add (TaskNames.ClassIntervals, TaskNames.DispersionTable);
-				Inquirer.Answers.Add (TaskNames.DispersionTable, frequencyTable.AsReadOnly ());
-				var inferiorClassLimit = Enumerable.Min (Inquirer.Data);
-				var superiorClassLimit = inferiorClassLimit + Inquirer.Amplitude - Inquirer.DataPresicionValue;
-				for (int i = 1; i <= Inquirer.Groups; i++) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.ClassIntervals)) {
+				var frequencyTable = new List<dynamic> (Properties ["Groups"]);
+				Properties ["Answers"].Add (TaskNames.ClassIntervals, TaskNames.DispersionTable);
+				Properties ["Answers"].Add (TaskNames.DispersionTable, frequencyTable.AsReadOnly ());
+				var inferiorClassLimit = Enumerable.Min (Properties ["Data"]);
+				var superiorClassLimit = inferiorClassLimit + Properties ["Amplitude"] - Properties ["DataPresicionValue"];
+				for (int i = 1; i <= Properties["Groups"]; i++) {
 					var interval = new Interval {
 						From = inferiorClassLimit,
 						To = superiorClassLimit
@@ -64,19 +64,19 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 					dynamic distElement = new ExpandoObject ();
 					distElement.ClassInterval = interval;
 					frequencyTable.Add (distElement);
-					inferiorClassLimit += Inquirer.Amplitude;
-					superiorClassLimit += Inquirer.Amplitude;
+					inferiorClassLimit += Properties ["Amplitude"];
+					superiorClassLimit += Properties ["Amplitude"];
 				}
 			}
 		}
 
 		public void AddFrequencies ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.Frequencies)) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.Frequencies)) {
 				AddClassIntervals ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add (TaskNames.Frequencies, TaskNames.DispersionTable);
-				List<double> data = Enumerable.ToList (Inquirer.Data);
+				Properties ["Answers"].Add (TaskNames.Frequencies, TaskNames.DispersionTable);
+				List<double> data = Enumerable.ToList (Properties ["Data"]);
 				foreach (var tableItem in frequencyTable) {
 					var frequency = data.Count (item => item >= tableItem.ClassInterval.From && item <= tableItem.ClassInterval.To);
 					tableItem.Frequency = frequency;
@@ -86,10 +86,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void AddAcumulatedFrequencies ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.AcumulatedFrequencies)) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.AcumulatedFrequencies)) {
 				AddFrequencies ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add (TaskNames.AcumulatedFrequencies, TaskNames.DispersionTable);
+				Properties ["Answers"].Add (TaskNames.AcumulatedFrequencies, TaskNames.DispersionTable);
 				var lastFrequency = 0;
 				foreach (var item in frequencyTable) {
 					item.AcumulatedFrequency = item.Frequency + lastFrequency;
@@ -100,22 +100,22 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void AddRelativeFrequencies ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.RelativeFrequencies)) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.RelativeFrequencies)) {
 				AddFrequencies ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add (TaskNames.RelativeFrequencies, TaskNames.DispersionTable);
+				Properties ["Answers"].Add (TaskNames.RelativeFrequencies, TaskNames.DispersionTable);
 				foreach (var item in frequencyTable) {
-					item.RelativeFrequency = (double)item.Frequency / Inquirer.Data.Count;
+					item.RelativeFrequency = (double)item.Frequency / Properties ["Data"].Count;
 				}
 			}
 		}
 
 		public void AddAcumulatedRelativeFrequencies ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.AcumulatedRelativeFrequencies)) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.AcumulatedRelativeFrequencies)) {
 				AddRelativeFrequencies ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add (TaskNames.AcumulatedRelativeFrequencies, TaskNames.DispersionTable);
+				Properties ["Answers"].Add (TaskNames.AcumulatedRelativeFrequencies, TaskNames.DispersionTable);
 				var lastRelativeFrequency = 0.0;
 				foreach (var item in frequencyTable) {
 					item.AcumulatedRelativeFrequency = item.RelativeFrequency + lastRelativeFrequency;
@@ -126,10 +126,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void  AddClassMarks ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.ClassMarks)) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.ClassMarks)) {
 				AddClassIntervals ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add (TaskNames.ClassMarks, TaskNames.DispersionTable);
+				Properties ["Answers"].Add (TaskNames.ClassMarks, TaskNames.DispersionTable);
 				foreach (var item in frequencyTable) {
 					var classMark = (item.ClassInterval.From + item.ClassInterval.To) / 2;
 					item.ClassMark = classMark;
@@ -139,11 +139,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void  AddRealClassIntervals ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.RealClassIntervals)) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.RealClassIntervals)) {
 				AddClassIntervals ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add (TaskNames.RealClassIntervals, TaskNames.DispersionTable);
-				var midPresicion = Inquirer.DataPresicionValue / 2;
+				Properties ["Answers"].Add (TaskNames.RealClassIntervals, TaskNames.DispersionTable);
+				var midPresicion = Properties ["DataPresicionValue"] / 2;
 				foreach (var item in frequencyTable) {
 					var realInterval = new Interval {
 						From = item.ClassInterval.From - midPresicion,
@@ -157,11 +157,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		public void  AddFrequenciesTimesClassMarks ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.FrequenciesTimesClassMarks)) {
+			if (!Properties ["Answers"].ContainsKey (TaskNames.FrequenciesTimesClassMarks)) {
 				AddFrequencies ();
 				AddClassMarks ();
 				var frequencyTable = GetTable ();
-				Inquirer.Answers.Add (TaskNames.FrequenciesTimesClassMarks, TaskNames.DispersionTable);
+				Properties ["Answers"].Add (TaskNames.FrequenciesTimesClassMarks, TaskNames.DispersionTable);
 				foreach (var item in frequencyTable) {
 					item.fX = item.Frequency * item.ClassMark;
 				}
@@ -170,14 +170,26 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		private void InitProperties ()
 		{
-			Inquirer.Max = Enumerable.Max (Inquirer.Data);
-			Inquirer.Min = Enumerable.Min (Inquirer.Data);
-			Inquirer.Range = Inquirer.Max - Inquirer.Min;
-			Inquirer.Groups = (int)Math.Round (Math.Sqrt (Inquirer.Data.Count));
-			Inquirer.Amplitude = Math.Round (Inquirer.Range / Inquirer.Groups, Inquirer.DataPresicion);
-			Inquirer.DataPresicionValue = (1 / Math.Pow (10, Inquirer.DataPresicion));
-			if ((Inquirer.Min + Inquirer.Amplitude * Inquirer.Groups - Inquirer.DataPresicionValue) <= Inquirer.Max) {
-				Inquirer.Amplitude += Inquirer.DataPresicionValue;
+			var max = Enumerable.Max (Properties ["Data"]);
+			Properties.Add ("Max", max);
+
+			var min = Enumerable.Min (Properties ["Data"]);
+			Properties.Add ("Min", min);
+
+			var range = max - min;
+			Properties.Add ("Range", range);
+
+			var groups = (int)Math.Round (Math.Sqrt (Properties ["Data"].Count));
+			Properties.Add ("Groups", groups);
+
+			var amplitude = Math.Round (range / Properties ["Groups"], Properties ["DataPresicion"]);
+			Properties.Add ("Amplitude", amplitude);
+
+			var dataPresicionValue = (1 / Math.Pow (10, Properties ["DataPresicion"]));
+			Properties.Add ("DataPresicionValue", dataPresicionValue);
+
+			if ((min + amplitude * groups - dataPresicionValue) <= max) {
+				Properties ["Amplitude"] += dataPresicionValue;
 			}
 		}
 	}	

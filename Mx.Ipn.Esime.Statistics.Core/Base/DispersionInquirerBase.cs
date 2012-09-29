@@ -16,113 +16,113 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		public double GetDataRange ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.DataRange)) {
-				Inquirer.Answers.Add (TaskNames.DataRange, CalcDataRange ());
+			if (!Properties["Answers"].ContainsKey (TaskNames.DataRange)) {
+				Properties["Answers"].Add (TaskNames.DataRange, CalcDataRange ());
 			}
 			
-			return Inquirer.Answers [TaskNames.DataRange];
+			return Properties["Answers"] [TaskNames.DataRange];
 		}
 		
 		public double GetInterQuartileRange ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.QuartileRange)) {
-				Inquirer.Answers.Add (TaskNames.QuartileRange, Inquirer.GetQuartile (3) - Inquirer.GetQuartile (1));
+			if (!Properties["Answers"].ContainsKey (TaskNames.QuartileRange)) {
+				Properties["Answers"].Add (TaskNames.QuartileRange, Inquirer.GetQuartile (3) - Inquirer.GetQuartile (1));
 			}
 			
-			return Inquirer.Answers [TaskNames.QuartileRange];
+			return Properties["Answers"] [TaskNames.QuartileRange];
 		}
 		
 		public double GetInterDecileRange ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.DecileRange)) {
-				Inquirer.Answers.Add (TaskNames.DecileRange, Inquirer.GetDecile (9) - Inquirer.GetDecile (1));
+			if (!Properties["Answers"].ContainsKey (TaskNames.DecileRange)) {
+				Properties["Answers"].Add (TaskNames.DecileRange, Inquirer.GetDecile (9) - Inquirer.GetDecile (1));
 			}
 			
-			return Inquirer.Answers [TaskNames.DecileRange];
+			return Properties["Answers"] [TaskNames.DecileRange];
 		}
 		
 		public double GetInterPercentileRange ()
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.PercentileRange)) {
-				Inquirer.Answers.Add (TaskNames.PercentileRange, Inquirer.GetPercentile (90) - Inquirer.GetPercentile (10));
+			if (!Properties["Answers"].ContainsKey (TaskNames.PercentileRange)) {
+				Properties["Answers"].Add (TaskNames.PercentileRange, Inquirer.GetPercentile (90) - Inquirer.GetPercentile (10));
 			}
 			
-			return Inquirer.Answers [TaskNames.PercentileRange];
+			return Properties["Answers"] [TaskNames.PercentileRange];
 		}
 
 		public double GetAbsoluteDeviation (double mean)
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.AbsoluteDeviation)) {
-				Inquirer.Answers.Add (TaskNames.AbsoluteDeviation, CalcAbsoluteDeviation (mean));
+			if (!Properties["Answers"].ContainsKey (TaskNames.AbsoluteDeviation)) {
+				Properties["Answers"].Add (TaskNames.AbsoluteDeviation, CalcAbsoluteDeviation (mean));
 			}
 
-			return Inquirer.Answers [TaskNames.AbsoluteDeviation];
+			return Properties["Answers"] [TaskNames.AbsoluteDeviation];
 		}
 		
 		public double GetVariance (double mean)
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.Variance)) {
-				Inquirer.Answers.Add (TaskNames.Variance, CalcVariance (mean));
+			if (!Properties["Answers"].ContainsKey (TaskNames.Variance)) {
+				Properties["Answers"].Add (TaskNames.Variance, CalcVariance (mean));
 			}
 
-			return Inquirer.Answers [TaskNames.Variance];
+			return Properties["Answers"] [TaskNames.Variance];
 		}
 		
 		public double GetStandarDeviation (double mean)
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.StandarDeviation)) {
-				Inquirer.Answers.Add (TaskNames.StandarDeviation, Math.Sqrt (GetVariance (mean)));
+			if (!Properties["Answers"].ContainsKey (TaskNames.StandarDeviation)) {
+				Properties["Answers"].Add (TaskNames.StandarDeviation, Math.Sqrt (GetVariance (mean)));
 			}
 
-			return Inquirer.Answers [TaskNames.StandarDeviation];
+			return Properties["Answers"] [TaskNames.StandarDeviation];
 		}
 
 		public double GetCoefficientOfVariation (double mean)
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfVariation)) {
+			if (!Properties["Answers"].ContainsKey (TaskNames.CoefficientOfVariation)) {
 				var strDev = GetStandarDeviation (mean);
 				var cov = strDev / mean;
 
-				Inquirer.Answers.Add (TaskNames.CoefficientOfVariation, cov);
+				Properties["Answers"].Add (TaskNames.CoefficientOfVariation, cov);
 			}
 
-			return Inquirer.Answers [TaskNames.CoefficientOfVariation];
+			return Properties["Answers"] [TaskNames.CoefficientOfVariation];
 		}
 		
 		public double GetCoefficientOfSymmetry (double mean)
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfSymmetry)) {
+			if (!Properties["Answers"].ContainsKey (TaskNames.CoefficientOfSymmetry)) {
 				var m3 = GetMomentum (3, mean);
 				var m2 = GetMomentum (2, mean);
 				var cos = m3 / Math.Pow (m2, 1.5);
 
-				Inquirer.Answers.Add (TaskNames.CoefficientOfSymmetry, cos);
+				Properties["Answers"].Add (TaskNames.CoefficientOfSymmetry, cos);
 			}
 
-			return Inquirer.Answers [TaskNames.CoefficientOfSymmetry];
+			return Properties["Answers"] [TaskNames.CoefficientOfSymmetry];
 		}
 		
 		public double GetCoefficientOfKourtosis (double mean)
 		{
-			if (!Inquirer.Answers.ContainsKey (TaskNames.CoefficientOfKourtosis)) {
+			if (!Properties["Answers"].ContainsKey (TaskNames.CoefficientOfKourtosis)) {
 				var m4 = GetMomentum (4, mean);
 				var m2 = GetMomentum (2, mean);
 				var cok = m4 / Math.Pow (m2, 2);
 
-				Inquirer.Answers.Add (TaskNames.CoefficientOfKourtosis, cok);
+				Properties["Answers"].Add (TaskNames.CoefficientOfKourtosis, cok);
 			}
 
-			return Inquirer.Answers [TaskNames.CoefficientOfKourtosis];
+			return Properties["Answers"] [TaskNames.CoefficientOfKourtosis];
 		}
 		
 		private double GetMomentum (int nMomentum, double mean)
 		{
 			var keyMomentum = String.Format (TaskNames.MomentumFormat, nMomentum);
-			if (!Inquirer.Answers.ContainsKey (keyMomentum)) {
-				Inquirer.Answers.Add (keyMomentum, CalcMomentum (nMomentum, mean));
+			if (!Properties["Answers"].ContainsKey (keyMomentum)) {
+				Properties["Answers"].Add (keyMomentum, CalcMomentum (nMomentum, mean));
 			}
 			
-			return Inquirer.Answers [keyMomentum];
+			return Properties["Answers"] [keyMomentum];
 		}
 
 		protected abstract double CalcAbsoluteDeviation (double mean);

@@ -6,13 +6,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class GroupedXileInquirer:XileInquirerBase
 	{
-		public GroupedXileInquirer (InquirerBase inquirer):base(inquirer)
-		{			
-		}
-
 		public GroupedXileInquirer (List<double> rawData):base(rawData)
 		{			
 			Inquirer = new DataDistributionFrequencyInquirer (this);
+		}
+
+		public GroupedXileInquirer (InquirerBase inquirer):base(inquirer)
+		{			
 		}
 
 		protected override double CalcXile (double lx)
@@ -33,7 +33,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}
 			
 			double prevF = prevElement != null ? prevElement.AcumulatedFrequency : 0;
-			var xileResult = targetElement.RealInterval.From + ((lx - prevF) / targetElement.Frequency) * Inquirer.Amplitude;
+			var xileResult = targetElement.RealInterval.From + ((lx - prevF) / targetElement.Frequency) * Properties["Amplitude"];
 			
 			return xileResult;
 		}

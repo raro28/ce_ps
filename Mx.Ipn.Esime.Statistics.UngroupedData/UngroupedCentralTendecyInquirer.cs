@@ -10,28 +10,24 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{	
 		}
 
-		public UngroupedCentralTendecyInquirer (InquirerBase inquirer):base(inquirer)
-		{
-		}
-
 		protected override double CalcMean ()
 		{
-			var mean = Enumerable.Sum (Inquirer.Data) / Inquirer.Data.Count;
+			var mean = Enumerable.Sum (Properties ["Data"]) / Properties ["Data"].Count;
 
 			return mean;
 		}
 
 		protected override double CalcMedian ()
 		{
-			var midIndex = (Inquirer.Data.Count / 2) - 1;
-			var median = Inquirer.Data.Count % 2 != 0 ? Inquirer.Data [midIndex + 1] : (Inquirer.Data [midIndex] + Inquirer.Data [midIndex + 1]) / 2;
+			var midIndex = (Properties ["Data"].Count / 2) - 1;
+			var median = Properties ["Data"].Count % 2 != 0 ? Properties ["Data"] [midIndex + 1] : (Properties ["Data"] [midIndex] + Properties ["Data"] [midIndex + 1]) / 2;
 
 			return median;
 		}
 
 		protected override IList<double> CalcModes ()
 		{
-			List<double> data = Enumerable.ToList (Inquirer.Data);
+			List<double> data = Enumerable.ToList (Properties ["Data"]);
 			var groups = data.GroupBy (item => item);
 			var modes = (from _mode in groups
 					where _mode.Count () == groups.Max (grouped => grouped.Count ())

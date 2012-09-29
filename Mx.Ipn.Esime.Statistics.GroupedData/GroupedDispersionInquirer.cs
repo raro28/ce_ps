@@ -22,12 +22,12 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 			var keyProperty = String.Format (TaskNames.MeanDiff_Property_Format, power);
 			var keyDifference = String.Format (TaskNames.MeanDifference_Format, keyProperty);
-			if (!Inquirer.Answers.ContainsKey (keyDifference)) {
+			if (!Properties["Answers"].ContainsKey (keyDifference)) {
 				Inquirer.AddClassMarks ();
 				Inquirer.AddFrequencies ();
 				var frequencyTable = Inquirer.GetTable ();
 				
-				Inquirer.Answers.Add (keyDifference, TaskNames.DispersionTable);
+				Properties["Answers"].Add (keyDifference, TaskNames.DispersionTable);
 				foreach (var item in frequencyTable) {
 					var difference = power != 1 ? item.ClassMark - mean : Math.Abs (item.ClassMark - mean);
 					((IDictionary<String,Object>)item).Add (keyProperty, item.Frequency * Math.Pow (difference, power));
@@ -37,21 +37,21 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		protected override double CalcAbsoluteDeviation (double mean)
 		{
-			var mad = MeanDifferenceSum (1, mean) / Inquirer.Data.Count;
+			var mad = MeanDifferenceSum (1, mean) / Properties["Data"].Count;
 
 			return mad;
 		}
 
 		protected override double CalcVariance (double mean)
 		{
-			var variance = MeanDifferenceSum (2, mean) / (Inquirer.Data.Count - 1);
+			var variance = MeanDifferenceSum (2, mean) / (Properties["Data"].Count - 1);
 			
 			return variance;
 		}
 
 		protected override double CalcMomentum (int nMomentum, double mean)
 		{
-			var momentum = MeanDifferenceSum (nMomentum, mean) / Inquirer.Data.Count;
+			var momentum = MeanDifferenceSum (nMomentum, mean) / Properties["Data"].Count;
 			
 			return momentum;
 		}

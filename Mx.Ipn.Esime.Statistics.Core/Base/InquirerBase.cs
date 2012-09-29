@@ -18,45 +18,35 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			set;
 		}
 
-		public InquirerBase (IEnumerable<double> rawData)
+		protected InquirerBase ()
+		{
+			Inquirer = this;
+			Properties = new Dictionary<string, dynamic> ()
+			{
+				{"Answers",new Dictionary<string,dynamic > ()},
+				{"Data",new List<double>()},
+				{"DataPresicion",-1}
+			};
+		}
+
+		public InquirerBase (IEnumerable<double> rawData):this()
 		{
 			AssertValidData (rawData);
-			Properties = new Dictionary<string, dynamic> ();
 
 			var cache = rawData.ToList ();
 			cache.Sort ();
-			var readOnly = cache.AsReadOnly ();
+			Properties ["Data"] = cache.AsReadOnly ();
 
-			Inquirer = this;
-
-			Inquirer.Data = readOnly;
-			Inquirer.Answers = new Dictionary<string,dynamic > ();
-
-			Inquirer.DataPresicion = GetDataPresicion ();
+			Properties ["DataPresicion"] = GetDataPresicion ();
 		}
 
-		public InquirerBase (InquirerBase inquirer)
+		public InquirerBase (InquirerBase inquirer):this()
 		{
 			if (inquirer == null)
 				throw new StatisticsException (ExceptionMessages.Null_Data_Inquirer, new ArgumentNullException ("inquirer"));
 
 			Inquirer = inquirer;
 			Properties = inquirer.Properties;
-		}
-
-		protected static void AssertValidData (IEnumerable<double> data)
-		{
-			if (data == null) {
-				throw new StatisticsException (ExceptionMessages.Null_Data_Set, new ArgumentNullException ("data"));
-			}
-			
-			if (data.Count () == 0) {
-				throw new StatisticsException (ExceptionMessages.Empty_Data_Set);
-			}
-			
-			if (data.Count () == 1) {
-				throw new StatisticsException (ExceptionMessages.Insufficient_Data);
-			}
 		}
 
 		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
@@ -100,9 +90,24 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return true;
 		}
 
+		protected static void AssertValidData (IEnumerable<double> data)
+		{
+			if (data == null) {
+				throw new StatisticsException (ExceptionMessages.Null_Data_Set, new ArgumentNullException ("data"));
+			}
+			
+			if (data.Count () == 0) {
+				throw new StatisticsException (ExceptionMessages.Empty_Data_Set);
+			}
+			
+			if (data.Count () == 1) {
+				throw new StatisticsException (ExceptionMessages.Insufficient_Data);
+			}
+		}
+
 		private int GetDataPresicion ()
 		{
-			List<double> data = Enumerable.ToList (Inquirer.Data);
+			List<double> data = Enumerable.ToList (Properties ["Data"]);
 
 			var decimalLengths = (from item in data.SkipWhile (item => (item + "").LastIndexOf (".") == -1)
 				select (item + "").Substring ((item + "").LastIndexOf ('.') + 1).Length).ToList ();

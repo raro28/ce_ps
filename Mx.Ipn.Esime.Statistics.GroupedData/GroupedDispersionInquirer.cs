@@ -11,7 +11,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		public GroupedDispersionInquirer (List<double> rawData):base(rawData)
 		{			
 			var distribution = new DataDistributionFrequencyInquirer (this);
-			Inquirer = new GroupedXileInquirer (distribution);
+			Properties ["Inquirers"].Add (distribution);
+			Properties ["Inquirers"].Add (new GroupedXileInquirer (this));
 		}
 		
 		public void AddMeanDifference (int power, double mean)
@@ -22,12 +23,12 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 			var keyProperty = String.Format (TaskNames.MeanDiff_Property_Format, power);
 			var keyDifference = String.Format (TaskNames.MeanDifference_Format, keyProperty);
-			if (!Properties["Answers"].ContainsKey (keyDifference)) {
-				Inquirer.AddClassMarks ();
-				Inquirer.AddFrequencies ();
-				var frequencyTable = Inquirer.GetTable ();
+			if (!Properties ["Answers"].ContainsKey (keyDifference)) {
+				DynamicSelf.AddClassMarks ();
+				DynamicSelf.AddFrequencies ();
+				var frequencyTable = DynamicSelf.GetTable ();
 				
-				Properties["Answers"].Add (keyDifference, TaskNames.DispersionTable);
+				Properties ["Answers"].Add (keyDifference, TaskNames.DispersionTable);
 				foreach (var item in frequencyTable) {
 					var difference = power != 1 ? item.ClassMark - mean : Math.Abs (item.ClassMark - mean);
 					((IDictionary<String,Object>)item).Add (keyProperty, item.Frequency * Math.Pow (difference, power));
@@ -37,29 +38,29 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		protected override double CalcAbsoluteDeviation (double mean)
 		{
-			var mad = MeanDifferenceSum (1, mean) / Properties["Data"].Count;
+			var mad = MeanDifferenceSum (1, mean) / Properties ["Data"].Count;
 
 			return mad;
 		}
 
 		protected override double CalcVariance (double mean)
 		{
-			var variance = MeanDifferenceSum (2, mean) / (Properties["Data"].Count - 1);
+			var variance = MeanDifferenceSum (2, mean) / (Properties ["Data"].Count - 1);
 			
 			return variance;
 		}
 
 		protected override double CalcMomentum (int nMomentum, double mean)
 		{
-			var momentum = MeanDifferenceSum (nMomentum, mean) / Properties["Data"].Count;
+			var momentum = MeanDifferenceSum (nMomentum, mean) / Properties ["Data"].Count;
 			
 			return momentum;
 		}
 
 		protected override double CalcDataRange ()
 		{
-			Inquirer.AddClassIntervals ();
-			var table = Inquirer.GetTable ();
+			DynamicSelf.AddClassIntervals ();
+			var table = DynamicSelf.GetTable ();
 			var range = table [0].ClassInterval.To - table [table.Count - 1].ClassInterval.From;
 			
 			return range;
@@ -69,7 +70,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		{
 			AddMeanDifference (power, mean);
 			double sum = 0;
-			var table = Inquirer.GetTable ();
+			var table = DynamicSelf.GetTable ();
 			foreach (var item in table) {
 				sum += ((IDictionary<String, dynamic>)item) [String.Format (TaskNames.MeanDiff_Property_Format, power)];
 			}

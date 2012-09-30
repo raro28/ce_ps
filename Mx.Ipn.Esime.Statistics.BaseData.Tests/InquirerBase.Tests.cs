@@ -30,6 +30,16 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			}
 		}
 
+		[TestCase(new double[]{1,2,3},0)]
+		[TestCase(new double[]{1,2.1,3.2},1)]
+		[TestCase(new double[]{1,2.1,3.21},2)]
+		public void Inquirer_Uses_Correct_Data_Precision_Value (double[]data, int orecisionValue)
+		{
+			dynamic calculator = Helper.NewInquirer<TInquirer> (data.ToList ());
+			
+			Assert.AreEqual (calculator.DataPrecision, orecisionValue);
+		}
+
 		[Test()]
 		[ExpectedException(typeof(StatisticsException),Handler="HandleExceptionWithInnerArgumentNullException")]
 		public void When_Inquirer_Recieves_Null_Data_Set_Throws_An_Statistics_Exception ()
@@ -53,12 +63,6 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		protected void HandleExceptionThroughTargetInvocationExceptionException (Exception exception)
 		{
 			Assert.IsInstanceOf<StatisticsException> (exception.InnerException);
-		}
-
-
-		protected void Handle <T> (Exception exception)
-		{
-			Assert.IsInstanceOf<T> (exception.InnerException);
 		}
 	}
 }

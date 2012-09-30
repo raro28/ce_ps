@@ -9,13 +9,14 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 		public GroupedCentralTendecyInquirer (List<double> rawData):base(rawData)
 		{			
 			var distribution = new DataDistributionFrequencyInquirer (this);
-			Inquirer = new GroupedXileInquirer (distribution);
+			Properties ["Inquirers"].Add (distribution);
+			Properties ["Inquirers"].Add (new GroupedXileInquirer (this));
 		}
 
 		protected override double CalcMean ()
 		{
-			Inquirer.AddFrequenciesTimesClassMarks ();
-			var table = Inquirer.GetTable ();
+			DynamicSelf.AddFrequenciesTimesClassMarks ();
+			var table = DynamicSelf.GetTable ();
 			double fxSum = 0;
 			foreach (var item in table) {
 				fxSum += item.fX;
@@ -28,16 +29,16 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 		protected override double CalcMedian ()
 		{
-			var median = Inquirer.GetQuartile (2);
+			var median = DynamicSelf.GetQuartile (2);
 
 			return median;
 		}
 
 		protected override IList<double> CalcModes ()
 		{
-			Inquirer.AddFrequencies ();
-			Inquirer.AddRealClassIntervals ();
-			List<dynamic> table = Enumerable.ToList (Inquirer.GetTable ());
+			DynamicSelf.AddFrequencies ();
+			DynamicSelf.AddRealClassIntervals ();
+			List<dynamic> table = Enumerable.ToList (DynamicSelf.GetTable ());
 			var firstMaxFreqItem = table.OrderByDescending (item => item.Frequency).First ();
 			var maxFreqItems = table.Where (item => item.Frequency == firstMaxFreqItem.Frequency).ToList ();
 

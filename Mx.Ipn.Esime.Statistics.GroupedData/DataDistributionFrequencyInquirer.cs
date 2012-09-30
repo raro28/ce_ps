@@ -54,7 +54,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 				Properties ["Answers"].Add (TaskNames.ClassIntervals, TaskNames.DispersionTable);
 				Properties ["Answers"].Add (TaskNames.DispersionTable, frequencyTable.AsReadOnly ());
 				var inferiorClassLimit = Enumerable.Min (Properties ["Data"]);
-				var superiorClassLimit = inferiorClassLimit + Properties ["Amplitude"] - Properties ["DataPresicionValue"];
+				var superiorClassLimit = inferiorClassLimit + Properties ["Amplitude"] - Properties ["DataPrecisionValue"];
 				for (int i = 1; i <= Properties["Groups"]; i++) {
 					var interval = new Interval {
 						From = inferiorClassLimit,
@@ -143,11 +143,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 				AddClassIntervals ();
 				var frequencyTable = GetTable ();
 				Properties ["Answers"].Add (TaskNames.RealClassIntervals, TaskNames.DispersionTable);
-				var midPresicion = Properties ["DataPresicionValue"] / 2;
+				var midPrecision = Properties ["DataPrecisionValue"] / 2;
 				foreach (var item in frequencyTable) {
 					var realInterval = new Interval {
-						From = item.ClassInterval.From - midPresicion,
-						To = item.ClassInterval.To + midPresicion
+						From = item.ClassInterval.From - midPrecision,
+						To = item.ClassInterval.To + midPrecision
 					};
 
 					item.RealInterval = realInterval;
@@ -182,14 +182,14 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			var groups = (int)Math.Round (Math.Sqrt (Properties ["Data"].Count));
 			Properties.Add ("Groups", groups);
 
-			var amplitude = Math.Round (range / Properties ["Groups"], Properties ["DataPresicion"]);
+			var amplitude = Math.Round (range / Properties ["Groups"], Properties ["DataPrecision"]);
 			Properties.Add ("Amplitude", amplitude);
 
-			var dataPresicionValue = (1 / Math.Pow (10, Properties ["DataPresicion"]));
-			Properties.Add ("DataPresicionValue", dataPresicionValue);
+			var dataPrecisionValue = (1 / Math.Pow (10, Properties ["DataPrecision"]));
+			Properties.Add ("DataPrecisionValue", dataPrecisionValue);
 
-			if ((min + amplitude * groups - dataPresicionValue) <= max) {
-				Properties ["Amplitude"] += dataPresicionValue;
+			if ((min + amplitude * groups - dataPrecisionValue) <= max) {
+				Properties ["Amplitude"] += dataPrecisionValue;
 			}
 		}
 	}	

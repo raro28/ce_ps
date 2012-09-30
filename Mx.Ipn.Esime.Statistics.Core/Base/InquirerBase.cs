@@ -8,9 +8,10 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 	public abstract class InquirerBase: DynamicObject
 	{
-		protected dynamic Inquirer {
-			get;
-			set;
+		protected dynamic DynamicSelf {
+			get {
+				return this;
+			}
 		}
 
 		protected Dictionary<String, dynamic> Properties {
@@ -18,34 +19,25 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			set;
 		}
 
-		protected InquirerBase ()
-		{
-			Inquirer = this;
-			Properties = new Dictionary<string, dynamic> ()
-			{
-				{"Answers",new Dictionary<string,dynamic > ()},
-				{"Data",new List<double>()},
-				{"DataPresicion",-1}
-			};
-		}
-
-		public InquirerBase (IEnumerable<double> rawData):this()
+		public InquirerBase (IEnumerable<double> rawData)
 		{
 			AssertValidData (rawData);
-
 			var cache = rawData.ToList ();
 			cache.Sort ();
-			Properties ["Data"] = cache.AsReadOnly ();
+			Properties = new Dictionary<string, dynamic> ()
+			{
+				{"Inquirers",new List<dynamic>(){this}},
+				{"Answers",new Dictionary<string,dynamic > ()},
+				{"Data",cache.AsReadOnly ()}
+			};
 
-			Properties ["DataPresicion"] = GetDataPresicion ();
+			Properties.Add ("DataPrecision", GetDataPrecision ());
 		}
 
-		public InquirerBase (InquirerBase inquirer):this()
+		public InquirerBase (InquirerBase inquirer)
 		{
 			if (inquirer == null)
 				throw new StatisticsException (ExceptionMessages.Null_Data_Inquirer, new ArgumentNullException ("inquirer"));
-
-			Inquirer = inquirer;
 			Properties = inquirer.Properties;
 		}
 
@@ -53,16 +45,14 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		{
 			var success = false;
 			result = null;
-			var innerInquirer = Inquirer;
-			do {
+			foreach (var innerInquirer in Properties["Inquirers"]) {
 				var method = innerInquirer.GetType ().GetMethod (binder.Name);
 				if (method != null) {
 					result = method.Invoke (innerInquirer, args);
 					success = true;
+					break;
 				}
-
-				innerInquirer = innerInquirer.Inquirer;
-			} while(!success&&!innerInquirer.GetType().Equals(GetType()));
+			}
 
 			return success;
 		}
@@ -105,12 +95,15 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			}
 		}
 
-		private int GetDataPresicion ()
+		private int GetDataPrecision ()
 		{
 			List<double> data = Enumerable.ToList (Properties ["Data"]);
-
-			var decimalLengths = (from item in data.SkipWhile (item => (item + "").LastIndexOf (".") == -1)
-				select (item + "").Substring ((item + "").LastIndexOf ('.') + 1).Length).ToList ();
+			var decimalLengths = data
+				.Distinct ()
+				.Where (number => number.ToString ().Contains ('.'))
+				.Select (number => number.ToString ().Split ('.') [1].Length)
+				.Distinct ()
+				.ToList ();
 
 			var maxLenght = decimalLengths.Count () != 0 ? decimalLengths.Max () : 0;
 

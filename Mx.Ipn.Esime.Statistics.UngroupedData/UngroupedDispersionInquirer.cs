@@ -9,7 +9,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	{
 		public UngroupedDispersionInquirer (List<double> rawData):base(rawData)
 		{		
-			Inquirer = new UngroupedXileInquirer (this);
+			Properties ["Inquirers"].Add (new UngroupedXileInquirer (this));
 		}
 
 		protected override double CalcAbsoluteDeviation (double mean)
@@ -19,7 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 				nAbsDev += Math.Abs (item - mean);
 			}
 
-			var mad = nAbsDev / Properties["Data"].Count;
+			var mad = nAbsDev / Properties ["Data"].Count;
 
 			return mad;
 		}
@@ -31,7 +31,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 				nplus1Variance += Math.Pow ((item - mean), 2);
 			}
 
-			var variance = nplus1Variance / (Properties["Data"].Count - 1);
+			var variance = nplus1Variance / (Properties ["Data"].Count - 1);
 
 			return variance;
 		}
@@ -44,13 +44,13 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 				momentum += Math.Pow (meanDiff, nMomentum);
 			}
 
-			momentum /= Properties["Data"].Count;
+			momentum /= Properties ["Data"].Count;
 			return momentum;
 		}
 
 		protected override double CalcDataRange ()
 		{
-			return Enumerable.Max (Properties["Data"]) - Enumerable.Min (Properties["Data"]);
+			return Enumerable.Max (Properties ["Data"]) - Enumerable.Min (Properties ["Data"]);
 		}
 	}
 }

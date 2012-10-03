@@ -12,23 +12,22 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 		protected override double CalcMean ()
 		{
-			var mean = Enumerable.Sum (Properties ["Data"]) / Properties ["Data"].Count;
+			var mean = Data.Sum () / Data.Count;
 
 			return mean;
 		}
 
 		protected override double CalcMedian ()
 		{
-			var midIndex = (Properties ["Data"].Count / 2) - 1;
-			var median = Properties ["Data"].Count % 2 != 0 ? Properties ["Data"] [midIndex + 1] : (Properties ["Data"] [midIndex] + Properties ["Data"] [midIndex + 1]) / 2;
+			var midIndex = (Data.Count / 2) - 1;
+			var median = Data.Count % 2 != 0 ? Data [midIndex + 1] : (Data [midIndex] + Data [midIndex + 1]) / 2;
 
 			return median;
 		}
 
 		protected override IList<double> CalcModes ()
 		{
-			List<double> data = Enumerable.ToList (Properties ["Data"]);
-			var groups = data.GroupBy (item => item);
+			var groups = Data.GroupBy (item => item);
 			var modes = (from _mode in groups
 					where _mode.Count () == groups.Max (grouped => grouped.Count ())
 						select _mode.First ()).ToList ();

@@ -2,82 +2,45 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 {
     using System;
 	using System.Collections.Generic;
-	using System.Dynamic;
+	using System.Collections.ObjectModel;
 	using System.Linq;
 	using Mx.Ipn.Esime.Statistics.Core.Resources;
 
-	public abstract class InquirerBase: DynamicObject
+	public abstract class InquirerBase
 	{
-		protected dynamic DynamicSelf {
-			get {
-				return this;
-			}
-		}
-
-		protected Dictionary<String, dynamic> Properties {
-			get;
-			set;
-		}
-
 		public InquirerBase (IEnumerable<double> rawData)
 		{
 			AssertValidData (rawData);
 			var cache = rawData.ToList ();
 			cache.Sort ();
-			Properties = new Dictionary<string, dynamic> ()
-			{
-				{"Inquirers",new List<dynamic>(){this}},
-				{"Answers",new Dictionary<string,dynamic > ()},
-				{"Data",cache.AsReadOnly ()}
-			};
 
-			Properties.Add ("DataPrecision", GetDataPrecision ());
+			Answers = new Dictionary<string,dynamic > ();
+			Data = cache.AsReadOnly ();
+			DataPrecision = GetDataPrecision ();
+		}
+
+		public Dictionary<string, dynamic> Answers {
+			get;
+			private set;
+		}
+
+		public ReadOnlyCollection<double> Data {
+			get;
+			private set;
+		}
+
+		public int DataPrecision {
+			get;
+			private set;
 		}
 
 		public InquirerBase (InquirerBase inquirer)
 		{
 			if (inquirer == null)
 				throw new StatisticsException (ExceptionMessages.Null_Data_Inquirer, new ArgumentNullException ("inquirer"));
-			Properties = inquirer.Properties;
-		}
-
-		public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
-		{
-			var success = false;
-			result = null;
-			foreach (var innerInquirer in Properties["Inquirers"]) {
-				var method = innerInquirer.GetType ().GetMethod (binder.Name);
-				if (method != null) {
-					result = method.Invoke (innerInquirer, args);
-					success = true;
-					break;
-				}
-			}
-
-			return success;
-		}
-
-		public override bool TryGetMember (GetMemberBinder binder, out object result)
-		{
-			var success = false;
-			result = null;
-			if (Properties.ContainsKey (binder.Name)) {
-				result = Properties [binder.Name];
-				success = true;
-			}
-
-			return success;
-		}
-
-		public override bool TrySetMember (SetMemberBinder binder, object value)
-		{
-			if (Properties.ContainsKey (binder.Name)) {
-				Properties [binder.Name] = value;
-			} else {
-				Properties.Add (binder.Name, value);
-			}
-
-			return true;
+			Answers = inquirer.Answers;
+			Data = inquirer.Data;
+			DataPrecision = inquirer.DataPrecision;
 		}
 
 		protected static void AssertValidData (IEnumerable<double> data)
@@ -97,8 +60,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		private int GetDataPrecision ()
 		{
-			List<double> data = Enumerable.ToList (Properties ["Data"]);
-			var decimalLengths = data
+			var decimalLengths = Data
 				.Distinct ()
 				.Where (number => number.ToString ().Contains ('.'))
 				.Select (number => number.ToString ().Split ('.') [1].Length)

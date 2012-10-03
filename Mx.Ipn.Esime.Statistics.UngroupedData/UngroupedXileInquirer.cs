@@ -18,14 +18,14 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 		{
 			var li = (int)Math.Floor (lx - 0.5);
 			var ls = (int)Math.Floor (lx + 0.5);
-			if (ls == Properties ["Data"].Count) {
+			if (ls == Data.Count) {
 				ls = li;
 			}
 			
 			var iPortion = li + 1 - (lx - 0.5);
 			var sPortion = 1 - iPortion;
 			
-			var xileResult = iPortion * Properties ["Data"] [li] + sPortion * Properties ["Data"] [ls];
+			var xileResult = iPortion * Data [li] + sPortion * Data [ls];
 			return xileResult;
 		}
 	}

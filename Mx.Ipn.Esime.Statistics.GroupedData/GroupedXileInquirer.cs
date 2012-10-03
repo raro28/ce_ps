@@ -8,22 +8,28 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 	{
 		public GroupedXileInquirer (List<double> rawData):base(rawData)
 		{			
-			Properties ["Inquirers"].Add (new DataDistributionFrequencyInquirer (this));
+			DistributionInquirer = new DataDistributionFrequencyInquirer (this);
 		}
 
 		public GroupedXileInquirer (InquirerBase inquirer):base(inquirer)
 		{			
+			DistributionInquirer = new DataDistributionFrequencyInquirer (this);
+		}
+
+		private DataDistributionFrequencyInquirer DistributionInquirer {
+			get;
+			set;
 		}
 
 		protected override double CalcXile (double lx)
 		{
-			DynamicSelf.AddFrequencies ();
-			DynamicSelf.AddAcumulatedFrequencies ();
-			DynamicSelf.AddRealClassIntervals ();
-			List<dynamic> table = Enumerable.ToList (DynamicSelf.GetTable ());
+			DistributionInquirer.AddFrequencies ();
+			DistributionInquirer.AddAcumulatedFrequencies ();
+			DistributionInquirer.AddRealClassIntervals ();
+			var table = DistributionInquirer.GetTable ().Skip (1);
 			dynamic prevElement = null;
 			dynamic targetElement = null;
-			foreach (var item in table.Skip (1)) {
+			foreach (var item in table) {
 				targetElement = item;
 				if (targetElement.AcumulatedFrequency >= lx) {
 					break;
@@ -33,7 +39,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}
 			
 			double prevF = prevElement != null ? prevElement.AcumulatedFrequency : 0;
-			var xileResult = targetElement.RealInterval.From + ((lx - prevF) / targetElement.Frequency) * Properties ["Amplitude"];
+			var xileResult = targetElement.RealInterval.From + ((lx - prevF) / targetElement.Frequency) * DistributionInquirer.Amplitude;
 			
 			return xileResult;
 		}

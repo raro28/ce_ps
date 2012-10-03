@@ -79,13 +79,13 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 		private double GetXile (XileInfo xileInfo)
 		{
 			double xileResult;
-			if (!Properties ["Answers"].ContainsKey (xileInfo.ToString ())) {
-				var lx = Properties ["Data"].Count * xileInfo.NthXile / (double)xileInfo.Xile;
+			if (!Answers.ContainsKey (xileInfo.ToString ())) {
+				var lx = Data.Count * xileInfo.NthXile / (double)xileInfo.Xile;
 				xileResult = CalcXile (lx);
 
-				Properties ["Answers"].Add (xileInfo.ToString (), xileResult);
+				Answers.Add (xileInfo.ToString (), xileResult);
 			} else {
-				xileResult = Properties ["Answers"] [xileInfo.ToString ()];
+				xileResult = Answers [xileInfo.ToString ()];
 			}
 			
 			return xileResult;

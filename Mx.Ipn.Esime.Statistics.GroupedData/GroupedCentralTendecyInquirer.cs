@@ -8,37 +8,46 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 	{
 		public GroupedCentralTendecyInquirer (List<double> rawData):base(rawData)
 		{			
-			var distribution = new DataDistributionFrequencyInquirer (this);
-			Properties ["Inquirers"].Add (distribution);
-			Properties ["Inquirers"].Add (new GroupedXileInquirer (this));
+			DistributionInquirer = new DataDistributionFrequencyInquirer (this);
+			XileInquirer = new GroupedXileInquirer (this);
+		}
+
+		private DataDistributionFrequencyInquirer DistributionInquirer {
+			get;
+			set;
+		}
+
+		private GroupedXileInquirer XileInquirer {
+			get;
+			set;
 		}
 
 		protected override double CalcMean ()
 		{
-			DynamicSelf.AddFrequenciesTimesClassMarks ();
-			var table = DynamicSelf.GetTable ();
+			DistributionInquirer.AddFrequenciesTimesClassMarks ();
+			var table = DistributionInquirer.GetTable ();
 			double fxSum = 0;
 			foreach (var item in table) {
 				fxSum += item.fX;
 			}
 
-			var mean = fxSum / Properties ["Data"].Count;
+			var mean = fxSum / Data.Count;
 
 			return mean;
 		}
 
 		protected override double CalcMedian ()
 		{
-			var median = DynamicSelf.GetQuartile (2);
+			var median = XileInquirer.GetQuartile (2);
 
 			return median;
 		}
 
 		protected override IList<double> CalcModes ()
 		{
-			DynamicSelf.AddFrequencies ();
-			DynamicSelf.AddRealClassIntervals ();
-			List<dynamic> table = Enumerable.ToList (DynamicSelf.GetTable ());
+			DistributionInquirer.AddFrequencies ();
+			DistributionInquirer.AddRealClassIntervals ();
+			var table = DistributionInquirer.GetTable ().ToList ();
 			var firstMaxFreqItem = table.OrderByDescending (item => item.Frequency).First ();
 			var maxFreqItems = table.Where (item => item.Frequency == firstMaxFreqItem.Frequency).ToList ();
 
@@ -50,7 +59,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 				var d1 = maxFreqItem.Frequency - (iMaxFreqItem != 0 ? table [iMaxFreqItem - 1].Frequency : 0);
 				var d2 = maxFreqItem.Frequency - (iMaxFreqItem < (table.Count - 1) ? table [iMaxFreqItem + 1].Frequency : 0);
 				
-				var mode = maxFreqItem.RealInterval.From + ((d1 * Properties ["Amplitude"]) / (d1 + d2));
+				var mode = maxFreqItem.RealInterval.From + ((d1 * DistributionInquirer.Amplitude) / (d1 + d2));
 
 				modes.Add (mode);
 			}

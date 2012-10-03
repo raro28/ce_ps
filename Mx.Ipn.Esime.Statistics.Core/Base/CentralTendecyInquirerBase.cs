@@ -15,29 +15,29 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 		public double GetMean ()
 		{
-			if (!Properties["Answers"].ContainsKey (TaskNames.Mean)) {
-				Properties["Answers"].Add (TaskNames.Mean, CalcMean ());
+			if (!Answers.ContainsKey (TaskNames.Mean)) {
+				Answers.Add (TaskNames.Mean, CalcMean ());
 			}
 
-			return Properties["Answers"] [TaskNames.Mean];
+			return Answers [TaskNames.Mean];
 		}
 		
 		public double GetMedian ()
 		{
-			if (!Properties["Answers"].ContainsKey (TaskNames.Median)) {
-				Properties["Answers"].Add (TaskNames.Median, CalcMedian ());
+			if (!Answers.ContainsKey (TaskNames.Median)) {
+				Answers.Add (TaskNames.Median, CalcMedian ());
 			}
 
-			return Properties["Answers"] [TaskNames.Median];
+			return Answers [TaskNames.Median];
 		}
 		
 		public IList<double> GetModes ()
 		{
-			if (!Properties["Answers"].ContainsKey (TaskNames.Modes)) {
-				Properties["Answers"].Add (TaskNames.Modes, CalcModes ());
+			if (!Answers.ContainsKey (TaskNames.Modes)) {
+				Answers.Add (TaskNames.Modes, CalcModes ());
 			}
 
-			return Properties["Answers"] [TaskNames.Modes];
+			return Answers [TaskNames.Modes];
 		}
 
 		protected abstract double CalcMean ();

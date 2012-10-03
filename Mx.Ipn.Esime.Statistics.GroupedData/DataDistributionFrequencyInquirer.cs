@@ -28,12 +28,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class DataDistributionFrequencyInquirer:InquirerBase,IDataDistributionFrequencyInquirer
 	{
-		public DataDistributionFrequencyInquirer (InquirerBase inquirer):base(inquirer)
-		{
-			InitProperties ();
-		}
-
-		public DataDistributionFrequencyInquirer (List<double> rawData):base(rawData)
+		public DataDistributionFrequencyInquirer (IEnumerable<double> rawData):base(rawData)
 		{
 			InitProperties ();
 		}

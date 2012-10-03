@@ -34,15 +34,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			private set;
 		}
 
-		public InquirerBase (InquirerBase inquirer)
-		{
-			if (inquirer == null)
-				throw new StatisticsException (ExceptionMessages.Null_Data_Inquirer, new ArgumentNullException ("inquirer"));
-			Answers = inquirer.Answers;
-			Data = inquirer.Data;
-			DataPrecision = inquirer.DataPrecision;
-		}
-
 		protected static void AssertValidData (IEnumerable<double> data)
 		{
 			if (data == null) {

@@ -6,17 +6,18 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 	public abstract class DispersionInquirerBase:InquirerBase,IDispersionInquirer
 	{
+		public DispersionInquirerBase (IEnumerable<double> rawData):base(rawData)
+		{
+		}
+
 		protected XileInquirerBase XileInquirer {
 			get;
 			set;
 		}
 
-		public DispersionInquirerBase (List<double> rawData):base(rawData)
-		{
-		}
-		
-		public DispersionInquirerBase (XileInquirerBase inquirer):base(inquirer)
-		{
+		protected CentralTendecyInquirerBase CentralTendecyInquirer {
+			get;
+			set;
 		}
 
 		public double GetDataRange ()
@@ -55,38 +56,38 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Answers [TaskNames.PercentileRange];
 		}
 
-		public double GetAbsoluteDeviation (double mean)
+		public double GetAbsoluteDeviation ()
 		{
 			if (!Answers.ContainsKey (TaskNames.AbsoluteDeviation)) {
-				Answers.Add (TaskNames.AbsoluteDeviation, CalcAbsoluteDeviation (mean));
+				Answers.Add (TaskNames.AbsoluteDeviation, CalcAbsoluteDeviation ());
 			}
 
 			return Answers [TaskNames.AbsoluteDeviation];
 		}
 		
-		public double GetVariance (double mean)
+		public double GetVariance ()
 		{
 			if (!Answers.ContainsKey (TaskNames.Variance)) {
-				Answers.Add (TaskNames.Variance, CalcVariance (mean));
+				Answers.Add (TaskNames.Variance, CalcVariance ());
 			}
 
 			return Answers [TaskNames.Variance];
 		}
 		
-		public double GetStandarDeviation (double mean)
+		public double GetStandarDeviation ()
 		{
 			if (!Answers.ContainsKey (TaskNames.StandarDeviation)) {
-				Answers.Add (TaskNames.StandarDeviation, Math.Sqrt (GetVariance (mean)));
+				Answers.Add (TaskNames.StandarDeviation, Math.Sqrt (GetVariance ()));
 			}
 
 			return Answers [TaskNames.StandarDeviation];
 		}
 
-		public double GetCoefficientOfVariation (double mean)
+		public double GetCoefficientOfVariation ()
 		{
 			if (!Answers.ContainsKey (TaskNames.CoefficientOfVariation)) {
-				var strDev = GetStandarDeviation (mean);
-				var cov = strDev / mean;
+				var strDev = GetStandarDeviation ();
+				var cov = strDev / CentralTendecyInquirer.GetMean ();
 
 				Answers.Add (TaskNames.CoefficientOfVariation, cov);
 			}
@@ -94,11 +95,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Answers [TaskNames.CoefficientOfVariation];
 		}
 		
-		public double GetCoefficientOfSymmetry (double mean)
+		public double GetCoefficientOfSymmetry ()
 		{
 			if (!Answers.ContainsKey (TaskNames.CoefficientOfSymmetry)) {
-				var m3 = GetMomentum (3, mean);
-				var m2 = GetMomentum (2, mean);
+				var m3 = GetMomentum (3);
+				var m2 = GetMomentum (2);
 				var cos = m3 / Math.Pow (m2, 1.5);
 
 				Answers.Add (TaskNames.CoefficientOfSymmetry, cos);
@@ -107,11 +108,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Answers [TaskNames.CoefficientOfSymmetry];
 		}
 		
-		public double GetCoefficientOfKourtosis (double mean)
+		public double GetCoefficientOfKourtosis ()
 		{
 			if (!Answers.ContainsKey (TaskNames.CoefficientOfKourtosis)) {
-				var m4 = GetMomentum (4, mean);
-				var m2 = GetMomentum (2, mean);
+				var m4 = GetMomentum (4);
+				var m2 = GetMomentum (2);
 				var cok = m4 / Math.Pow (m2, 2);
 
 				Answers.Add (TaskNames.CoefficientOfKourtosis, cok);
@@ -120,21 +121,21 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 			return Answers [TaskNames.CoefficientOfKourtosis];
 		}
 		
-		private double GetMomentum (int nMomentum, double mean)
+		private double GetMomentum (int nMomentum)
 		{
 			var keyMomentum = String.Format (TaskNames.MomentumFormat, nMomentum);
 			if (!Answers.ContainsKey (keyMomentum)) {
-				Answers.Add (keyMomentum, CalcMomentum (nMomentum, mean));
+				Answers.Add (keyMomentum, CalcMomentum (nMomentum));
 			}
 			
 			return Answers [keyMomentum];
 		}
 
-		protected abstract double CalcAbsoluteDeviation (double mean);
+		protected abstract double CalcAbsoluteDeviation ();
 
-		protected abstract double CalcVariance (double mean);
+		protected abstract double CalcVariance ();
 
-		protected abstract double CalcMomentum (int nMomentum, double mean);
+		protected abstract double CalcMomentum (int nMomentum);
 
 		protected abstract double CalcDataRange ();
 	}

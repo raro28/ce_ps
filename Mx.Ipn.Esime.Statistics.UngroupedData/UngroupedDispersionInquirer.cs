@@ -7,16 +7,17 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public class UngroupedDispersionInquirer:DispersionInquirerBase
 	{
-		public UngroupedDispersionInquirer (List<double> rawData):base(rawData)
+		public UngroupedDispersionInquirer (IEnumerable<double> rawData):base(rawData)
 		{		
-			XileInquirer = new UngroupedXileInquirer (this);
+			XileInquirer = new UngroupedXileInquirer (rawData);
+			CentralTendecyInquirer = new UngroupedCentralTendecyInquirer (rawData);
 		}
 
-		protected override double CalcAbsoluteDeviation (double mean)
+		protected override double CalcAbsoluteDeviation ()
 		{
 			var nAbsDev = 0.0;
 			foreach (var item in Data) {
-				nAbsDev += Math.Abs (item - mean);
+				nAbsDev += Math.Abs (item - CentralTendecyInquirer.GetMean ());
 			}
 
 			var mad = nAbsDev / Data.Count;
@@ -24,11 +25,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return mad;
 		}
 
-		protected override double CalcVariance (double mean)
+		protected override double CalcVariance ()
 		{
 			var nplus1Variance = 0.0;
 			foreach (var item in Data) {
-				nplus1Variance += Math.Pow ((item - mean), 2);
+				nplus1Variance += Math.Pow ((item - CentralTendecyInquirer.GetMean ()), 2);
 			}
 
 			var variance = nplus1Variance / (Data.Count - 1);
@@ -36,11 +37,11 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 			return variance;
 		}
 
-		protected override double CalcMomentum (int nMomentum, double mean)
+		protected override double CalcMomentum (int nMomentum)
 		{
 			var momentum = 0.0;
 			foreach (var item in Data) {
-				var meanDiff = (item - mean);
+				var meanDiff = (item - CentralTendecyInquirer.GetMean ());
 				momentum += Math.Pow (meanDiff, nMomentum);
 			}
 

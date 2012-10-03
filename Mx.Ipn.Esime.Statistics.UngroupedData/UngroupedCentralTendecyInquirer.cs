@@ -6,7 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	
 	public class UngroupedCentralTendecyInquirer:CentralTendecyInquirerBase
 	{
-		public UngroupedCentralTendecyInquirer (List<double> rawData):base(rawData)
+		public UngroupedCentralTendecyInquirer (IEnumerable<double> rawData):base(rawData)
 		{	
 		}
 

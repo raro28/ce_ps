@@ -9,28 +9,29 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 	[TestFixture()]
 	public class UngroupedDispersionInquirer_Tests:DispersionInquirerBase_Tests<UngroupedDispersionInquirer,UngroupedHelperMethods>
 	{
-		protected override double SampleAbsoluteDeviation (List<double> data, double mean)
+		protected override double SampleAbsoluteDeviation (List<double> data)
 		{
 			var nAbsoluteDeviation = 0.0;
+			var mean = Helper.SampleMean (data);
 			data.ForEach (item => nAbsoluteDeviation += Math.Abs (item - mean));
 			var absoluteDeviation = nAbsoluteDeviation / data.Count;
 			
 			return absoluteDeviation;
 		}
 		
-		protected override double SampleVariance (List<double> data, double mean)
+		protected override double SampleVariance (List<double> data)
 		{
 			var nplus1Variance = 0.0;
-			data.ForEach (item => nplus1Variance += Math.Pow ((item - mean), 2));
+			data.ForEach (item => nplus1Variance += Math.Pow ((item - Helper.SampleMean (data)), 2));
 			var variance = nplus1Variance / (data.Count - 1);
 			
 			return variance;
 		}
 		
-		protected override double SampleMomentum (List<double> data, int nMomentum, double mean)
+		protected override double SampleMomentum (List<double> data, int nMomentum)
 		{
 			var sum = 0.0;
-			data.ForEach (item => sum += Math.Pow ((item - mean), nMomentum));
+			data.ForEach (item => sum += Math.Pow ((item - Helper.SampleMean (data)), nMomentum));
 			
 			var momentum = sum / data.Count;
 			

@@ -9,10 +9,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
 	public class GroupedDispersionInquirer:DispersionInquirerBase
 	{
-		public GroupedDispersionInquirer (List<double> rawData):base(rawData)
+		public GroupedDispersionInquirer (IEnumerable<double> rawData):base(rawData)
 		{			
-			DistributionInquirer = new DataDistributionFrequencyInquirer (this);
-			XileInquirer = new GroupedXileInquirer (this);
+			DistributionInquirer = new DataDistributionFrequencyInquirer (rawData);
+			XileInquirer = new GroupedXileInquirer (rawData);
+			CentralTendecyInquirer = new GroupedCentralTendecyInquirer (rawData);
 		}
 
 		private DataDistributionFrequencyInquirer DistributionInquirer {
@@ -20,7 +21,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			set;
 		}
 		
-		public void AddMeanDifference (int power, double mean)
+		public void AddMeanDifference (int power)
 		{		
 			if (power < 1 || power > 4) {
 				throw new StatisticsException (String.Format (ExceptionMessages.Invalid_Power_Format, power));
@@ -34,6 +35,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 				var frequencyTable = DistributionInquirer.GetTable ();
 				
 				Answers.Add (keyDifference, TaskNames.DispersionTable);
+				var mean = CentralTendecyInquirer.GetMean ();
 				foreach (var item in frequencyTable) {
 					var difference = power != 1 ? item.ClassMark - mean : Math.Abs (item.ClassMark - mean);
 					((IDictionary<String,Object>)item).Add (keyProperty, item.Frequency * Math.Pow (difference, power));
@@ -41,23 +43,23 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			}
 		}
 
-		protected override double CalcAbsoluteDeviation (double mean)
+		protected override double CalcAbsoluteDeviation ()
 		{
-			var mad = MeanDifferenceSum (1, mean) / Data.Count;
+			var mad = MeanDifferenceSum (1) / Data.Count;
 
 			return mad;
 		}
 
-		protected override double CalcVariance (double mean)
+		protected override double CalcVariance ()
 		{
-			var variance = MeanDifferenceSum (2, mean) / (Data.Count - 1);
+			var variance = MeanDifferenceSum (2) / (Data.Count - 1);
 			
 			return variance;
 		}
 
-		protected override double CalcMomentum (int nMomentum, double mean)
+		protected override double CalcMomentum (int nMomentum)
 		{
-			var momentum = MeanDifferenceSum (nMomentum, mean) / Data.Count;
+			var momentum = MeanDifferenceSum (nMomentum) / Data.Count;
 			
 			return momentum;
 		}
@@ -71,9 +73,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 			return range;
 		}
 
-		private double MeanDifferenceSum (int power, double mean)
+		private double MeanDifferenceSum (int power)
 		{
-			AddMeanDifference (power, mean);
+			AddMeanDifference (power);
 			double sum = 0;
 			var table = DistributionInquirer.GetTable ();
 			foreach (var item in table) {

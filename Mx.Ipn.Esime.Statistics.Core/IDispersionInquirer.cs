@@ -10,16 +10,16 @@ namespace Mx.Ipn.Esime.Statistics.Core
 		
 		double GetInterPercentileRange ();
 
-		double GetAbsoluteDeviation (double mean);
+		double GetAbsoluteDeviation ();
 		
-		double GetVariance (double mean);
+		double GetVariance ();
 		
-		double GetStandarDeviation (double mean);
+		double GetStandarDeviation ();
 		
-		double GetCoefficientOfVariation (double mean);
+		double GetCoefficientOfVariation ();
 		
-		double GetCoefficientOfSymmetry (double mean);
+		double GetCoefficientOfSymmetry ();
 		
-		double GetCoefficientOfKourtosis (double mean);
+		double GetCoefficientOfKourtosis ();
 	}	
 }

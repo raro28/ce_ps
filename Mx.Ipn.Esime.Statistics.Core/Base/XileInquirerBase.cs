@@ -31,12 +31,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 	public abstract class XileInquirerBase:InquirerBase,IXileInquirer
 	{		
-
-		public XileInquirerBase (InquirerBase inquirer):base(inquirer)
-		{			
-		}
-		
-		public XileInquirerBase (List<double> rawData):base(rawData)
+		public XileInquirerBase (IEnumerable<double> rawData):base(rawData)
 		{			
 		}
 

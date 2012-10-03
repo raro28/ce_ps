@@ -180,7 +180,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Resources
 		}
         
 		/// <summary>
-		///   Looks up a localized string similar to get(mean).
+		///   Looks up a localized string similar to get().
 		/// </summary>
 		public static string Mean {
 			get {

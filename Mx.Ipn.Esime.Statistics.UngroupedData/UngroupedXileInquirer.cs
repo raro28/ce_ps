@@ -6,12 +6,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
 	public class UngroupedXileInquirer:XileInquirerBase
 	{
-		public UngroupedXileInquirer (List<double> rawData):base(rawData)
+		public UngroupedXileInquirer (IEnumerable<double> rawData):base(rawData)
 		{			
-		}
-
-		public UngroupedXileInquirer (InquirerBase inquirer):base(inquirer)
-		{
 		}
 
 		protected override double CalcXile (double lx)

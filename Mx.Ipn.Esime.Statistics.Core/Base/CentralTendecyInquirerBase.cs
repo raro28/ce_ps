@@ -5,11 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
 	public abstract class CentralTendecyInquirerBase:InquirerBase,ICentralTendencyInquirer
 	{
-		public CentralTendecyInquirerBase (List<double> rawData):base(rawData)
-		{
-		}
-		
-		public CentralTendecyInquirerBase (InquirerBase inquirer):base(inquirer)
+		public CentralTendecyInquirerBase (IEnumerable<double> rawData):base(rawData)
 		{
 		}
 

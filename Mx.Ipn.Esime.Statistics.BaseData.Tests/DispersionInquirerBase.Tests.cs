@@ -40,7 +40,6 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			List<double> data = Helper.GetRandomDataSample (size).ToList ();
 			var calculator = Helper.NewInquirer<TInquirer> (data);
 
-			var mean = Helper.SampleMean (data);
 			var expected = SampleAbsoluteDeviation (data);
 			var actual = calculator.GetAbsoluteDeviation ();
 			Assert.AreEqual (expected, actual);
@@ -52,7 +51,6 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			List<double> data = Helper.GetRandomDataSample (size).ToList ();
 			var calculator = Helper.NewInquirer<TInquirer> (data);
 
-			var mean = Helper.SampleMean (data);
 			var expected = SampleVariance (data);
 			var actual = calculator.GetVariance ();
 			Assert.AreEqual (expected, actual);
@@ -64,7 +62,6 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 			List<double> data = Helper.GetRandomDataSample (size).ToList ();
 			var calculator = Helper.NewInquirer<TInquirer> (data);
 
-			var mean = Helper.SampleMean (data);
 			var expected = Math.Sqrt (SampleVariance (data));
 			var actual = calculator.GetStandarDeviation ();
 			Assert.AreEqual (expected, actual);

@@ -6,10 +6,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
     public class UngroupedDispersionInquirer : DispersionInquirerBase
     {
-        public UngroupedDispersionInquirer(DataContainer dataContainer) : base(dataContainer)
+        public UngroupedDispersionInquirer(DataContainer dataContainer, UngroupedXileInquirer xileInquirer, UngroupedCentralTendecyInquirer centralTendecyInquirer) : base(dataContainer, xileInquirer, centralTendecyInquirer)
         {		
-            this.XileInquirer = new UngroupedXileInquirer(dataContainer);
-            this.CentralTendecyInquirer = new UngroupedCentralTendecyInquirer(dataContainer);
+            this.XileInquirer = xileInquirer;
+            this.CentralTendecyInquirer = centralTendecyInquirer;
         }
 
         protected override double CalcAbsoluteDeviation()

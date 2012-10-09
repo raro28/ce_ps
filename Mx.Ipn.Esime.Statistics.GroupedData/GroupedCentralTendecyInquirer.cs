@@ -6,10 +6,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
     public class GroupedCentralTendecyInquirer : CentralTendecyInquirerBase
     {
-        public GroupedCentralTendecyInquirer(DataContainer dataContainer) : base(dataContainer)
+        public GroupedCentralTendecyInquirer(DataDistributionFrequencyInquirer distributionInquirer, GroupedXileInquirer xileInquirer) : base(distributionInquirer.DataContainer, xileInquirer)
         {           
-            this.DistributionInquirer = new DataDistributionFrequencyInquirer(dataContainer);
-            this.XileInquirer = new GroupedXileInquirer(dataContainer);
+            this.DistributionInquirer = distributionInquirer;
+            this.XileInquirer = xileInquirer;
         }
 
         private DataDistributionFrequencyInquirer DistributionInquirer

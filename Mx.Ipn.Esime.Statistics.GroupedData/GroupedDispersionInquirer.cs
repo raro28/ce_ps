@@ -9,11 +9,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
     public class GroupedDispersionInquirer : DispersionInquirerBase
     {
-        public GroupedDispersionInquirer(DataContainer dataContainer) : base(dataContainer)
+        public GroupedDispersionInquirer(DataDistributionFrequencyInquirer distributionInquirer, GroupedXileInquirer xileInquirer, GroupedCentralTendecyInquirer centralTendecyInquirer) : base(distributionInquirer.DataContainer, xileInquirer, centralTendecyInquirer)
         {           
-            this.DistributionInquirer = new DataDistributionFrequencyInquirer(dataContainer);
-            this.XileInquirer = new GroupedXileInquirer(dataContainer);
-            this.CentralTendecyInquirer = new GroupedCentralTendecyInquirer(dataContainer);
+            this.DistributionInquirer = distributionInquirer;
+            this.XileInquirer = xileInquirer;
+            this.CentralTendecyInquirer = centralTendecyInquirer;
         }
 
         private DataDistributionFrequencyInquirer DistributionInquirer

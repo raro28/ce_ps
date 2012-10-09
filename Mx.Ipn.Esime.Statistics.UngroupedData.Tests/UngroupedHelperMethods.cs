@@ -35,5 +35,20 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData.Tests
 			
             return mean;
         }
+
+        public override TInquirer NewInquirer<TInquirer>(Ninject.StandardKernel kernel)
+        {
+            kernel
+                .Bind<UngroupedXileInquirer>()
+                    .ToSelf().InSingletonScope();
+            kernel
+                .Bind<UngroupedCentralTendecyInquirer>()
+                    .ToSelf().InSingletonScope();
+            kernel
+                .Bind<UngroupedDispersionInquirer>()
+                    .ToSelf().InSingletonScope();
+            
+            return kernel.Get<TInquirer>();
+        }
     }
 }

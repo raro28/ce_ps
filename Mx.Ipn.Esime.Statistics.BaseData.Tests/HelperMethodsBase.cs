@@ -5,10 +5,11 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
     using System.Reflection;
     using System.Collections.Generic;
     using Mx.Ipn.Esime.Statistics.Core.Base;
+    using Ninject;
 
     public abstract class HelperMethodsBase
     {
-        private static Random rnd;
+        private readonly static Random rnd;
 
         static HelperMethodsBase()
         {
@@ -31,28 +32,22 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
             return inquirer;
         }
 
-        public TInquirer NewInquirer<TInquirer>(List<double> data, params object[] args) where TInquirer : InquirerBase
+        public TInquirer NewInquirer<TInquirer>(List<double> data) where TInquirer : InquirerBase
         {
-            try
-            {
-                var cacheArgs = args.ToList();
-                cacheArgs.Insert(0, new DataContainer(data));
-
-                var ctors = typeof(TInquirer).GetConstructors()
-					.Where(c 
-					        => c.GetParameters()
-					        .Select(p => p.ParameterType)
-					        .TypeSequenceIsAssignableFrom(cacheArgs)).ToList();
-
-                var ctor = ctors.First();
-                var calculator = (TInquirer)ctor.Invoke(cacheArgs.ToArray());
+            var Kernel = new StandardKernel();
+            Kernel.Bind<DataContainer>().ToMethod(context => {
+                var container = new DataContainer(data);
                 data.Sort();
 
-                return calculator;
-            } catch (TargetInvocationException ex)
-            {
-                throw ex.InnerException;
-            }
+                return container;
+            }).InSingletonScope();
+
+            return NewInquirer<TInquirer>(Kernel);
+        }
+
+        public virtual TInquirer NewInquirer<TInquirer>(StandardKernel kernel) where TInquirer : InquirerBase
+        {
+            return kernel.Get<TInquirer>();
         }
 					
         public abstract double CalcNthXile(IList<double> data, int xile, int nTh);

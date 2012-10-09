@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class CentralTendecyInquirerBase : InquirerBase, ICentralTendencyInquirer
     {
-        public CentralTendecyInquirerBase(DataContainer dataContainer) : base(dataContainer)
+        public CentralTendecyInquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies) : base(dataContainer, dependencies)
         {
         }
 

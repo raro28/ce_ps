@@ -12,7 +12,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class XileInquirerBase : InquirerBase, IXileInquirer
     {       
-        public XileInquirerBase(DataContainer dataContainer) : base(dataContainer)
+        public XileInquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies) : base(dataContainer, dependencies)
         {           
         }
 

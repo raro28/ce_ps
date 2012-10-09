@@ -4,11 +4,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
     using System.Collections.Generic;
     using System.Dynamic;
     using System.Linq;
-    using Mx.Ipn.Esime.Statistics.Core;
     using Mx.Ipn.Esime.Statistics.Core.Base;
     using Mx.Ipn.Esime.Statistics.Core.Resources;
 
-    public class DataDistributionFrequencyInquirer : InquirerBase, IDataDistributionFrequencyInquirer
+    public class DataDistributionFrequencyInquirer : InquirerBase
     {
         public DataDistributionFrequencyInquirer(DataContainer dataContainer) : base(dataContainer)
         {

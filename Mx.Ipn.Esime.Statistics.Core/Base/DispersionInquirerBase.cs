@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class DispersionInquirerBase : InquirerBase, IDispersionInquirer
     {
-        public DispersionInquirerBase(DataContainer dataContainer) : base(dataContainer)
+        public DispersionInquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies) : base(dataContainer, dependencies)
         {
         }
 

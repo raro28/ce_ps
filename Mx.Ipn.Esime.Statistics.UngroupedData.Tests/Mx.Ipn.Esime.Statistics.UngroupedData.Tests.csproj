@@ -66,5 +66,9 @@
       <Link>nunit.framework.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="..\Ninject.xml">
+      <Link>Ninject.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

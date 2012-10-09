@@ -5,20 +5,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class DispersionInquirerBase : InquirerBase, IDispersionInquirer
     {
+        protected readonly XileInquirerBase XileInquirer;
+        protected readonly CentralTendecyInquirerBase CentralTendecyInquirer;
+
         public DispersionInquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies) : base(dataContainer, dependencies)
         {
-        }
-
-        protected XileInquirerBase XileInquirer
-        {
-            get;
-            set;
-        }
-
-        protected CentralTendecyInquirerBase CentralTendecyInquirer
-        {
-            get;
-            set;
         }
 
         public double GetDataRange()

@@ -13,16 +13,16 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             if (dataContainer == null)
             {
-                throw new StatisticsException(ExceptionMessages.Null_Data_Set, new ArgumentNullException("dataContainer"));
+                throw new StatisticsException(ExceptionMessages.Null_Data_Container, new ArgumentNullException("dataContainer"));
             }
             
             this.DataContainer = dataContainer;
 
             AssertNotNull(dependencies);
-            AssertSameDataContainer(dependencies);
+            AssertUniqueDataContainer(dependencies);
         }
 
-        private static void AssertSameDataContainer(IEnumerable<InquirerBase> dependencies)
+        private static void AssertUniqueDataContainer(IEnumerable<InquirerBase> dependencies)
         {
             if (dependencies.Select(inquirer => inquirer.DataContainer).Distinct().Count() > 1)
             {

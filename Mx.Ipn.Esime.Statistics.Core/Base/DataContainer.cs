@@ -11,9 +11,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         public readonly Dictionary<string, dynamic> Answers;
         public readonly ReadOnlyCollection<double> Data;
         public readonly int DataPrecision;
-
         public readonly double DataPrecisionValue;
-
         public readonly int DataCount;
 
         public DataContainer(IEnumerable<double> data)

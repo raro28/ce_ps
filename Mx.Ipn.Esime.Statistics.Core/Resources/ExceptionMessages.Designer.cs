@@ -144,7 +144,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Resources
             {
                 return ResourceManager.GetString("Null_Data_Set", resourceCulture);
             }
-        }
+        }       
 
         /// <summary>
         ///   Looks up a localized string similar to Multiple_DataContainers..
@@ -154,6 +154,17 @@ namespace Mx.Ipn.Esime.Statistics.Core.Resources
             get
             {
                 return ResourceManager.GetString("Multiple_DataContainers", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Null_Data_Container..
+        /// </summary>
+        public static string Null_Data_Container
+        {
+            get
+            {
+                return ResourceManager.GetString("Null_Data_Container", resourceCulture);
             }
         }
     }

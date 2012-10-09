@@ -1,7 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
-    using System.Collections.Generic;
     using Mx.Ipn.Esime.Statistics.Core.Base;
 
     public class UngroupedXileInquirer : XileInquirerBase

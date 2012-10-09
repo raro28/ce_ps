@@ -83,4 +83,7 @@
   <data name="Multiple_DataContainers" xml:space="preserve">
     <value>Multiple Data Containers.</value>
   </data>  
+  <data name="Null_Data_Container" xml:space="preserve">
+    <value>Null Data Container.</value>
+  </data>      
 </root>

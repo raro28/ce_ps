@@ -1,45 +1,48 @@
 namespace Mx.Ipn.Esime.Statistics.Core.Base
 {
     using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Core.Resources;
+    using Mx.Ipn.Esime.Statistics.Core.Resources;
 
-	public abstract class CentralTendecyInquirerBase:InquirerBase,ICentralTendencyInquirer
-	{
-		public CentralTendecyInquirerBase (IEnumerable<double> rawData):base(rawData)
-		{
-		}
+    public abstract class CentralTendecyInquirerBase : InquirerBase, ICentralTendencyInquirer
+    {
+        public CentralTendecyInquirerBase(DataContainer dataContainer) : base(dataContainer)
+        {
+        }
 
-		public double GetMean ()
-		{
-			if (!Answers.ContainsKey (TaskNames.Mean)) {
-				Answers.Add (TaskNames.Mean, CalcMean ());
-			}
+        public double GetMean()
+        {
+            if (!DataContainer.Answers.ContainsKey(TaskNames.Mean))
+            {
+                DataContainer.Answers.Add(TaskNames.Mean, this.CalcMean());
+            }
 
-			return Answers [TaskNames.Mean];
-		}
+            return DataContainer.Answers[TaskNames.Mean];
+        }
 		
-		public double GetMedian ()
-		{
-			if (!Answers.ContainsKey (TaskNames.Median)) {
-				Answers.Add (TaskNames.Median, CalcMedian ());
-			}
+        public double GetMedian()
+        {
+            if (!DataContainer.Answers.ContainsKey(TaskNames.Median))
+            {
+                DataContainer.Answers.Add(TaskNames.Median, this.CalcMedian());
+            }
 
-			return Answers [TaskNames.Median];
-		}
+            return DataContainer.Answers[TaskNames.Median];
+        }
 		
-		public IList<double> GetModes ()
-		{
-			if (!Answers.ContainsKey (TaskNames.Modes)) {
-				Answers.Add (TaskNames.Modes, CalcModes ());
-			}
+        public IList<double> GetModes()
+        {
+            if (!DataContainer.Answers.ContainsKey(TaskNames.Modes))
+            {
+                DataContainer.Answers.Add(TaskNames.Modes, this.CalcModes());
+            }
 
-			return Answers [TaskNames.Modes];
-		}
+            return DataContainer.Answers[TaskNames.Modes];
+        }
 
-		protected abstract double CalcMean ();
+        protected abstract double CalcMean();
 
-		protected abstract double CalcMedian ();
+        protected abstract double CalcMedian();
 
-		protected abstract IList<double> CalcModes ();
-	}
+        protected abstract IList<double> CalcModes();
+    }
 }

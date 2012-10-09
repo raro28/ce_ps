@@ -8,7 +8,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 	using Mx.Ipn.Esime.Statistics.Core.Base;
 
 	[TestFixture]
-	public abstract class XileInquirerBase_Tests<TInquirer,THelper>:InquirerBase_Tests<TInquirer,THelper> where TInquirer:XileInquirerBase where THelper:HelperMethodsBase
+	public abstract class XileInquirerBase_Tests<TInquirer,THelper> : InquirerBase_Tests<TInquirer,THelper> where TInquirer:XileInquirerBase where THelper:HelperMethodsBase
 	{
 		[TestCase(Xiles.Quartile,100)]
 		[TestCase(Xiles.Decile,100)]
@@ -33,7 +33,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 		[TestCase(Xiles.Percentile,100)]
 		public void Inquirer_Gets_All_Expected (Xiles xile, int size)
 		{
-			List<double> data = Helper.GetRandomDataSample (size).ToList ();
+			var data = Helper.GetRandomDataSample (size).ToList ();
 			var calculator = Helper.NewInquirer<TInquirer> (data);
 			var method = GetXileMethod (xile);
 

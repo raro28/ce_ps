@@ -40,6 +40,7 @@
     <Compile Include="GroupedDispersionInquirer.cs" />
     <Compile Include="GroupedXileInquirer.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Interval.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">

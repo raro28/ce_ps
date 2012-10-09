@@ -1,15 +1,15 @@
 namespace Mx.Ipn.Esime.Statistics.Core
 {
-	using System;
+    using System;
 
-	public class StatisticsException : Exception
-	{
-		public StatisticsException (string message,Exception innerException):base(message,innerException)
-		{
-		}
+    public class StatisticsException : Exception
+    {
+        public StatisticsException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
 
-		public StatisticsException (string message):base(message)
-		{
-		}
-	}
+        public StatisticsException(string message) : base(message)
+        {
+        }
+    }
 }

@@ -9,3 +9,4 @@ TestResults
 *.cache
 *.csproj.user
 StyleCop.Cache
+*.resources

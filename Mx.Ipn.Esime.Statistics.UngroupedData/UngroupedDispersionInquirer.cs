@@ -1,57 +1,59 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
 	using System;
-	using System.Linq;
-	using System.Collections.Generic;
-	using Mx.Ipn.Esime.Statistics.Core.Base;
+    using System.Linq;
+    using Mx.Ipn.Esime.Statistics.Core.Base;
 
-	public class UngroupedDispersionInquirer:DispersionInquirerBase
-	{
-		public UngroupedDispersionInquirer (IEnumerable<double> rawData):base(rawData)
-		{		
-			XileInquirer = new UngroupedXileInquirer (rawData);
-			CentralTendecyInquirer = new UngroupedCentralTendecyInquirer (rawData);
-		}
+    public class UngroupedDispersionInquirer : DispersionInquirerBase
+    {
+        public UngroupedDispersionInquirer(DataContainer dataContainer) : base(dataContainer)
+        {		
+            this.XileInquirer = new UngroupedXileInquirer(dataContainer);
+            this.CentralTendecyInquirer = new UngroupedCentralTendecyInquirer(dataContainer);
+        }
 
-		protected override double CalcAbsoluteDeviation ()
-		{
-			var nAbsDev = 0.0;
-			foreach (var item in Data) {
-				nAbsDev += Math.Abs (item - CentralTendecyInquirer.GetMean ());
-			}
+        protected override double CalcAbsoluteDeviation()
+        {
+            var nAbsDev = 0.0;
+            foreach (var item in DataContainer.Data)
+            {
+                nAbsDev += Math.Abs(item - this.CentralTendecyInquirer.GetMean());
+            }
 
-			var mad = nAbsDev / Data.Count;
+            var mad = nAbsDev / DataContainer.DataCount;
 
-			return mad;
-		}
+            return mad;
+        }
 
-		protected override double CalcVariance ()
-		{
-			var nplus1Variance = 0.0;
-			foreach (var item in Data) {
-				nplus1Variance += Math.Pow ((item - CentralTendecyInquirer.GetMean ()), 2);
-			}
+        protected override double CalcVariance()
+        {
+            var nplus1Variance = 0.0;
+            foreach (var item in DataContainer.Data)
+            {
+                nplus1Variance += Math.Pow(item - this.CentralTendecyInquirer.GetMean(), 2);
+            }
 
-			var variance = nplus1Variance / (Data.Count - 1);
+            var variance = nplus1Variance / (DataContainer.DataCount - 1);
 
-			return variance;
-		}
+            return variance;
+        }
 
-		protected override double CalcMomentum (int nMomentum)
-		{
-			var momentum = 0.0;
-			foreach (var item in Data) {
-				var meanDiff = (item - CentralTendecyInquirer.GetMean ());
-				momentum += Math.Pow (meanDiff, nMomentum);
-			}
+        protected override double CalcMomentum(int nMomentum)
+        {
+            var momentum = 0.0;
+            foreach (var item in DataContainer.Data)
+            {
+                var meanDiff = item - this.CentralTendecyInquirer.GetMean();
+                momentum += Math.Pow(meanDiff, nMomentum);
+            }
 
-			momentum /= Data.Count;
-			return momentum;
-		}
+            momentum /= DataContainer.DataCount;
+            return momentum;
+        }
 
-		protected override double CalcDataRange ()
-		{
-			return Data.Max () - Data.Min ();
-		}
-	}
+        protected override double CalcDataRange()
+        {
+            return DataContainer.Data.Max() - DataContainer.Data.Min();
+        }
+    }
 }

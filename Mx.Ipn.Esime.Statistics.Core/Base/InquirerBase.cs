@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core.Resources;
 
-    public abstract class InquirerBase
+    public abstract class InquirerBase:IInquirer
     {
         public readonly DataContainer DataContainer;
 
@@ -36,6 +36,14 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             {
                 throw new StatisticsException(ExceptionMessages.Null_Data_Inquirer, new ArgumentNullException("inquirer"));
             }
+        }
+
+        object IInquirer.Inquire(string inquiry, object[] args)
+        {
+            var method = this.GetType().GetMethod(inquiry);
+            var result = method.Invoke(this, args);
+
+            return result;
         }
     }
 }

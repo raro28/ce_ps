@@ -5,8 +5,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class DispersionInquirerBase : InquirerBase, IDispersionInquirer
     {
-        protected readonly XileInquirerBase XileInquirer;
-        protected readonly CentralTendecyInquirerBase CentralTendecyInquirer;
+        protected XileInquirerBase XileInquirer;
+        protected CentralTendecyInquirerBase CentralTendecyInquirer;
 
         public DispersionInquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies) : base(dataContainer, dependencies)
         {

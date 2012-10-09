@@ -21,11 +21,12 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
             var success = false;
+            result = null;
 
             var inquirer = this.Inquirers
                 .Where(item => item.Key
                        .GetMethods()
-                       .Where(method => method.Name == binder.Name && method.CanAssignValueSequenceI(args))
+                       .Where(method => method.Name == binder.Name && method.CanAssignValueSequence(args))
                        .Count() != 0)
                 .Select(item => item.Value)
                 .SingleOrDefault();

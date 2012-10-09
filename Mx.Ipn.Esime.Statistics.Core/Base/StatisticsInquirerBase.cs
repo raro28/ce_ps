@@ -6,7 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System.Linq;
     using Ninject;
 
-    public class StatisticsInquirerBase : DynamicObject
+    public abstract class StatisticsInquirerBase : DynamicObject
     {
         protected readonly StandardKernel Kernel;
         protected readonly Dictionary<Type, IInquirer> Inquirers;

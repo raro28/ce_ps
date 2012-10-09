@@ -50,10 +50,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
                 throw new StatisticsException(string.Format(ExceptionMessages.Invalid_Xile_Name_Format, xileName), new IndexOutOfRangeException(string.Format(ExceptionMessages.Invalid_Xile_Name_Number_Format, xileName, nTh)));
             }
             
-            return new XileInfo
-            {
-                Xile = xile, NthXile = nTh
-            };
+            return new XileInfo(xile, nTh);
         }
 
         private double GetXile(XileInfo xileInfo)
@@ -72,6 +69,23 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             }
             
             return xileResult;
+        }
+
+        internal class XileInfo
+        {
+            public readonly Xiles Xile;
+            public readonly int NthXile;
+            
+            public XileInfo(Xiles xile, int nthXile)
+            {
+                this.Xile = xile;
+                this.NthXile = nthXile;
+            }
+            
+            public override string ToString()
+            {
+                return string.Format(TaskNames.XileFormat, this.Xile, this.NthXile);
+            }
         }
     }
 }

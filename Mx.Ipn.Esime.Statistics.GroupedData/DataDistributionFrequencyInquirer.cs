@@ -66,11 +66,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 var superiorClassLimit = inferiorClassLimit + this.Amplitude - DataContainer.DataPrecisionValue;
                 for (int i = 1; i <= this.GroupsCount; i++)
                 {
-                    var interval = new Interval 
-                    {
-                        From = inferiorClassLimit,
-                        To = superiorClassLimit
-                    };
+                    var interval = new Interval(inferiorClassLimit, superiorClassLimit);
 
                     dynamic distElement = new ExpandoObject();
                     distElement.ClassInterval = interval;
@@ -167,11 +163,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 var midPrecision = DataContainer.DataPrecisionValue / 2;
                 foreach (var item in frequencyTable)
                 {
-                    var realInterval = new Interval 
-                    {
-                        From = item.ClassInterval.From - midPrecision,
-                        To = item.ClassInterval.To + midPrecision
-                    };
+                    var realInterval = new Interval(item.ClassInterval.From - midPrecision, item.ClassInterval.To + midPrecision);
 
                     item.RealInterval = realInterval;
                 }

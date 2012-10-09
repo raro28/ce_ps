@@ -55,7 +55,6 @@
       <DependentUpon>TaskNames.resx</DependentUpon>
     </Compile>
     <Compile Include="Base\DataContainer.cs" />
-    <Compile Include="Base\XileInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core.Resources;
 
-    public abstract class InquirerBase : IInquirer
+    public abstract class InquirerBase
     {
         protected InquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies)
         {
@@ -24,21 +24,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             get;
             private set;
-        }
-
-        bool IInquirer.Inquire(string inquiry, object[] args, out object result)
-        {
-            var success = false;
-            result = null;
-            
-            var method = this.GetType().GetMethod(inquiry);
-            if (method != null)
-            {
-                result = method.Invoke(this, args);
-                success = true;
-            }
-            
-            return success;
         }
 
         private static void AssertUniqueDataContainer(IEnumerable<InquirerBase> dependencies)

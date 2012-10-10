@@ -24,7 +24,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
             }
         }
 
-        public TInquirer NewInquirer<TInquirer>(int size) where TInquirer : IInquirer
+        public TInquirer NewInquirer<TInquirer>(int size) where TInquirer : InquirerBase
         {
 
             var inquirer = NewInquirer<TInquirer>(GetRandomDataSample(size).ToList());
@@ -32,7 +32,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
             return inquirer;
         }
 
-        public TInquirer NewInquirer<TInquirer>(List<double> data) where TInquirer : IInquirer
+        public TInquirer NewInquirer<TInquirer>(List<double> data) where TInquirer : InquirerBase
         {
             var Kernel = new StandardKernel();
             Kernel.Bind<DataContainer>().ToMethod(context => {
@@ -45,7 +45,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
             return NewInquirer<TInquirer>(Kernel);
         }
 
-        public virtual TInquirer NewInquirer<TInquirer>(StandardKernel kernel) where TInquirer : IInquirer
+        public virtual TInquirer NewInquirer<TInquirer>(StandardKernel kernel) where TInquirer : InquirerBase
         {
             return kernel.Get<TInquirer>();
         }

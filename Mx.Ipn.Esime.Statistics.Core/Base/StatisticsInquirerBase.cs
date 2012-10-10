@@ -6,9 +6,9 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System.Linq;
     using Ninject;
 
-    public abstract class StatisticsInquirerBase : DynamicObject, IInquirer
+    public abstract class StatisticsInquirerBase : DynamicObject
     {
-        public readonly Dictionary<Type, IInquirer> Inquirers;
+        public readonly Dictionary<Type, InquirerBase> Inquirers;
         protected static readonly StandardKernel Kernel;
 
         static StatisticsInquirerBase()
@@ -16,7 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             Kernel = new StandardKernel();
         }
 
-        public StatisticsInquirerBase(DataContainer dataContainer, params IInquirer[] inquirers)
+        public StatisticsInquirerBase(DataContainer dataContainer, params InquirerBase[] inquirers)
         {                      
             this.Inquirers = inquirers.ToDictionary(inquirer => inquirer.GetType());
             this.DataContainer = dataContainer;
@@ -54,18 +54,18 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             var success = false;
             result = null;
-            
+
             var inquirer = this.Inquirers
-                .Where(item => item.Key
-                       .GetMethods()
-                       .Where(method => method.Name == inquiry && method.CanAssignValueSequence(args))
-                       .Count() != 0)
-                    .Select(item => item.Value)
-                    .SingleOrDefault();
-            
+                .Where(pair => pair.Key.ResolveFor(inquiry, args) != null)
+                .Select(pair => new 
+                            {
+                        Method = pair.Key.ResolveFor(inquiry, args), Instance = pair.Value
+                    }).SingleOrDefault();
+
             if (inquirer != null)
             {
-                success = inquirer.Inquire(inquiry, args, out result);
+                result = inquirer.Method.Invoke(inquirer.Instance, args);
+                success = true;
             }
             
             return success;

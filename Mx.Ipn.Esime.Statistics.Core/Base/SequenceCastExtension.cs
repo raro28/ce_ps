@@ -7,9 +7,14 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     internal static class SequenceCastExtension
     {
-        public static bool CanAssignValueSequence(this MethodInfo method, IEnumerable<object> args)
+        public static MethodInfo ResolveFor(this Type type, string name, object[] args)
         {
-            return method.GetParameters().Select(parameter => parameter.ParameterType).TypeSequenceIsAssignableFrom(args);
+            var result = type.GetMethods()
+                .SingleOrDefault(method => method.GetParameters()
+                                 .Select(parameter => parameter.ParameterType)
+                .TypeSequenceIsAssignableFrom(args));
+
+            return result;
         }
 
         public static bool TypeSequenceIsAssignableFrom(this IEnumerable<Type> source, IEnumerable<object> sequence)

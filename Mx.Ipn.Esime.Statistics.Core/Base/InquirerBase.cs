@@ -7,8 +7,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class InquirerBase:IInquirer
     {
-        public readonly DataContainer DataContainer;
-
         protected InquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies)
         {
             if (dataContainer == null)
@@ -20,6 +18,12 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
             AssertNotNull(dependencies);
             AssertUniqueDataContainer(dependencies);
+        }
+
+        public DataContainer DataContainer
+        {
+            get;
+            private set;
         }
 
         private static void AssertUniqueDataContainer(IEnumerable<InquirerBase> dependencies)
@@ -38,12 +42,21 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             }
         }
 
-        object IInquirer.Inquire(string inquiry, object[] args)
+        #region IInquirer implementation
+        bool IInquirer.Inquire(string inquiry, object[] args, out object result)
         {
-            var method = this.GetType().GetMethod(inquiry);
-            var result = method.Invoke(this, args);
+            var success = false;
+            result = null;
 
-            return result;
+            var method = this.GetType().GetMethod(inquiry);
+            if (method != null)
+            {
+                result = method.Invoke(this, args);
+                success = true;
+            }
+
+            return success;
         }
+        #endregion
     }
 }

@@ -6,48 +6,69 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System.Linq;
     using Ninject;
 
-    public abstract class StatisticsInquirerBase : DynamicObject
+    public abstract class StatisticsInquirerBase : DynamicObject, IInquirer
     {
-        protected readonly StandardKernel Kernel;
-        protected readonly Dictionary<Type, IInquirer> Inquirers;
+        public readonly Dictionary<Type, IInquirer> Inquirers;
+        protected static readonly StandardKernel Kernel;
 
-        public StatisticsInquirerBase(IEnumerable<double> rawData, params IInquirer[] inquirers)
+        static StatisticsInquirerBase()
         {
-            this.Kernel = new StandardKernel();
-            this.Init(rawData);
+            Kernel = new StandardKernel();
+        }
+
+        public StatisticsInquirerBase(DataContainer dataContainer, params IInquirer[] inquirers)
+        {                      
             this.Inquirers = inquirers.ToDictionary(inquirer => inquirer.GetType());
+            this.DataContainer = dataContainer;
+        }
+
+        public DataContainer DataContainer
+        {
+            get;
+            private set;
         }
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
+            return Inquire(binder.Name, args, out result);
+        }
+
+        public bool Inquire(string inquiry, object[] args, out object result)
+        {
             var success = false;
             result = null;
-
+            
             var inquirer = this.Inquirers
                 .Where(item => item.Key
                        .GetMethods()
-                       .Where(method => method.Name == binder.Name && method.CanAssignValueSequence(args))
+                       .Where(method => method.Name == inquiry && method.CanAssignValueSequence(args))
                        .Count() != 0)
-                .Select(item => item.Value)
-                .SingleOrDefault();
-
+                    .Select(item => item.Value)
+                    .SingleOrDefault();
+            
             if (inquirer != null)
             {
-                result = inquirer.Inquire(binder.Name, args);
-                success = true;
+                success = inquirer.Inquire(inquiry, args, out result);
             }
-
+            
             return success;
         }
 
-        protected virtual void Init()
-        {
+        public static TInquirer CreateInstance<TInquirer>(IEnumerable<double> rawData) where TInquirer:StatisticsInquirerBase
+        {           
+            if (Kernel.GetBindings(typeof(TInquirer)).Where(bind => bind.Metadata.Name == "NewInstance").Count() == 0)
+            {            
+                Kernel.Bind<DataContainer>().ToMethod(context => new DataContainer(rawData)).InSingletonScope();
+                Kernel.Bind<TInquirer>().ToSelf().Named("NewInstance");
+                Kernel.Bind<TInquirer>().ToMethod(context => Kernel.Get<TInquirer>("NewInstance")).InSingletonScope().Named("Singleton");
+            }
+            
+            return Kernel.Get<TInquirer>("NewInstance");
         }
 
-        private void Init(IEnumerable<double> rawData)
-        {
-            this.Kernel.Bind<DataContainer>().ToMethod(context => new DataContainer(rawData)).InSingletonScope();
-            this.Init();
+        public static TInquirer GetInstance<TInquirer>()
+        {           
+            return Kernel.Get<TInquirer>("Singleton");
         }
     }
 }

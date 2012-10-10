@@ -2,8 +2,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
 {
 	using System;
     using System.Linq;
-    using System.Reflection;
     using System.Collections.Generic;
+    using Mx.Ipn.Esime.Statistics.Core;
     using Mx.Ipn.Esime.Statistics.Core.Base;
     using Ninject;
 
@@ -24,7 +24,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
             }
         }
 
-        public TInquirer NewInquirer<TInquirer>(int size) where TInquirer : InquirerBase
+        public TInquirer NewInquirer<TInquirer>(int size) where TInquirer : IInquirer
         {
 
             var inquirer = NewInquirer<TInquirer>(GetRandomDataSample(size).ToList());
@@ -32,7 +32,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
             return inquirer;
         }
 
-        public TInquirer NewInquirer<TInquirer>(List<double> data) where TInquirer : InquirerBase
+        public TInquirer NewInquirer<TInquirer>(List<double> data) where TInquirer : IInquirer
         {
             var Kernel = new StandardKernel();
             Kernel.Bind<DataContainer>().ToMethod(context => {
@@ -45,7 +45,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
             return NewInquirer<TInquirer>(Kernel);
         }
 
-        public virtual TInquirer NewInquirer<TInquirer>(StandardKernel kernel) where TInquirer : InquirerBase
+        public virtual TInquirer NewInquirer<TInquirer>(StandardKernel kernel) where TInquirer : IInquirer
         {
             return kernel.Get<TInquirer>();
         }
@@ -75,7 +75,8 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
                         }
 
                         canCast = srcEnum.Current.IsAssignableFrom(seqEnum.Current.GetType());
-                    } while(srcEnum.MoveNext() && seqEnum.MoveNext() && canCast);
+                    }
+                    while(srcEnum.MoveNext() && seqEnum.MoveNext() && canCast);
                 }
             }
             else

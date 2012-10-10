@@ -98,7 +98,7 @@
     <value>[{0},{1}]</value>
   </data>
   <data name="Mean" xml:space="preserve">
-    <value>get()</value>
+    <value>get(mean)</value>
   </data>
   <data name="MeanDifference_Format" xml:space="preserve">
     <value>add({0})</value>

@@ -8,7 +8,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class StatisticsInquirerBase : DynamicObject
     {
-        public readonly Dictionary<string, dynamic> Answers;
         public readonly Dictionary<Type, InquirerBase> Inquirers;
         protected static readonly StandardKernel Kernel;
 
@@ -19,7 +18,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
         public StatisticsInquirerBase(DataContainer dataContainer, params InquirerBase[] inquirers)
         {                      
-            this.Answers = new Dictionary<string, dynamic>();
             this.Inquirers = inquirers.ToDictionary(inquirer => inquirer.GetType());
             this.DataContainer = dataContainer;
         }
@@ -58,27 +56,15 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             result = null;
 
             var inquirer = this.Inquirers
-                .Where(pair => pair.Key.ResolveFor(inquiry, args) != null)
-                    .Select(pair => new 
+                .Where(pair => pair.Key.GetMethods().SingleOrDefault(method => method.Name == inquiry) != null)
+                .Select(pair => new 
                             {
-                        Method = pair.Key.ResolveFor(inquiry, args), Instance = pair.Value
+                        Method = pair.Key.GetMethods().SingleOrDefault(method => method.Name == inquiry), Instance = pair.Value
                     }).SingleOrDefault();
+
             if (inquirer != null)
             {
-                var attribute = inquirer.Method.GetCustomAttributes(inherit: true)
-                    .SingleOrDefault(attr => attr is AnswerAttribute); 
-                var answer = attribute != null ? ((AnswerAttribute)attribute).Name : inquiry;
-
-                if (!this.Answers.ContainsKey(answer))
-                {                              
-                    result = inquirer.Method.Invoke(inquirer.Instance, args);
-                    this.Answers.Add(answer, result);
-                }
-                else
-                {
-                    result = this.Answers[answer];
-                }
-
+                result = inquirer.Method.Invoke(inquirer.Instance, args);
                 success = true;
             }
             

@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core.Resources;
 
-    public abstract class InquirerBase:IInquirer
+    public abstract class InquirerBase : IInquirer
     {
         protected InquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies)
         {
@@ -26,6 +26,21 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             private set;
         }
 
+        bool IInquirer.Inquire(string inquiry, object[] args, out object result)
+        {
+            var success = false;
+            result = null;
+            
+            var method = this.GetType().GetMethod(inquiry);
+            if (method != null)
+            {
+                result = method.Invoke(this, args);
+                success = true;
+            }
+            
+            return success;
+        }
+
         private static void AssertUniqueDataContainer(IEnumerable<InquirerBase> dependencies)
         {
             if (dependencies.Select(inquirer => inquirer.DataContainer).Distinct().Count() > 1)
@@ -41,22 +56,5 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
                 throw new StatisticsException(ExceptionMessages.Null_Data_Inquirer, new ArgumentNullException("inquirer"));
             }
         }
-
-        #region IInquirer implementation
-        bool IInquirer.Inquire(string inquiry, object[] args, out object result)
-        {
-            var success = false;
-            result = null;
-
-            var method = this.GetType().GetMethod(inquiry);
-            if (method != null)
-            {
-                result = method.Invoke(this, args);
-                success = true;
-            }
-
-            return success;
-        }
-        #endregion
     }
 }

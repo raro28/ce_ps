@@ -1,7 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
     using Mx.Ipn.Esime.Statistics.Core.Base;
-    using Mx.Ipn.Esime.Statistics.Core;
 
     public class UngroupedStatisticsInquirer : StatisticsInquirerBase
     {

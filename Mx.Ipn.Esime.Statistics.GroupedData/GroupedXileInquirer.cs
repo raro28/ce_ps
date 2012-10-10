@@ -22,7 +22,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.DistributionInquirer.AddFrequencies();
             this.DistributionInquirer.AddAcumulatedFrequencies();
             this.DistributionInquirer.AddRealClassIntervals();
-            var table = this.DistributionInquirer.Table.Skip(1);
+            var table = this.DistributionInquirer.GetTable().Skip(1);
             dynamic prevElement = null;
             dynamic targetElement = null;
             foreach (var item in table)

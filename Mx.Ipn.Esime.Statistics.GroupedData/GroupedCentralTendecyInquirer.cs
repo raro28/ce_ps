@@ -29,7 +29,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         public double GetMean()
         {
             this.DistributionInquirer.AddFrequenciesTimesClassMarks();
-            var table = this.DistributionInquirer.Table;
+            var table = this.DistributionInquirer.GetTable();
             double fxSum = 0;
             foreach (var item in table)
             {
@@ -54,7 +54,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         {
             this.DistributionInquirer.AddFrequencies();
             this.DistributionInquirer.AddRealClassIntervals();
-            var table = this.DistributionInquirer.Table;
+            var table = this.DistributionInquirer.GetTable();
             var firstMaxFreqItem = table.OrderByDescending(item => item.Frequency).First();
             var maxFreqItems = table.Where(item => item.Frequency == firstMaxFreqItem.Frequency).ToList();
 

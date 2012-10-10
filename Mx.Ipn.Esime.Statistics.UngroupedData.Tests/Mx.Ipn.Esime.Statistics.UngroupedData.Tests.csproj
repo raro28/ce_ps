@@ -45,6 +45,7 @@
     <Compile Include="UngroupedDispersionInquirer.Tests.cs" />
     <Compile Include="UngroupedXileInquirer.Tests.cs" />
     <Compile Include="UngroupedHelperMethods.cs" />
+    <Compile Include="POC.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -7,6 +7,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class InquirerBase : IInquirer
     {
+        public readonly Guid Id;
+
         protected InquirerBase(DataContainer dataContainer, params InquirerBase[] dependencies)
         {
             if (dataContainer == null)
@@ -18,6 +20,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
             AssertNotNull(dependencies);
             AssertUniqueDataContainer(dependencies);
+
+            this.Id = Guid.NewGuid();
         }
 
         public delegate void InquiryResolved(object sender, InquiryEventArgs args);
@@ -28,6 +32,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             get;
             private set;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[{0}: Id={1}]", this.GetType().Name, Id.ToString().Substring(0, 3));
         }
 
         bool IInquirer.Inquire(string inquiry, object[] args, out object result)

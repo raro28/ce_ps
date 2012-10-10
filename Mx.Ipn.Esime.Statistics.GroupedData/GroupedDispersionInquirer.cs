@@ -23,7 +23,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
         public override double GetDataRange()
         {
-            var table = this.DistributionInquirer.Table;
+            var table = this.DistributionInquirer.GetTable();
             var range = table[0].ClassInterval.To - table[table.Count - 1].ClassInterval.From;
             this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.DataRange, range));
 
@@ -56,7 +56,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             var keyProperty = string.Format(TaskNames.MeanDiff_Property_Format, power);
             this.DistributionInquirer.AddClassMarks();
             this.DistributionInquirer.AddFrequencies();
-            var frequencyTable = this.DistributionInquirer.Table;
+            var frequencyTable = this.DistributionInquirer.GetTable();
             
             var mean = CentralTendecyInquirer.GetMean();
             foreach (var item in frequencyTable)
@@ -82,7 +82,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         {
             this.AddMeanDifference(power);
             double sum = 0;
-            var table = this.DistributionInquirer.Table;
+            var table = this.DistributionInquirer.GetTable();
             foreach (var item in table)
             {
                 sum += ((IDictionary<string, dynamic>)item)[string.Format(TaskNames.MeanDiff_Property_Format, power)];

@@ -4,12 +4,10 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System.Collections.Generic;
     using System.Dynamic;
     using System.Linq;
-    using Ninject;
 
     public abstract class StatisticsInquirerBase : DynamicObject, IInquirer
     {
         public readonly Dictionary<Type, InquirerBase> Inquirers;
-        protected static readonly StandardKernel Kernel = new StandardKernel();
         protected readonly Dictionary<string, dynamic> Answers;
 
         public StatisticsInquirerBase(DataContainer dataContainer, params InquirerBase[] inquirers)
@@ -29,25 +27,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             get;
             private set;
-        }
-
-        public static TInquirer CreateInstance<TInquirer>(IEnumerable<double> rawData) where TInquirer : StatisticsInquirerBase
-        {        
-            System.Console.WriteLine("static CreateInstance");
-
-            if (Kernel.GetBindings(typeof(TInquirer)).Where(bind => bind.Metadata.Name == "NewInstance").Count() == 0)
-            {            
-                Kernel.Bind<DataContainer>().ToMethod(context => new DataContainer(rawData)).InSingletonScope();
-                Kernel.Bind<TInquirer>().ToSelf().Named("NewInstance");
-                Kernel.Bind<TInquirer>().ToMethod(context => Kernel.Get<TInquirer>("NewInstance")).InSingletonScope().Named("Singleton");
-            }
-            
-            return Kernel.Get<TInquirer>("NewInstance");
-        }
-        
-        public static TInquirer GetInstance<TInquirer>()
-        {           
-            return Kernel.Get<TInquirer>("Singleton");
         }
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)

@@ -16,10 +16,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.InitTable();
         }
 
-        public ReadOnlyCollection<dynamic> Table
+        private ReadOnlyCollection<dynamic> Table
         {
             get;
-            private set;
+            set;
         }
 
         public double Max
@@ -50,6 +50,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         {
             get;
             private set;
+        }
+
+        public IList<dynamic> GetTable()
+        {
+            return Table;
         }
 
         public void AddFrequencies()

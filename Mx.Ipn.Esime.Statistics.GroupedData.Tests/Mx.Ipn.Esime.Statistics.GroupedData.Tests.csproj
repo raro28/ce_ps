@@ -60,7 +60,7 @@
     <Compile Include="GroupedDispersionInquirer.Tests.cs" />
     <Compile Include="GroupedXileInquirer.Tests.cs" />
     <Compile Include="GroupedHelperMethods.cs" />
-    <Compile Include="sdsd.cs" />
+    <Compile Include="POC.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\nunit.framework.xml">

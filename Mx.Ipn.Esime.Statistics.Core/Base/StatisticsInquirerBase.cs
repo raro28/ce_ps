@@ -54,8 +54,9 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             var success = false;
             result = null;
-            
-            var inquirer = this.Inquirers
+            if (!DataContainer.Answers.ContainsKey(inquiry))
+            {
+                var inquirer = this.Inquirers
                 .Where(item => item.Key
                        .GetMethods()
                        .Where(method => method.Name == inquiry && method.CanAssignValueSequence(args))
@@ -63,9 +64,15 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
                     .Select(item => item.Value)
                     .SingleOrDefault();
             
-            if (inquirer != null)
+                if (inquirer != null)
+                {
+                    success = inquirer.Inquire(inquiry, args, out result);
+                }
+            }
+            else
             {
-                success = inquirer.Inquire(inquiry, args, out result);
+                result = DataContainer.Answers[inquiry];
+                result = success;
             }
             
             return success;

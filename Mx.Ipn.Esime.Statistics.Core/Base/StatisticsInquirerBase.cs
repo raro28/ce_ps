@@ -54,25 +54,18 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             var success = false;
             result = null;
-            if (!DataContainer.Answers.ContainsKey(inquiry))
+
+            var inquirer = this.Inquirers
+                .Where(pair => pair.Key.GetMethods().SingleOrDefault(method => method.Name == inquiry) != null)
+                .Select(pair => new 
+                            {
+                        Method = pair.Key.GetMethods().SingleOrDefault(method => method.Name == inquiry), Instance = pair.Value
+                    }).SingleOrDefault();
+
+            if (inquirer != null)
             {
-                var inquirer = this.Inquirers
-                .Where(item => item.Key
-                       .GetMethods()
-                       .Where(method => method.Name == inquiry && method.CanAssignValueSequence(args))
-                       .Count() != 0)
-                    .Select(item => item.Value)
-                    .SingleOrDefault();
-            
-                if (inquirer != null)
-                {
-                    success = inquirer.Inquire(inquiry, args, out result);
-                }
-            }
-            else
-            {
-                result = DataContainer.Answers[inquiry];
-                result = success;
+                result = inquirer.Method.Invoke(inquirer.Instance, args);
+                success = true;
             }
             
             return success;

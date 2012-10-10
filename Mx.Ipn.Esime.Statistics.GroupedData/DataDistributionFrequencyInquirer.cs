@@ -2,16 +2,23 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Dynamic;
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core.Base;
-    using Mx.Ipn.Esime.Statistics.Core.Resources;
 
     public class DataDistributionFrequencyInquirer : InquirerBase
     {
         public DataDistributionFrequencyInquirer(DataContainer dataContainer) : base(dataContainer)
         {
             this.InitProperties();
+            this.InitTable();
+        }
+
+        public ReadOnlyCollection<dynamic> Table
+        {
+            get;
+            private set;
         }
 
         public double Max
@@ -44,143 +51,80 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             private set;
         }
 
-        public IEnumerable<dynamic> GetTable()
-        {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.DispersionTable))
-            {
-                this.AddClassIntervals();
-            }
-
-            return DataContainer.Answers[TaskNames.DispersionTable];
-        }
-
-        public void AddClassIntervals()
-        {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.ClassIntervals))
-            {
-                var frequencyTable = new List<dynamic>(this.GroupsCount);
-                DataContainer.Answers.Add(TaskNames.ClassIntervals, TaskNames.DispersionTable);
-                DataContainer.Answers.Add(TaskNames.DispersionTable, frequencyTable.AsReadOnly());
-                var inferiorClassLimit = this.Min;
-                var superiorClassLimit = inferiorClassLimit + this.Amplitude - DataContainer.DataPrecisionValue;
-                for (int i = 1; i <= this.GroupsCount; i++)
-                {
-                    var interval = new Interval(inferiorClassLimit, superiorClassLimit);
-
-                    dynamic distElement = new ExpandoObject();
-                    distElement.ClassInterval = interval;
-                    frequencyTable.Add(distElement);
-                    inferiorClassLimit += this.Amplitude;
-                    superiorClassLimit += this.Amplitude;
-                }
-            }
-        }
-
         public void AddFrequencies()
-        {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.Frequencies))
+        {            
+            var frequencyTable = this.Table;
+            foreach (var tableItem in frequencyTable)
             {
-                this.AddClassIntervals();
-                var frequencyTable = this.GetTable();
-                DataContainer.Answers.Add(TaskNames.Frequencies, TaskNames.DispersionTable);
-                foreach (var tableItem in frequencyTable)
-                {
-                    var frequency = DataContainer.Data.Count(item => item >= tableItem.ClassInterval.From && item <= tableItem.ClassInterval.To);
-                    tableItem.Frequency = frequency;
-                }
+                var frequency = DataContainer.Data.Count(item => item >= tableItem.ClassInterval.From && item <= tableItem.ClassInterval.To);
+                tableItem.Frequency = frequency;
             }
         }
 
         public void AddAcumulatedFrequencies()
         {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.AcumulatedFrequencies))
+            this.AddFrequencies();
+            var frequencyTable = this.Table;
+            var lastFrequency = 0;
+            foreach (var item in frequencyTable)
             {
-                this.AddFrequencies();
-                var frequencyTable = this.GetTable();
-                DataContainer.Answers.Add(TaskNames.AcumulatedFrequencies, TaskNames.DispersionTable);
-                var lastFrequency = 0;
-                foreach (var item in frequencyTable)
-                {
-                    item.AcumulatedFrequency = item.Frequency + lastFrequency;
-                    lastFrequency = item.AcumulatedFrequency;
-                }
+                item.AcumulatedFrequency = item.Frequency + lastFrequency;
+                lastFrequency = item.AcumulatedFrequency;
             }
         }
 
         public void AddRelativeFrequencies()
-        {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.RelativeFrequencies))
+        {           
+            this.AddFrequencies();
+            var frequencyTable = this.Table;
+            foreach (var item in frequencyTable)
             {
-                this.AddFrequencies();
-                var frequencyTable = this.GetTable();
-                DataContainer.Answers.Add(TaskNames.RelativeFrequencies, TaskNames.DispersionTable);
-                foreach (var item in frequencyTable)
-                {
-                    item.RelativeFrequency = (double)item.Frequency / DataContainer.DataCount;
-                }
+                item.RelativeFrequency = (double)item.Frequency / DataContainer.DataCount;
             }
         }
 
         public void AddAcumulatedRelativeFrequencies()
         {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.AcumulatedRelativeFrequencies))
+            this.AddRelativeFrequencies();
+            var frequencyTable = this.Table;
+            var lastRelativeFrequency = 0.0;
+            foreach (var item in frequencyTable)
             {
-                this.AddRelativeFrequencies();
-                var frequencyTable = this.GetTable();
-                DataContainer.Answers.Add(TaskNames.AcumulatedRelativeFrequencies, TaskNames.DispersionTable);
-                var lastRelativeFrequency = 0.0;
-                foreach (var item in frequencyTable)
-                {
-                    item.AcumulatedRelativeFrequency = item.RelativeFrequency + lastRelativeFrequency;
-                    lastRelativeFrequency = item.AcumulatedRelativeFrequency;
-                }
+                item.AcumulatedRelativeFrequency = item.RelativeFrequency + lastRelativeFrequency;
+                lastRelativeFrequency = item.AcumulatedRelativeFrequency;
             }
         }
 
         public void AddClassMarks()
-        {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.ClassMarks))
+        {                       
+            var frequencyTable = this.Table;
+            foreach (var item in frequencyTable)
             {
-                this.AddClassIntervals();
-                var frequencyTable = this.GetTable();
-                DataContainer.Answers.Add(TaskNames.ClassMarks, TaskNames.DispersionTable);
-                foreach (var item in frequencyTable)
-                {
-                    var classMark = (item.ClassInterval.From + item.ClassInterval.To) / 2;
-                    item.ClassMark = classMark;
-                }
+                var classMark = (item.ClassInterval.From + item.ClassInterval.To) / 2;
+                item.ClassMark = classMark;
             }
         }
 
         public void AddRealClassIntervals()
-        {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.RealClassIntervals))
+        {            
+            var frequencyTable = this.Table;
+            var midPrecision = DataContainer.DataPrecisionValue / 2;
+            foreach (var item in frequencyTable)
             {
-                this.AddClassIntervals();
-                var frequencyTable = this.GetTable();
-                DataContainer.Answers.Add(TaskNames.RealClassIntervals, TaskNames.DispersionTable);
-                var midPrecision = DataContainer.DataPrecisionValue / 2;
-                foreach (var item in frequencyTable)
-                {
-                    var realInterval = new Interval(item.ClassInterval.From - midPrecision, item.ClassInterval.To + midPrecision);
+                var realInterval = new Interval(item.ClassInterval.From - midPrecision, item.ClassInterval.To + midPrecision);
 
-                    item.RealInterval = realInterval;
-                }
+                item.RealInterval = realInterval;
             }
         }
 
         public void AddFrequenciesTimesClassMarks()
         {
-            if (!DataContainer.Answers.ContainsKey(TaskNames.FrequenciesTimesClassMarks))
+            this.AddFrequencies();
+            this.AddClassMarks();
+            var frequencyTable = this.Table;
+            foreach (var item in frequencyTable)
             {
-                this.AddFrequencies();
-                this.AddClassMarks();
-                var frequencyTable = this.GetTable();
-                DataContainer.Answers.Add(TaskNames.FrequenciesTimesClassMarks, TaskNames.DispersionTable);
-                foreach (var item in frequencyTable)
-                {
-                    item.fX = item.Frequency * item.ClassMark;
-                }
+                item.fX = item.Frequency * item.ClassMark;
             }
         }
 
@@ -199,6 +143,25 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             {
                 this.Amplitude += this.DataContainer.DataPrecisionValue;
             }
+        }
+
+        private void InitTable()
+        {
+            var table = new List<dynamic>(this.GroupsCount);
+            var inferiorClassLimit = this.Min;
+            var superiorClassLimit = inferiorClassLimit + this.Amplitude - DataContainer.DataPrecisionValue;
+            for (int i = 1; i <= this.GroupsCount; i++)
+            {
+                var interval = new Interval(inferiorClassLimit, superiorClassLimit);
+                
+                dynamic distElement = new ExpandoObject();
+                distElement.ClassInterval = interval;
+                table.Add(distElement);
+                inferiorClassLimit += this.Amplitude;
+                superiorClassLimit += this.Amplitude;
+            }
+            
+            this.Table = table.AsReadOnly();
         }
     }   
 }

@@ -56,17 +56,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         private double GetXile(XileInfo xileInfo)
         {
             double xileResult;
-            if (!DataContainer.Answers.ContainsKey(xileInfo.ToString()))
-            {
-                var lx = DataContainer.DataCount * xileInfo.NthXile / (double)xileInfo.Xile;
-                xileResult = this.CalcXile(lx);
-
-                DataContainer.Answers.Add(xileInfo.ToString(), xileResult);
-            }
-            else
-            {
-                xileResult = DataContainer.Answers[xileInfo.ToString()];
-            }
+            var lx = DataContainer.DataCount * xileInfo.NthXile / (double)xileInfo.Xile;
+            xileResult = this.CalcXile(lx);
             
             return xileResult;
         }

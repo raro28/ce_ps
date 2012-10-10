@@ -1,4 +1,4 @@
-namespace Mx.Ipn.Esime.Statistics.UngroupedData
+namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
     using Mx.Ipn.Esime.Statistics.Core.Base;
     using Mx.Ipn.Esime.Statistics.GroupedData;

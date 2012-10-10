@@ -12,33 +12,38 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             this.CentralTendecyInquirer = centralTendecyInquirer;
         }
 
-        protected override double CalcAbsoluteDeviation()
+        public override double GetDataRange()
+        {
+            return DataContainer.Data.Max() - DataContainer.Data.Min();
+        }
+
+        public override double GetAbsoluteDeviation()
         {
             var nAbsDev = 0.0;
             foreach (var item in DataContainer.Data)
             {
                 nAbsDev += Math.Abs(item - this.CentralTendecyInquirer.GetMean());
             }
-
+            
             var mad = nAbsDev / DataContainer.DataCount;
-
+            
             return mad;
         }
 
-        protected override double CalcVariance()
+        public override double GetVariance()
         {
             var nplus1Variance = 0.0;
             foreach (var item in DataContainer.Data)
             {
                 nplus1Variance += Math.Pow(item - this.CentralTendecyInquirer.GetMean(), 2);
             }
-
+            
             var variance = nplus1Variance / (DataContainer.DataCount - 1);
-
+            
             return variance;
         }
 
-        protected override double CalcMomentum(int nMomentum)
+        protected override double GetMomentum(int nMomentum)
         {
             var momentum = 0.0;
             foreach (var item in DataContainer.Data)
@@ -46,14 +51,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
                 var meanDiff = item - this.CentralTendecyInquirer.GetMean();
                 momentum += Math.Pow(meanDiff, nMomentum);
             }
-
+            
             momentum /= DataContainer.DataCount;
             return momentum;
-        }
-
-        protected override double CalcDataRange()
-        {
-            return DataContainer.Data.Max() - DataContainer.Data.Min();
         }
     }
 }

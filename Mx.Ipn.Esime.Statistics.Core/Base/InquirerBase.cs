@@ -36,7 +36,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
         public override string ToString()
         {
-            return string.Format("[{0}: Id={1}]", this.GetType().Name, Id.ToString().Substring(0, 3));
+            return string.Format("[{0}: Id={1}]", this.GetType().Name, this.Id.ToString().Substring(0, 3));
         }
 
         bool IInquirer.Inquire(string inquiry, object[] args, out object result)

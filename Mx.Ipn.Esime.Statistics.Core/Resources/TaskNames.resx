@@ -101,7 +101,7 @@
     <value>get(mean)</value>
   </data>
   <data name="MeanDifference_Format" xml:space="preserve">
-    <value>add({0})</value>
+    <value>add(fMeanDiffE{0})</value>
   </data>
   <data name="MeanDiff_Property_Format" xml:space="preserve">
     <value>fMeanDiffE{0}</value>

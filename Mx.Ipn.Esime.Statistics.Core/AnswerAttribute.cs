@@ -1,14 +1,58 @@
 namespace Mx.Ipn.Esime.Statistics.Core
 {
     using System;
+    using System.Linq;
 
     public class AnswerAttribute : Attribute
     {
-        public readonly string Name;
+        private readonly object[] defaults;
 
-        public AnswerAttribute(string name)
+        private string name;
+
+        public AnswerAttribute(params object[] defaults)
         {
-            this.Name = name;
+            this.Formated = false;
+            this.defaults = defaults;
+        }
+
+        public string Name
+        {
+            get
+            {
+                return Type.GetProperty(this.name).GetValue(null, null).ToString();
+            }
+
+            set
+            {
+                this.name = value;
+            }
+        }
+
+        public Type Type
+        {
+            get;
+            set;
+        }
+
+        public bool Formated
+        {
+            get;
+            set;
+        }
+
+        public string Format(params object[] args)
+        {
+            var argsList = args.ToList();
+            argsList.InsertRange(0, this.defaults.ToList());
+
+            var mergedArgs = argsList.ToArray();
+
+            return string.Format(this.Name, mergedArgs);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[Name=({0},{1}), Type={2}, Formated={3}]", this.Name, this.name, this.Type.Name, this.Formated);
         }
     }
 }

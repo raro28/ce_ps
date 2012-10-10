@@ -16,6 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {           
         }
 
+        [AnswerAttribute(Xiles.Decile, Name = "XileFormat", Type = typeof(TaskNames), Formated = true)]
         public double GetDecile(int nTh)
         {
             var xileInfo = AssertValidXile(nTh, Xiles.Decile);
@@ -23,7 +24,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             
             return nThDecile;
         }
-        
+
+        [AnswerAttribute(Xiles.Percentile, Name = "XileFormat", Type = typeof(TaskNames), Formated = true)]
         public double GetPercentile(int nTh)
         {
             var xileInfo = AssertValidXile(nTh, Xiles.Percentile);
@@ -31,7 +33,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             
             return nThPercentile;
         }
-        
+
+        [AnswerAttribute(Xiles.Quartile, Name = "XileFormat", Type = typeof(TaskNames), Formated = true)]
         public double GetQuartile(int nTh)
         {
             var xileInfo = AssertValidXile(nTh, Xiles.Quartile);

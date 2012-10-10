@@ -5,6 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
     using System.Collections.ObjectModel;
     using System.Dynamic;
     using System.Linq;
+    using Mx.Ipn.Esime.Statistics.Core;
     using Mx.Ipn.Esime.Statistics.Core.Base;
     using Mx.Ipn.Esime.Statistics.Core.Resources;
 
@@ -14,12 +15,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         {
             this.InitProperties();
             this.InitTable();
-        }
-
-        private ReadOnlyCollection<dynamic> Table
-        {
-            get;
-            set;
         }
 
         public double Max
@@ -52,11 +47,18 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             private set;
         }
 
-        public IList<dynamic> GetTable()
+        private ReadOnlyCollection<dynamic> Table
         {
-            return Table;
+            get;
+            set;
         }
 
+        public IList<dynamic> GetTable()
+        {
+            return this.Table;
+        }
+
+        [AnswerAttribute(Name = "Frequencies", Type = typeof(TaskNames))]
         public void AddFrequencies()
         {            
             var frequencyTable = this.Table;
@@ -69,6 +71,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Frequencies, TaskNames.DispersionTable));
         }
 
+        [AnswerAttribute(Name = "AcumulatedFrequencies", Type = typeof(TaskNames))]
         public void AddAcumulatedFrequencies()
         {
             this.AddFrequencies();
@@ -79,9 +82,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 item.AcumulatedFrequency = item.Frequency + lastFrequency;
                 lastFrequency = item.AcumulatedFrequency;
             }
+
             this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AcumulatedFrequencies, TaskNames.DispersionTable));
         }
 
+        [AnswerAttribute(Name = "RelativeFrequencies", Type = typeof(TaskNames))]
         public void AddRelativeFrequencies()
         {           
             this.AddFrequencies();
@@ -94,6 +99,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.RelativeFrequencies, TaskNames.DispersionTable));
         }
 
+        [AnswerAttribute(Name = "AcumulatedRelativeFrequencies", Type = typeof(TaskNames))]
         public void AddAcumulatedRelativeFrequencies()
         {
             this.AddRelativeFrequencies();
@@ -108,6 +114,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AcumulatedRelativeFrequencies, TaskNames.DispersionTable));
         }
 
+        [AnswerAttribute(Name = "ClassMarks", Type = typeof(TaskNames))]
         public void AddClassMarks()
         {                       
             var frequencyTable = this.Table;
@@ -120,6 +127,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.ClassMarks, TaskNames.DispersionTable));
         }
 
+        [AnswerAttribute(Name = "ClassIntervals", Type = typeof(TaskNames))]
         public void AddRealClassIntervals()
         {            
             var frequencyTable = this.Table;
@@ -134,6 +142,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.RealClassIntervals, TaskNames.DispersionTable));
         }
 
+        [AnswerAttribute(Name = "FrequenciesTimesClassMarks", Type = typeof(TaskNames))]
         public void AddFrequenciesTimesClassMarks()
         {
             this.AddFrequencies();
@@ -181,8 +190,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             }
             
             this.Table = table.AsReadOnly();
-
-            //this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.ClassIntervals, TaskNames.DispersionTable));
         }
     }   
 }

@@ -15,7 +15,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             this.Inquirers = inquirers
                 .ToDictionary(inquirer => 
             {
-                inquirer.Resolved += this.RegisterAnswer;
+                inquirer.Resolved += this.UpgradeAnswer;
                 return inquirer.GetType();
             });
 
@@ -38,29 +38,48 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             var success = false;
             result = null;
-//            var answer = inquiry;
-//            if (!this.Answers.ContainsKey(answer))
-//            {
-            foreach (var inquirer in this.Inquirers)
+
+            var inquirer = this.Inquirers
+                .Where(pair => pair.Key.GetMethod(inquiry) != null)
+                .Select(pair => new 
+                            {
+                        Type = pair.Key,
+                        Instance = pair.Value,
+                        Method = pair.Key.GetMethod(inquiry)
+                    }).SingleOrDefault();
+
+            if (inquirer != null)
             {
-                if (success = ((IInquirer)inquirer.Value).Inquire(inquiry, args, out result))
+                var attr = inquirer.Method.GetCustomAttributes(typeof(AnswerAttribute), true).SingleOrDefault();
+                string name = null;
+                if (attr != null)
                 {
-                    break;
+                    var answerAttr = (AnswerAttribute)attr;
+                    name = answerAttr.Formated ? answerAttr.Format(args) : answerAttr.Name;
                 }
+
+                if ((name != null && !this.Answers.ContainsKey(name)) || name == null)
+                {
+                    result = inquirer.Method.Invoke(inquirer.Instance, args);
+                }
+                else
+                {
+                    result = this.Answers[name];
+                }
+
+                success = true;
             }
-//            }
-//            else
-//            {
-//                result = this.Answers[answer];
-//                success = true;
-//            }
 
             return success;
         }
 
-        private void RegisterAnswer(object sender, InquiryEventArgs args)
+        private void UpgradeAnswer(object sender, InquiryEventArgs args)
         {
-            if (!this.Answers.ContainsKey(args.Inquiry))
+            if (this.Answers.ContainsKey(args.Inquiry))
+            {
+                this.Answers[args.Inquiry] = args.Result;
+            }
+            else
             {
                 this.Answers.Add(args.Inquiry, args.Result);
             }

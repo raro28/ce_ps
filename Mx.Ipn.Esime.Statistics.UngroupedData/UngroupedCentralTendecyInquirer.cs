@@ -12,6 +12,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
         {	
         }
 
+        [AnswerAttribute(Name = "Mean", Type = typeof(TaskNames))]
         public double GetMean()
         {
             var mean = DataContainer.Data.Sum() / DataContainer.DataCount;
@@ -20,6 +21,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             return mean;
         }
 
+        [AnswerAttribute(Name = "Median", Type = typeof(TaskNames))]
         public double GetMedian()
         {
             var midIndex = (DataContainer.DataCount / 2) - 1;
@@ -29,6 +31,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             return median;
         }
 
+        [AnswerAttribute(Name = "Modes", Type = typeof(TaskNames))]
         public IList<double> GetModes()
         {
             var groups = DataContainer.Data.GroupBy(item => item);

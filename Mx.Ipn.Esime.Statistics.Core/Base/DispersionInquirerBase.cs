@@ -21,8 +21,10 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             set;
         }
 
+        [AnswerAttribute(Name = "DataRange", Type = typeof(TaskNames))]
         public abstract double GetDataRange();
-        
+
+        [AnswerAttribute(Name = "QuartileRange", Type = typeof(TaskNames))]
         public double GetInterQuartileRange()
         {
             var range = this.XileInquirer.GetQuartile(3) - this.XileInquirer.GetQuartile(1);
@@ -30,7 +32,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
             return range;
         }
-        
+
+        [AnswerAttribute(Name = "DecileRange", Type = typeof(TaskNames))]
         public double GetInterDecileRange()
         {
             var range = this.XileInquirer.GetDecile(9) - this.XileInquirer.GetDecile(1);
@@ -38,7 +41,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
             return range;
         }
-        
+
+        [AnswerAttribute(Name = "PercentileRange", Type = typeof(TaskNames))]
         public double GetInterPercentileRange()
         {
             var range = this.XileInquirer.GetPercentile(90) - this.XileInquirer.GetPercentile(10);
@@ -47,10 +51,13 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             return range;
         }
 
+        [AnswerAttribute(Name = "AbsoluteDeviation", Type = typeof(TaskNames))]
         public abstract double GetAbsoluteDeviation();
-        
+
+        [AnswerAttribute(Name = "Variance", Type = typeof(TaskNames))]
         public abstract double GetVariance();
-        
+
+        [AnswerAttribute(Name = "StandarDeviation", Type = typeof(TaskNames))]
         public double GetStandarDeviation()
         {
             var sde = Math.Sqrt(this.GetVariance());
@@ -59,6 +66,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             return sde;
         }
 
+        [AnswerAttribute(Name = "CoefficientOfVariation", Type = typeof(TaskNames))]
         public double GetCoefficientOfVariation()
         {
             var cov = this.GetStandarDeviation() / this.CentralTendecyInquirer.GetMean();
@@ -66,7 +74,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
             return cov;
         }
-        
+
+        [AnswerAttribute(Name = "CoefficientOfSymmetry", Type = typeof(TaskNames))]
         public double GetCoefficientOfSymmetry()
         {
             var m3 = this.GetMomentum(3);
@@ -76,7 +85,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
             return cos;
         }
-        
+
+        [AnswerAttribute(Name = "CoefficientOfKourtosis", Type = typeof(TaskNames))]
         public double GetCoefficientOfKourtosis()
         {
             var m4 = this.GetMomentum(4);
@@ -87,6 +97,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             return cok;
         }
 
+        [AnswerAttribute(Name = "MomentumFormat", Type = typeof(TaskNames), Formated = true)]
         protected abstract double GetMomentum(int nMomentum);
     }
 }

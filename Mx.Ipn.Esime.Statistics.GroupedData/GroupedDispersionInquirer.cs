@@ -46,6 +46,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             return variance;
         }
 
+        [AnswerAttribute(Name = "MeanDifference_Format", Type = typeof(TaskNames), Formated = true)]
         public void AddMeanDifference(int power)
         {       
             if (power < 1 || power > 4)
@@ -61,11 +62,21 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             var mean = CentralTendecyInquirer.GetMean();
             foreach (var item in frequencyTable)
             {
+                var entry = (IDictionary<string, object>)item;
                 var difference = power != 1 ? item.ClassMark - mean : Math.Abs(item.ClassMark - mean);
-                ((IDictionary<string, object>)item).Add(keyProperty, item.Frequency * Math.Pow(difference, power));
+                var powDifference = item.Frequency * Math.Pow(difference, power);
+
+                if (!entry.ContainsKey(keyProperty))
+                {
+                    entry.Add(keyProperty, powDifference);
+                }
+                else
+                {
+                    entry[keyProperty] = powDifference;
+                }
             }
 
-            var keyDifference = string.Format(TaskNames.MeanDifference_Format, keyProperty);
+            var keyDifference = string.Format(TaskNames.MeanDifference_Format, power);
             this.FireResolvedEvent(this, new InquiryEventArgs(keyDifference, TaskNames.DispersionTable));
         }
 

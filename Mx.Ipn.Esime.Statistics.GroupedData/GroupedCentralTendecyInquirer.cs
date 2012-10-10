@@ -26,6 +26,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             set;
         }
 
+        [AnswerAttribute(Name = "Mean", Type = typeof(TaskNames))]
         public double GetMean()
         {
             this.DistributionInquirer.AddFrequenciesTimesClassMarks();
@@ -42,6 +43,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             return mean;
         }
 
+        [AnswerAttribute(Name = "Median", Type = typeof(TaskNames))]
         public double GetMedian()
         {
             var median = this.XileInquirer.GetQuartile(2);
@@ -50,6 +52,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             return median;
         }
 
+        [AnswerAttribute(Name = "Modes", Type = typeof(TaskNames))]
         public IList<double> GetModes()
         {
             this.DistributionInquirer.AddFrequencies();

@@ -56,7 +56,10 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
         protected void FireResolvedEvent(object sender, InquiryEventArgs args)
         {
-            this.Resolved(sender, args);
+            if (this.Resolved != null)
+            {
+                this.Resolved(sender, args);
+            }
         }
 
         private static void AssertUniqueDataContainer(IEnumerable<InquirerBase> dependencies)

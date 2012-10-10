@@ -7,6 +7,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
     {
         static GroupedStatisticsInquirer()
         {
+            System.Console.WriteLine("static GroupedStatisticsInquirer()");
             Kernel.Bind<DataDistributionFrequencyInquirer>().ToSelf().InSingletonScope();
             Kernel.Bind<GroupedXileInquirer>().ToSelf().InSingletonScope();
             Kernel.Bind<GroupedCentralTendecyInquirer>().ToSelf().InSingletonScope();

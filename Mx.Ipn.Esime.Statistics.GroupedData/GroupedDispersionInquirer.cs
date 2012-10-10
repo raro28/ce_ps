@@ -2,7 +2,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core;
     using Mx.Ipn.Esime.Statistics.Core.Base;
     using Mx.Ipn.Esime.Statistics.Core.Resources;
@@ -26,21 +25,24 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         {
             var table = this.DistributionInquirer.Table;
             var range = table[0].ClassInterval.To - table[table.Count - 1].ClassInterval.From;
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.DataRange, range));
+
             return range;
         }
 
         public override double GetAbsoluteDeviation()
         {
             var mad = this.MeanDifferenceSum(1) / DataContainer.DataCount;
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AbsoluteDeviation, mad));
+
             return mad;
         }
 
         public override double GetVariance()
         {
             var variance = this.MeanDifferenceSum(2) / (DataContainer.DataCount - 1);
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Variance, variance));
+
             return variance;
         }
 
@@ -62,12 +64,17 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 var difference = power != 1 ? item.ClassMark - mean : Math.Abs(item.ClassMark - mean);
                 ((IDictionary<string, object>)item).Add(keyProperty, item.Frequency * Math.Pow(difference, power));
             }
+
+            var keyDifference = string.Format(TaskNames.MeanDifference_Format, keyProperty);
+            this.FireResolvedEvent(this, new InquiryEventArgs(keyDifference, TaskNames.DispersionTable));
         }
 
         protected override double GetMomentum(int nMomentum)
         {
             var momentum = this.MeanDifferenceSum(nMomentum) / DataContainer.DataCount;
-            
+            var keyMomentum = string.Format(TaskNames.MomentumFormat, nMomentum);
+            this.FireResolvedEvent(this, new InquiryEventArgs(keyMomentum, momentum));
+
             return momentum;
         }
 

@@ -4,6 +4,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core;
     using Mx.Ipn.Esime.Statistics.Core.Base;
+    using Mx.Ipn.Esime.Statistics.Core.Resources;
 	
     public class UngroupedCentralTendecyInquirer : InquirerBase, ICentralTendencyInquirer
     {
@@ -14,7 +15,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
         public double GetMean()
         {
             var mean = DataContainer.Data.Sum() / DataContainer.DataCount;
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Mean, mean));
+
             return mean;
         }
 
@@ -22,7 +24,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
         {
             var midIndex = (DataContainer.DataCount / 2) - 1;
             var median = DataContainer.DataCount % 2 != 0 ? DataContainer.Data[midIndex + 1] : (DataContainer.Data[midIndex] + DataContainer.Data[midIndex + 1]) / 2;
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Median, median));
+
             return median;
         }
 
@@ -32,7 +35,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             var modes = (from _mode in groups
                          where _mode.Count() == groups.Max(grouped => grouped.Count())
                          select _mode.First()).ToList();
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Modes, modes));
+
             return modes;
         }
     }

@@ -4,6 +4,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core;
     using Mx.Ipn.Esime.Statistics.Core.Base;
+    using Mx.Ipn.Esime.Statistics.Core.Resources;
 
     public class GroupedCentralTendecyInquirer : InquirerBase, ICentralTendencyInquirer
     {
@@ -36,14 +37,16 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             }
             
             var mean = fxSum / DataContainer.DataCount;
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Mean, mean));
+
             return mean;
         }
 
         public double GetMedian()
         {
             var median = this.XileInquirer.GetQuartile(2);
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Median, median));
+
             return median;
         }
 
@@ -68,6 +71,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
                 modes.Add(mode);
             }
+
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Modes, modes));
 
             return modes;
         }

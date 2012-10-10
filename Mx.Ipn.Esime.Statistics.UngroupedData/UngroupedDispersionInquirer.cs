@@ -3,6 +3,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 	using System;
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core.Base;
+    using Mx.Ipn.Esime.Statistics.Core.Resources;
 
     public class UngroupedDispersionInquirer : DispersionInquirerBase
     {
@@ -14,7 +15,10 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
         public override double GetDataRange()
         {
-            return DataContainer.Data.Max() - DataContainer.Data.Min();
+            var range = DataContainer.Data.Max() - DataContainer.Data.Min();
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.DataRange, range));
+
+            return range;
         }
 
         public override double GetAbsoluteDeviation()
@@ -26,7 +30,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             }
             
             var mad = nAbsDev / DataContainer.DataCount;
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AbsoluteDeviation, mad));
+
             return mad;
         }
 
@@ -39,7 +44,8 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             }
             
             var variance = nplus1Variance / (DataContainer.DataCount - 1);
-            
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Variance, variance));
+
             return variance;
         }
 
@@ -53,6 +59,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             }
             
             momentum /= DataContainer.DataCount;
+            var keyMomentum = string.Format(TaskNames.MomentumFormat, nMomentum);
+            this.FireResolvedEvent(this, new InquiryEventArgs(keyMomentum, momentum));
+
             return momentum;
         }
     }

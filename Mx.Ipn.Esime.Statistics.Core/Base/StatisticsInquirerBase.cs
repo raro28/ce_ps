@@ -8,17 +8,20 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class StatisticsInquirerBase : DynamicObject, IInquirer
     {
-        public readonly Dictionary<Type, IInquirer> Inquirers;
-        protected static readonly StandardKernel Kernel;
+        public readonly Dictionary<Type, InquirerBase> Inquirers;
+        protected static readonly StandardKernel Kernel = new StandardKernel();
+        protected readonly Dictionary<string, dynamic> Answers;
 
-        static StatisticsInquirerBase()
-        {
-            Kernel = new StandardKernel();
-        }
-
-        public StatisticsInquirerBase(DataContainer dataContainer, params IInquirer[] inquirers)
+        public StatisticsInquirerBase(DataContainer dataContainer, params InquirerBase[] inquirers)
         {                      
-            this.Inquirers = inquirers.ToDictionary(inquirer => inquirer.GetType());
+            this.Inquirers = inquirers
+                .ToDictionary(inquirer => 
+            {
+                inquirer.Resolved += this.RegisterAnswer;
+                return inquirer.GetType();
+            });
+
+            this.Answers = new Dictionary<string, dynamic>();
             this.DataContainer = dataContainer;
         }
 
@@ -29,7 +32,9 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         }
 
         public static TInquirer CreateInstance<TInquirer>(IEnumerable<double> rawData) where TInquirer : StatisticsInquirerBase
-        {           
+        {        
+            System.Console.WriteLine("static CreateInstance");
+
             if (Kernel.GetBindings(typeof(TInquirer)).Where(bind => bind.Metadata.Name == "NewInstance").Count() == 0)
             {            
                 Kernel.Bind<DataContainer>().ToMethod(context => new DataContainer(rawData)).InSingletonScope();
@@ -54,21 +59,32 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         {
             var success = false;
             result = null;
-
-            var inquirer = this.Inquirers
-                .Where(pair => pair.Key.GetMethods().SingleOrDefault(method => method.Name == inquiry) != null)
-                .Select(pair => new 
-                            {
-                        Method = pair.Key.GetMethods().SingleOrDefault(method => method.Name == inquiry), Instance = pair.Value
-                    }).SingleOrDefault();
-
-            if (inquirer != null)
+//            var answer = inquiry;
+//            if (!this.Answers.ContainsKey(answer))
+//            {
+            foreach (var inquirer in this.Inquirers)
             {
-                result = inquirer.Method.Invoke(inquirer.Instance, args);
-                success = true;
+                if (success = ((IInquirer)inquirer.Value).Inquire(inquiry, args, out result))
+                {
+                    break;
+                }
             }
-            
+//            }
+//            else
+//            {
+//                result = this.Answers[answer];
+//                success = true;
+//            }
+
             return success;
+        }
+
+        private void RegisterAnswer(object sender, InquiryEventArgs args)
+        {
+            if (!this.Answers.ContainsKey(args.Inquiry))
+            {
+                this.Answers.Add(args.Inquiry, args.Result);
+            }
         }
     }
 }

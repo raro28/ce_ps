@@ -4,10 +4,10 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
     using System.Linq;
     using System.Collections.Generic;
     using NUnit.Framework;
-    using Mx.Ipn.Esime.Statistics.Core.Base;
+    using Mx.Ipn.Esime.Statistics.Core;
 	
     [TestFixture()]
-    public abstract class CentralTendecyInquirerBase_Tests<TInquirer,THelper> : InquirerBase_Tests<TInquirer,THelper> where TInquirer:CentralTendecyInquirerBase where THelper:HelperMethodsBase
+    public abstract class CentralTendecyInquirerBase_Tests<TInquirer,THelper> : InquirerBase_Tests<TInquirer,THelper> where TInquirer:ICentralTendencyInquirer where THelper:HelperMethodsBase
     {
         [TestCase(100)]
         public void Inquirer_Gets_Expected_Mean(int size)

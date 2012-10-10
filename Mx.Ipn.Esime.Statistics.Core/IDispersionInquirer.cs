@@ -1,6 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.Core
 {
-    public interface IDispersionInquirer
+    public interface IDispersionInquirer : IInquirer
     {
         double GetDataRange();
         

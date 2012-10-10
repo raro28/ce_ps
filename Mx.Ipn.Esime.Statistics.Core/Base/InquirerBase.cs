@@ -20,6 +20,10 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             AssertUniqueDataContainer(dependencies);
         }
 
+        public delegate void InquiryResolved(object sender, InquiryEventArgs args);
+
+        public event InquiryResolved Resolved;
+
         public DataContainer DataContainer
         {
             get;
@@ -39,6 +43,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             }
             
             return success;
+        }
+
+        protected void FireResolvedEvent(object sender, InquiryEventArgs args)
+        {
+            this.Resolved(sender, args);
         }
 
         private static void AssertUniqueDataContainer(IEnumerable<InquirerBase> dependencies)

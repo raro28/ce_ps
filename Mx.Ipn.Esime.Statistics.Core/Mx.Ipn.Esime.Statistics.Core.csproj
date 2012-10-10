@@ -49,7 +49,6 @@
     <Compile Include="StatisticsException.cs" />
     <Compile Include="Base\InquirerBase.cs" />
     <Compile Include="Base\XileInquirerBase.cs" />
-    <Compile Include="Base\CentralTendecyInquirerBase.cs" />
     <Compile Include="Base\DispersionInquirerBase.cs" />
     <Compile Include="Resources\TaskNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -61,6 +60,7 @@
     <Compile Include="IInquirer.cs" />
     <Compile Include="Base\SequenceCastExtension.cs" />
     <Compile Include="AnswerAttribute.cs" />
+    <Compile Include="Base\InquiryEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

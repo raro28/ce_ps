@@ -1,6 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.Core
 {
-    public interface IXileInquirer
+    public interface IXileInquirer : IInquirer
     {
         double GetDecile(int nTh);
 

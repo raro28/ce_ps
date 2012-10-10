@@ -6,6 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
     using System.Dynamic;
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core.Base;
+    using Mx.Ipn.Esime.Statistics.Core.Resources;
 
     public class DataDistributionFrequencyInquirer : InquirerBase
     {
@@ -59,6 +60,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 var frequency = DataContainer.Data.Count(item => item >= tableItem.ClassInterval.From && item <= tableItem.ClassInterval.To);
                 tableItem.Frequency = frequency;
             }
+
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Frequencies, TaskNames.DispersionTable));
         }
 
         public void AddAcumulatedFrequencies()
@@ -71,6 +74,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 item.AcumulatedFrequency = item.Frequency + lastFrequency;
                 lastFrequency = item.AcumulatedFrequency;
             }
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AcumulatedFrequencies, TaskNames.DispersionTable));
         }
 
         public void AddRelativeFrequencies()
@@ -81,6 +85,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             {
                 item.RelativeFrequency = (double)item.Frequency / DataContainer.DataCount;
             }
+
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.RelativeFrequencies, TaskNames.DispersionTable));
         }
 
         public void AddAcumulatedRelativeFrequencies()
@@ -93,6 +99,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 item.AcumulatedRelativeFrequency = item.RelativeFrequency + lastRelativeFrequency;
                 lastRelativeFrequency = item.AcumulatedRelativeFrequency;
             }
+
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AcumulatedRelativeFrequencies, TaskNames.DispersionTable));
         }
 
         public void AddClassMarks()
@@ -103,6 +111,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 var classMark = (item.ClassInterval.From + item.ClassInterval.To) / 2;
                 item.ClassMark = classMark;
             }
+
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.ClassMarks, TaskNames.DispersionTable));
         }
 
         public void AddRealClassIntervals()
@@ -115,6 +125,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
                 item.RealInterval = realInterval;
             }
+
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.RealClassIntervals, TaskNames.DispersionTable));
         }
 
         public void AddFrequenciesTimesClassMarks()
@@ -126,6 +138,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             {
                 item.fX = item.Frequency * item.ClassMark;
             }
+
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.FrequenciesTimesClassMarks, TaskNames.DispersionTable));
         }
 
         private void InitProperties()
@@ -162,6 +176,8 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             }
             
             this.Table = table.AsReadOnly();
+
+            //this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.ClassIntervals, TaskNames.DispersionTable));
         }
     }   
 }

@@ -2,9 +2,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Mx.Ipn.Esime.Statistics.Core;
     using Mx.Ipn.Esime.Statistics.Core.Base;
 
-    public class GroupedCentralTendecyInquirer : CentralTendecyInquirerBase
+    public class GroupedCentralTendecyInquirer : InquirerBase, ICentralTendencyInquirer
     {
         public GroupedCentralTendecyInquirer(DataDistributionFrequencyInquirer distributionInquirer, GroupedXileInquirer xileInquirer) : base(distributionInquirer.DataContainer, xileInquirer)
         {           
@@ -24,33 +25,33 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             set;
         }
 
-        protected override double CalcMean()
+        public double GetMean()
         {
             this.DistributionInquirer.AddFrequenciesTimesClassMarks();
-            var table = this.DistributionInquirer.GetTable();
+            var table = this.DistributionInquirer.Table;
             double fxSum = 0;
             foreach (var item in table)
             {
                 fxSum += item.fX;
             }
-
+            
             var mean = fxSum / DataContainer.DataCount;
-
+            
             return mean;
         }
 
-        protected override double CalcMedian()
+        public double GetMedian()
         {
             var median = this.XileInquirer.GetQuartile(2);
-
+            
             return median;
         }
 
-        protected override IList<double> CalcModes()
+        public IList<double> GetModes()
         {
             this.DistributionInquirer.AddFrequencies();
             this.DistributionInquirer.AddRealClassIntervals();
-            var table = this.DistributionInquirer.GetTable().ToList();
+            var table = this.DistributionInquirer.Table;
             var firstMaxFreqItem = table.OrderByDescending(item => item.Frequency).First();
             var maxFreqItems = table.Where(item => item.Frequency == firstMaxFreqItem.Frequency).ToList();
 

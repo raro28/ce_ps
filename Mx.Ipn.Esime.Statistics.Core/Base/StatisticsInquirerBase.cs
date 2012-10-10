@@ -8,6 +8,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public abstract class StatisticsInquirerBase : DynamicObject
     {
+        public readonly Dictionary<string, dynamic> Answers;
         public readonly Dictionary<Type, InquirerBase> Inquirers;
         protected static readonly StandardKernel Kernel;
 
@@ -18,6 +19,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
         public StatisticsInquirerBase(DataContainer dataContainer, params InquirerBase[] inquirers)
         {                      
+            this.Answers = new Dictionary<string, dynamic>();
             this.Inquirers = inquirers.ToDictionary(inquirer => inquirer.GetType());
             this.DataContainer = dataContainer;
         }

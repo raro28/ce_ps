@@ -8,7 +8,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
     public class DataContainer
     {
-        public readonly Dictionary<string, dynamic> Answers;
         public readonly ReadOnlyCollection<double> Data;
         public readonly int DataPrecision;
         public readonly double DataPrecisionValue;
@@ -17,7 +16,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         public DataContainer(IEnumerable<double> data)
         {
             AssertValidData(data);
-            this.Answers = new Dictionary<string, dynamic>();
             
             var cache = data.ToList();
             cache.Sort();

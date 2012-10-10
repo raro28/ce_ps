@@ -56,10 +56,10 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             result = null;
 
             var inquirer = this.Inquirers
-                .Where(pair => pair.Key.ResolveFor(inquiry, args) != null)
+                .Where(pair => pair.Key.GetMethods().SingleOrDefault(method => method.Name == inquiry) != null)
                 .Select(pair => new 
                             {
-                        Method = pair.Key.ResolveFor(inquiry, args), Instance = pair.Value
+                        Method = pair.Key.GetMethods().SingleOrDefault(method => method.Name == inquiry), Instance = pair.Value
                     }).SingleOrDefault();
 
             if (inquirer != null)

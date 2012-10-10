@@ -59,14 +59,26 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
             var inquirer = this.Inquirers
                 .Where(pair => pair.Key.ResolveFor(inquiry, args) != null)
-                .Select(pair => new 
+                    .Select(pair => new 
                             {
                         Method = pair.Key.ResolveFor(inquiry, args), Instance = pair.Value
                     }).SingleOrDefault();
-
             if (inquirer != null)
             {
-                result = inquirer.Method.Invoke(inquirer.Instance, args);
+                var attribute = inquirer.Method.GetCustomAttributes(inherit: true)
+                    .SingleOrDefault(attr => attr is AnswerAttribute); 
+                var answer = attribute != null ? ((AnswerAttribute)attribute).Name : inquiry;
+
+                if (!this.Answers.ContainsKey(answer))
+                {                              
+                    result = inquirer.Method.Invoke(inquirer.Instance, args);
+                    this.Answers.Add(answer, result);
+                }
+                else
+                {
+                    result = this.Answers[answer];
+                }
+
                 success = true;
             }
             

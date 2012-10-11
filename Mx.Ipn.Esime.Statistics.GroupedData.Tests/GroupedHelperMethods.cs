@@ -1,21 +1,21 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 {
-	using System.Collections.Generic;
     using Mx.Ipn.Esime.Statistics.BaseData.Tests;
     using Ninject;
 	
-    public class GroupedHelperMethods:HelperMethodsBase
+    public class GroupedHelperMethods:HelperMethods
     {
-        public override double CalcNthXile(IList<double> data, int xile, int nTh)
+        public GroupedHelperMethods()
         {
-            //TODO:GroupedHelperMethods:CalcNthXile
-            return -1;
-        }		
-
-        public override double SampleMean(List<double> data)
-        {
-            //TODO:GroupedHelperMethods:SampleMean
-            return -1;
+            this.CalcNthXile = (data, xile, nTh) => {
+                //TODO:GroupedHelperMethods:CalcNthXile
+                return -1;
+            };
+            
+            this.SampleMean = data => {
+                //TODO:GroupedHelperMethods:SampleMean
+                return -1;
+            };
         }
 
         public override TInquirer NewInquirer<TInquirer>(Ninject.StandardKernel kernel)

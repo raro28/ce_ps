@@ -43,10 +43,12 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="InquirerBase.Tests.cs" />
-    <Compile Include="HelperMethodsBase.cs" />
     <Compile Include="XileInquirerBase.Tests.cs" />
     <Compile Include="DispersionInquirerBase.Tests.cs" />
     <Compile Include="CentralTendecyInquirerBase.Tests.cs" />
+    <Compile Include="DataContainer.Tests.cs" />
+    <Compile Include="HelperMethods.cs" />
+    <Compile Include="TestsBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">

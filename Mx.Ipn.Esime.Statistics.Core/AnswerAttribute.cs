@@ -3,6 +3,7 @@ namespace Mx.Ipn.Esime.Statistics.Core
     using System;
     using System.Linq;
 
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class AnswerAttribute : Attribute
     {
         private readonly object[] defaults;
@@ -45,9 +46,7 @@ namespace Mx.Ipn.Esime.Statistics.Core
             var argsList = args.ToList();
             argsList.InsertRange(0, this.defaults.ToList());
 
-            var mergedArgs = argsList.ToArray();
-
-            return string.Format(this.Name, mergedArgs);
+            return string.Format(this.Name, argsList.ToArray());
         }
 
         public override string ToString()

@@ -30,30 +30,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             return range;
         }
 
-        public override double GetAbsoluteDeviation()
-        {
-            var mad = this.MeanDifferenceSum(1) / DataContainer.DataCount;
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AbsoluteDeviation, mad));
-
-            return mad;
-        }
-
-        public override double GetVariance()
-        {
-            var variance = this.MeanDifferenceSum(2) / (DataContainer.DataCount - 1);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Variance, variance));
-
-            return variance;
-        }
-
         [AnswerAttribute(Name = "MeanDifference_Format", Type = typeof(TaskNames), Formated = true)]
         public void AddMeanDifference(int power)
         {       
-            if (power < 1 || power > 4)
-            {
-                throw new StatisticsException(string.Format(ExceptionMessages.Invalid_Power_Format, power));
-            }
-            
             var keyProperty = string.Format(TaskNames.MeanDiff_Property_Format, power);
             this.DistributionInquirer.AddClassMarks();
             this.DistributionInquirer.AddFrequencies();
@@ -80,17 +59,10 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.FireResolvedEvent(this, new InquiryEventArgs(keyDifference, TaskNames.DispersionTable));
         }
 
-        protected override double GetMomentum(int nMomentum)
+        protected override double MeanDifferenceSum(int power)
         {
-            var momentum = this.MeanDifferenceSum(nMomentum) / DataContainer.DataCount;
-            var keyMomentum = string.Format(TaskNames.MomentumFormat, nMomentum);
-            this.FireResolvedEvent(this, new InquiryEventArgs(keyMomentum, momentum));
+            DispersionInquirerBase.AssertValidPower(power);
 
-            return momentum;
-        }
-
-        private double MeanDifferenceSum(int power)
-        {
             this.AddMeanDifference(power);
             double sum = 0;
             var table = this.DistributionInquirer.GetTable();

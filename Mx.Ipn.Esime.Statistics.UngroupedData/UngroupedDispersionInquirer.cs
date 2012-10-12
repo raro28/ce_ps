@@ -21,48 +21,21 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             return range;
         }
 
-        public override double GetAbsoluteDeviation()
+        protected override double MeanDifferenceSum(int power)
         {
-            var nAbsDev = 0.0;
+            DispersionInquirerBase.AssertValidPower(power);
+
+            var mean = this.CentralTendecyInquirer.GetMean();
+            double sum = 0;
             foreach (var item in DataContainer.Data)
             {
-                nAbsDev += Math.Abs(item - this.CentralTendecyInquirer.GetMean());
+                var difference = power != 1 ? item - mean : Math.Abs(item - mean);
+                var powDifference = Math.Pow(difference, power);
+
+                sum += powDifference;
             }
-            
-            var mad = nAbsDev / DataContainer.DataCount;
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AbsoluteDeviation, mad));
 
-            return mad;
-        }
-
-        public override double GetVariance()
-        {
-            var nplus1Variance = 0.0;
-            foreach (var item in DataContainer.Data)
-            {
-                nplus1Variance += Math.Pow(item - this.CentralTendecyInquirer.GetMean(), 2);
-            }
-            
-            var variance = nplus1Variance / (DataContainer.DataCount - 1);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Variance, variance));
-
-            return variance;
-        }
-
-        protected override double GetMomentum(int nMomentum)
-        {
-            var momentum = 0.0;
-            foreach (var item in DataContainer.Data)
-            {
-                var meanDiff = item - this.CentralTendecyInquirer.GetMean();
-                momentum += Math.Pow(meanDiff, nMomentum);
-            }
-            
-            momentum /= DataContainer.DataCount;
-            var keyMomentum = string.Format(TaskNames.MomentumFormat, nMomentum);
-            this.FireResolvedEvent(this, new InquiryEventArgs(keyMomentum, momentum));
-
-            return momentum;
+            return sum;
         }
     }
 }

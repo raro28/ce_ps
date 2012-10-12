@@ -52,10 +52,22 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         }
 
         [AnswerAttribute(Name = "AbsoluteDeviation", Type = typeof(TaskNames))]
-        public abstract double GetAbsoluteDeviation();
+        public double GetAbsoluteDeviation()
+        {
+            var mad = this.MeanDifferenceSum(1) / DataContainer.DataCount;
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AbsoluteDeviation, mad));
+            
+            return mad;
+        }
 
         [AnswerAttribute(Name = "Variance", Type = typeof(TaskNames))]
-        public abstract double GetVariance();
+        public double GetVariance()
+        {
+            var variance = this.MeanDifferenceSum(2) / (DataContainer.DataCount - 1);
+            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Variance, variance));
+            
+            return variance;
+        }
 
         [AnswerAttribute(Name = "StandarDeviation", Type = typeof(TaskNames))]
         public double GetStandarDeviation()
@@ -97,7 +109,24 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             return cok;
         }
 
+        protected static void AssertValidPower(int power)
+        {
+            if (power < 1 || power > 4)
+            {
+                throw new StatisticsException(string.Format(ExceptionMessages.Invalid_Power_Format, power));
+            }
+        }
+
         [AnswerAttribute(Name = "MomentumFormat", Type = typeof(TaskNames), Formated = true)]
-        protected abstract double GetMomentum(int nMomentum);
+        protected double GetMomentum(int nMomentum)
+        {
+            var momentum = this.MeanDifferenceSum(nMomentum) / DataContainer.DataCount;
+            var keyMomentum = string.Format(TaskNames.MomentumFormat, nMomentum);
+            this.FireResolvedEvent(this, new InquiryEventArgs(keyMomentum, momentum));
+            
+            return momentum;
+        }
+
+        protected abstract double MeanDifferenceSum(int power);
     }
 }

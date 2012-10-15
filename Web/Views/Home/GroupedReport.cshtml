@@ -3,10 +3,9 @@
 <fieldset>
     <legend>Específico para datos @{if(ViewBag.Type != "ungrouped"){<text>agrupados</text>}else {<text>no agrupados</text>}}</legend>
     <ul>
-        <li><label>R= </label>@Model.Range</li>
-        <li><label>K= </label>@Model.GroupsCount</li>
-        <li><label>C= </label>@Model.Amplitude</li>
+        <li><label>Rango (R): </label>@Model.Range</li>
+        <li><label>Grupo (K): </label>@Model.GroupsCount</li>
+        <li><label>Amplitud (C): </label>@Model.Amplitude</li>
         <li>@Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.GetTable())</li>
     </ul>
-</fieldset> 
-
+</fieldset>

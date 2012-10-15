@@ -29,14 +29,14 @@ namespace Web.Controllers
         public ActionResult Index(int? size)
         {
             ViewBag.Size = size ?? 100;
-            ViewBag.Title = "Index";
+            ViewBag.Title = "Estadística Descriptiva";
             return View();
         }
 
         [HttpPost]
         public ActionResult Report(string data, string type)
         {
-            ViewBag.Title = "Report";
+            ViewBag.Title = "Reporte del análisis";
             var values = data.Split(',').Select(number => Double.Parse(number)).ToList();
             var kernel = new StandardKernel();
             kernel.Bind<GroupedXileInquirer>().ToSelf().InSingletonScope();

@@ -1,33 +1,26 @@
 @using System.Dynamic
 @using System.Linq
 @model IEnumerable<dynamic>
-<table>
-    <thead>@DiscoverHeader(Model.First())</thead>
-    @foreach (var item in Model) {
-    <tr>
-    @DiscoverRow(item)
-    </tr>    
-    }            
-</table>
-
-@helper DiscoverHeader(IDictionary<string, object> rowSample)
-{
-    foreach (var pair in rowSample) {
-     <th>@pair.Key</th>   
-    }           
-}
-
-@helper DiscoverRow(IDictionary<string, object> row)
-{
-    foreach (var pair in row) {
-     <td>
-     @if(pair.Key.Contains("fMeanDiff"))
-     {
-        @Math.Round((double)pair.Value, 4)
-     }else
-     {
-        @pair.Value
-     }
-     </td>   
+<script type="text/javascript" language="javascript">
+$(document).ready(function() 
+    { 
+        $("#distributionTable").tablesorter(); 
     } 
+); 
+</script>
+<table  id="distributionTable" class="tablesorter"">
+    <thead>@DiscoverHeader(Model.First())</thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>@DiscoverRow(item)</tr>
+        }     
+    </tbody>       
+</table>
+@helper DiscoverHeader(IDictionary<string, object> rowSample){foreach (var pair in rowSample) {<th>@pair.Key</th>}}
+
+@helper DiscoverRow(IDictionary<string, object> row){
+    foreach (var pair in row) {
+        <td>@if(pair.Key.Contains("fMeanDiff")){@Math.Round((double)pair.Value, 4)}
+        else{@pair.Value}</td>
+    }
 }

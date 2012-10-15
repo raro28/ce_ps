@@ -5,6 +5,7 @@
     <legend>Datos originales</legend>
     <textarea disabled="disabled">@ShowNumberList(Model.Container.Data)</textarea>
 </fieldset>
+
 <fieldset>
     <legend>Reporte general</legend>
     <fieldset>
@@ -43,7 +44,7 @@
         </ul>
     </fieldset>    
 @if(ViewBag.Type == "grouped"){
-    @Html.Partial("GroupedReport", (object)Model);
+    @Html.Partial("GroupedReport", (object)Model)
 }    
 </fieldset>
 

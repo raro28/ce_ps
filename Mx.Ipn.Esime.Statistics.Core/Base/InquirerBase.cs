@@ -16,7 +16,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
                 throw new StatisticsException(ExceptionMessages.Null_Data_Container, new ArgumentNullException("dataContainer"));
             }
             
-            this.DataContainer = dataContainer;
+            this.Container = dataContainer;
 
             AssertNotNull(dependencies);
             AssertUniqueDataContainer(dependencies);
@@ -24,11 +24,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             this.Id = Guid.NewGuid();
         }
 
-        public delegate void InquiryResolved(object sender, InquiryEventArgs args);
-
-        public event InquiryResolved Resolved;
-
-        public DataContainer DataContainer
+        public DataContainer Container
         {
             get;
             private set;
@@ -36,7 +32,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
         public override string ToString()
         {
-            return string.Format("[{0}: Id={1}]", this.GetType().Name, this.Id.ToString().Substring(0, 3));
+            return string.Format("[{0}: Id={1}]", this.GetType().Name, this.Id.ToString().Substring(0, 5));
         }
 
         bool IInquirer.Inquire(string inquiry, object[] args, out object result)
@@ -54,17 +50,9 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             return success;
         }
 
-        protected void FireResolvedEvent(object sender, InquiryEventArgs args)
-        {
-            if (this.Resolved != null)
-            {
-                this.Resolved(sender, args);
-            }
-        }
-
         private static void AssertUniqueDataContainer(IEnumerable<InquirerBase> dependencies)
         {
-            if (dependencies.Select(inquirer => inquirer.DataContainer).Distinct().Count() > 1)
+            if (dependencies.Select(inquirer => inquirer.Container).Distinct().Count() > 1)
             {
                 throw new StatisticsException(ExceptionMessages.Multiple_DataContainers);
             }

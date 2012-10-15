@@ -15,10 +15,9 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
         public override double GetDataRange()
         {
-            var range = DataContainer.Data.Max() - DataContainer.Data.Min();
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.DataRange, range));
+            Func<double> func = () => Container.Data.Max() - Container.Data.Min();
 
-            return range;
+            return this.Container.Register(TaskNames.DataRange, func);
         }
 
         protected override double MeanDifferenceSum(int power)
@@ -27,7 +26,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
 
             var mean = this.CentralTendecyInquirer.GetMean();
             double sum = 0;
-            foreach (var item in DataContainer.Data)
+            foreach (var item in Container.Data)
             {
                 var difference = power != 1 ? item - mean : Math.Abs(item - mean);
                 var powDifference = Math.Pow(difference, power);

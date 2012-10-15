@@ -4,7 +4,7 @@ namespace Mx.Ipn.Esime.Statistics.Core
 
     public interface IInquirer
     {
-        DataContainer DataContainer
+        DataContainer Container
         {
             get;
         }

@@ -1,5 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.UngroupedData
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core;
@@ -15,32 +16,39 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
         [AnswerAttribute(Name = "Mean", Type = typeof(TaskNames))]
         public double GetMean()
         {
-            var mean = DataContainer.Data.Sum() / DataContainer.DataCount;
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Mean, mean));
+            Func<double> func = () => Container.Data.Sum() / Container.DataCount;
 
-            return mean;
+            return this.Container.Register(TaskNames.Mean, func);
         }
 
         [AnswerAttribute(Name = "Median", Type = typeof(TaskNames))]
         public double GetMedian()
         {
-            var midIndex = (DataContainer.DataCount / 2) - 1;
-            var median = DataContainer.DataCount % 2 != 0 ? DataContainer.Data[midIndex + 1] : (DataContainer.Data[midIndex] + DataContainer.Data[midIndex + 1]) / 2;
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Median, median));
+            Func<double> func = () =>
+            {
+                var midIndex = (Container.DataCount / 2) - 1;
+                var median = Container.DataCount % 2 != 0 ? Container.Data[midIndex + 1] : (Container.Data[midIndex] + Container.Data[midIndex + 1]) / 2;
 
-            return median;
+                return median;
+            };
+          
+            return this.Container.Register(TaskNames.Median, func);
         }
 
         [AnswerAttribute(Name = "Modes", Type = typeof(TaskNames))]
         public IList<double> GetModes()
         {
-            var groups = DataContainer.Data.GroupBy(item => item);
-            var modes = (from _mode in groups
-                         where _mode.Count() == groups.Max(grouped => grouped.Count())
-                         select _mode.First()).ToList();
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Modes, modes));
+            Func<IList<double>> func = () =>
+            {
+                var groups = Container.Data.GroupBy(item => item);
+                var modes = (from _mode in groups
+                             where _mode.Count() == groups.Max(grouped => grouped.Count())
+                             select _mode.First()).ToList();
 
-            return modes;
+                return modes;
+            };
+
+            return this.Container.Register(TaskNames.Modes, func);
         }
     }
 }

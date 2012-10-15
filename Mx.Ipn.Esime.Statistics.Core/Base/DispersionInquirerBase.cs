@@ -27,86 +27,87 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         [AnswerAttribute(Name = "QuartileRange", Type = typeof(TaskNames))]
         public double GetInterQuartileRange()
         {
-            var range = this.XileInquirer.GetQuartile(3) - this.XileInquirer.GetQuartile(1);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.QuartileRange, range));
+            Func<double> func = () => this.XileInquirer.GetQuartile(3) - this.XileInquirer.GetQuartile(1);
 
-            return range;
+            return this.Container.Register(TaskNames.QuartileRange, func);
         }
 
         [AnswerAttribute(Name = "DecileRange", Type = typeof(TaskNames))]
         public double GetInterDecileRange()
         {
-            var range = this.XileInquirer.GetDecile(9) - this.XileInquirer.GetDecile(1);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.DecileRange, range));
+            Func<double> func = () => this.XileInquirer.GetDecile(9) - this.XileInquirer.GetDecile(1);
 
-            return range;
+            return this.Container.Register(TaskNames.DecileRange, func);
         }
 
         [AnswerAttribute(Name = "PercentileRange", Type = typeof(TaskNames))]
         public double GetInterPercentileRange()
         {
-            var range = this.XileInquirer.GetPercentile(90) - this.XileInquirer.GetPercentile(10);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.PercentileRange, range));
+            Func<double> func = () => this.XileInquirer.GetPercentile(90) - this.XileInquirer.GetPercentile(1);
 
-            return range;
+            return this.Container.Register(TaskNames.PercentileRange, func);
         }
 
         [AnswerAttribute(Name = "AbsoluteDeviation", Type = typeof(TaskNames))]
         public double GetAbsoluteDeviation()
         {
-            var mad = this.MeanDifferenceSum(1) / DataContainer.DataCount;
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.AbsoluteDeviation, mad));
-            
-            return mad;
+            Func<double> func = () => this.MeanDifferenceSum(1) / Container.DataCount;
+
+            return this.Container.Register(TaskNames.AbsoluteDeviation, func);
         }
 
         [AnswerAttribute(Name = "Variance", Type = typeof(TaskNames))]
         public double GetVariance()
         {
-            var variance = this.MeanDifferenceSum(2) / (DataContainer.DataCount - 1);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Variance, variance));
+            Func<double> func = () => this.MeanDifferenceSum(2) / (Container.DataCount - 1);
             
-            return variance;
+            return this.Container.Register(TaskNames.Variance, func);
         }
 
         [AnswerAttribute(Name = "StandarDeviation", Type = typeof(TaskNames))]
         public double GetStandarDeviation()
         {
-            var sde = Math.Sqrt(this.GetVariance());
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.StandarDeviation, sde));
+            Func<double> func = () => Math.Sqrt(this.GetVariance());
 
-            return sde;
+            return this.Container.Register(TaskNames.StandarDeviation, func);
         }
 
         [AnswerAttribute(Name = "CoefficientOfVariation", Type = typeof(TaskNames))]
         public double GetCoefficientOfVariation()
         {
-            var cov = this.GetStandarDeviation() / this.CentralTendecyInquirer.GetMean();
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.CoefficientOfVariation, cov));
+            Func<double> func = () => this.GetStandarDeviation() / this.CentralTendecyInquirer.GetMean();
 
-            return cov;
+            return this.Container.Register(TaskNames.CoefficientOfVariation, func);
         }
 
         [AnswerAttribute(Name = "CoefficientOfSymmetry", Type = typeof(TaskNames))]
         public double GetCoefficientOfSymmetry()
         {
-            var m3 = this.GetMomentum(3);
-            var m2 = this.GetMomentum(2);
-            var cos = m3 / Math.Pow(m2, 1.5);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.CoefficientOfSymmetry, cos));
+            Func<double> func = () => 
+            {
+                var m3 = this.GetMomentum(3);
+                var m2 = this.GetMomentum(2);
+                var cos = m3 / Math.Pow(m2, 1.5);
 
-            return cos;
+                return cos;
+            };
+
+            return this.Container.Register(TaskNames.CoefficientOfSymmetry, func);
         }
 
         [AnswerAttribute(Name = "CoefficientOfKourtosis", Type = typeof(TaskNames))]
         public double GetCoefficientOfKourtosis()
         {
-            var m4 = this.GetMomentum(4);
-            var m2 = this.GetMomentum(2);
-            var cok = m4 / Math.Pow(m2, 2);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.CoefficientOfKourtosis, cok));
-
-            return cok;
+            Func<double> func = () => 
+            {
+                var m4 = this.GetMomentum(4);
+                var m2 = this.GetMomentum(2);
+                var cok = m4 / Math.Pow(m2, 2);
+                
+                return cok;
+            };
+            
+            return this.Container.Register(TaskNames.CoefficientOfKourtosis, func);
         }
 
         protected static void AssertValidPower(int power)
@@ -120,11 +121,10 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         [AnswerAttribute(Name = "MomentumFormat", Type = typeof(TaskNames), Formated = true)]
         protected double GetMomentum(int nMomentum)
         {
-            var momentum = this.MeanDifferenceSum(nMomentum) / DataContainer.DataCount;
+            Func<double> func = () => this.MeanDifferenceSum(nMomentum) / Container.DataCount;
             var keyMomentum = string.Format(TaskNames.MomentumFormat, nMomentum);
-            this.FireResolvedEvent(this, new InquiryEventArgs(keyMomentum, momentum));
-            
-            return momentum;
+
+            return this.Container.Register(keyMomentum, func);
         }
 
         protected abstract double MeanDifferenceSum(int power);

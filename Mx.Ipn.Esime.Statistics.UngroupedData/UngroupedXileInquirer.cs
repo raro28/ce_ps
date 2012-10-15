@@ -13,7 +13,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
         {
             var li = (int)Math.Floor(lx - 0.5);
             var ls = (int)Math.Floor(lx + 0.5);
-            if (ls == DataContainer.DataCount)
+            if (ls == Container.DataCount)
             {
                 ls = li;
             }
@@ -21,7 +21,7 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             var iPortion = li + 1 - (lx - 0.5);
             var sPortion = 1 - iPortion;
 			
-            var xileResult = (iPortion * DataContainer.Data[li]) + (sPortion * DataContainer.Data[ls]);
+            var xileResult = (iPortion * Container.Data[li]) + (sPortion * Container.Data[ls]);
             return xileResult;
         }
     }

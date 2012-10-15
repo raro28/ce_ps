@@ -57,7 +57,6 @@
     <Compile Include="IInquirer.cs" />
     <Compile Include="Base\SequenceCastExtension.cs" />
     <Compile Include="AnswerAttribute.cs" />
-    <Compile Include="Base\InquiryEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

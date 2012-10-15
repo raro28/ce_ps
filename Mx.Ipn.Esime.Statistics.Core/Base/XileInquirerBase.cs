@@ -58,12 +58,16 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
         private double GetXile(XileInfo xileInfo)
         {
-            double xileResult;
-            var lx = DataContainer.DataCount * xileInfo.NthXile / (double)xileInfo.Xile;
-            xileResult = this.CalcXile(lx);
-            this.FireResolvedEvent(this, new InquiryEventArgs(xileInfo.ToString(), xileResult));
+            Func<double> func = () =>
+            {
+                double xileResult;
+                var lx = Container.DataCount * xileInfo.NthXile / (double)xileInfo.Xile;
+                xileResult = this.CalcXile(lx);
 
-            return xileResult;
+                return xileResult;
+            };
+
+            return this.Container.Register(xileInfo.ToString(), func);
         }
 
         internal class XileInfo

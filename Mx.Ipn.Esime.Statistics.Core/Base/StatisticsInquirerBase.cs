@@ -8,22 +8,16 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     public abstract class StatisticsInquirerBase : DynamicObject, IInquirer
     {
         public readonly Dictionary<Type, InquirerBase> Inquirers;
-        protected readonly Dictionary<string, dynamic> Answers;
 
         public StatisticsInquirerBase(DataContainer dataContainer, params InquirerBase[] inquirers)
         {                      
             this.Inquirers = inquirers
-                .ToDictionary(inquirer => 
-            {
-                inquirer.Resolved += this.UpgradeAnswer;
-                return inquirer.GetType();
-            });
+                .ToDictionary(inquirer => inquirer.GetType());
 
-            this.Answers = new Dictionary<string, dynamic>();
-            this.DataContainer = dataContainer;
+            this.Container = dataContainer;
         }
 
-        public DataContainer DataContainer
+        public DataContainer Container
         {
             get;
             private set;
@@ -58,31 +52,19 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
                     name = answerAttr.Formated ? answerAttr.Format(args) : answerAttr.Name;
                 }
 
-                if ((name != null && !this.Answers.ContainsKey(name)) || name == null)
+                if ((name != null && !this.Container.Answers.ContainsKey(name)) || name == null)
                 {
                     result = inquirer.Method.Invoke(inquirer.Instance, args);
                 }
                 else
                 {
-                    result = this.Answers[name];
+                    result = this.Container.Answers[name];
                 }
 
                 success = true;
             }
 
             return success;
-        }
-
-        private void UpgradeAnswer(object sender, InquiryEventArgs args)
-        {
-            if (this.Answers.ContainsKey(args.Inquiry))
-            {
-                this.Answers[args.Inquiry] = args.Result;
-            }
-            else
-            {
-                this.Answers.Add(args.Inquiry, args.Result);
-            }
         }
     }
 }

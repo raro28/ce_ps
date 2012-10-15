@@ -13,20 +13,24 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
             StandardKernel Kernel = new StandardKernel();
             var helper = new GroupedHelperMethods();
 
-            Kernel.Bind<DataContainer>().ToMethod(context => new DataContainer(helper.GetRandomDataSample(500))).InSingletonScope();
+            Kernel.Bind<DataContainer>().ToMethod(context => new DataContainer(helper.GetRandomDataSample(100))).InSingletonScope();
             Kernel.Bind<GroupedXileInquirer>().ToSelf().InSingletonScope();
             Kernel.Bind<GroupedCentralTendecyInquirer>().ToSelf().InSingletonScope();
             Kernel.Bind<GroupedDispersionInquirer>().ToSelf().InSingletonScope();
+            Kernel.Bind<DataDistributionFrequencyInquirer>().ToSelf().InSingletonScope();
             Kernel.Bind<GroupedStatisticsInquirer>().ToSelf().InSingletonScope().Named("Singleton");
 
+
             dynamic inquirer = Kernel.Get<GroupedStatisticsInquirer>("Singleton");
-            var cok = inquirer.GetCoefficientOfKourtosis();
-            var modes = inquirer.GetModes();
-            var percentile34 = inquirer.GetPercentile(34);
-            cok = inquirer.GetCoefficientOfKourtosis();
-            var mean = inquirer.GetMean();
-            inquirer.AddMeanDifference(4);
+//            var cok = inquirer.GetCoefficientOfKourtosis();
+//            var modes = inquirer.GetModes();
+//            var percentile34 = inquirer.GetPercentile(34);
+//            cok = inquirer.GetCoefficientOfKourtosis();
+//            var mean = inquirer.GetMean();
+//            inquirer.AddMeanDifference(4);
             inquirer.AddMeanDifference(3);
+
+            var container = Kernel.Get<DataContainer>();
         }
     }
 }

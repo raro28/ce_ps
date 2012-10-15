@@ -13,6 +13,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         public readonly double DataPrecisionValue;
         public readonly int DataCount;
 
+        public readonly Guid id;
+
         public DataContainer(IEnumerable<double> data)
         {
             AssertValidData(data);
@@ -24,6 +26,45 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             this.DataPrecision = DataContainer.GetDataPrecision(data);
             this.DataPrecisionValue = Math.Pow(10, -1 * this.DataPrecision);
             this.DataCount = data.Count();
+            this.Answers = new Dictionary<string, dynamic>();
+
+            this.id = Guid.NewGuid();
+        }
+
+        public Dictionary<string, dynamic> Answers
+        {
+            get;
+            private set;
+        }
+
+        public T Register <T>(string opName, Func<T> function)
+        {
+            T result;
+            if (!this.Answers.ContainsKey(opName))
+            {
+                result = function();
+                this.Answers.Add(opName, result);
+            }
+            else
+            {
+                result = this.Answers[opName];
+            }
+
+            return result;
+        }
+
+        public void Register(string opName, string resultName, Action action)
+        {
+            if (!this.Answers.ContainsKey(opName))
+            {
+                action();
+                this.Answers.Add(opName, resultName);
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[{0}: Id={1}]", this.GetType().Name, this.id.ToString().Substring(0, 5));
         }
 
         private static void AssertValidData(IEnumerable<double> data)

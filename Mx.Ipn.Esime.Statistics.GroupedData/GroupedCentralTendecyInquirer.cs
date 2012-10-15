@@ -1,5 +1,6 @@
 namespace Mx.Ipn.Esime.Statistics.GroupedData
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core;
@@ -8,7 +9,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
     public class GroupedCentralTendecyInquirer : InquirerBase, ICentralTendencyInquirer
     {
-        public GroupedCentralTendecyInquirer(DataDistributionFrequencyInquirer distributionInquirer, GroupedXileInquirer xileInquirer) : base(distributionInquirer.DataContainer, xileInquirer)
+        public GroupedCentralTendecyInquirer(DataDistributionFrequencyInquirer distributionInquirer, GroupedXileInquirer xileInquirer) : base(distributionInquirer.Container, xileInquirer)
         {           
             this.DistributionInquirer = distributionInquirer;
             this.XileInquirer = xileInquirer;
@@ -29,55 +30,61 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         [AnswerAttribute(Name = "Mean", Type = typeof(TaskNames))]
         public double GetMean()
         {
-            this.DistributionInquirer.AddFrequenciesTimesClassMarks();
-            var table = this.DistributionInquirer.GetTable();
-            double fxSum = 0;
-            foreach (var item in table)
+            Func<double> func = () =>
             {
-                fxSum += item.fX;
-            }
-            
-            var mean = fxSum / DataContainer.DataCount;
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Mean, mean));
+                this.DistributionInquirer.AddFrequenciesTimesClassMarks();
+                var table = this.DistributionInquirer.GetTable();
+                double fxSum = 0;
+                foreach (var item in table)
+                {
+                    fxSum += item.fX;
+                }
+                
+                var mean = fxSum / Container.DataCount;
 
-            return mean;
+                return mean;
+            };
+
+            return this.Container.Register(TaskNames.Mean, func);
         }
 
         [AnswerAttribute(Name = "Median", Type = typeof(TaskNames))]
         public double GetMedian()
         {
-            var median = this.XileInquirer.GetQuartile(2);
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Median, median));
+            Func<double> func = () => this.XileInquirer.GetQuartile(2);
 
-            return median;
+            return this.Container.Register(TaskNames.Median, func);
         }
 
         [AnswerAttribute(Name = "Modes", Type = typeof(TaskNames))]
         public IList<double> GetModes()
         {
-            this.DistributionInquirer.AddFrequencies();
-            this.DistributionInquirer.AddRealClassIntervals();
-            var table = this.DistributionInquirer.GetTable();
-            var firstMaxFreqItem = table.OrderByDescending(item => item.Frequency).First();
-            var maxFreqItems = table.Where(item => item.Frequency == firstMaxFreqItem.Frequency).ToList();
+            Func<IList<double>> func = () =>
+            {
+                this.DistributionInquirer.AddFrequencies();
+                this.DistributionInquirer.AddRealClassIntervals();
+                var table = this.DistributionInquirer.GetTable();
+                var firstMaxFreqItem = table.OrderByDescending(item => item.Frequency).First();
+                var maxFreqItems = table.Where(item => item.Frequency == firstMaxFreqItem.Frequency).ToList();
 
-            var modes = new List<double>();
+                var modes = new List<double>();
 
-            foreach (var maxFreqItem in maxFreqItems)
-            {               
-                var iMaxFreqItem = table.IndexOf(maxFreqItem);
+                foreach (var maxFreqItem in maxFreqItems)
+                {               
+                    var iMaxFreqItem = table.IndexOf(maxFreqItem);
                 
-                var d1 = maxFreqItem.Frequency - (iMaxFreqItem != 0 ? table[iMaxFreqItem - 1].Frequency : 0);
-                var d2 = maxFreqItem.Frequency - (iMaxFreqItem < (table.Count - 1) ? table[iMaxFreqItem + 1].Frequency : 0);
+                    var d1 = maxFreqItem.Frequency - (iMaxFreqItem != 0 ? table[iMaxFreqItem - 1].Frequency : 0);
+                    var d2 = maxFreqItem.Frequency - (iMaxFreqItem < (table.Count - 1) ? table[iMaxFreqItem + 1].Frequency : 0);
                 
-                var mode = maxFreqItem.RealInterval.From + ((d1 * this.DistributionInquirer.Amplitude) / (d1 + d2));
+                    var mode = maxFreqItem.RealInterval.From + ((d1 * this.DistributionInquirer.Amplitude) / (d1 + d2));
 
-                modes.Add(mode);
-            }
+                    modes.Add(mode);
+                }
 
-            this.FireResolvedEvent(this, new InquiryEventArgs(TaskNames.Modes, modes));
+                return modes;
+            };
 
-            return modes;
+            return this.Container.Register(TaskNames.Modes, func);
         }
     }
 }

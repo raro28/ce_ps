@@ -6,7 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
     public class GroupedXileInquirer : XileInquirerBase
     {
-        public GroupedXileInquirer(DataDistributionFrequencyInquirer distributionInquirer) : base(distributionInquirer.DataContainer)
+        public GroupedXileInquirer(DataDistributionFrequencyInquirer distributionInquirer) : base(distributionInquirer.Container)
         {           
             this.DistributionInquirer = distributionInquirer;
         }

@@ -13,7 +13,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
         {	
         }
 
-        [AnswerAttribute(Name = "Mean", Type = typeof(TaskNames))]
         public double GetMean()
         {
             Func<double> func = () => Container.Data.Sum() / Container.DataCount;
@@ -21,7 +20,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             return this.Container.Register(TaskNames.Mean, func);
         }
 
-        [AnswerAttribute(Name = "Median", Type = typeof(TaskNames))]
         public double GetMedian()
         {
             Func<double> func = () =>
@@ -35,7 +33,6 @@ namespace Mx.Ipn.Esime.Statistics.UngroupedData
             return this.Container.Register(TaskNames.Median, func);
         }
 
-        [AnswerAttribute(Name = "Modes", Type = typeof(TaskNames))]
         public IList<double> GetModes()
         {
             Func<IList<double>> func = () =>

@@ -33,35 +33,12 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             var success = false;
             result = null;
 
-            var inquirer = this.Inquirers
-                .Where(pair => pair.Key.GetMethod(inquiry) != null)
-                .Select(pair => new 
-                            {
-                        Type = pair.Key,
-                        Instance = pair.Value,
-                        Method = pair.Key.GetMethod(inquiry)
-                    }).SingleOrDefault();
-
-            if (inquirer != null)
+            foreach (var item in this.Inquirers)
             {
-                var attr = inquirer.Method.GetCustomAttributes(typeof(AnswerAttribute), true).SingleOrDefault();
-                string name = null;
-                if (attr != null)
+                if (success = ((IInquirer)item.Value).Inquire(inquiry, args, out result))
                 {
-                    var answerAttr = (AnswerAttribute)attr;
-                    name = answerAttr.Formated ? answerAttr.Format(args) : answerAttr.Name;
+                    break;
                 }
-
-                if ((name != null && !this.Container.Answers.ContainsKey(name)) || name == null)
-                {
-                    result = inquirer.Method.Invoke(inquirer.Instance, args);
-                }
-                else
-                {
-                    result = this.Container.Answers[name];
-                }
-
-                success = true;
             }
 
             return success;

@@ -27,7 +27,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             set;
         }
 
-        [AnswerAttribute(Name = "Mean", Type = typeof(TaskNames))]
         public double GetMean()
         {
             Func<double> func = () =>
@@ -48,7 +47,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             return this.Container.Register(TaskNames.Mean, func);
         }
 
-        [AnswerAttribute(Name = "Median", Type = typeof(TaskNames))]
         public double GetMedian()
         {
             Func<double> func = () => this.XileInquirer.GetQuartile(2);
@@ -56,7 +54,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             return this.Container.Register(TaskNames.Median, func);
         }
 
-        [AnswerAttribute(Name = "Modes", Type = typeof(TaskNames))]
         public IList<double> GetModes()
         {
             Func<IList<double>> func = () =>

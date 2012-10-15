@@ -34,7 +34,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             return this.Container.Register(TaskNames.DataRange, func);
         }
 
-        [AnswerAttribute(Name = "MeanDifference_Format", Type = typeof(TaskNames), Formated = true)]
         public void AddMeanDifference(int power)
         {   
             Action action = () =>
@@ -60,7 +59,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                         entry[keyProperty] = powDifference;
                     }
                 }
-
             };
 
             var keyDifference = string.Format(TaskNames.MeanDifference_Format, power);

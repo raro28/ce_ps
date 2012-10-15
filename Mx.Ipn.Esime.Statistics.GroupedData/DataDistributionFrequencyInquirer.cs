@@ -58,7 +58,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             return this.Table;
         }
 
-        [AnswerAttribute(Name = "Frequencies", Type = typeof(TaskNames))]
         public void AddFrequencies()
         {      
             Action action = () =>
@@ -74,7 +73,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.Container.Register(TaskNames.Frequencies, TaskNames.DispersionTable, action);
         }
 
-        [AnswerAttribute(Name = "AcumulatedFrequencies", Type = typeof(TaskNames))]
         public void AddAcumulatedFrequencies()
         {
             Action action = () =>
@@ -92,7 +90,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.Container.Register(TaskNames.AcumulatedFrequencies, TaskNames.DispersionTable, action);
         }
 
-        [AnswerAttribute(Name = "RelativeFrequencies", Type = typeof(TaskNames))]
         public void AddRelativeFrequencies()
         {    
             Action action = () =>
@@ -108,7 +105,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.Container.Register(TaskNames.RelativeFrequencies, TaskNames.DispersionTable, action);
         }
 
-        [AnswerAttribute(Name = "AcumulatedRelativeFrequencies", Type = typeof(TaskNames))]
         public void AddAcumulatedRelativeFrequencies()
         {
             Action action = () =>
@@ -126,7 +122,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.Container.Register(TaskNames.AcumulatedRelativeFrequencies, TaskNames.DispersionTable, action);
         }
 
-        [AnswerAttribute(Name = "ClassMarks", Type = typeof(TaskNames))]
         public void AddClassMarks()
         {   
             Action action = () =>
@@ -142,7 +137,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.Container.Register(TaskNames.ClassMarks, TaskNames.DispersionTable, action);
         }
 
-        [AnswerAttribute(Name = "ClassIntervals", Type = typeof(TaskNames))]
         public void AddRealClassIntervals()
         {   
             Action action = () =>
@@ -160,7 +154,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.Container.Register(TaskNames.RealClassIntervals, TaskNames.DispersionTable, action);
         }
 
-        [AnswerAttribute(Name = "FrequenciesTimesClassMarks", Type = typeof(TaskNames))]
         public void AddFrequenciesTimesClassMarks()
         {
             Action action = () =>

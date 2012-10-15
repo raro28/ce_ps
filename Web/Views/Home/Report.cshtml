@@ -1,15 +1,41 @@
 @using System.Collections.Generic
 @model dynamic
+<script type="text/javascript" language="javascript">
+$(document).ready(function() 
+    { 
+        $('.demo1').collapser({
+            target: 'next',
+            targetOnly: 'div',
+            changeText: 0,
+            expandClass: 'expArrow',
+            collapseClass: 'collArrow'
+        });
+        
+        $('.panel').hide();
 
-<fieldset>
-    <legend>Datos originales</legend>
+        $('.demo6').collapser({
+            target: 'next',
+            effect: 'slide',
+            changeText: 0,
+            expandClass: 'expIco',
+            collapseClass: 'collIco'
+        }, function(){
+            $('.panel').slideUp();
+        });        
+    } 
+); 
+</script>
+
+<h4 class="demo1">Datos originales</h4>
+<div class="panel">
     <textarea disabled="disabled">@ShowNumberList(Model.Container.Data)</textarea>
-</fieldset>
+</div>   
+
 
 <fieldset>
-    <legend>Reporte general</legend>
-    <fieldset>
-        <legend>Resumen de los datos</legend>
+    <legend>Medidas</legend>
+    <h4 class="demo6">Informacion sobre los datos</h4>
+    <div class="panel">
         <ul>
             <li><label>Número de datos: </label>@Model.Container.DataCount</li>
             <li><label>Dato Máximo: </label>@Model.Container.Max</li>
@@ -17,19 +43,19 @@
             <li><label>Número de decimales: </label>@Model.Container.DataPrecision</li>
             <li><label>Precisión: </label>@Model.Container.DataPrecisionValue</li>
         </ul>
-    </fieldset>
+    </div>
 
-    <fieldset>
-        <legend>Medidas de tendencia central</legend>
+    <h4 class="demo6">Medidas de Tendencia Central</h4>
+    <div class="panel">
         <ul>
             @ShowInquiry("Media",Model.GetMean())
             @ShowInquiry("Mediana",Model.GetMedian())
             <li><label>Moda(s): </label>{@ShowNumberList(Model.GetModes())}</li>
         </ul>
-    </fieldset>    
+    </div>    
 
-    <fieldset>
-        <legend>Medidas de dispersion</legend>
+    <h4 class="demo6">Medidas de Dispersión</h4>
+    <div class="panel">
         <ul>
             @ShowInquiry("Rango",Model.GetDataRange())
             @ShowInquiry("Rango Intercuartil",Model.GetInterQuartileRange())
@@ -42,7 +68,7 @@
             @ShowInquiry("Coeficiente de Simetría",Model.GetCoefficientOfSymmetry())
             @ShowInquiry("Coeficiente de Curtosis",Model.GetCoefficientOfKourtosis())
         </ul>
-    </fieldset>    
+    </div>    
 @if(ViewBag.Type == "grouped"){
     @Html.Partial("GroupedReport", (object)Model)
 }    

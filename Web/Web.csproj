@@ -72,6 +72,10 @@
     <Content Include="Content\blue\desc.gif" />
     <Content Include="Content\blue\style.css" />
     <Content Include="Scripts\jquery.collapser.js" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\blue_arrow.png" />
+    <Content Include="Content\blue_arrow_up.png" />
+    <Content Include="Content\blue_arrow_down.gif" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />

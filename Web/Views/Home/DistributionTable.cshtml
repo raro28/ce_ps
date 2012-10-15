@@ -1,3 +1,4 @@
+@using System.Collections.Generic
 @using System.Dynamic
 @using System.Linq
 @model IEnumerable<dynamic>
@@ -16,7 +17,25 @@ $(document).ready(function()
         }     
     </tbody>       
 </table>
-@helper DiscoverHeader(IDictionary<string, object> rowSample){foreach (var pair in rowSample) {<th>@pair.Key</th>}}
+@helper DiscoverHeader(IDictionary<string, object> rowSample){
+    Dictionary<string,string> map = new Dictionary<string, string>()
+    {
+        {"ClassInterval","I.C."},
+        {"Frequency","f"},
+        {"ClassMark","X"},
+        {"fX","fX"},
+        {"AcumulatedFrequency","F"},
+        {"RealInterval","I.R."},
+        {"fMeanDiffE1","f|X-Media|"},
+        {"fMeanDiffE2","f(X-Media)^2"},
+        {"fMeanDiffE3","f(X-Media)^3"},
+        {"fMeanDiffE4","f(X-Media)^4"},
+        {"RelativeFrequency","fr"},
+        {"AcumulatedRelativeFrequency","Fr"},
+    };
+
+    foreach (var pair in rowSample) {<th>@map[pair.Key]</th>}
+}
 
 @helper DiscoverRow(IDictionary<string, object> row){
     foreach (var pair in row) {

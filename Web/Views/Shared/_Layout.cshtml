@@ -4,10 +4,32 @@
     <title>@ViewBag.Title</title>
     <script type="text/javascript" language="javascript" src="~/Scripts/jquery-1.8.2.min.js" > </script>
     <script type="text/javascript" language="javascript" src="~/Scripts/jquery.tablesorter.js" > </script>
+    <script type="text/javascript" language="javascript" src="~/Scripts/jquery.collapser.js" > </script>    
     <link href="/Content/blue/style.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h1>@ViewBag.Title</h1>
-    @RenderBody()
+<div id="container">
+    <div id="header">
+        <h1>
+            Estadística Descriptiva
+        </h1>
+    </div>
+    <div id="navigation">
+        <ul>
+            <li><a href="/">Inicio</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <h2>
+            @ViewBag.Title
+        </h2>
+        @RenderBody()
+    </div>
+    <div id="footer">
+        Copyright © Site name, 20XX
+    </div>
+</div>
 </body>
 </html>
+

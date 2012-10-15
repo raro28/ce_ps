@@ -1,11 +1,15 @@
 @model dynamic
-@Model.AddAcumulatedRelativeFrequencies();
-<fieldset>
-    <legend>Específico para datos @{if(ViewBag.Type != "ungrouped"){<text>agrupados</text>}else {<text>no agrupados</text>}}</legend>
+@Model.AddAcumulatedRelativeFrequencies()
+<h4 class="demo6">Tabla de Distribución de Frecuencias</h4>
+<div class="panel">
     <ul>
         <li><label>Rango (R): </label>@Model.Range</li>
         <li><label>Grupo (K): </label>@Model.GroupsCount</li>
         <li><label>Amplitud (C): </label>@Model.Amplitude</li>
-        <li>@Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.GetTable())</li>
     </ul>
-</fieldset>
+    @Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.GetTable())
+</div>
+<h4 class="demo6">Gráficas</h4>
+<div class="panel">
+
+</div>

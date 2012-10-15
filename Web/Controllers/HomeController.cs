@@ -23,12 +23,12 @@ namespace Web.Controllers
         {
             for (int i = 1; i <= size; i++)
             {
-                yield return rnd.Next(57, 180) + Math.Round(rnd.NextDouble(), 2);
+                yield return rnd.Next(57, 180) + Math.Round(rnd.NextDouble(), rnd.Next(0, 5));
             }
         }
-        public ActionResult Index(int? size)
+        public ActionResult Index(int size)
         {
-            ViewBag.Size = size ?? 100;
+            ViewBag.Size = size;
             ViewBag.Title = "Estadística Descriptiva";
             return View();
         }
@@ -36,7 +36,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Report(string data, string type)
         {
-            ViewBag.Title = "Reporte del análisis";
+            ViewBag.Title = "Análisis";
             var values = data.Split(',').Select(number => Double.Parse(number)).ToList();
             var kernel = new StandardKernel();
             kernel.Bind<GroupedXileInquirer>().ToSelf().InSingletonScope();

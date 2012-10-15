@@ -12,6 +12,8 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         public readonly int DataPrecision;
         public readonly double DataPrecisionValue;
         public readonly int DataCount;
+        public readonly double Max;
+        public readonly double Min;
 
         private readonly Guid id;
         private readonly Dictionary<string, dynamic> answers;
@@ -26,7 +28,13 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             this.Data = cache.AsReadOnly();
             this.DataPrecision = DataContainer.GetDataPrecision(data);
             this.DataPrecisionValue = Math.Pow(10, -1 * this.DataPrecision);
+            if (this.DataPrecisionValue == 1.0)
+            {
+                this.DataPrecisionValue = 0.5;
+            }
             this.DataCount = data.Count();
+            this.Max = data.Max();
+            this.Min = data.Min();
             this.answers = new Dictionary<string, dynamic>();
 
             this.id = Guid.NewGuid();

@@ -26,7 +26,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             Func<double> func = () =>
             {
                 var table = this.DistributionInquirer.GetTable();
-                var range = table[0].ClassInterval.To - table[table.Count - 1].ClassInterval.From;
+                var range = table[table.Count - 1].ClassInterval.From - table[0].ClassInterval.To;
 
                 return range;
             };

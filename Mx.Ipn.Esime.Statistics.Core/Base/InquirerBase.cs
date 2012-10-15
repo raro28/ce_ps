@@ -35,7 +35,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             return string.Format("[{0}: Id={1}]", this.GetType().Name, this.Id.ToString().Substring(0, 5));
         }
 
-        bool IInquirer.Inquire(string inquiry, object[] args, out object result)
+        public virtual bool Inquire(string inquiry, object[] args, out object result)
         {
             var success = false;
             result = null;

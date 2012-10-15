@@ -28,6 +28,25 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             return this.Inquire(binder.Name, args, out result);
         }
 
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        {
+            var success = false;
+            result = null;
+            foreach (var item in this.Inquirers)
+            {
+                var member = item.Value.GetType().GetProperty(binder.Name);
+                if (member == null)
+                {
+                    continue;
+                }
+
+                result = member.GetValue(item.Value, new object[]{});
+                success = true;
+            }
+
+            return success;
+        }
+
         public bool Inquire(string inquiry, object[] args, out object result)
         {
             var success = false;

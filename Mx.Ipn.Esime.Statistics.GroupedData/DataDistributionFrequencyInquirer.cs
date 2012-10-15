@@ -17,18 +17,6 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
             this.InitTable();
         }
 
-        public double Max
-        {
-            get;
-            private set;
-        }
-
-        public double Min
-        {
-            get;
-            private set;
-        }
-
         public double Range
         {
             get;
@@ -130,7 +118,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 foreach (var item in frequencyTable)
                 {
                     var classMark = (item.ClassInterval.From + item.ClassInterval.To) / 2;
-                    item.ClassMark = classMark;
+                    item.ClassMark = Math.Round(classMark, this.Container.DataPrecision + 1);
                 }
             };
 
@@ -172,16 +160,13 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
 
         private void InitProperties()
         {
-            this.Max = Container.Data.Max();
-            this.Min = Container.Data.Min();
-
-            this.Range = this.Max - this.Min;
+            this.Range = this.Container.Max - this.Container.Min;
 
             this.GroupsCount = (int)Math.Round(Math.Sqrt(this.Container.DataCount));
 
             this.Amplitude = Math.Round(this.Range / this.GroupsCount, this.Container.DataPrecision);
 
-            if ((this.Min + (this.Amplitude * this.GroupsCount) - this.Container.DataPrecisionValue) <= this.Max)
+            if ((this.Container.Min + (this.Amplitude * this.GroupsCount) - this.Container.DataPrecisionValue) <= this.Container.Max)
             {
                 this.Amplitude += this.Container.DataPrecisionValue;
             }
@@ -190,11 +175,11 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         private void InitTable()
         {
             var table = new List<dynamic>(this.GroupsCount);
-            var inferiorClassLimit = this.Min;
+            var inferiorClassLimit = this.Container.Min;
             var superiorClassLimit = inferiorClassLimit + this.Amplitude - Container.DataPrecisionValue;
             for (int i = 1; i <= this.GroupsCount; i++)
             {
-                var interval = new Interval(inferiorClassLimit, superiorClassLimit);
+                var interval = new Interval(Math.Round(inferiorClassLimit, this.Container.DataPrecision), Math.Round(superiorClassLimit, this.Container.DataPrecision));
                 
                 dynamic distElement = new ExpandoObject();
                 distElement.ClassInterval = interval;

@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.Ung
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.Core", "Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj", "{BBA01040-73A6-4928-987C-C43B49246614}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{18E9C82E-8C35-459A-9018-7C2B3766AD74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,14 @@ Global
 		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15B43C6D-0741-4F17-9ADF-F24D9504E571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18E9C82E-8C35-459A-9018-7C2B3766AD74}.AutomatedRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{18E9C82E-8C35-459A-9018-7C2B3766AD74}.AutomatedRelease|Any CPU.Build.0 = Debug|Any CPU
+		{18E9C82E-8C35-459A-9018-7C2B3766AD74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18E9C82E-8C35-459A-9018-7C2B3766AD74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18E9C82E-8C35-459A-9018-7C2B3766AD74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18E9C82E-8C35-459A-9018-7C2B3766AD74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.AutomatedRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.AutomatedRelease|Any CPU.Build.0 = Debug|Any CPU
 		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625D9869-AC0E-4771-A00F-38A655FFB8BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,6 +71,6 @@ Global
 		{984E3C8A-D719-4673-BFB7-261EFB6E5445} = {4AFC422C-C647-4C05-B50F-375E9EDC802A}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Mx.Ipn.Esime.Statistics.UngroupedData\Mx.Ipn.Esime.Statistics.UngroupedData.csproj
+		StartupItem = Web\Web.csproj
 	EndGlobalSection
 EndGlobal

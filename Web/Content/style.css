@@ -1,11 +1,9 @@
-.demo1,.demo6{
+.demo6{
     border: 1px solid #333;
     background: #ccc;
     padding-left: 5px;
-    color: #FFFFFF;
 }
 .panel{
-    border: 1px solid #333;
     padding: 10px;
 }
 
@@ -19,16 +17,6 @@ textarea
 /* LIST #3 */
 .panel ul { list-style-image: url("/Content/blue_arrow.png"); font-size:18px; }
 .panel ul li { line-height:30px; }
-
-fieldset
-{
-    border:none;
-}
-
-legend
-{
-    border: 1px solid #333;
-}
 
 #container
 {

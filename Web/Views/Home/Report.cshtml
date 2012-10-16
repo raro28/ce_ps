@@ -1,39 +1,10 @@
 @using System.Collections.Generic
 @model dynamic
-<script type="text/javascript" language="javascript">
-/*$(document).ready(function() 
-    { 
-        $('.demo1').collapser({
-            target: 'next',
-            targetOnly: 'div',
-            changeText: 0,
-            expandClass: 'expArrow',
-            collapseClass: 'collArrow'
-        });
-        
-        $('.panel').hide();
-
-        $('.demo6').collapser({
-            target: 'next',
-            effect: 'slide',
-            changeText: 0,
-            expandClass: 'expIco',
-            collapseClass: 'collIco'
-        }, function(){
-            $('.panel').slideUp();
-        });        
-    } 
-);*/
-</script>
-
-<h4 class="demo1">Datos originales</h4>
+<h4 class="demo6">Datos originales</h4>
 <div class="panel">
     <textarea disabled="disabled">@ShowNumberList(Model.Container.Data)</textarea>
 </div>   
 
-
-<fieldset>
-    <legend>Medidas</legend>
     <h4 class="demo6">Informacion sobre los datos</h4>
     <div class="panel">
         <ul>
@@ -71,8 +42,9 @@
     </div>    
 @if(ViewBag.Type == "grouped"){
     @Html.Partial("GroupedReport", (object)Model)
+    @Html.Action("Histogram")
+    @Html.Action("Ogive")    
 }    
-</fieldset>
 
 @helper ShowNumberList(IEnumerable<double> list)
 {

@@ -40,7 +40,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Report(string data, string type)
         {
-            ViewBag.Title = "Análisis";
+            ViewBag.Title = "Análisis " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString();
             var values = data.Split(',').Select(number => Double.Parse(number)).ToList();
             var kernel = new StandardKernel();
             kernel.Bind<GroupedXileInquirer>().ToSelf().InSingletonScope();
@@ -65,6 +65,7 @@ namespace Web.Controllers
         [ChildActionOnly]
         public PartialViewResult Histogram()
         {
+            //Based on http://jsfiddle.net/jlbriggs/9LGVA/
             var table = ((StandardKernel)Session["kernel"]).Get<DataDistributionFrequencyInquirer>().GetTable();
 
             var catList = table.Select(row => (Interval)row.RealInterval).ToList();
@@ -79,7 +80,7 @@ namespace Web.Controllers
             dataList.Add(0);
 
             var data = new Data(dataList.ToArray());
-
+            this.ViewBag.ChartTitle = "Histograma";
             Highcharts chart = new Highcharts("histogram")
                 .InitChart(new Chart { 
                     DefaultSeriesType = ChartTypes.Column,
@@ -87,8 +88,8 @@ namespace Web.Controllers
                     //PlotBackgroundColor = new BackColorOrGradient(ColorTranslator.FromHtml("#fff"))
                 })
                     .SetCredits(new Credits{Enabled = false})
-                    .SetTitle(new Title { Text = "Histograma" })
-                    .SetSubtitle(new Subtitle { Text = "Creado " + DateTime.Now.ToShortDateString() })
+                    .SetTitle(new Title { Text = "" })
+                    .SetSubtitle(new Subtitle { Text = DateTime.Now.ToLongDateString() +" "+ DateTime.Now.ToShortTimeString() })
                     .SetLegend(new Legend{Enabled = false})
                     .SetTooltip(new Tooltip { 
                         BorderWidth = (Number) 1,
@@ -186,15 +187,16 @@ namespace Web.Controllers
             dataList.Insert(0, 0);
             dataList.Add(dataList.Last());
             var data = new Data(dataList.ToArray());
-
+            this.ViewBag.ChartTitle = "Ojiva";
             Highcharts chart = new Highcharts("ogive")
-                .SetTitle(new Title { Text = "Ojiva" })
-                .SetSubtitle(new Subtitle { Text = "Creado " + DateTime.Now.ToShortDateString() })
+                .SetTitle(new Title { Text = "" })
+                    .SetSubtitle(new Subtitle { Text = DateTime.Now.ToLongDateString() +" "+ DateTime.Now.ToShortTimeString() })
                 .SetLegend(new Legend{Enabled = false})
                 .SetTooltip(new Tooltip { 
                     BorderWidth = (Number) 1,
                     Formatter = "function() { return '<b>Intervalo:</b><br/> '+ this.x +'<br/>'+ '<b>F:</b> '+ this.y; }" 
                 })
+                .SetCredits(new Credits{Enabled = false})
                 .SetXAxis(new XAxis{
                     Categories = categories,
                     Title = new XAxisTitle{Text = "Intervalos Reales"},
@@ -211,6 +213,7 @@ namespace Web.Controllers
                 .SetYAxis(new YAxis{
                     Title = new YAxisTitle{Text = "Frecuencia Acumulada"},
                     Min = (Number) 0,
+                        Max = (Number) dataDistribution.Container.DataCount,
                     GridLineColor = ColorTranslator.FromHtml("#e9e9e9"),
                     TickWidth = (Number) 1,
                     TickLength = (Number) 3,

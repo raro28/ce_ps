@@ -17,8 +17,8 @@ namespace Web
 
             routes.MapRoute(
                 "Default",
-                "{controller}/{action}/{size}",
-                new { controller = "Home", action = "Index", size = "100" }
+                "{controller}/{action}/{sample}",
+                new { controller = "Home", action = "Index", sample = UrlParameter.Optional}
             );
 
         }

@@ -21,10 +21,10 @@ $(document).ready(function()
     Dictionary<string,string> map = new Dictionary<string, string>()
     {
         {"ClassInterval","I.C."},
-        {"Frequency","f"},
+        {"Frequency","frec"},
         {"ClassMark","X"},
         {"fX","fX"},
-        {"AcumulatedFrequency","F"},
+        {"AcumulatedFrequency","Frec"},
         {"RealInterval","I.R."},
         {"fMeanDiffE1","f|X-Media|"},
         {"fMeanDiffE2","f(X-Media)^2"},
@@ -39,7 +39,10 @@ $(document).ready(function()
 
 @helper DiscoverRow(IDictionary<string, object> row){
     foreach (var pair in row) {
-        <td>@if(pair.Key.Contains("fMeanDiff")){@Math.Round((double)pair.Value, 4)}
+        <td>@if(
+                pair.Key.Contains("fMeanDiff") || 
+                pair.Key.Contains("AcumulatedRelativeFrequency") ||
+                pair.Key.Contains("RelativeFrequency") ){@Math.Round((double)pair.Value, 4)}
         else{@pair.Value}</td>
     }
 }

@@ -172,7 +172,8 @@ namespace Web.Controllers
         [ChildActionOnly]
         public PartialViewResult Ogive()
         {
-            var table = ((StandardKernel)Session["kernel"]).Get<DataDistributionFrequencyInquirer>().GetTable();
+            var dataDistribution = ((StandardKernel)Session["kernel"]).Get<DataDistributionFrequencyInquirer>();
+            var table = dataDistribution.GetTable();
             
             var catList = table.Select(row => (Interval)row.RealInterval).ToList();
             
@@ -215,8 +216,7 @@ namespace Web.Controllers
                     TickLength = (Number) 3,
                     TickColor = ColorTranslator.FromHtml("#ccc"),
                     LineColor = ColorTranslator.FromHtml("#ccc"),
-                    TickInterval = 25/*,
-                    EndOnTick = false*/
+                    EndOnTick = true
                 })
                 .SetSeries(new Series[]{
                         new Series{

@@ -118,7 +118,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
                 foreach (var item in frequencyTable)
                 {
                     var classMark = (item.ClassInterval.From + item.ClassInterval.To) / 2;
-                    item.ClassMark = Math.Round(classMark, this.Container.DataPrecision + 1);
+                    item.ClassMark = Math.Round(classMark, this.Container.DataPrecision + 1, MidpointRounding.AwayFromZero);
                 }
             };
 
@@ -162,9 +162,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData
         {
             this.Range = this.Container.Max - this.Container.Min;
 
-            this.GroupsCount = (int)Math.Round(Math.Sqrt(this.Container.DataCount));
+            this.GroupsCount = (int)Math.Round(Math.Sqrt(this.Container.DataCount), MidpointRounding.AwayFromZero);
 
-            this.Amplitude = Math.Round(this.Range / this.GroupsCount, this.Container.DataPrecision);
+            this.Amplitude = Math.Round(this.Range / this.GroupsCount, this.Container.DataPrecision, MidpointRounding.AwayFromZero);
 
             if ((this.Container.Min + (this.Amplitude * this.GroupsCount) - this.Container.DataPrecisionValue) <= this.Container.Max)
             {

@@ -40,9 +40,9 @@ $(document).ready(function()
 @helper DiscoverRow(IDictionary<string, object> row){
     foreach (var pair in row) {
         <td>@if(
-                pair.Key.Contains("fMeanDiff") || 
+                (pair.Key.Contains("fMeanDiff") || 
                 pair.Key.Contains("AcumulatedRelativeFrequency") ||
-                pair.Key.Contains("RelativeFrequency") ){@Math.Round((double)pair.Value, 4)}
+                pair.Key.Contains("RelativeFrequency")) ){@Math.Round((double)pair.Value, 4)}
         else{@pair.Value}</td>
     }
 }

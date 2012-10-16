@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{04A119EE-C
 		nunit.framework.xml = nunit.framework.xml
 		Ninject.dll = Ninject.dll
 		Ninject.xml = Ninject.xml
+		DotNet.Highcharts.dll = DotNet.Highcharts.dll
+		DotNet.Highcharts.XML = DotNet.Highcharts.XML
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mx.Ipn.Esime.Statistics.UngroupedData", "Mx.Ipn.Esime.Statistics.UngroupedData\Mx.Ipn.Esime.Statistics.UngroupedData.csproj", "{15B43C6D-0741-4F17-9ADF-F24D9504E571}"

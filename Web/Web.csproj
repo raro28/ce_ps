@@ -76,6 +76,11 @@
     <Content Include="Content\blue_arrow.png" />
     <Content Include="Content\blue_arrow_up.png" />
     <Content Include="Content\blue_arrow_down.gif" />
+    <Content Include="Content\jquery.jqplot.css" />
+    <Content Include="Scripts\jquery.jqplot.js" />
+    <Content Include="Scripts\excanvas.js" />
+    <Content Include="Scripts\jqplot.barRenderer.js" />
+    <Content Include="Scripts\jqplot.categoryAxisRenderer.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
@@ -85,6 +90,7 @@
     <None Include="Views\Home\GroupedReport.cshtml" />
     <None Include="Views\Home\Report.cshtml" />
     <None Include="Views\Home\DistributionTable.cshtml" />
+    <None Include="Views\Home\Graphs.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

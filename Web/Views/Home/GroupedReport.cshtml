@@ -9,7 +9,4 @@
     </ul>
     @Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.GetTable())
 </div>
-<h4 class="demo6">Gráficas</h4>
-<div class="panel">
-
-</div>
+@Html.Partial("Graphs", (object)Model)

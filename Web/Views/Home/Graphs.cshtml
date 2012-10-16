@@ -1,0 +1,38 @@
+@model dynamic
+<script>
+$(document).ready(function(){
+        $.jqplot.config.enablePlugins = true;
+        var s1 = [2, 6, 7, 10];
+        var ticks = [[1.42,2.23], 'b', 'c', 'd'];
+         
+        plot1 = $.jqplot('chart1', [s1], {
+            seriesDefaults:{
+                renderer:$.jqplot.BarRenderer,
+                pointLabels: { show: true }
+            },
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    ticks: ticks
+                }
+            },
+            highlighter: { show: false }
+        });
+     
+        $('#chart1').bind('jqplotDataClick', 
+            function (ev, seriesIndex, pointIndex, data) {
+                $('#info1').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
+            }
+        );
+    });
+</script>
+<h4 class="demo6">Gráficas</h4>
+<div id="chart1" style="height:400px;width:300px; "></div>
+
+@helper DiscoverTicks(IEnumerable<dynamic> data)
+{
+    foreach (var item in data) {
+    <text>[@item.RealInterval.From,@item.RealInterval.To]</text>
+    }
+            
+}

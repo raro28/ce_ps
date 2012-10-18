@@ -1,17 +1,24 @@
-<h4 class="demo6">Informacion sobre los datos</h4>
-<div class="panel">
-    @Html.Action("DataSummary")
-</div> 
-
-<h4 class="demo6">Medidas de tendencia central</h4> 
-<div class="panel">
-    @Html.Action("CentralTendencySummary")
-</div> 
-
-<h4 class="demo6">Medidas de dispersion</h4>
-<div class="panel">
-    @Html.Action("DispersionSummary")
-</div> 
-@if(ViewBag.Type == "grouped"){
+<div id="accordion">
+    <h3>Informacion sobre los datos</h3>
+    <div>
+        @Html.Action("DataSummary")
+    </div>
+    <h3>Medidas de tendencia central</h3>
+    <div>
+        @Html.Action("CentralTendencySummary")
+    </div>   
+    <h3>Medidas de dispersion</h3>
+    <div>
+        @Html.Action("DispersionSummary")
+    </div> 
+    @if(ViewBag.Type == "grouped"){
     @Html.Action("GroupedReport")   
-}
+    }    
+</div>
+<script>
+$(function() {
+    $( "#accordion" ).accordion({
+        heightStyle: "content"
+    });
+});
+</script>

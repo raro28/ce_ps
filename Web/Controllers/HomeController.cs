@@ -81,7 +81,6 @@ namespace Web.Controllers
             var inquirer = kernel.Get<StatisticsInquirerBase>(Type);
 
             Session.Add("inquirer", inquirer);
-            Session.Add("kernel", kernel);
             Session.Add("data", Data);
 
             ViewBag.Type = Type;
@@ -144,7 +143,6 @@ namespace Web.Controllers
         public PartialViewResult GroupedReport()
         {
             dynamic statistics = Session["inquirer"];
-            statistics.AddAcumulatedRelativeFrequencies();
 
             var model = new GroupedReportModel{
                 Range = statistics.Range,
@@ -161,7 +159,10 @@ namespace Web.Controllers
         public PartialViewResult Histogram()
         {
             //Based on http://jsfiddle.net/jlbriggs/9LGVA/
-            var table = ((StandardKernel)Session["kernel"]).Get<DataDistributionFrequencyInquirer>().GetTable();
+            dynamic statistics = Session["inquirer"];
+            statistics.AddAcumulatedRelativeFrequencies();
+            statistics.AddRealClassIntervals();
+            List<dynamic> table = Enumerable.ToList(statistics.GetTable());
             
             var catList = table.Select(row => (Interval)row.RealInterval).ToList();
             
@@ -268,8 +269,10 @@ namespace Web.Controllers
         [ChildActionOnly]
         public PartialViewResult Ogive()
         {
-            var dataDistribution = ((StandardKernel)Session["kernel"]).Get<DataDistributionFrequencyInquirer>();
-            var table = dataDistribution.GetTable();
+            dynamic statistics = Session["inquirer"];
+            statistics.AddAcumulatedFrequencies();
+
+            List<dynamic> table = Enumerable.ToList(statistics.GetTable());
             
             var catList = table.Select(row => (Interval)row.RealInterval).ToList();
             
@@ -308,7 +311,7 @@ namespace Web.Controllers
                     .SetYAxis(new YAxis{
                         Title = new YAxisTitle{Text = "Frecuencia Acumulada"},
                         Min = (Number) 0,
-                        Max = (Number) dataDistribution.Container.DataCount,
+                        Max = (Number) statistics.Container.DataCount,
                         GridLineColor = ColorTranslator.FromHtml("#e9e9e9"),
                         TickWidth = (Number) 1,
                         TickLength = (Number) 3,

@@ -1,12 +1,29 @@
 @model Web.Models.StubModel
 <div id="result">
+@Ajax.ActionLink("Generar otra muestra aleatoria","GetRandomDataSample","Home",new{size=100}, new AjaxOptions{OnSuccess="loadtext"}, new{id="random"})
 @using(Html.BeginForm())
 {
     @Html.TextAreaFor(model => model.Data)<br />
-    @Html.Label("No Agrupados") @Html.RadioButtonFor(model => model.Type, "ungrouped", new{@checked="checked"})
     @Html.ValidationMessageFor(x => x.Type)    
-    @Html.Label("Agrupados") @Html.RadioButtonFor(model => model.Type, "grouped")
-    <input type="submit" value="Analizar" />   
+    <div id="radio">
+        @Html.RadioButtonFor(model => model.Type, "ungrouped", new{@checked="checked", id="radio1"})<label for="radio1">No Agrupados</label>
+        @Html.RadioButtonFor(model => model.Type, "grouped", new{id="radio2"})<label for="radio2">Agrupados</label>
+    </div>
+    <input type="submit" value="Analizar" />  
 }
-
 </div>
+<script>
+$(function() {
+    $( "input[type=submit], a[id=random], button" )
+        .button()
+        .click(function( event ) {
+            
+        });
+    $( "#radio" ).buttonset();              
+});
+
+function loadtext(result)
+{
+    $("#Data").html(result);
+}
+</script>

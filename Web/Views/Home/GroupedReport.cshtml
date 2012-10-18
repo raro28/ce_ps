@@ -1,6 +1,6 @@
 @model Web.Models.GroupedReportModel
-<h4 class="demo6">Tabla de Distribución de Frecuencias</h4>
-<div class="panel">
+<h3>Tabla de Distribución de Frecuencias</h3>
+<div>
     <ul>
         <li><label>Rango (R): </label>@Model.Range</li>
         <li><label>Grupo (K): </label>@Model.GroupsCount</li>
@@ -8,5 +8,11 @@
     </ul>
     @Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.Table)
 </div>
-@Html.Action("Histogram")
-@Html.Action("Ogive")
+<h3>Histograma</h3>
+<div>
+    @Html.Action("Histogram")
+</div>
+<h3>Ojiva</h3>
+<div>
+    @Html.Action("Ogive")
+</div>

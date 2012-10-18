@@ -3,16 +3,16 @@
 <div>
     <ul>
         <li><label>Rango (R): </label>@Model.Range</li>
-        <li><label>Grupo (K): </label>@Model.GroupsCount</li>
+        <li><label>Grupos (K): </label>@Model.GroupsCount</li>
         <li><label>Amplitud (C): </label>@Model.Amplitude</li>
     </ul>
     @Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.Table)
 </div>
 <h3>Histograma</h3>
 <div>
-    @Html.Action("Histogram")
+    @(Model.Histogram)
 </div>
 <h3>Ojiva</h3>
 <div>
-    @Html.Action("Ogive")
+    @(Model.Ogive)
 </div>

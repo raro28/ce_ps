@@ -1,62 +1,17 @@
-@using System.Collections.Generic
-@model dynamic
-<h4 class="demo6">Datos originales</h4>
+<h4 class="demo6">Informacion sobre los datos</h4>
 <div class="panel">
-    <textarea disabled="disabled">@ShowNumberList(Model.Container.Data)</textarea>
-</div>   
+    @Html.Action("DataSummary")
+</div> 
 
-    <h4 class="demo6">Informacion sobre los datos</h4>
-    <div class="panel">
-        <ul>
-            <li><label>Número de datos: </label>@Model.Container.DataCount</li>
-            <li><label>Dato Máximo: </label>@Model.Container.Max</li>
-            <li><label>Dato Mínimo: </label>@Model.Container.Min</li>
-            <li><label>Número de decimales: </label>@Model.Container.DataPrecision</li>
-            <li><label>Precisión: </label>@Model.Container.DataPrecisionValue</li>
-        </ul>
-    </div>
+<h4 class="demo6">Medidas de tendencia central</h4> 
+<div class="panel">
+    @Html.Action("CentralTendencySummary")
+</div> 
 
-    <h4 class="demo6">Medidas de Tendencia Central</h4>
-    <div class="panel">
-        <ul>
-            @ShowInquiry("Media",Model.GetMean())
-            @ShowInquiry("Mediana",Model.GetMedian())
-            <li><label>Moda(s): </label>{@ShowNumberList(Model.GetModes())}</li>
-        </ul>
-    </div>    
-
-    <h4 class="demo6">Medidas de Dispersión</h4>
-    <div class="panel">
-        <ul>
-            @ShowInquiry("Rango",Model.GetDataRange())
-            @ShowInquiry("Rango Intercuartil",Model.GetInterQuartileRange())
-            @ShowInquiry("Rango Interdecil",Model.GetInterDecileRange())
-            @ShowInquiry("Rango Interpercentil",Model.GetInterPercentileRange())
-            @ShowInquiry("Desviación Media",Model.GetAbsoluteDeviation())
-            @ShowInquiry("Varianza",Model.GetVariance())
-            @ShowInquiry("Desviación Estándar",Model.GetStandarDeviation())
-            @ShowInquiry("Coeficiente de Variación (%)",Model.GetCoefficientOfVariation() * 100)
-            @ShowInquiry("Coeficiente de Simetría",Model.GetCoefficientOfSymmetry())
-            @ShowInquiry("Coeficiente de Curtosis",Model.GetCoefficientOfKourtosis())
-        </ul>
-    </div>    
+<h4 class="demo6">Medidas de dispersion</h4>
+<div class="panel">
+    @Html.Action("DispersionSummary")
+</div> 
 @if(ViewBag.Type == "grouped"){
-    @Html.Partial("GroupedReport", (object)Model)
-    @Html.Action("Histogram")
-    @Html.Action("Ogive")    
-}    
-
-@helper ShowNumberList(IEnumerable<double> list)
-{
-    var text = "";
-    foreach (var item in list) {
-        text += Math.Round((double)item, 4) + " ,";
-    } 
-    text=text.Substring(0,text.Length-2);
-@text
-}
-
-@helper ShowInquiry(string name, dynamic value)
-{
-    <li><label>@name : </label>@Math.Round((double)value,4)</li>
+    @Html.Action("GroupedReport")   
 }

@@ -1,19 +1,12 @@
-@using Web.Controllers
-<form method="post" action="/Home/Report">
-    <fieldset>
-        <legend>Datos a analizar</legend>
-        <textarea name="data">@ShowNumberList(HomeController.GetRandomDataSample(ViewBag.Size))</textarea><br />       
-        <input type="radio" name="type" value="ungrouped" checked="checked"/>No agrupados
-        <input type="radio" name="type" value="grouped" />Agrupados
-    </fieldset>
-    <input type="submit" value="Submit" />
-</form>
-@helper ShowNumberList(IEnumerable<double> list)
+@model Web.Models.StubModel
+<div id="result">
+@using(Html.BeginForm())
 {
-    var text = "";
-    foreach (var item in list) {
-        text += item + " ,";
-    } 
-    text=text.Substring(0,text.Length-2);
-@text
+    @Html.TextAreaFor(model => model.Data)<br />
+    @Html.Label("No Agrupados") @Html.RadioButtonFor(model => model.Type, "ungrouped", new{@checked="checked"})
+    @Html.ValidationMessageFor(x => x.Type)    
+    @Html.Label("Agrupados") @Html.RadioButtonFor(model => model.Type, "grouped")
+    <input type="submit" value="Analizar" />   
 }
+
+</div>

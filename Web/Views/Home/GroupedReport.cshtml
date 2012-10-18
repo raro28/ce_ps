@@ -1,5 +1,4 @@
-@model dynamic
-@Model.AddAcumulatedRelativeFrequencies()
+@model Web.Models.GroupedReportModel
 <h4 class="demo6">Tabla de Distribución de Frecuencias</h4>
 <div class="panel">
     <ul>
@@ -7,5 +6,7 @@
         <li><label>Grupo (K): </label>@Model.GroupsCount</li>
         <li><label>Amplitud (C): </label>@Model.Amplitude</li>
     </ul>
-    @Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.GetTable())
+    @Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.Table)
 </div>
+@Html.Action("Histogram")
+@Html.Action("Ogive")

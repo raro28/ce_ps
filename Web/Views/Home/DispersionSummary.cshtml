@@ -1,0 +1,17 @@
+@model Web.Models.DispersionSummaryModel
+<ul>
+    @ShowInquiry("Rango",Model.DataRange)
+    @ShowInquiry("Rango Intercuartil",Model.InterQuartileRange)
+    @ShowInquiry("Rango Interdecil",Model.InterDecileRange)
+    @ShowInquiry("Rango Interpercentil",Model.InterPercentileRange)
+    @ShowInquiry("Desviación Media",Model.AbsoluteDeviation)
+    @ShowInquiry("Varianza",Model.Variance)
+    @ShowInquiry("Desviación Estándar",Model.StandarDeviation)
+    @ShowInquiry("Coeficiente de Variación (%)",Model.CoefficientOfVariation * 100)
+    @ShowInquiry("Coeficiente de Simetría",Model.CoefficientSymmetry)
+    @ShowInquiry("Coeficiente de Curtosis",Model.CoefficientOfKourtosis)
+</ul>
+@helper ShowInquiry(string name, dynamic value)
+{
+    <li><label>@name : </label>@Math.Round((double)value,4)</li>
+}

@@ -85,7 +85,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\highcharts.js" />
-    <Content Include="Content\blue_arrow.png" />
     <Content Include="Scripts\jquery-ui-1.9.0.custom.min.js" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\smoothness\jquery-ui-1.9.0.custom.css" />

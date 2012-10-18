@@ -1,11 +1,18 @@
-@model dynamic
-@Model.AddAcumulatedRelativeFrequencies()
-<h4 class="demo6">Tabla de Distribución de Frecuencias</h4>
-<div class="panel">
+@model Web.Models.GroupedReportModel
+<h3>Tabla de Distribución de Frecuencias</h3>
+<div>
     <ul>
         <li><label>Rango (R): </label>@Model.Range</li>
         <li><label>Grupo (K): </label>@Model.GroupsCount</li>
         <li><label>Amplitud (C): </label>@Model.Amplitude</li>
     </ul>
-    @Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.GetTable())
+    @Html.Partial("DistributionTable", (IEnumerable<dynamic>)Model.Table)
+</div>
+<h3>Histograma</h3>
+<div>
+    @Html.Action("Histogram")
+</div>
+<h3>Ojiva</h3>
+<div>
+    @Html.Action("Ogive")
 </div>

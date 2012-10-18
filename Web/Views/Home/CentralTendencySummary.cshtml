@@ -1,0 +1,19 @@
+@model Web.Models.CentralTendencySummaryModel
+<ul>
+    @ShowInquiry("Media",Model.Mean)
+    @ShowInquiry("Mediana",Model.Median)
+    <li><label>Moda(s): </label>{@ShowNumberList(Model.Modes)}</li>
+</ul>
+@helper ShowNumberList(IEnumerable<double> list)
+{
+    var text = "";
+    foreach (var item in list) {
+        text += Math.Round((double)item, 4) + " ,";
+    } 
+    text=text.Substring(0,text.Length-2);
+@text
+}
+@helper ShowInquiry(string name, dynamic value)
+{
+    <li><label>@name : </label>@Math.Round((double)value,4)</li>
+}

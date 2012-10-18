@@ -1,0 +1,9 @@
+@model Web.Models.DataSummaryModel
+<ul>
+    <li><label>Datos originales : </label>@Html.TextAreaFor(model => model.Data,new{disabled="disabled"})</li>
+    <li><label>Número de datos : </label>@Model.DataCount</li>
+    <li><label>Dato Máximo : </label>@Model.Max</li>
+    <li><label>Dato Mínimo : </label>@Model.Min</li>
+    <li><label>Número de decimales : </label>@Model.DecimalCount</li>
+    <li><label>Precisión : </label>@Model.Precision</li>
+</ul>

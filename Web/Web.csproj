@@ -112,7 +112,6 @@
     <None Include="Views\Home\GroupedReport.cshtml" />
     <None Include="Views\Home\Report.cshtml" />
     <None Include="Views\Home\DistributionTable.cshtml" />
-    <None Include="Views\Home\HighChart.cshtml" />
     <None Include="Views\Home\DataSummary.cshtml" />
     <None Include="Views\Home\CentralTendencySummary.cshtml" />
     <None Include="Views\Home\DispersionSummary.cshtml" />

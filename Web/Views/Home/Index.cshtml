@@ -1,6 +1,6 @@
 @model Web.Models.StubModel
 <div id="result">
-@Ajax.ActionLink("Generar otra muestra aleatoria","GetRandomDataSample","Home",new{size=100}, new AjaxOptions{OnSuccess="loadtext"}, new{id="random"})
+@Ajax.ActionLink("Generar otra muestra aleatoria","GetRandomDataSample","Home",new{size=115}, new AjaxOptions{OnSuccess="loadtext"}, new{id="random"})
 @using(Html.BeginForm())
 {
     @Html.TextAreaFor(model => model.Data)<br />

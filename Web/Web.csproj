@@ -110,6 +110,9 @@
     <Content Include="Content\smoothness\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\jquery-ui-1.9.0.custom.min.js" />
+    <Content Include="Views\Home\CentralTendencySummary.cshtml" />
+    <Content Include="Views\Home\DataSummary.cshtml" />
+    <Content Include="Views\Home\DispersionSummary.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -133,11 +136,5 @@
       <Project>{15B43C6D-0741-4F17-9ADF-F24D9504E571}</Project>
       <Name>Mx.Ipn.Esime.Statistics.UngroupedData</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Views\Home\CentralTendencySummary.cshtml" />
-    <None Include="Views\Home\DataSummary.cshtml" />
-    <None Include="Views\Home\DispersionSummary.cshtml" />
-    <None Include="Views\Home\NumberList.cshtml" />
   </ItemGroup>
 </Project>

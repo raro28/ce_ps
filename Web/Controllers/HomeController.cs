@@ -72,6 +72,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Index(string Data, string Type)
         {
+            Session.Clear();
             var values = Data.Split(',').Select(number => Double.Parse(number)).ToList();
 
             var kernel = globalKernel.Get<StandardKernel>();

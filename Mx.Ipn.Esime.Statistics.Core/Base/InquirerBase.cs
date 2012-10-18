@@ -5,7 +5,7 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System.Linq;
     using Mx.Ipn.Esime.Statistics.Core.Resources;
 
-    public abstract class InquirerBase : IInquirer
+    public abstract class InquirerBase
     {
         public readonly Guid Id;
 
@@ -33,21 +33,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
         public override string ToString()
         {
             return string.Format("[{0}: Id={1}]", this.GetType().Name, this.Id.ToString().Substring(0, 5));
-        }
-
-        public virtual bool Inquire(string inquiry, object[] args, out object result)
-        {
-            var success = false;
-            result = null;
-            
-            var method = this.GetType().GetMethod(inquiry);
-            if (method != null)
-            {
-                result = method.Invoke(this, args);
-                success = true;
-            }
-            
-            return success;
         }
 
         private static void AssertUniqueDataContainer(IEnumerable<InquirerBase> dependencies)

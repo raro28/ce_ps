@@ -5,10 +5,11 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
     using System.Linq;
     using NUnit.Framework;
     using System.Collections.Generic;
+    using Mx.Ipn.Esime.Statistics.Core;
     using Mx.Ipn.Esime.Statistics.Core.Base;
 
     [TestFixture]
-    public abstract class XileInquirerBase_Tests<TInquirer,THelper> : InquirerBase_Tests<TInquirer,THelper> where TInquirer:XileInquirerBase where THelper:HelperMethods
+    public abstract class XileInquirerBase_Tests<TInquirer,THelper> : TestsBase<THelper> where TInquirer:XileInquirerBase where THelper:HelperMethods
     {
         [TestCase(Xiles.Quartile,100)]
         [TestCase(Xiles.Decile,100)]
@@ -40,6 +41,11 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
             var expected = GetXiles((int)xile, nTh => Helper.CalcNthXile(data, (int)xile, nTh)).ToList();
             var actual = GetXiles((int)xile, nTh => (double)method.Invoke(calculator, new object[]{nTh})).ToList();
             CollectionAssert.AreEqual(expected, actual);
+        }
+
+        protected void HandleExceptionThroughTargetInvocationExceptionException(Exception exception)
+        {
+            Assert.IsInstanceOf<StatisticsException>(exception.InnerException);
         }
 
         private IEnumerable<double> GetXiles(int xile, Func<int,double> nThXile)

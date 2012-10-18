@@ -27,11 +27,9 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             
             this.Data = cache.AsReadOnly();
             this.DataPrecision = DataContainer.GetDataPrecision(data);
-            this.DataPrecisionValue = Math.Pow(10, -1 * this.DataPrecision);
-            if (this.DataPrecisionValue == 1.0)
-            {
-                this.DataPrecisionValue = 0.5;
-            }
+            var precision = Math.Pow(10, -1 * this.DataPrecision);
+            this.DataPrecisionValue = Math.Abs(precision - 1.0) <= 0 ? 0.5 : precision;
+
             this.DataCount = data.Count();
             this.Max = data.Max();
             this.Min = data.Min();

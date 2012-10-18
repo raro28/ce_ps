@@ -54,7 +54,6 @@
     </Compile>
     <Compile Include="Base\DataContainer.cs" />
     <Compile Include="Base\StatisticsInquirerBase.cs" />
-    <Compile Include="IInquirer.cs" />
     <Compile Include="Base\SequenceCastExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

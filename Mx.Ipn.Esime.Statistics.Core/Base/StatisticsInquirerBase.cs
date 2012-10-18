@@ -3,16 +3,14 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
-    using System.Linq;
 
-    public abstract class StatisticsInquirerBase : DynamicObject, IInquirer
+    public abstract class StatisticsInquirerBase : DynamicObject
     {
-        public readonly Dictionary<Type, InquirerBase> Inquirers;
+        public readonly IEnumerable<InquirerBase> Inquirers;
 
         public StatisticsInquirerBase(DataContainer dataContainer, params InquirerBase[] inquirers)
         {                      
-            this.Inquirers = inquirers
-                .ToDictionary(inquirer => inquirer.GetType());
+            this.Inquirers = inquirers;
 
             this.Container = dataContainer;
         }
@@ -34,13 +32,13 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             result = null;
             foreach (var item in this.Inquirers)
             {
-                var member = item.Value.GetType().GetProperty(binder.Name);
+                var member = item.GetType().GetProperty(binder.Name);
                 if (member == null)
                 {
                     continue;
                 }
 
-                result = member.GetValue(item.Value, new object[]{});
+                result = member.GetValue(item, new object[] { });
                 success = true;
             }
 
@@ -54,8 +52,11 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
 
             foreach (var item in this.Inquirers)
             {
-                if (success = ((IInquirer)item.Value).Inquire(inquiry, args, out result))
+                var method = item.GetType().GetMethod(inquiry);
+                if (method != null)
                 {
+                    result = method.Invoke(item, args);
+                    success = true;
                     break;
                 }
             }

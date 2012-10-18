@@ -100,7 +100,6 @@ namespace Mx.Ipn.Esime.Statistics.Core.Base
             return this.Container.Register(TaskNames.CoefficientOfKourtosis, func);
         }
 
-
         protected static void AssertValidPower(int power)
         {
             if (power < 1 || power > 4)

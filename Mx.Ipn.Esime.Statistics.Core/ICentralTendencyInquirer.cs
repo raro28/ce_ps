@@ -2,7 +2,7 @@ namespace Mx.Ipn.Esime.Statistics.Core
 {
     using System.Collections.Generic;
 
-    public interface ICentralTendencyInquirer : IInquirer
+    public interface ICentralTendencyInquirer
     {
         double GetMean();
         

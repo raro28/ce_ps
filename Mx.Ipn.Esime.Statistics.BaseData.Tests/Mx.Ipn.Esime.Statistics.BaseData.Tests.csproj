@@ -42,7 +42,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="InquirerBase.Tests.cs" />
     <Compile Include="XileInquirerBase.Tests.cs" />
     <Compile Include="DispersionInquirerBase.Tests.cs" />
     <Compile Include="CentralTendecyInquirerBase.Tests.cs" />

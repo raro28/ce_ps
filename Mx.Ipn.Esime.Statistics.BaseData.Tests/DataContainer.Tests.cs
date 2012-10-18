@@ -23,11 +23,21 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
         [TestCase(new double[]{1,2,3},0)]
         [TestCase(new double[]{1,2.1,3.2},1)]
         [TestCase(new double[]{1,2.1,3.21},2)]
-        public void Inquirer_Uses_Correct_Data_Precision_Value(double[]data, int dataPrecision)
+        public void Inquirer_Gets_Correct_Decimals(double[]data, int dataPrecision)
         {
             var container = Helper.NewInquirer<DataContainer>(data.ToList());
             
             Assert.AreEqual(container.DataPrecision, dataPrecision);
+        }
+
+        [TestCase(new double[]{1,2,3},0.5)]
+        [TestCase(new double[]{1,2.1,3.2},0.1)]
+        [TestCase(new double[]{1,2.1,3.21},0.01)]
+        public void Inquirer_Uses_Correct_Data_Precision_Value(double[]data, double dataPrecision)
+        {
+            var container = Helper.NewInquirer<DataContainer>(data.ToList());
+            
+            Assert.AreEqual(container.DataPrecisionValue, dataPrecision);
         }
         
         [Test()]

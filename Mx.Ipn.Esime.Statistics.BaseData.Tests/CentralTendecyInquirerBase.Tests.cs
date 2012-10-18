@@ -7,7 +7,7 @@ namespace Mx.Ipn.Esime.Statistics.BaseData.Tests
     using Mx.Ipn.Esime.Statistics.Core;
 	
     [TestFixture()]
-    public abstract class CentralTendecyInquirerBase_Tests<TInquirer,THelper> : InquirerBase_Tests<TInquirer,THelper> where TInquirer:ICentralTendencyInquirer where THelper:HelperMethods
+    public abstract class CentralTendecyInquirerBase_Tests<TInquirer,THelper> : TestsBase<THelper> where TInquirer:ICentralTendencyInquirer where THelper:HelperMethods
     {
         [TestCase(100)]
         public void Inquirer_Gets_Expected_Mean(int size)

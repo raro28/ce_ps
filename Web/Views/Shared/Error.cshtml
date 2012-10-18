@@ -2,4 +2,8 @@
 <div>
     <h2>@Model.Exception.Message</h2>
     <textarea disabled="disabled">@Model.Exception.StackTrace</textarea>
+    @if(@Model.Exception.InnerException!=null){
+        <h3>@Model.Exception.InnerException.Message</h3>
+        <textarea disabled="disabled">@Model.Exception.InnerException.StackTrace</textarea>  
+    }  
 </div>

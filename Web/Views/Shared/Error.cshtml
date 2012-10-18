@@ -1,7 +1,5 @@
 @model System.Web.Mvc.HandleErrorInfo
-
 <div>
-    <h2>An error occurred while processing your request.</h2>
-    @Model.Exception.StackTrace
+    <h2>@Model.Exception.Message</h2>
+    <textarea disabled="disabled">@Model.Exception.StackTrace</textarea>
 </div>
-

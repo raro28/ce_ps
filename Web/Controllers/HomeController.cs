@@ -1,21 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Ninject;
-using Mx.Ipn.Esime.Statistics.Core.Base;
-using Mx.Ipn.Esime.Statistics.GroupedData;
-using Mx.Ipn.Esime.Statistics.UngroupedData;
-using DotNet.Highcharts;
-using DotNet.Highcharts.Options;
-using DotNet.Highcharts.Helpers;
-using DotNet.Highcharts.Enums;
-using System.Drawing;
-using Web.Models;
-
 namespace Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using Ninject;
+    using Mx.Ipn.Esime.Statistics.Core.Base;
+    using Mx.Ipn.Esime.Statistics.GroupedData;
+    using Mx.Ipn.Esime.Statistics.UngroupedData;
+    using Web.Models;
+
     public class HomeController : Controller
     {
         private readonly static Random rnd;

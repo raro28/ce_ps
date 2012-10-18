@@ -64,6 +64,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CentralTendencySummaryModel.cs" />
+    <Compile Include="Models\DataSummaryModel.cs" />
+    <Compile Include="Models\DispersionSummaryModel.cs" />
+    <Compile Include="Models\GroupedReportModel.cs" />
+    <Compile Include="Models\StubModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

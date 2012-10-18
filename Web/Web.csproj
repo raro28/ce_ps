@@ -70,6 +70,7 @@
     <Compile Include="Models\StubModel.cs" />
     <Compile Include="Models\DataSummaryModel.cs" />
     <Compile Include="Models\GroupedReportModel.cs" />
+    <Compile Include="Models\XileCalculatorModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -135,5 +136,8 @@
       <Project>{15B43C6D-0741-4F17-9ADF-F24D9504E571}</Project>
       <Name>Mx.Ipn.Esime.Statistics.UngroupedData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Home\XileCalculator.cshtml" />
   </ItemGroup>
 </Project>

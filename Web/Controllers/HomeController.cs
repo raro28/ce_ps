@@ -72,7 +72,8 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Index(string Data, string Type)
         {
-            Session.Clear();
+
+            HttpContext.Application.Clear();
             var values = Data.Split(',').Select(number => Double.Parse(number)).ToList();
 
             var kernel = globalKernel.Get<StandardKernel>();
@@ -80,8 +81,8 @@ namespace Web.Controllers
 
             var inquirer = kernel.Get<StatisticsInquirerBase>(Type);
 
-            Session.Add("inquirer", inquirer);
-            Session.Add("data", Data);
+            HttpContext.Application.Add("inquirer", inquirer);
+            HttpContext.Application.Add("data", Data);
 
             ViewBag.Type = Type;
             return View("Report");
@@ -90,7 +91,7 @@ namespace Web.Controllers
         [ChildActionOnly]
         public PartialViewResult CentralTendencySummary()
         {
-            dynamic statistics = Session["inquirer"];
+            dynamic statistics = HttpContext.Application["inquirer"];
 
             var model = new CentralTendencySummaryModel{
                 Mean = statistics.GetMean(),
@@ -104,7 +105,7 @@ namespace Web.Controllers
         [ChildActionOnly]
         public PartialViewResult DispersionSummary()
         {
-            dynamic statistics = Session["inquirer"];
+            dynamic statistics = HttpContext.Application["inquirer"];
 
             var model = new DispersionSummaryModel{
                 DataRange = statistics.GetDataRange(),
@@ -125,10 +126,10 @@ namespace Web.Controllers
         [ChildActionOnly]
         public PartialViewResult DataSummary()
         {
-            dynamic statistics = Session["inquirer"];
+            dynamic statistics = HttpContext.Application["inquirer"];
 
             var model = new DataSummaryModel{
-                Data = Session["data"].ToString(),
+                Data = HttpContext.Application["data"].ToString(),
                 DataCount = statistics.Container.DataCount,
                 DecimalCount = statistics.Container.DataPrecision,
                 Precision = statistics.Container.DataPrecisionValue,
@@ -142,7 +143,7 @@ namespace Web.Controllers
         [ChildActionOnly]
         public PartialViewResult GroupedReport()
         {
-            dynamic statistics = Session["inquirer"];
+            dynamic statistics = HttpContext.Application["inquirer"];
             statistics.AddAcumulatedRelativeFrequencies();
             statistics.AddRealClassIntervals();
             statistics.AddAcumulatedFrequencies();
@@ -155,6 +156,33 @@ namespace Web.Controllers
             };
 
             return PartialView(model);
+        }
+
+        public PartialViewResult XileCalculator()
+        {
+            var model = new XileCalculatorModel{
+                Xile = (int)Xiles.Quartile,
+                NthXile = 3
+            };
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public string XileCalculator(int NthXile, int Xile)
+        {
+            try
+            {
+                dynamic statistics = HttpContext.Application["inquirer"];
+
+                var info = new XileInfo((Xiles)Xile, NthXile);
+                var result = statistics.GetXile(info);
+
+                return result.ToString();
+            } catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

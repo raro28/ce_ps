@@ -1,0 +1,32 @@
+@model Web.Models.XileCalculatorModel
+<div id="dialog-form" title="Deciles, Percentiles, Cuartiles">
+    @using(Ajax.BeginForm(new AjaxOptions{UpdateTargetId="dialog-form"})){    
+        <div id="xilesType">
+            @Html.RadioButtonFor(model => model.Xile, "4", new{@checked="checked", id="radio1"})<label for="radio1">Cuartil</label>
+            @Html.RadioButtonFor(model => model.Xile, "10", new{id="radio2"})<label for="radio2">Decil</label>
+            @Html.RadioButtonFor(model => model.Xile, "100", new{id="radio3"})<label for="radio3">Percentil</label>
+        </div>      
+        <select name="NthXile" id="NthXile">             
+        </select> 
+        <input type="submit" id="submitxile" value="go" />
+    }
+</div>
+<script type="text/javascript">
+$(function() {       
+    $("#submitxile").button();
+    
+    $("input[type=radio]").each(function (){
+        $(this).change(function (){
+            var text = ""
+            for (var i = 1; i <= $(this).val(); i++) {
+                text += "<option>" + i + "</option>";
+            }
+                    
+            $("#NthXile").html(text);
+        });
+    });
+    $("#radio1").change();
+    
+    $( "#xilesType" ).buttonset();                                   
+});
+</script>

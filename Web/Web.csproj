@@ -81,16 +81,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\highcharts.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Views\Home\Index.cshtml" />
-    <None Include="Views\Shared\_Layout.cshtml" />
-    <None Include="Views\Shared\Error.cshtml" />
-    <None Include="Views\_ViewStart.cshtml" />
-    <None Include="Views\Home\GroupedReport.cshtml" />
-    <None Include="Views\Home\Report.cshtml" />
-    <None Include="Views\Home\DistributionTable.cshtml" />
-    <None Include="Views\Home\HighChart.cshtml" />
+    <Content Include="Views\Home\DistributionTable.cshtml" />
+    <Content Include="Views\Home\HighChart.cshtml" />
+    <Content Include="Views\Home\GroupedReport.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Report.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -1,6 +1,6 @@
 @model Web.Models.DataSummaryModel
+@Html.TextAreaFor(model => model.Data,new{disabled="disabled"})
 <ul>
-    <li><label>Datos originales : </label>@Html.TextAreaFor(model => model.Data,new{disabled="disabled"})</li>
     <li><label>Numero de datos : </label>@Model.DataCount</li>
     <li><label>Dato Maximo : </label>@Model.Max</li>
     <li><label>Dato Minimo : </label>@Model.Min</li>

@@ -37,7 +37,7 @@ namespace Web.Controllers
             });
         }
 
-        public string GetRandomDataSample(int size)
+        public string RandomSample(int size)
         {
             var result = "";
 
@@ -53,10 +53,10 @@ namespace Web.Controllers
 
         public ActionResult Index(int sample = 115)
         {
-            ViewBag.Title = "Estadística Descriptiva";
+            ViewBag.Title = "Inicio";
 
             var model = new StubModel{
-                Data = GetRandomDataSample(sample),
+                Data = RandomSample(sample),
                 Type = "ungrouped"
             };
 
@@ -80,6 +80,11 @@ namespace Web.Controllers
 
             ViewBag.Type = Type;
             return View("Report");
+        }
+
+        public ActionResult About()
+        {
+            return View();
         }
 
         [ChildActionOnly]

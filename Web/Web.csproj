@@ -16,7 +16,7 @@
     <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>..\bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>True</Optimize>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>..\bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
@@ -45,13 +45,13 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.WebPages" />
     <Reference Include="System.Web.Mvc" />
+    <Reference Include="System.Drawing" />
     <Reference Include="Ninject">
-      <HintPath>..\Ninject.dll</HintPath>
+      <HintPath>..\libs\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="DotNet.Highcharts">
-      <HintPath>..\DotNet.Highcharts.dll</HintPath>
+      <HintPath>..\libs\DotNet.Highcharts.dll</HintPath>
     </Reference>
-    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
@@ -81,10 +81,6 @@
     <Content Include="Content\blue\bg.gif" />
     <Content Include="Content\blue\desc.gif" />
     <Content Include="Content\blue\style.css" />
-    <Content Include="..\DotNet.Highcharts.XML">
-      <Link>DotNet.Highcharts.XML</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.custom.min.js" />
     <Content Include="Content\layout.css" />
@@ -127,15 +123,15 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">
+    <ProjectReference Include="..\statistics\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">
       <Project>{BBA01040-73A6-4928-987C-C43B49246614}</Project>
       <Name>Mx.Ipn.Esime.Statistics.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.GroupedData\Mx.Ipn.Esime.Statistics.GroupedData.csproj">
+    <ProjectReference Include="..\statistics\Mx.Ipn.Esime.Statistics.GroupedData\Mx.Ipn.Esime.Statistics.GroupedData.csproj">
       <Project>{625D9869-AC0E-4771-A00F-38A655FFB8BA}</Project>
       <Name>Mx.Ipn.Esime.Statistics.GroupedData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.UngroupedData\Mx.Ipn.Esime.Statistics.UngroupedData.csproj">
+    <ProjectReference Include="..\statistics\Mx.Ipn.Esime.Statistics.UngroupedData\Mx.Ipn.Esime.Statistics.UngroupedData.csproj">
       <Project>{15B43C6D-0741-4F17-9ADF-F24D9504E571}</Project>
       <Name>Mx.Ipn.Esime.Statistics.UngroupedData</Name>
     </ProjectReference>

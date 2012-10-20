@@ -31,12 +31,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="Ninject">
-      <HintPath>..\Ninject.dll</HintPath>
+      <HintPath>..\..\libs\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\libs\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -50,7 +50,7 @@
     <Compile Include="TestsBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">
+    <ProjectReference Include="..\..\statistics\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">
       <Project>{BBA01040-73A6-4928-987C-C43B49246614}</Project>
       <Name>Mx.Ipn.Esime.Statistics.Core</Name>
     </ProjectReference>

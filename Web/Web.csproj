@@ -35,11 +35,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNet.Highcharts">
-      <HintPath>..\DotNet.Highcharts.dll</HintPath>
+      <HintPath>..\libs\DotNet.Highcharts.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject">
-      <HintPath>..\Ninject.dll</HintPath>
+      <HintPath>..\libs\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -128,15 +128,15 @@
     <Content Include="Views\Home\XileCalculator.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">
+    <ProjectReference Include="..\statistics\Mx.Ipn.Esime.Statistics.Core\Mx.Ipn.Esime.Statistics.Core.csproj">
       <Project>{BBA01040-73A6-4928-987C-C43B49246614}</Project>
       <Name>Mx.Ipn.Esime.Statistics.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.GroupedData\Mx.Ipn.Esime.Statistics.GroupedData.csproj">
+    <ProjectReference Include="..\statistics\Mx.Ipn.Esime.Statistics.GroupedData\Mx.Ipn.Esime.Statistics.GroupedData.csproj">
       <Project>{625D9869-AC0E-4771-A00F-38A655FFB8BA}</Project>
       <Name>Mx.Ipn.Esime.Statistics.GroupedData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mx.Ipn.Esime.Statistics.UngroupedData\Mx.Ipn.Esime.Statistics.UngroupedData.csproj">
+    <ProjectReference Include="..\statistics\Mx.Ipn.Esime.Statistics.UngroupedData\Mx.Ipn.Esime.Statistics.UngroupedData.csproj">
       <Project>{15B43C6D-0741-4F17-9ADF-F24D9504E571}</Project>
       <Name>Mx.Ipn.Esime.Statistics.UngroupedData</Name>
     </ProjectReference>

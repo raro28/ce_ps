@@ -30,9 +30,20 @@ namespace Web
 
         protected void Application_Start()
         {
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new BugFix());
+
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+        }
+    }
+
+    public class BugFix : RazorViewEngine
+    {
+        protected override bool FileExists(ControllerContext controllerContext, string virtualPath)
+        {
+            return true;
         }
     }
 }

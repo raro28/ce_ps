@@ -1,6 +1,6 @@
 @model Web.Models.XileCalculatorModel
 <div id="dialog-form" title="Deciles, Percentiles, Cuartiles">
-    @using(Ajax.BeginForm(new AjaxOptions{UpdateTargetId="dialog-form"})){    
+    @using(Ajax.BeginForm("Xile", new AjaxOptions{UpdateTargetId="result"})){    
         <div id="xilesType">
             @Html.RadioButtonFor(model => model.Xile, "4", new{@checked="checked", id="radio1"})<label for="radio1">Cuartil</label>
             @Html.RadioButtonFor(model => model.Xile, "10", new{id="radio2"})<label for="radio2">Decil</label>
@@ -8,25 +8,50 @@
         </div>      
         <select name="NthXile" id="NthXile">             
         </select> 
-        <input type="submit" id="submitxile" value="go" />
     }
 </div>
+<p>
+    <label>Resultado : </label><span id="result"></span>
+</p>
 <script type="text/javascript">
 $(function() {       
     $("#submitxile").button();
     
     $("input[type=radio]").each(function (){
         $(this).change(function (){
+            $('#slider').remove();
+            var val = $(this).val();
             var text = ""
-            for (var i = 1; i <= $(this).val(); i++) {
+            for (var i = 1; i <= val; i++) {
                 text += "<option>" + i + "</option>";
             }
                     
             $("#NthXile").html(text);
+            
+            var select = $( "#NthXile" );
+            var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
+                min: 1,
+                max: val,
+                range: "min",
+                value: select[ 0 ].selectedIndex + 1,
+                slide: function( event, ui ) {
+                    select[ 0 ].selectedIndex = ui.value - 1;
+                },
+                change: function( event, ui) {
+                    $('form').submit();
+                }
+            });
+            
+            $( "#NthXile" ).change(function() {
+                $('#slider').slider( "value", this.selectedIndex + 1 );
+            });    
+            
+            $("#NthXile").change();                        
         });
     });
-    $("#radio1").change();
     
+    $("#radio1").change();
+    $("#NthXile").change();    
     $( "#xilesType" ).buttonset();                                   
 });
 </script>

@@ -157,6 +157,7 @@ namespace Web.Controllers
             return PartialView(model);
         }
 
+        [ChildActionOnly]
         public PartialViewResult XileCalculator()
         {
             var model = new XileCalculatorModel{
@@ -168,14 +169,14 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public string XileCalculator(int NthXile, int Xile)
+        public string Xile(int NthXile, int Xile)
         {
             try
             {
                 dynamic statistics = HttpContext.Application["inquirer"];
 
                 var info = new XileInfo((Xiles)Xile, NthXile);
-                var result = statistics.GetXile(info);
+                var result = Math.Round(statistics.GetXile(info), 4);
 
                 return result.ToString();
             } catch (Exception ex)

@@ -1,4 +1,3 @@
-<a href="#" id="xilesCalc">Deciles, Percentiles, Cuartiles</a>
 <div id="accordion">
     <h3>Informacion sobre los datos</h3>
     <div>
@@ -14,36 +13,16 @@
     </div> 
     @if(ViewBag.Type == "grouped"){
     @Html.Action("GroupedReport")   
-    }    
-</div>
-<div id="xileCalPH">
+    } 
+    <h3>Deciles, Percentiles, Cuartiles</h3>   
+    <div>
+        @Html.Action("XileCalculator")
+    </div>
 </div>
 <script type="text/javascript">
 $(function() {
     $( "#accordion" ).accordion({
         heightStyle: "content"
     });      
-    
-    $( "#xilesCalc" )
-        .button()
-        .click(function() {
-            $.ajax({
-                url: 'Home/XileCalculator',
-                dataType: "text",
-                cache:false,
-                success: function(data) {
-                    $('#xileCalPH').html(data);
-                    $( "#dialog-form" ).dialog({
-                        autoOpen: false,
-                        width: 350,
-                        modal: true,
-                        close: function(event, ul){
-                            $(".ui-dialog").remove();
-                        }
-                    });                     
-                    $( "#dialog-form" ).dialog( "open" );
-                }
-            });
-        });
 });
 </script>

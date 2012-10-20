@@ -7,17 +7,17 @@
     <div id="radio">
         @Html.RadioButtonFor(model => model.Type, "ungrouped", new{@checked="checked", id="radio1"})<label for="radio1">No Agrupados</label>
         @Html.RadioButtonFor(model => model.Type, "grouped", new{id="radio2"})<label for="radio2">Agrupados</label>
-    </div>
-    <input type="submit" value="Analizar" />  
+    </div> 
 }
 <script type="text/javascript">
 $(function() {
-    $( "input[type=submit], a[id=random], button" )
-        .button()
-        .click(function( event ) {
-            
+    $( "#random").button();
+    $( "#radio" ).buttonset();
+    $( "#radio input" ).each(function (){
+        $(this).click(function (){
+            $("form").submit();
         });
-    $( "#radio" ).buttonset();              
+    });
 });
 
 function loadtext(result)

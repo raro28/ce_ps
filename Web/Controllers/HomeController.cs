@@ -1,21 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Ninject;
-using Mx.Ipn.Esime.Statistics.Core.Base;
-using Mx.Ipn.Esime.Statistics.GroupedData;
-using Mx.Ipn.Esime.Statistics.UngroupedData;
-using DotNet.Highcharts;
-using DotNet.Highcharts.Options;
-using DotNet.Highcharts.Helpers;
-using DotNet.Highcharts.Enums;
-using System.Drawing;
-using Web.Models;
-
 namespace Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using Ninject;
+    using Mx.Ipn.Esime.Statistics.Core.Base;
+    using Mx.Ipn.Esime.Statistics.GroupedData;
+    using Mx.Ipn.Esime.Statistics.UngroupedData;
+    using Web.Models;
+
     public class HomeController : Controller
     {
         private readonly static Random rnd;
@@ -43,7 +37,7 @@ namespace Web.Controllers
             });
         }
 
-        public string GetRandomDataSample(int size)
+        public string RandomSample(int size)
         {
             var result = "";
 
@@ -59,10 +53,10 @@ namespace Web.Controllers
 
         public ActionResult Index(int sample = 115)
         {
-            ViewBag.Title = "Estadística Descriptiva";
+            ViewBag.Title = "Inicio";
 
             var model = new StubModel{
-                Data = GetRandomDataSample(sample),
+                Data = RandomSample(sample),
                 Type = "ungrouped"
             };
 
@@ -86,6 +80,11 @@ namespace Web.Controllers
 
             ViewBag.Type = Type;
             return View("Report");
+        }
+
+        public ActionResult About()
+        {
+            return View();
         }
 
         [ChildActionOnly]

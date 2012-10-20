@@ -1,6 +1,5 @@
 @model Web.Models.StubModel
-<div id="result">
-@Ajax.ActionLink("Generar otra muestra aleatoria","GetRandomDataSample","Home",new{size=115}, new AjaxOptions{OnSuccess="loadtext"}, new{id="random"})
+@Ajax.ActionLink(">>>","RandomSample","Home",new{size=115}, new AjaxOptions{OnSuccess="loadtext"}, new{id="random"})
 @using(Html.BeginForm())
 {
     @Html.TextAreaFor(model => model.Data)<br />
@@ -11,7 +10,6 @@
     </div>
     <input type="submit" value="Analizar" />  
 }
-</div>
 <script type="text/javascript">
 $(function() {
     $( "input[type=submit], a[id=random], button" )

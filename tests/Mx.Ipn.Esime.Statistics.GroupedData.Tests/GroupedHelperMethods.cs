@@ -2,7 +2,9 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 {
     using Mx.Ipn.Esime.Statistics.BaseData.Tests;
     using Ninject;
+    using NUnit.Framework;
 	
+    [Ignore("appharbor webdeploy")]
     public class GroupedHelperMethods:HelperMethods
     {
         public GroupedHelperMethods()

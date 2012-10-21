@@ -6,6 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.GroupedData;
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
+    [Ignore("appharbor webdeploy")]
 	[TestFixture()]
 	public class GroupedCentralTendecyInquirer_Tests:CentralTendecyInquirerBase_Tests<GroupedCentralTendecyInquirer,GroupedHelperMethods>
 	{

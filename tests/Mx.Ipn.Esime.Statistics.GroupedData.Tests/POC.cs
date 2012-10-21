@@ -4,6 +4,7 @@ using Ninject;
 
 namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 {
+    [Ignore("appharbor webdeploy")]
     [TestFixture()]
     public class POC
     {

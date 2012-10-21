@@ -6,6 +6,7 @@ namespace Mx.Ipn.Esime.Statistics.GroupedData.Tests
 	using Mx.Ipn.Esime.Statistics.GroupedData;
 	using Mx.Ipn.Esime.Statistics.BaseData.Tests;
 
+    [Ignore("appharbor webdeploy")]
 	[TestFixture()]
 	public class GroupedDispersionInquirer_Tests:DispersionInquirerBase_Tests<GroupedDispersionInquirer,GroupedHelperMethods>
 	{

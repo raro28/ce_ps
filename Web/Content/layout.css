@@ -1,8 +1,11 @@
-textarea 
+.avatar
 {
-    display: block;
-    width:100%;
-    height:200px;
+    display:inline;
+}
+
+@font-face {
+  font-family: Modulo;
+  src: url('/Content/Modulo.otf');
 }
 
 #container
@@ -13,11 +16,16 @@ textarea
 
 #header
 {
-    background: #ccc;
+    background: #949399;
     padding: 20px;
 }
 
-#header h1 { margin: 0; }
+#header h1 
+{ 
+    margin: 0; 
+    display:inline;
+    font-family: Modulo;
+}
 
 #navigation
 {

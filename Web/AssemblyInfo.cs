@@ -18,7 +18,7 @@
  */
 using System.Reflection;
 
-[assembly: AssemblyTitle("Mx.Ipn.Esime.Statistics.Core")]
+[assembly: AssemblyTitle("Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("IPN ESIME Culhuacan")]

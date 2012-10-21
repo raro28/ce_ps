@@ -5,6 +5,11 @@ textarea
     height:200px;
 }
 
+.avatar
+{
+    display:inline;
+}
+
 #container
 {
     margin: 0 30px;
@@ -13,11 +18,15 @@ textarea
 
 #header
 {
-    background: #ccc;
+    background: #949399;
     padding: 20px;
 }
 
-#header h1 { margin: 0; }
+#header h1 
+{ 
+    margin: 0; 
+    display:inline;
+}
 
 #navigation
 {

@@ -72,11 +72,8 @@ namespace Web.Models
                     .SetYAxis(new YAxis{
                         Title = new YAxisTitle{Text = yaxis},
                         GridLineColor = ColorTranslator.FromHtml("#e9e9e9"),
-                        TickWidth = (Number) 1,
-                        TickLength = (Number) 3,
                         TickColor = ColorTranslator.FromHtml("#ccc"),
-                        LineColor = ColorTranslator.FromHtml("#ccc"),
-                        TickInterval = 25
+                        LineColor = ColorTranslator.FromHtml("#ccc")
                     });
             
             return chart;

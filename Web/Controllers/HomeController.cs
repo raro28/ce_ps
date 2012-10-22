@@ -84,6 +84,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Index(string Data, string Type)
         {
+            ViewBag.Title = "Mx.DotNet.Statistics";
 
             HttpContext.Application.Clear();
             var values = Data.Split(',').Select(number => Double.Parse(number)).ToList();
@@ -102,6 +103,8 @@ namespace Web.Controllers
 
         public ActionResult About()
         {
+            ViewBag.Title = "Acerca de";
+
             return View();
         }
 
